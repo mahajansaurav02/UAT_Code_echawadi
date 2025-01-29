@@ -1,0 +1,27 @@
+.report_table > tr > th {
+  border: 1px solid black;
+}
+
+.report_table > thead > tr > th {
+  border: 1px solid black;
+}
+
+.report_table > tr > td {
+  text-align: center;
+  border: 1px solid black;
+}
+
+.report_table > thead > tr > td {
+  text-align: center;
+  border: 1px solid black;
+}
+
+.report_table {
+  width: 100%;
+}
+
+.report_table > thead {
+  position: sticky;
+  top: 48px;
+  background-color: #add8e6;
+}

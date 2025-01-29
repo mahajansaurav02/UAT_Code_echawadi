@@ -1,0 +1,31 @@
+/*@media print {
+  .noprint {
+     visibility: hidden; 
+    content-visibility: hidden;
+  }
+  #section-to-print,
+  #section-to-print * {
+    visibility: visible;
+  }
+  #section-to-print {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  table {
+    width: 100%;
+    border: 3em;
+    border-radius: 2em;
+  }
+  table tr th {
+    color: rgb(12, 10, 10);
+    font-size: larger;
+    text-align: left;
+    background: gray;
+  } 
+}
+*/
+.table > tr > th,
+.table > tr > td {
+  border: 1px solid black;
+}

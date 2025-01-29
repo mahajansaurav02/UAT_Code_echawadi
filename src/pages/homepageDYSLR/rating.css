@@ -1,0 +1,372 @@
+@use postcss-nested;
+.MainDiv {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* width: 100px;
+  height: 100px; */
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: monospace;
+}
+
+h1,
+p {
+    /* margin: -34px auto; */
+    color: black;
+    font-weight: normal;
+    text-align: center;
+    /* padding: 9px; */
+}
+
+.icon-source {
+    display: none;
+}
+
+button {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    width: auto;
+    height: 90px;
+    padding: 2rem 1rem;
+    color: white;
+    font-family: inherit;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    transition: opacity 0.3s;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    & svg {
+        width: 100%;
+        height: 100%;
+        transition: transform 0.3s;
+    }
+    &::before {
+        position: absolute;
+        right: 0;
+        bottom: -0.5rem;
+        left: 0;
+        display: block;
+        margin: auto;
+        opacity: 0;
+        transition: opacity 1s;
+        content: attr(title);
+    }
+    &:hover::before {
+        opacity: 1;
+    }
+    &::after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 2rem;
+        height: 2rem;
+        margin: auto;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24'><path fill='rgba(243, 243, 215, 1)' d='M12,1.776l3.286,6.779l7.464,1.032l-5.433,5.221l1.326,7.417L12,18.67l-6.645,3.555l1.327-7.417L1.25,9.587l7.464-1.032L12,1.776z'/></svg>");
+        background-repeat: no-repeat;
+        background-size: 100%;
+        transform: rotate(10deg) translateY(1px);
+        opacity: 0;
+        animation: fadeIn 1s forwards 0.5s;
+        content: '';
+    }
+}
+
+.icon-star {
+    /* fill: rgba(242, 242, 194, 0); */
+    color: rgb(255 190 74);
+    transform: rotate(-30deg);
+    transform-origin: center;
+    transition: fill 0.3s;
+    animation: stroke 1s ease-in-out forwards;
+    /* stroke: rgba(242, 242, 194, 1); */
+    stroke: rgb(227 224 161 / 70%);
+    stroke-width: 1;
+    stroke-dasharray: 84;
+    stroke-dashoffset: 85;
+    stroke-opacity: 0.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.good-rate {
+    &:after {
+        animation: goodStarHover 0.5s;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+    }
+    & svg {
+        animation: goodRateHover 0.5s ease-out forwards;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+    }
+}
+
+
+/* .good-rate .normal-rate, */
+
+.normal-rate {
+    &:after {
+        animation: normalStarHover 0.5s;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+    }
+    & svg {
+        animation: normalRateHover 0.5s ease-out forwards;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+    }
+}
+
+.medium-rate {
+    &:after {
+        animation: mediumStarHover 0.5s;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+    }
+    & svg {
+        animation: mediumRateHover 0.5s ease-out forwards;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+    }
+}
+
+.low-rate {
+    &:after {
+        animation: lowStarHover 0.5s;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+    }
+    & svg {
+        animation: lowRateHover 0.5s ease-out forwards;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+    }
+}
+
+
+/* .good-rate .bad-rate,
+.normal-rate  .bad-rate, */
+
+.bad-rate {
+    &:after {
+        animation: badStarHover 0.5s;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+    }
+    & svg {
+        animation: badRateHover 0.5s ease-out forwards;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+    }
+}
+
+.good-rate .icon-star,
+.normal-rate .icon-star,
+.medium-rate .icon-star,
+.low-rate .icon-star,
+.bad-rate .icon-star {
+    /* fill: rgba(242, 242, 194, 0.6); */
+    /* fill: rgb(255 249 116 / 99%); */
+    fill: #ffbc16;
+    stroke-opacity: 0.8;
+}
+
+.good-rate .icon-star-not-fill,
+.normal-rate .icon-star-not-fill,
+.medium-rate .icon-star-not-fill,
+.low-rate .icon-star-not-fill {
+    fill: white;
+    stroke: rgb(105 83 6 / 70%);
+    stroke-opacity: 0.8;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 0.1;
+    }
+}
+
+@keyframes stroke {
+    to {
+        transform: rotate(10deg);
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes goodRateHover {
+    40% {
+        transform: scale(1.3) rotate(-5deg);
+    }
+    60% {
+        transform: scale(1.3) rotate(4deg);
+    }
+    75% {
+        transform: scale(1.3) rotate(-3deg);
+    }
+    100% {
+        transform: scale(1.3) rotate(0deg);
+    }
+}
+
+@keyframes normalRateHover {
+    40% {
+        transform: scale(1.2) rotate(-5deg);
+    }
+    60% {
+        transform: scale(1.2) rotate(4deg);
+    }
+    75% {
+        transform: scale(1.2) rotate(-3deg);
+    }
+    100% {
+        transform: scale(1.2) rotate(0deg);
+    }
+}
+
+@keyframes mediumRateHover {
+    40% {
+        transform: scale(1.15) rotate(-5deg);
+    }
+    60% {
+        transform: scale(1.15) rotate(4deg);
+    }
+    75% {
+        transform: scale(1.15) rotate(-3deg);
+    }
+    100% {
+        transform: scale(1.15) rotate(0deg);
+    }
+}
+
+@keyframes lowRateHover {
+    40% {
+        transform: scale(1.1) rotate(-5deg);
+    }
+    60% {
+        transform: scale(1.1) rotate(4deg);
+    }
+    75% {
+        transform: scale(1.1) rotate(-3deg);
+    }
+    100% {
+        transform: scale(1.1) rotate(0deg);
+    }
+}
+
+@keyframes badRateHover {
+    40% {
+        transform: scale(1) rotate(-3deg);
+    }
+    60% {
+        transform: scale(1.1) rotate(3deg);
+    }
+    75% {
+        transform: scale(1.1) rotate(-1deg);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+@keyframes goodStarHover {
+    0% {
+        transform: rotate(10deg) translateY(1px) scale(1);
+        opacity: 0.1;
+    }
+    10% {
+        transform: rotate(10deg) translateY(1px) scale(1);
+        opacity: 0.5;
+    }
+    99% {
+        transform: rotate(10deg) translateY(1px) scale(3.5);
+        opacity: 0;
+    }
+    100% {
+        transform: rotate(10deg) translateY(1px) scale(1);
+        opacity: 0;
+    }
+}
+
+@keyframes normalStarHover {
+    0% {
+        transform: rotate(10deg) translateY(1px) scale(1);
+        opacity: 0.1;
+    }
+    10% {
+        transform: rotate(10deg) translateY(1px) scale(1);
+        opacity: 0.5;
+    }
+    99% {
+        transform: rotate(10deg) translateY(1px) scale(3.4);
+        opacity: 0;
+    }
+    100% {
+        transform: rotate(10deg) translateY(1px) scale(1);
+        opacity: 0;
+    }
+}
+
+@keyframes mediumStarHover {
+    0% {
+        transform: rotate(10deg) translateY(1px) scale(1);
+        opacity: 0.1;
+    }
+    10% {
+        transform: rotate(10deg) translateY(1px) scale(1);
+        opacity: 0.5;
+    }
+    99% {
+        transform: rotate(10deg) translateY(1px) scale(3.3);
+        opacity: 0;
+    }
+    100% {
+        transform: rotate(10deg) translateY(1px) scale(1);
+        opacity: 0;
+    }
+}
+
+@keyframes lowStarHover {
+    0% {
+        transform: rotate(10deg) translateY(1px) scale(1);
+        opacity: 0.1;
+    }
+    10% {
+        transform: rotate(10deg) translateY(1px) scale(1);
+        opacity: 0.5;
+    }
+    99% {
+        transform: rotate(10deg) translateY(1px) scale(3.2);
+        opacity: 0;
+    }
+    100% {
+        transform: rotate(10deg) translateY(1px) scale(1);
+        opacity: 0;
+    }
+}
+
+@keyframes badStarHover {
+    0% {
+        transform: rotate(10deg) translateY(1px) scale(1);
+        opacity: 0.1;
+    }
+    10% {
+        transform: rotate(10deg) translateY(1px) scale(1);
+        opacity: 0.5;
+    }
+    99% {
+        transform: rotate(10deg) translateY(1px) scale(3.1);
+        opacity: 0;
+    }
+    100% {
+        transform: rotate(10deg) translateY(1px) scale(1);
+        opacity: 0;
+    }
+}

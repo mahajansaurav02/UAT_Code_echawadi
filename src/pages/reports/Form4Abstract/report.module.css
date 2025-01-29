@@ -1,0 +1,55 @@
+.report_table > thead > tr > th ,
+.report_table > thead > tr > td {
+  border: 1px solid black;
+}
+.report_table > tfoot > tr > td {
+  text-align: center;
+  border: 1px solid black;
+}
+
+.report_table > tbody > tr > td {
+  text-align: left;
+  border: 1px solid black;
+}
+
+.report_table > thead {
+  width: 100%;
+  margin-top: 10px;
+  position: sticky; 
+  top:48px;
+  background-color: #add8e6;
+}
+.report_table {
+  width: 100%;
+  padding-top: 10px;
+}
+.upper_table > thead > tr > th {
+  color: red;
+  border: 1px solid black;
+}
+.upper_table > tfoot > tr > td {
+  text-align: center;
+  border: 1px solid black;
+}
+
+.upper_table > tbody > tr > td {
+  text-align: center;
+  border: 1px solid black;
+}
+.upper_table > tbody > tr > th {
+  border: 1px solid black;
+  transform: scale(-1);
+}
+.upper_table > thead {
+  width: 100%;
+}
+.upper_table {
+  width: 100%;
+}
+
+@page {
+  size: A2;
+}
+@page {
+  size: A2;
+}

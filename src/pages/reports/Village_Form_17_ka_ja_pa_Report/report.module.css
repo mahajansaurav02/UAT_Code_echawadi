@@ -1,0 +1,29 @@
+.report_table>thead>tr>th {
+    /* font-size: 1vh; */
+    border: 1px solid black;
+}
+
+.report_table>thead{
+    position: sticky;
+    top: 0px;
+    background-color: #ADD8E6;
+}
+.report_table>tbody>tr>td {
+    text-align: center;
+    border: 1px solid black;
+}
+
+
+/* .report_table > tbody > tr:nth-child(even) {
+  background-color: lightcoral;
+} */
+
+.report_table {
+    width: 100%;
+    padding: 2px;
+
+}
+
+.report {
+    max-width: 100vw;
+}

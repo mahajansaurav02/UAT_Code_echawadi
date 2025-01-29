@@ -1,0 +1,56 @@
+export default {
+  'villageForm17.table.villageLabel': 'Village Form 17 ',
+
+  'villageForm17.table.district': 'District :',
+  'villageForm17.table.taluka': 'Taluka :',
+  'villageForm17.table.village': 'village :',
+
+  'villageForm17.table.revenueYear': 'Revenue Year :',
+  'villageForm17.table.noOfCase': 'No.of Case',
+  'villageForm17.table.khataNo': 'Khata No/MaktaKhata No',
+  'villageForm17.table.personLiable': 'Person Liable',
+  'villageForm17.table.maktaNo': 'MaktaKhata No',
+  'villageForm17.form.khataNo': 'Khata Number',
+  'villageForm17.form.maktaNo': 'MaktaKhata Number',
+  'villageForm17.form.surveyHissaNo': 'Survey / Hissa No.',
+
+  'villageForm17.table.natureOfCase': 'Nature of Case',
+  'villageForm17.table.areaAffected': 'Area Affected',
+
+  'villageForm17.table.periodOfYear': 'Period if More than Year:',
+  'villageForm17.table.fromDate': 'From',
+  'villageForm17.table.toDate': 'To',
+
+  // if more than Year
+  'villageForm17.table.amountOfLR': 'L.R',
+  'villageForm17.table.amountOfLC': 'Z.P',
+  'villageForm4.table.amountOfLC': 'Z.P (₹)',
+  'villageForm4.table.amountOfVP': 'G.P (₹)',
+
+  'villageForm17.table.amountOfVP': 'G.P',
+  'villageForm17.table.totalAmt': 'Total Amount',
+  'villageForm17.table.amt': 'Amount',
+  'villageForm17.table.hqsm': 'Hec.sq.m',
+  'villageForm17.table.assessment': 'Assessment',
+  'villageForm17.table.noteOfEntry': 'Note of Entry in Taluka Form IV',
+  'villageForm17.table.noteOfEntryFor17': 'Note of Entry in Taluka Form 17',
+  'villageForm17.table.particulars': 'Particular/Items',
+  'villageForm17.table.form4Label': 'Register of Miscellaneous Land Revenue',
+  'villageForm17.table.form4LabelAbstract': 'Abstract Register of Miscellaneous Land Revenue',
+
+  'villageForm17.table.freeLocalCessB': 'B-Free of Local Cess',
+  'villageForm17.table.freeLocalCessA': 'A-Liable Local Cess',
+  'villageForm17.table.surveyNo': 'Survey No.',
+  'villageForm17.table.hissaNo': 'Hissa No.',
+  'villageForm17.table.localCess': 'Local Cess',
+  'villageForm17.table.otherLocalCess': 'Other Than Local Cess:',
+  'villageForm17.table.otherLocalCessDesc': 'Other Local Cess Description:',
+  'villageForm17.table.header': 'Record of various land revenue and case reports',
+  'villageForm17.table.header2': 'Please Select Following Option :',
+  'villageForm17.table.kajapa': 'Village Form 17 Ka.Ja.Pa',
+  'villageForm17.table.village17': 'Village Form 17',
+  'villageForm17.table.village17table': 'Register of Miscellaneous Revenue Settlements',
+  'villageForm17.table.Non-agriculturalOrderNo': 'Non-agricultural Order No',
+  'villageForm17.table.non-cultivatedArea': 'Non-Cultivated Area',
+  'villageForm17.table.LocationOfNon-agriculturalAreas': 'Location Of Non-agriculturalArea',
+};

@@ -1,0 +1,12 @@
+@page {
+  size: A4 portrait;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.div1 {
+  column-gap: 140px;
+}

@@ -1,0 +1,40 @@
+.Arrow {
+  position: relative;
+  width: 240px;
+  height: 90px;
+  background: skyblue;
+}
+
+.Arrow::after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-top: 45px solid transparent;
+  border-bottom: 45px solid transparent;
+  border-left: 45px solid #f3f5f9;
+  content: '';
+}
+
+.Arrow::before {
+  position: absolute;
+  right: -45px;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-top: 45px solid transparent;
+  border-bottom: 45px solid transparent;
+  border-left: 45px solid skyblue;
+  content: '';
+}
+
+.Footercard {
+  background-image: linear-gradient(#f3f5f9, #dde0e6);
+  /* z-index: -1;
+  height: '50vh';
+  font-size: '50px';
+  background-image: url('../../../../../public/712_image.png');
+  background-repeat: 'no-repeat';
+  border-radius: 8px; */
+}

@@ -1,0 +1,38 @@
+export default {
+  'villageForm1E.table.surveyHissa': 'भूमापन क्रमांक आणि हिस्सा क्रमांक',
+  'villageForm1E.table.nameEnchroacher': 'अतिक्रमण करणाऱ्याचे नाव',
+  'villageForm1E.table.dateOfEnchroachment': 'अतिक्रमित जमीनचा उपयोग',
+  'villageForm1E.table.detectionOfEnchroachment': 'अतिक्रमण नजरेस आल्याचा दिनांक',
+  'villageForm1E.table.rentRecoverable': 'खंड किंवा आकारणी कोणत्या वर्षापासून करायची',
+  'villageForm1E.table.enchroachmentColumn':
+    'स्तंभ (५) मध्ये नमूद केलेले अतिक्रमण पूर्वी कोणत्याही वेळी दूर केले होते काय ? असल्यास कोणत्या वर्षी ?',
+  'villageForm1E.table.decisionOfEnchroachment': 'अतिक्रमण नजरेस आल्याचा दिनांक',
+  'villageForm1E.table.registerEnchroachment': 'अतिक्रमण नोंदवही',
+  'villageForm1E.table.viewEdit': 'रेकॉर्ड संपादित करा/पहा',
+  'villageForm1E.table.enchroachmentDate': 'अतिक्रमणाचा दिनांक',
+  'villageForm1E.table.enchroachmentPurpose': 'अतिक्रमित जमिनीचा उपयोग',
+  'villageForm1E.table.agriculture': 'शेती',
+  'villageForm1E.table.nameOfForm': 'गाव अर्ज १ई',
+  'villageForm1E.table.showArea': 'शोधा',
+  'villageForm1E.table.uploadImage': 'अतिक्रमण केलेल्या जमिनीचा फोटो अपलोड',
+  'villageForm1E.table.villageForm1E': 'गाव नमुना १इ',
+  'villageForm1E.table.purposeForWhichTheEncroachment': 'अतिक्रमित जमिनीचा उपयोग ',
+  'villageForm1E.table.Non-agricultural': 'व्यावसायिक अकृषिक',
+  'villageForm1E.table.Resident': 'निवासी बिनशेती',
+  'villageForm1E.table.Farming': 'औद्योगिक बिनशेती',
+  'villageForm1E.table.photoOfEncroachLand': 'Photo of Encroached Land',
+  'villageForm1E.table.areaOfEnchroached': 'अतिक्रमित क्षेत्र',
+  'villageForm1E.table.totalArea': 'एकूण क्षेत्र',
+
+  'villageForm1E.table.ruleAreaOfEnchroached': 'कृपया अतिक्रमित क्षेत्र प्रविष्ट करा',
+
+  'villageForm1E.table.ruleEncroacher': 'कृपया अतिक्रमण करणाऱ्याचे नाव प्रविष्ट करा',
+  'villageForm1E.table.ruleImage': 'कृपया अतिक्रमण केलेल्या जमिनीचा फोटो अपलोड करा',
+  'villageForm1E.table.ruleDateOfEncroachment': 'कृपया अतिक्रमणाची तारीख निवडा',
+  'villageForm1E.table.rulePurposeOfEncroachment': 'कृपया अअतिक्रमित जमिनीचा उपयोग निवडा',
+  'villageForm1E.table.ruleYear': 'कृपया वर्ष निवडा',
+  'villageForm1E.table.ruleDateOfEncroachmentDecision': 'कृपया अतिक्रमण निर्णयाची तारीख निवडा',
+
+  'villageForm1E.table.yes': 'होय',
+  'villageForm1E.table.no': 'नाही',
+};

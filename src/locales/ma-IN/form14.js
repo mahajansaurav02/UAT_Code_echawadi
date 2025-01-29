@@ -1,0 +1,21 @@
+export default {
+  'form14.button.getFerFarData': 'शोधा',
+  'form14.input.sourcesOfWater': 'पाणीपुरवठयाचे साधन',
+  'form14.fields.position1': 'स्थान',
+  'form14.fields.position': 'स्थाना बद्दल अधिक माहिती',//----added on  12/02/2024
+  'form14.fields.pakkaOrKaccha': 'पक्के किंवा कच्चे',
+  'form14.fields.purposeOfUse': 'कोणत्या प्रयोजनासाठी वापर होता',
+  'form14.fields.governmentbodyOrPrivate': 'शासकीय / स्थानिक / संस्थेची / खाजगी',
+  // 'form14.fields.remarks': 'शेरा',
+  'form14.fields.remarks': 'शेरा ( संसाधना मधील हिस्सा तसेच सद्यस्थिती इत्यादि बद्दल माहिती लिहावी )',
+  'form14.fields.ruleReportHead': 'गाव नमुना चौदा',
+  'form14.fields.ruleReportHeadAbstract': 'गाव नमुना चौदाचा गोषवारा',
+  'form14.table.header1': 'कृपया खालील पर्याय निवडा ',
+  'form14.table.surveyNumber': 'भूमापन क्रमांक',
+  'form14.table.others': 'इतर',
+  'form14.table.gavthan': 'गावठाण',
+  'form14.table.itar': 'इतर  ',
+  'form14.radio.surveyNo': 'भूमापन क्रमांक',
+  'form14.radio.nirank': 'निरंक',
+  'form14.radio.14': 'गाव नमुना १४',
+};

@@ -1,0 +1,158 @@
+21/03/2024
+-----------
+1. pie chart logic and pie-chart change  for "मागणी निश्चित झालेली खातेदार संख्या % मध्ये"
+                                              मागणी निश्चित न झालेली खातेदार संख्या % मध्ये
+2. pie chart logic and pie-chart change  for वसुली पूर्ण झालेली खातेदार संख्या % मध्ये
+                                             वसुली पूर्ण न झालेली खातेदार संख्या % मध्ये
+3. pie chart logic and pie-chart change  for Against जमाबंदी.
+ 
+ backend changes also done for the count
+
+
+
+
+on Date 15/03/2023
+------------------
+
+1. Thalithi Dashboard two column data is mapped.
+2. Form17 area=0 mapping
+3. ASC/DSC DYSLY entry
+4. Collecor login All-Village-Serarch-Data1   23,24,25,26 column Color green and col form14 Col green
+
+
+Form 17
+--------
+
+1. villageForm17.table.assessment and villageForm17.table.amountOfLR  both have integer and character
+
+
+on Date 1/04/2023
+-----------------
+पावती प्रत year logic implemented
+
+Form 17
+--------
+1. error message already recipt generated
+
+
+on Date 9/4/2024
+-----------------
+ ००२९  आणि ००४५ यापैकी  एकच चलन अपलोड केले असता दुसरी चलन अपलोड करणे.
+
+
+ on Date 22/04/2024
+ -------------------
+ In reports Form1-E purposeOfEncroachmentLand error solved in reports/village-form-1E
+
+  on Date 15/07/2024
+ -------------------
+ In DYSLR LASt cokumn count and total Count for Division and District is corrected.
+
+
+
+On Date 16/07/2024
+-------------------
+//---Form area 0
+totalArea: res.data.form17Data[0].totalArea,
+path :src\pages\transactions\receive-money\index.jsx
+
+
+on 29/07/2024
+----------------
+1. Tab1 title change ई-चावडी कामकाज प्रगती अहवाल
+2. Tab 2 उप भूमि अधीक्षक प्रगती अहवाल (DYSLR)----उप-अधीक्षक भूमिअभिलेख  यांनी  आकारबंद भरण्यासाठी कामकाज सुरु केलेल्या गावांची संख्या
+
+
+on 26AUG 2024
+--------------
+1. MIS 2023-2024 and Current year change
+2. Challan Print change
+3. 9B Report Year change
+4. 8C Report Year Change
+
+
+on 28AUG 2024
+--------------
+1. 9B Report Year change----Correction whole year comming
+2. 8C Report Year Change----Correction whole year comming
+
+
+on 4 SEP 2024
+-----------------
+Dropdown year changes
+
+चलन तपशील
+पावती प्रत
+--in Report--
+पावत्या पहा 
+गाव नमुना ८ब
+गाव नमुना ८क
+गाव नमुना ८ब आणि ८क
+गाव नमुना ८ड
+गाव नमुना ९ब
+चलन तपशील
+
+गाव_नमुना_८ब_८क_८ब_आणि_८क_८ड_९ब_चलन_तपशील
+
+
+लेखपरीक्षण करिता महत्वाचे गाव नमुने - गाव नमुना आठ-ब ,आठ-क,एकत्रित आठ-ब.क,आठ-ड, नऊ-ब ,सतरा आणि अहवाल चार 
+
+वरील सर्व नमुने मध्ये मागील दोन आणि चालू  एकूण तीन वर्षाचा डेटा लिंक करण्याची तात्काळ कार्यवाही करण्यात यावी.
+
+5 September 2024
+-------------------
+
+remove challan all year logic
+MIS-Show count report ई-चावडी प्रणाली- मध्ये एक ही खातेदारांची मागणी निश्चिती न केल्याने वसुली न करणाऱ्या गावांची संख्या
+
+
+23 September 2024
+------------------
+Excel download according to column title.
+
+
+7 OCT 2024
+-----------
+1. Challan Generate and Challan Print
+2. Recipt Print
+3. MIS DYSLR on click Village list open.
+4. Remove Khata number from recipt print
+
+
+
+1. Form17 totalArea logic change
+
+
+18 OCT 2024
+-------------
+1.परंतु १००% मागणी निश्चिती न करता वसूली सुरू केलेल्या गावांची संख्या ची यादी उपलब्ध होत नाही.
+
+2.गावनमुने पूर्ण भरलेबाबत घोषणा केलेली गाव संख्या ची यादी उपलब्ध होत नाही.
+
+3.उप-अधीक्षक भूमिअभिलेख यांनी आकारबंद भरण्यासाठी कामकाज सुरु केलेल्या गावांची संख्या ची यादी उपलब्ध होत नाही.
+
+4. form8B recipt condition:  <td>{r.reciptFinal == 0 ? '' : r.receiptNo}</td>
+
+
+
+28 OCT 2024;
+--------------
+1. मागणी तपशील on basis of खाता क्रमांक or मक्ताखाता क्रमांक details fetch
+2. and Print the Details
+3. तलाठी ऐवजी ग्राम महसूल अधिकारी असे ई-चावडी प्रणाली मध्ये नावात बदल करणे बाबत
+
+on 12 DEC 2024
+---------------
+1.  संबंधित क्षेत्र  2.स्‍थानिक उपकरांसह 3.प्रकरण क्रमांक मध्ये माहिती भरण्यासाठी  अनिवार्य करण्यात यावे.
+
+
+on 10 DEC 2024
+---------------
+गाव नमुना एक Dyslr(आकारबंद दुरुस्ती)
+DYSLR Homepage
+Talathi Homepage integrated according to role based.
+
+on 31Dec 2024 
+------------------------------
+
+मागणी तपशील (मागीत थकबाकी मध्ये बदल )

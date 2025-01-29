@@ -1,0 +1,32 @@
+export default {
+  //Form 1
+  'formLanguage.label.landRegister': 'जमिनींची नोंदवही(आकारबंद)',
+  'formLanguage.label.villageForm': 'गाव नमुना १',
+  'formLanguage.form.sanctioningChanges': 'फेरबदलांना मंजुरी देणारे अधिकारी',
+  'formLanguage.table.totalArea': 'एकूण क्षेत्र',
+  'formLanguage.table.kind': 'वजा-लागवड अयोग्य बिनआकारी किंवा लागवडीसाठी अनुपलब्ध-प्रकार',
+  'formLanguage.table.area': 'वजा-लागवड अयोग्य बिनआकारी किंवा लागवडीसाठी अनुपलब्ध-क्षेत्र',
+  'villageForm1.table.kind': 'अनुपलब्ध प्रकार',
+  'villageForm1.table.area': 'अनुपलब्ध  क्षेत्र',
+  'villageForm1.table.tenure': 'धारणा प्रकार',
+  'villageForm1.table.tenureDs': 'धारणा प्रकार DYSCLR',
+
+  'formLanguage.table.netCultivableArea': 'निव्वळ लागवड योग्य क्षेत्र',
+  'formLanguage.table.naAssessment': 'कृषिक आकारणी',
+  'formLanguage.table.alteration': ' फेरबदलाचे तपशील',
+  'formLanguage.table.designation': 'पदनाम',
+  'formLanguage.table.orderNo': 'आदेश क्रमांक',
+  'formLanguage.table.orderDate': 'आदेशाची तारीख',
+  'villageForm1.table.collector': 'जिल्हाधिकारी',
+  'villageForm1.table.deputyCollector': 'उपजिल्हाधिकारी',
+  'villageForm1.table.tahsildar': 'तहसीलदार',
+  'villageForm1.table.nayabTahsildar': 'नायब तहसीलदार',
+  'villageForm1.table.circle': 'मंडल अधिकारी',
+  'villageForm1.table.publicRightsOfWays':
+    'कृपया सार्वजनिक मार्गाधिकार आणि सुविधाधिकार प्रविष्ट करा',
+  'villageForm1.table.particularsOfAlteration': 'कृपया फेरबदलाचे तपशील प्रविष्ट करा',
+  'villageForm1.table.ruleDesignation': 'कृपया पदनाम प्रविष्ट करा',
+  'villageForm1.table.ruleOrderDate': 'कृपया मागणीची तारीख प्रविष्ट करा',
+  'villageForm1.table.ruleOrderNo': 'कृपया आदेश क्रमांक प्रविष्ट करा',
+  'villageForm1.table.ruleRemarks': 'कृपया शेरा प्रविष्ट करा',
+};

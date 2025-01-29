@@ -1,0 +1,47 @@
+.Arrow {
+    position: relative;
+    width: 120px;
+    height: 70px;
+    background: skyblue;
+}
+
+.Arrow::after {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-top: 35px solid transparent;
+    border-bottom: 35px solid transparent;
+    border-left: 35px solid #f3f5f9;
+    content: '';
+}
+
+.Arrow::before {
+    position: absolute;
+    right: -35px;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-top: 35px solid transparent;
+    border-bottom: 35px solid transparent;
+    border-left: 35px solid skyblue;
+    content: '';
+}
+
+.Footercard {
+    background-image: linear-gradient(#f3f5f9, #dde0e6);
+    /* z-index: -1;
+  height: '50vh';
+  font-size: '50px';
+  background-image: url('../../../../../public/712_image.png');
+  background-repeat: 'no-repeat';
+  border-radius: 8px; */
+}
+
+.download-table-xls-button {
+    border: 0px solid;
+    border-radius: 7px;
+    background-color: #bfbfbf82;
+    cursor: pointer;
+}
