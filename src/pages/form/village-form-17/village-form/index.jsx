@@ -845,37 +845,64 @@ const BasicForm = () => {
               <Col xl={1} lg={1} md={1} sm={1} xs={1}></Col>
 
               <Col xl={7} lg={7} md={7} sm={24} xs={24}>
+              {radiovalue && radiovalue === 'maktaNumber' ? (
                 <Form.Item
                   label={<FormattedMessage id="formLanguage.table.totalArea" />}
                   name="totalArea"
-                      // rules={[
-
+                  // rules={[
                   //   {
-
                   //     required: true,
-
                   //     // message: 'Please Enter total area1111',
-
                   //     message: 'Total Area should be greater that or Equal to Affected Area',
-
                   //     //'Please Enter total area1111'
-
                   //   },
-
                   // ]}
                 >
                   <Input.Group compact>
                     {/* <Input disabled style={{ width: '60%' }} value={totalAreaValue} /> */}
-                    <Input disabled
+                    <Input 
                       style={{ width: '60%' }}
                       value={totalAreaValue}
                       onChange={(e) => {
                         setTotalAreaValue(e.target.value);
+                        
                       }}
                     />
                     <Input disabled style={{ width: '40%' }} value={totalAreaInUOM} />
                   </Input.Group>
                 </Form.Item>
+              ):(
+
+
+
+<Form.Item
+                  label={<FormattedMessage id="formLanguage.table.totalArea" />}
+                  name="totalArea"
+                  // rules={[
+                  //   {
+                  //     required: true,
+                  //     // message: 'Please Enter total area1111',
+                  //     message: 'Total Area should be greater that or Equal to Affected Area',
+                  //     //'Please Enter total area1111'
+                  //   },
+                  // ]}
+                >
+                  <Input.Group compact>
+                    {/* <Input disabled style={{ width: '60%' }} value={totalAreaValue} /> */}
+                    <Input  disabled
+                      style={{ width: '60%' }}
+                      value={totalAreaValue}
+                      onChange={(e) => {
+                        setTotalAreaValue(e.target.value);
+                        
+                      }}
+                    />
+                    <Input disabled style={{ width: '40%' }} value={totalAreaInUOM} />
+                  </Input.Group>
+                </Form.Item>
+
+
+              )}
               </Col>
             </Row>
 
