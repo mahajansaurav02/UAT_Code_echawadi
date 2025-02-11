@@ -24,7 +24,7 @@ function Report9B() {
   const [codeVillage, setCodeVillage] = useState('');
   const [village, setVillage] = useState([]);
   const [tableData, setTableData] = useState();
-  const [revenueYear, setRevenueYear] = useState();
+  const [revenueYear, setRevenueYear] = useState('2024-25');
   const [isNirank, setIsNirank] = useState(false);
   const [loading, setLoading] = useState(false);
   const componentRef = useRef();
@@ -124,7 +124,7 @@ function Report9B() {
                 // style={{ width: 200, marginRight: '15px' }}
                 options={revenueYearForVillage}
                 style={{ width: 142 }}
-                // value={revenueYearForVillage}
+                value={revenueYear}
                 placeholder={'महसूल वर्ष'}
                 onChange={(value, event) => onYearChange(value, event)}
                 // disabled

@@ -24,7 +24,7 @@ function DemandGenerationChallan() {
   const [village, setVillage] = useState([]);
   const [tableData, setTableData] = useState();
   const history = useHistory();
-  const [revenueYear, setRevenueYear] = useState();
+  const [revenueYear, setRevenueYear] = useState('2024-25');
   const [moneyStatus, setMoneyStatus] = useState();
   const [loading, setLoading] = useState(false);
   const [revenueYearForVillage, setRevenueYearForVillage] = useState();
@@ -151,7 +151,7 @@ function DemandGenerationChallan() {
               <Select
                 // style={{ width: 200, marginRight: '15px' }}
                 options={revenueYearForVillage}
-                // value={revenueYearForVillage}
+                value={revenueYear}
                 placeholder={'महसूल वर्ष'}
                 onChange={(value, event) => onYearChange(value, event)}
                 // disabled

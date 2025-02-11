@@ -40,7 +40,7 @@ function ReceiptView() {
   const [village, setVillage] = useState([]);
   const [codeVillage, setCodeVillage] = useState('');
   const [radiovalue, setRadioValue] = useState();
-  const [revenueYear1, setRevenueYear1] = useState();
+  const [revenueYear1, setRevenueYear1] = useState('2024-25');
   const [revenueYearLOC, setRevenueYearLOC] = useState();
   const { districtName, talukaName, districtCode, talukaCode } = useModel('details');
   const [revenueYearForVillage, setRevenueYearForVillage] = useState();
@@ -525,6 +525,7 @@ function ReceiptView() {
               label={<FormattedMessage id="villageSelector.label.revenueYear" />}
             >
               <Select
+              value={revenueYear1}
                 options={revenueYearForVillage}
                 placeholder={'महसूल वर्ष'}
                 onChange={(value, event) => onYearChange(value, event)}

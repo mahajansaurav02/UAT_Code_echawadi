@@ -46,7 +46,7 @@ function ReceiptReports() {
   const [dataInModal, setDataInModal] = useState();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [printButtonFlag, setPrintButtonFlag] = useState(true);
-  const [revenueYear, setRevenueYear] = useState();
+  const [revenueYear, setRevenueYear] = useState('2024-25');
   const [isNirank, setIsNirank] = useState(false);
   const [khataNumber, setKhataNumber] = useState();
   const [test, setTest] = useState();
@@ -404,7 +404,7 @@ function ReceiptReports() {
               <Select
                 // style={{ width: 200, marginRight: '15px' }}
                 options={revenueYearForVillage}
-                // value={revenueYearForVillage}
+                value={revenueYear}
                 placeholder={'महसूल वर्ष'}
                 onChange={(value, event) => onYearChange(value, event)}
                 // disabled

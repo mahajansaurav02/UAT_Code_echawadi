@@ -151,14 +151,15 @@ const Login = () => {
           defaultMessage: 'Login Successful',
         });
         let ROLES = JSON.parse(localStorage.getItem('roles'));
-        message.success(defaultLoginSuccessMessage);
+        
+        message.success(defaultLoginSuccessMessage, 2); // 3 seconds duration
+        
         await fetchUserInfo();
-        /** This method will jump to the location of the redirect parameter */
+        
         if (!history) return;
         const { query } = history.location;
         const { redirect } = query;
-        //history.push(redirect || '/homepage');
-
+        
         if (ROLES[0] === 'ROLE_COLLECTOR') {
           history.push(redirect || '/dashboard/analysis');
         } else if (ROLES[0] === 'ROLE_DYSLR') {
@@ -172,7 +173,8 @@ const Login = () => {
           id: 'pages.login.failure',
           defaultMessage: 'Login failed, please try again!',
         });
-        message.error(defaultLoginFailureMessage);
+        
+        message.error(defaultLoginFailureMessage, 2); // 3 seconds duration
       }
       // console.log(msg); //If it fails to set user error message
 

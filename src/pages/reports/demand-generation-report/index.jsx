@@ -22,7 +22,7 @@ function DemandGenerationReport() {
   const [tableData, setTableData] = useState();
   const [textVillage, setTextVillage] = useState('');
   const componentRef = useRef();
-  const [revenueYear, setRevenueYear] = useState();
+  const [revenueYear, setRevenueYear] = useState('2024-25');
   const [isNirank, setIsNirank] = useState(false);
   const [loading, setLoading] = useState(false);
   const [revenueYearForVillage, setRevenueYearForVillage] = useState();
@@ -165,7 +165,7 @@ function DemandGenerationReport() {
               <Select
                 // style={{ width: 200, marginRight: '15px' }}
                 options={revenueYearForVillage}
-                // value={revenueYearForVillage}
+                value={revenueYear}
                 placeholder={'महसूल वर्ष'}
                 onChange={(value, event) => onYearChange(value, event)}
                 // disabled

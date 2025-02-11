@@ -27,7 +27,7 @@ function Report8b() {
   const [village, setVillage] = useState([]);
   const [tableData, setTableData] = useState();
   const history = useHistory();
-  const [revenueYear, setRevenueYear] = useState();
+  const [revenueYear, setRevenueYear] = useState('2024-25');
   const [totalArea, setTotalArea] = useState(0);
   const [loading, setLoading] = useState(false);
 
@@ -210,7 +210,7 @@ function Report8b() {
               <Select
                 // style={{ width: 200, marginRight: '15px' }}
                 options={revenueYearForVillage}
-                // value={revenueYearForVillage}
+                value={revenueYear}
                 placeholder={'महसूल वर्ष'}
                 onChange={(value, event) => onYearChange(value, event)}
                 // disabled

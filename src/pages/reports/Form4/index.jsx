@@ -28,7 +28,7 @@ function VillageForm() {
   const [tableData, setTableData] = useState();
   const [isNirank, setIsNirank] = useState(false);
   const [villageForm17, setVillageForm17] = useState();
-  const [revenueYear, setRevenueYear] = useState();
+  const [revenueYear, setRevenueYear] = useState('2024-25');
   const componentRef = useRef();
   const [revenueYearForVillage, setRevenueYearForVillage] = useState();
 
@@ -125,7 +125,7 @@ function VillageForm() {
               <Select
                 // style={{ width: 200, marginRight: '15px' }}
                 options={revenueYearForVillage}
-                // value={revenueYearForVillage}
+                value={revenueYear}
                 placeholder={'महसूल वर्ष'}
                 onChange={(value, event) => onYearChange(value, event)}
                 // disabled

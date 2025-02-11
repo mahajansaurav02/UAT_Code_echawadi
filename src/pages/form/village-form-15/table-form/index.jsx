@@ -45,7 +45,7 @@ function TableForm15() {
   const [villageSaja, setVillageSaja] = useState([]);
   const [revenueYearLOC, setRevenueYearLOC] = useState();
   const [villageSajjaCode, setVillageSajjaCode] = useState();
-  const [revenueYear1, setRevenueYear1] = useState();
+  const [revenueYear1, setRevenueYear1] = useState('2024-25');
   const [villageSajjaName, setVillageSajjaName] = useState();
   const [sajjaCode, setSajjaCode] = useState([]);
   let history = useHistory();
@@ -406,6 +406,7 @@ function TableForm15() {
               {sajjaBox === false && (
                 <Form.Item wrapperCol={{ xl: 20, lg: 15 }} label="वर्ष">
                   <Select
+                  value={revenueYear1}
                     options={revenueYearLOC}
                     placeholder="वर्ष निवडा"
                     onSelect={(value, event) => handleOnChangeYear(value, event)}
