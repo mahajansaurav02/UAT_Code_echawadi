@@ -63,7 +63,7 @@ const BasicForm = () => {
   const [flagForSearch, setFlagForSearch] = useState(false);
   const [stateForKSearch, setStateForKSearch] = useState(false);
   const [khataNumbersList, setKhataNumbersList] = useState([]);
-  const [radiovalue, setRadioValue] = useState();
+  const [radiovalue, setRadioValue] = useState("KhataNumber");
   const [isLoading, setIsLoading] = useState(false);
   const [lGDCode, setLGDCode] = useState();
   const [lGDCodeFromVillageData, setLGDCodeFromVillageData] = useState();
@@ -385,7 +385,17 @@ const BasicForm = () => {
       assessment: form.getFieldValue('assessment'),
       remarks: form.getFieldValue('remarks'),
     };
+    if(!inputParamsForAdd.periodFromDate){
+      setIsLoading(false);
 
+      return console.log("from date is required ")
+    }
+     if(!inputParamsForAdd.periodToDate){
+          setIsLoading(false);
+
+    return console.log("To date is required")
+
+    }
     if (location.state?.pageMode === 'Edit') {
       sendRequest(
         `${URLS.BaseURL}/form17/editForm17`,
@@ -940,7 +950,7 @@ const BasicForm = () => {
                   rules={[
                     {
                       required: true,
-
+                 
                       message: 'Total Area should be greater than or Equal to Affected Area',
                     },
                   ]}
@@ -953,6 +963,14 @@ const BasicForm = () => {
                       onChange={(event) => {
                         setAffectedAreaValue(event.target.value);
                       }}
+                      rules={[
+                        {
+                          required: true,
+    
+                          message: 'Total Area should be greater than or Equal to Affected Area',
+                          
+                        },
+                      ]}
                     />
                     <Input disabled style={{ width: '40%' }} value={totalAreaInUOM} />
                   </Input.Group>

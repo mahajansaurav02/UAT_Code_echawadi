@@ -47,6 +47,8 @@ import villageReport5 from './en-US/villageReport5';
 import form9b from './en-US/form9b';
 import loginpage from './en-US/loginpage';
 import OneTimeDataEntryReport from './en-US/OneTimeDataEntryReport';
+import EducationalCess from './en-US/EducationalCess';
+import RojgarlaguRojgarHami from './en-US/RojgarlaguRojgarHami';
 
 export default {
   'navBar.lang': 'Languages',
@@ -105,4 +107,7 @@ export default {
   ...villageReport5,
   ...loginpage,
   ...OneTimeDataEntryReport,
+  ...EducationalCess,
+  ...RojgarlaguRojgarHami
+
 };

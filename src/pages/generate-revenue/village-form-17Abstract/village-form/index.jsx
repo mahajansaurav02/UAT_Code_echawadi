@@ -297,7 +297,6 @@ const BasicForm = () => {
   };
 
   const onFinish = async (values) => {
-    setIsLoading(true);
     const inputParamsForAdd = {
       revenueYear: revenueYear,
       districtCode: districtCode,
@@ -344,6 +343,14 @@ const BasicForm = () => {
       remarks: form.getFieldValue('remarks'),
       kaJaPaRate: kaJaPaRate,
     };
+      if(!inputParamsForAdd.orderNo){
+      return console.log("orderNo is required ")
+    }
+    if(!inputParamsForAdd.areaAffected){
+      return console.log("areaAffected area is required ")
+    }
+    setIsLoading(true);
+
 
     if (location.state?.pageMode === 'Edit') {
       sendRequest(
@@ -609,12 +616,14 @@ const BasicForm = () => {
             <Col xl={7} lg={7} md={7} sm={24} xs={24}>
               <Form.Item
                 label={'बिनशेती आदेश क्रमांक'}
+                required
                 name="orderNo"
                 rules={[
                   {
                     max: 50,
                     message: 'Please Enter Case Number upto 50 characters',
                   },
+                  { required: true, message: 'This Field Is Required..' }
                 ]}
               >
                 <Input
@@ -628,15 +637,19 @@ const BasicForm = () => {
             <Col xl={1} lg={1} md={1} sm={1} xs={1}></Col>
 
             <Col xl={7} lg={7} md={7} sm={24} xs={24}>
-              <Form.Item style={{ marginLeft: 5 }} label={'बिनशेती क्षेत्र '} name="areaAffected">
+              <Form.Item style={{ marginLeft: 5 }} label={'बिनशेती क्षेत्र '} 
+               required 
+                  name="areaAffected"
+                  >
                 <Input.Group compact>
                   <Input
                     disabled={location.state?.pageMode === 'View'}
                     style={{ width: '60%' }}
                     value={affectedAreaValue}
+                    required
                     onChange={(event) => {
                       setAffectedAreaValue(event.target.value);
-                    }}
+                    }}        
                   />
                   <Input disabled style={{ width: '40%' }} value={totalAreaInUOM} />
                 </Input.Group>

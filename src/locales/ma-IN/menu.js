@@ -166,6 +166,8 @@ export default {
   'menu.Reports.Form 19': 'गाव नमुना १९',
   'menu.Reports.Form 21': 'गाव नमुना २१',
   'menu.Reports.Form 1C': 'गाव नमुना १क',
+  'menu.Reports.Educational Cess': 'शिक्षण कर अहवाल',
+  'menu.Reports.Employment Guarantee Tax applicable on': 'रोजी लागू रोजगार हमी कर अहवाल',
   'menu.Help.Dumala Survey Number': 'दुमाला भूमापन क्रमांक नमुना ',
   'menu.Help.Akrushik Survey Number': 'अकृषिक भूमापन क्रमांक नमुना ',
   'menu.Reports.Demand Generation': 'मागणी दुरुस्ती',

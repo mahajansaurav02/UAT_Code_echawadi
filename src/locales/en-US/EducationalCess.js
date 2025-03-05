@@ -1,0 +1,41 @@
+export default {
+  'EducationalCess.form.nameOfPerson': 'Name of the Person From whom Recoverable',
+  'EducationalCess.form.currentYear': 'Current Year',
+  'EducationalCess.form.amountForRecovery': 'Amount for Recovery',
+  'EducationalCess.form.totalDemand': 'Total demand',
+  'EducationalCess.form.arrears': 'Arrears ',
+  'EducationalCess.form.receiptNoAmtRecovered': 'Receipt No.given for the amount recovered',
+  'EducationalCess.form.receiptDate': 'Receipt Date',
+  'EducationalCess.form.amountForRecovered': 'Amount Recovered ',
+  'EducationalCess.form.balanceRecovery': 'Balance for recovery ',
+  'EducationalCess.form.challanNoCredit': 'Challan No of credit into treasury ',
+  'EducationalCess.form.challanDate': ' Challan Date',
+  'EducationalCess.form.remarks': 'Remarks ',
+  'EducationalCess.form.khataNo': 'Khata No ',
+  'EducationalCess.form.revenueYear': 'Revenue year 2024-25',
+  'EducationalCess.form.khatedarName': 'Khatedar Name',
+  'EducationalCess.form.EducationalCess': 'Education Cess Report',
+  'EducationalCess.form.EducationalCessname':
+    'Education Tax Report applicable for the revenue year 2024-25',
+  'EducationalCess.form.EducationalCessname':
+    'Register of Annual Ledger of Demand and Recoveries and Trail Balance Sheet of items other then Land Revenue(e.g. Irrigation Dues,Hissa Survey Fees,Sales Tax,Income Tax,etc.)',
+  'EducationalCess.form.departmentNm': 'Name of Department- Income Tex Department',
+  'EducationalCess.form.amountofrecovery': 'Amount for Recovery:',
+  'EducationalCess.form.otherLandRevenue': 'Other than Land Revenue',
+  'EducationalCess.form.jameenMahsul': 'Land Revenue',
+  'villageForm8B8c.form.jameenMahsul': 'Village form 8B & 8C',
+  'formLanguage.form.serialNo': 'Sr.No.',
+  'EducationalCess.form.gatNumber': 'Survey Hissa no.',
+  'EducationalCess.form.hangam': 'Season',
+  'EducationalCess.form.cropName': 'Crop Name',
+  'EducationalCess.form.area': 'Area',
+  'EducationalCess.form.hectorCal': 'Assesment',
+  'EducationalCess.form.applicableEducationalTax': 'Education Cess',
+  'EducationalCess.form.totalapplicableEducationalTax': 'Applied Education Cess',
+  'EducationalCess.form.increseadEducationalTax': 'Additional Education Cess',
+  
+  // 'villageForm8B8c.form.AkunemagnipaykizaleliWasuli': 'Total Magni payki  Zaleli Vasuli',
+  'villageForm8B8c.form.AkunemagnipaykizaleliWasuli': 'Total Village Demand',
+  // 'villageForm8B8c.form.YakunWasuli': 'Total Vasuli',----29 DEC 24
+  'villageForm8B8c.form.YakunWasuli': 'Total Demand Amount', //Total recovery of the village
+};

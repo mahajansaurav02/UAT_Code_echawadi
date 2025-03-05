@@ -914,6 +914,18 @@ export const layout = ({ initialState }) => {
             path: '/reports/All-Village-Report',
             component: './reports/All-Village-Report',
           },
+          {
+            name: 'Educational Cess',
+            icon: 'smile',
+            path: '/reports/EducationalCess',
+            component: './reports/EducationalCess',
+          },
+          {
+            name: 'Employment Guarantee Tax applicable on',
+            icon: 'smile',
+            path: '/reports/EmploymentGuaranteeTaxapplicableon',
+            component: './reports/EmploymentGuaranteeTaxapplicableon',
+          },
 
           {
             component: '404',

@@ -834,11 +834,25 @@ export default defineConfig({
           component: './reports/Dyslr-Entry-Record',
         },
         {
+          name: 'Educational Cess',
+          icon: 'smile',
+          path: '/reports/EducationalCess',
+          component: './reports/EducationalCess',
+        },
+
+        {
+          name: 'Employment Guarantee Tax applicable on',
+          icon: 'smile',
+          path: '/reports/EmploymentGuaranteeTaxapplicableon',
+          component: './reports/EmploymentGuaranteeTaxapplicableon',
+        },
+        {
           name: 'Dyslr Delete Record',
           icon: 'smile',
           path: '/reports/Dyslr-Delete-Record',
           component: './reports/Dyslr-Delete-Record',
         },
+      
         // {
         //   name: 'Dyslr Akarbndat-Changes',
         //   icon: 'smile',
