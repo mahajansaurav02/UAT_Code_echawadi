@@ -72,7 +72,7 @@ function VillageForm() {
             caseNo: r.caseNo,
             personLiable: r.personLiable,
             khataNo: r.khataNo,
-
+makhtaKhataNo: r.makhtaKhataNo,
             localCess: r.localCess,
             localCessAmount: r.localCessAmount,
             bfreeOfLocalCess: r.bfreeOfLocalCess,
@@ -287,7 +287,11 @@ class ComponentToPrint extends React.Component {
                   <td>{i + 1}</td>
                   <td>{r.caseNo}</td>
                   <td>{r.personLiable}</td>
-                  <td>{r.khataNo}</td>
+                 <td>
+  {r.khataNo && r.khataNo.trim() !== "" ? r.khataNo : r.makhtaKhataNo}
+</td>
+
+
                   <td>{r.localCess}</td>
                   <td>{r.localCessAmount}</td>
                   <td>{r.amountOfZp}</td>

@@ -6,6 +6,8 @@ import { request } from 'umi';
 //8091 - portal
 export async function currentUser(options) {
   // return request('api/currentUser', {
+  // return request('https://testechawadi.mahabhumi.gov.in/echawdi/auth/currentUser', {
+  // return request('https://115.124.105.230:8091/echawdi/auth/currentUser', {
   // return request('http://115.124.110.193:8089/echawdi/auth/currentUser', {
   //---UAT
   //return request('http://115.124.110.193:8091/echawdi/auth/currentUser', {
@@ -19,6 +21,8 @@ export async function currentUser(options) {
 
 export async function outLogin(options) {
   // return request('api/login/outLogin', {
+  // return request('https://testechawadi.mahabhumi.gov.in/echawdi/auth/login/outLogin', {
+  // return request('https://115.124.105.230:8091/echawdi/auth/login/outLogin', {
   //return request('http://115.124.110.193:8089/echawdi/auth/login/outLogin', {
   //---UAT
   //return request('http://115.124.110.193:8091/echawdi/auth/login/outLogin', {
@@ -32,6 +36,8 @@ export async function outLogin(options) {
 
 export async function login(body, options) {
   // return request('api/login/account', {
+  // return request('https://testechawadi.mahabhumi.gov.in/echawdi/auth/login/account', {
+  // return request('https://115.124.105.230:8091/echawdi/auth/login/account', {
   // return request('http://115.124.110.193:8089/echawdi/auth/login/account', {
   //---UAT
   //return request('http://115.124.110.193:8091/echawdi/auth/login/account', {

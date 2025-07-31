@@ -474,8 +474,8 @@ function ChallanDetails() {
   const handleFile = async (e) => {
     setFile0029Flag(true);
     function checkFileSize(fileSize) {
-      if (fileSize >= 2097152) {
-        message.error('File Should not be more than 2 MB !');
+      if (fileSize >= 1000000) {
+        message.error('File Should not be more than 1 MB !');
         myForm.setFieldsValue({ image: '' });
         return false;
       } else {
@@ -516,8 +516,8 @@ function ChallanDetails() {
   const handleFile0045 = async (e) => {
     setFile0045Flag(true);
     function checkFileSize(fileSize) {
-      if (fileSize >= 2097152) {
-        message.error('File Should not be more than 2 MB !');
+      if (fileSize >= 1000000) {
+        message.error('File Should not be more than 1 MB !');
         myForm.setFieldsValue({ image1: '' });
         return false;
       } else {

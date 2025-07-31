@@ -1215,6 +1215,14 @@ export default defineConfig({
           path: '/dashboard/analysis',
           component: './dashboard/analysis',
         },
+           {
+          name: 'Mis',
+          icon: 'smile',
+          path: '/dashboard/collectorMis',
+          component: './dashboard/collectorMis',
+          layout: false,
+        },
+
 
         // {
         //   name: 'Supervisor Dashboard',

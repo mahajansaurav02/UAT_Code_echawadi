@@ -5,7 +5,7 @@ export default {
     "villageReport8d.items": "Items",
     "villageReport8d.receipt": "Receipt No.",
     "villageReport8d.amount": "Amount",
-    "villageReport8d.challan": "Challan No.",
+    "villageReport8d.challan": "Challan No./ GRN No.",
     "villageReport8d.jamaReceipt": "Receipt",
     "villageReport8d.expenditure": "Expenditure",
 

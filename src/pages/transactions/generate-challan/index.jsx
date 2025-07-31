@@ -542,7 +542,7 @@ function GChallan() {
           columns={columns}
           dataSource={state}
           loading={isLoading}
-          pagination={{ pageSize: 10 }}
+          // pagination={{ pageSize: 10 }}
           scroll={{ y: 350, x: 1800 }}
         />
 

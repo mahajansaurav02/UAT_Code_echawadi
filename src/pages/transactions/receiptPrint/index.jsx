@@ -145,6 +145,9 @@ class ComponentToPrint extends React.Component {
                   <strong>
                     <h5>क्रमांक: {this.props.receiptNo}</h5>
                   </strong>
+                     <strong>
+                  <h5>दिनांक: {this.props.receiptDate}</h5>
+                </strong>
                 </Col>
               </Row>
               <div style={{ float: 'right' }}></div>

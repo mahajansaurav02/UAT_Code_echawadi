@@ -1542,7 +1542,7 @@ const BasicForm = () => {
                 <Form.Item
                   label={<FormattedMessage id="villageForm17.table.amountOfLR" />}
                   name="amountOfJm"
-                  rules={[
+                  rules={[  
                     {
                       required: true,
                       message: 'Please Enter Amount Of L.R',

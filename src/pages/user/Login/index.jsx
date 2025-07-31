@@ -1,4 +1,4 @@
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { ArrowRightOutlined, LockOutlined, UserOutlined } from '@ant-design/icons';
 import Axios from 'axios';
 import { Alert, Button, Col, Form, Input, message, Modal, Row, Select, Space } from 'antd';
 import React, { useEffect, useState } from 'react';
@@ -16,6 +16,7 @@ import { AES, enc } from 'crypto-js';
 import { LoadCanvasTemplate, loadCaptchaEnginge, validateCaptcha } from 'react-simple-captcha';
 // import one from '../../../../public/one.pdf';
 // import two from './../../../../public/two.pdf';
+import { useHistory } from 'react-router-dom';
 
 // const LoginMessage = ({ content }) => (
 //   <Alert
@@ -42,6 +43,7 @@ const Login = () => {
   const [modalHelp, setModalHelp] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalForDelete, setModalForDelete] = useState(false);
+  const history = useHistory();
 
   const fetchUserInfo = async () => {
     const userInfo = await initialState?.fetchUserInfo?.();
@@ -159,13 +161,23 @@ const Login = () => {
         if (!history) return;
         const { query } = history.location;
         const { redirect } = query;
-        
+        console.log('ROLES', ROLES);
         if (ROLES[0] === 'ROLE_COLLECTOR') {
-          history.push(redirect || '/dashboard/analysis');
-        } else if (ROLES[0] === 'ROLE_DYSLR') {
-          history.push(redirect || '/homepageDYSLR');
+          // console.log('checkeddddd')
+          // history.push('/dashboard/analysis');
+           const defaultLoginFailureMessage = intl.formatMessage({
+          id: 'pages.login.failure',
+          defaultMessage: 'Login failed, please try again!',
+        });
+                message.error(defaultLoginFailureMessage, 2); // 3 seconds duration
+
+        
+        } else
+         if (ROLES[0] === 'ROLE_DYSLR') {
+          history.push( '/homepageDYSLR');
         } else {
-          history.push(redirect || '/homepageThalati');
+          history.push('/homepageThalati');
+          // history.push('redirect || /homepageThalati');
         }
         return;
       } else {
@@ -214,6 +226,22 @@ const Login = () => {
     setModalHelp(true);
   };
 
+const goToMis = (e) => {
+  e.preventDefault();
+  
+  // 1. Use raw DOM manipulation to change the URL
+  window.history.pushState({}, '', '/#/dashboard/collectorMis');
+  
+  // 2. Manually re-render the app (if using React)
+  const event = new Event('forceRender');
+  window.dispatchEvent(event);
+  
+  // 3. Fallback to full reload if still blocked
+  setTimeout(() => {
+    window.location.reload();
+  }, 100);
+};
+
   const info = () => {
     Modal.info({
       okType: 'danger',
@@ -250,7 +278,7 @@ const Login = () => {
             {/* ई - चावडी प्रणाली मेंटेनन्स कामकाज करिता आज दिनांक १४ फेब्रुवारी २०२४, रात्री १० ते ११ या वेळेत बंद राहील...     */}
             {/* ई - चावडी प्रणाली मेंटेनन्स कामकाज करिता आज रात्री १० ते उद्या सकाळी ३ या वेळेत बंद
             राहील... */}
-            ई - चावडी प्रणाली मेंटेनन्स कामकाज करिता १० ऑगस्ट २०२४ आणि ११ ऑगस्ट २०२४ या दिवशी बंद
+            ई - चावडी प्रणाली मेंटेनन्स कामकाज करिता ११ जुलै  २०२५ रात्री ११:००  ते  १२ जुलै २०२५ सकाळी  ०७:०० पर्यन्त बंद 
             राहील...
             {/*  ई - चावडी प्रणाली मेंटेनन्स कामकाज करिता आज दिनांक ८ फेब्रुवारी संध्याकाळी १० ते ११  डिसेंबर सकाळी २ या वेळेत बंद राहील...           */}
           </p>
@@ -288,7 +316,16 @@ const Login = () => {
           <h3 style={{ color: 'blueviolet' }}>
             {/*  मागणी निश्चिती केल्यावर पण काही दुरुस्ती बाकी असल्यास खातेदारांची मागणी दुरुस्तीची
             सुविधा देण्यात आलेली आहे. */}
-            गाव नमुना निरंक आणि गाव नमुना कामकाज पूर्ण निवडण्याचा पर्याय सुविधा देण्यात आली आहे.
+            <img src="/new.gif" style={{width:'30px',height:'30px'}} alt="New" className="new-gif" />
+महत्वाची सूचना:- आज दि. 31/07/2025  रात्री 12 नंतर मागणी निश्चिती आणि पावती सुविधा बंद होईल.
+          </h3>
+        </marquee>
+        <br/>
+        <marquee>
+          <h3 style={{ color: 'blueviolet' }}>
+            {/*  मागणी निश्चिती केल्यावर पण काही दुरुस्ती बाकी असल्यास खातेदारांची मागणी दुरुस्तीची
+            सुविधा देण्यात आलेली आहे. */}
+            गाव नमुना निरंक आणि गाव नमुना कामकाज पूर्ण निवडण्याचा पर्याय सुविधा देण्यात आली आहे. ई-चावडी मधील MIS बघण्यासाठी User id/pw ची आवश्यकता नाही. ई चावडी MIS बघण्यासाठी वरील  लिंकवर क्लिक करा.
           </h3>
         </marquee>
 
@@ -305,9 +342,29 @@ const Login = () => {
       </div>
 
       <div className="rightSide">
-        <div className="translator" data-lang>
-          {SelectLang && <SelectLang className="trans" />}
-        </div>
+       <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+   {/* <button
+  type="primary"
+  className="go-to-mis-button"
+onClick={() => {
+        console.log('Navigating...');
+        history.push('/dashboard/collectorMis'); // or any valid route
+      }}>
+  <ArrowRightOutlined style={{ marginRight: '8px', fontSize: '16px' }} />
+  <FormattedMessage id="login.gotoMis" />
+  <img src="/new.gif" alt="New" className="new-gif" />
+</button> */}
+
+
+<Button   className="go-to-mis-button"
+ type="primary" onClick={goToMis}><ArrowRightOutlined style={{ marginRight: '8px', fontSize: '16px' }} />
+  <FormattedMessage id="login.gotoMis" />
+  </Button> 
+
+    <div className="translator" data-lang>
+      {SelectLang && <SelectLang className="trans" />}
+    </div>
+  </div>
         <div className="loginForm" id="loginForm1">
           {/* <img className="firstAugustImage" src={FirstAugustTitle} /> */}
           <h1>
@@ -406,7 +463,6 @@ const Login = () => {
                 document.getElementById('empty-pass').style.opacity = '1';
               } else {
                 await handleSubmit();
-                // doSubmit();
               }
             }}
           >
@@ -440,6 +496,16 @@ const Login = () => {
             ></CardHeader>
 
             <CardContent>
+                <Grid container spacing={1} columns={12}>
+                <Grid item xs={24} sm={24} md={2} lg={2} xl={2}>
+                  <ArrowForwardTwoToneIcon sx={{ color: 'skyblue' }}></ArrowForwardTwoToneIcon>
+                </Grid>
+                <Grid item xs={24} sm={24} md={10} lg={10} xl={10}>
+                  <a href={`${URLS.AuthURL}/file/12`} target="_blank" rel="noreferrer">
+                    ई-चावडी मार्गदर्शक सूचना २०२५ 
+                  </a>
+                </Grid>
+              </Grid>
               <Grid container spacing={1} columns={12}>
                 <Grid item xs={24} sm={24} md={2} lg={2} xl={2}>
                   <ArrowForwardTwoToneIcon sx={{ color: 'skyblue' }}></ArrowForwardTwoToneIcon>

@@ -1214,7 +1214,7 @@ function HomePage(props) {
                           },
                         },
                         title: {
-                          text: 'Against जमाबंदी',
+                          text: 'Against उद्दिष्टे',
                         },
                         colors: ['#33FF99', '#f00'],
                       }}

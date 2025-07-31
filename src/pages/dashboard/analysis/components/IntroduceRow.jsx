@@ -528,6 +528,10 @@ export const IntroduceRow = ({ loading, visitData }) => {
           vasuliWithoutDemandCountT: r.data.vasuliWithoutDemandCount,
           demandCountT: r.data.demandCount,
           totalOfSevenEightT: r.data.totalOfSevenEight,
+          totalDemandJm:r.data.totalDemandJm,
+          totalDemandSakirn:r.data.totalDemandSakirn,
+          totalCollectedJm:r.data.totalCollectedJm,
+          totalCollectedSankirn:r.data.totalCollectedSankirn,
         });
       },
     );
@@ -717,6 +721,10 @@ export const IntroduceRow = ({ loading, visitData }) => {
             totalOnlineVillagesCount: r.totalOnlineVillagesCount,
             demandCount: r.demandCount,
             totalOfSevenEight: r.totalOfSevenEight,
+            totalDemandJm:r.totalDemandJm,
+            totalDemandSakirn:r.totalDemandSakirn,
+            totalCollectedJm:r.totalCollectedJm,
+            totalCollectedSankirn:r.totalCollectedSankirn,
             chartPlotting: getChartData(
               r.divisionCode,
               r.totalVillages,
@@ -777,6 +785,10 @@ export const IntroduceRow = ({ loading, visitData }) => {
             totalOnlineVillagesCount: r.totalOnlineVillagesCount,
             demandCount: r.demandCount,
             totalOfSevenEight: r.totalOfSevenEight,
+            totalDemandJm:r.totalDemandJm,
+            totalDemandSakirn:r.totalDemandSakirn,
+            totalCollectedJm:r.totalCollectedJm,
+            totalCollectedSankirn:r.totalCollectedSankirn,
             chartPlotting: getChartData(
               r.divisionCode,
               r.totalVillages,
@@ -833,6 +845,10 @@ export const IntroduceRow = ({ loading, visitData }) => {
             totalOnlineVillagesCount: r.totalOnlineVillagesCount,
             demandCount: r.demandCount,
             totalOfSevenEight: r.totalOfSevenEight,
+            totalDemandJm:r.totalDemandJm,
+            totalDemandSakirn:r.totalDemandSakirn,
+            totalCollectedJm:r.totalCollectedJm,
+            totalCollectedSankirn:r.totalCollectedSankirn,
             chartPlotting: getChartData(
               r.divisionCode,
               r.totalVillages,
@@ -1525,6 +1541,10 @@ export const IntroduceRow = ({ loading, visitData }) => {
           vasuliWithoutDemandCountT: r.data.vasuliWithoutDemandCount,
           demandCountT: r.data.demandCount,
           totalOfSevenEightT: r.data.totalOfSevenEight,
+          totalDemandJm:r.data.totalDemandJm,
+          totalDemandSakirn:r.data.totalDemandSakirn,
+          totalCollectedJm:r.data.totalCollectedJm,
+          totalCollectedSankirn:r.data.totalCollectedSankirn,
         });
 
         getTab3Details();
@@ -1560,6 +1580,10 @@ export const IntroduceRow = ({ loading, visitData }) => {
           totalDemandCompletedCountT: r.data.totalDemandCompletedCount,
           demandCountT: r.data.demandCount,
           totalOfSevenEightT: r.data.totalOfSevenEight,
+          totalDemandJm:r.data.totalDemandJm,
+          totalDemandSakirn:r.data.totalDemandSakirn,
+          totalCollectedJm:r.data.totalCollectedJm,
+          totalCollectedSankirn:r.data.totalCollectedSankirn,
         });
 
         getTab2Details();
@@ -6412,6 +6436,3845 @@ export const IntroduceRow = ({ loading, visitData }) => {
             </Grid>
           </Paper>
         </Tabs.TabPane>
+
+        <Tabs.TabPane tab="ई-चावडी वसूली अहवाल" >
+          {/* Old 2023-2024 */}
+          {showPreDashboard == true && showStaticDashboard != true && (
+            <>
+              {/*Current year 2023-2024 */}
+              <Paper className={styles.Footercard}>
+                <ExportToExcel
+                  data={dashBoardDetail}
+                  total={dashBoardCount}
+                  btnName={'GridDivision'}
+                >
+                  <DownloadOutlined />
+                </ExportToExcel>
+                {/* <h1>2023-2024 Prev</h1> */}
+
+                <Paper className={styles.Footercard} style={{ height: '800px', overflowY: 'auto' }}>
+                  {/* Main Grid */}
+                  <Grid
+                    container
+                    spacing={1}
+                    columns={24}
+                    style={{
+                      padding: '2px',
+                      position: 'sticky',
+                      top: '0px',
+                      zIndex: '5',
+                    }}
+                  >
+                    <Grid
+                      item
+                      xs={24}
+                      sm={24}
+                      md={24}
+                      lg={2}
+                      xl={3}
+                      style={{ position: 'sticky! important', top: '0px', overflowY: 'auto' }}
+                    >
+                      <Card>
+                        <Box>
+                          <Typography
+                            sx={{ height: 120 }}
+                            component="div"
+                            align="center"
+                            style={{ backgroundColor: '#002884', color: '#F0F2F5' }}
+                          >
+                            {/* विभाग/जिल्हा नाव */}
+                            विभाग/जिल्हा
+                          </Typography>
+
+                          <Divider variant="middle" />
+                        </Box>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={24} sm={24} md={24} lg={2} xl={2}>
+                      <Card>
+                        <Box>
+                          <Typography
+                            sx={{ height: 120 }}
+                            component="div"
+                            align="center"
+                            style={{
+                              backgroundColor: '#002884',
+                              color: '#F0F2F5',
+                            }}
+                          >
+                            {/* जिल्ह्यांची संख्या */}
+                            जिल्हे
+                          </Typography>
+
+                          <Divider variant="middle" />
+                        </Box>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={24} sm={24} md={24} lg={2} xl={2}>
+                      <Card>
+                        <Box>
+                          <Typography
+                            sx={{ height: 120 }}
+                            component="div"
+                            align="center"
+                            style={{ backgroundColor: '#002884', color: '#F0F2F5' }}
+                          >
+                            {/* तालुक्यांची संख्या */}
+                            तालुके
+                          </Typography>
+
+                          <Divider variant="middle" />
+                        </Box>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                      <Card>
+                        <Box>
+                          <Typography
+                            sx={{ height: 120 }}
+                            component="div"
+                            align="center"
+                            style={{ backgroundColor: '#002884', color: '#F0F2F5' }}
+                          >
+                            एकूण गावांची संख्या
+                          </Typography>
+
+                          <Divider variant="middle" />
+                        </Box>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                      <Card>
+                        <Box>
+                          <Typography
+                            sx={{ height: 120 }}
+                            component="div"
+                            align="center"
+                            style={{ backgroundColor: '#002884', color: '#F0F2F5' }}
+                          >
+                            {/* एकूण खातेदारांची संख्या */}
+                            {/* ग. न . भरलेली माहिती */}
+                            गांव नमुन्या मध्ये केलेल्या एकूण नोंदीची संख्या
+                          </Typography>
+
+                          <Divider variant="middle" />
+                        </Box>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                      <Card>
+                        <Box>
+                          <Typography
+                            sx={{ height: 120 }}
+                            component="div"
+                            align="center"
+                            style={{ backgroundColor: '#002884', color: '#F0F2F5' }}
+                          >
+                            गावनमुने पूर्ण भरलेबाबत घोषणा केलेली गाव संख्या
+                          </Typography>
+
+                          <Divider variant="middle" />
+                        </Box>
+                      </Card>
+                    </Grid>
+
+                    {/* new column added 8AUG24 */}
+
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={7}>
+                      <Card style={{ flex: 1 }}>
+                        <Box>
+                          <Typography
+                            sx={{ height: 25 }}
+                            component="div"
+                            align="center"
+                            style={{
+                              backgroundColor: '#002884',
+                              color: '#F0F2F5',
+                              fontSize: '12px',
+                            }}
+                          >
+                            एकूण मागणी
+                          </Typography>
+                          <Divider variant="middle" />
+                        </Box>
+                      </Card>
+                      <Box
+                        display="flex"
+                        flexDirection="row" // Change to 'column' for vertical layout
+                        gap={1} // Optional: Adds space between cards
+                        alignItems="stretch" // Ensures cards stretch to fill the container height
+                      >
+                        <Card style={{ flex: 1.1 }}>
+                          <Box>
+                            <Typography
+                              sx={{ height: 95 }}
+                              component="div"
+                              align="center"
+                              style={{
+                                backgroundColor: '#002884',
+                                color: '#F0F2F5',
+                                fontSize: '12px',
+                              }}
+                            >
+                             जमीन महसुलाची मागणी
+                            </Typography>
+                            <Divider variant="middle" />
+                          </Box>
+                        </Card>
+
+                        <Card style={{ flex: 1.6 }}>
+                          <Box>
+                            <Typography
+                              sx={{ height: 95 }}
+                              component="div"
+                              align="center"
+                              style={{
+                                backgroundColor: '#002884',
+                                color: '#F0F2F5',
+                                fontSize: '12px',
+                              }}
+                            >
+                              जमिनोत्तर महसुलाची मागणी
+                            </Typography>
+                            <Divider variant="middle" />
+                          </Box>
+                        </Card>
+
+                        <Card style={{ flex: 1.1 }}>
+                          <Box>
+                            <Typography
+                              sx={{ height: 95 }}
+                              component="div"
+                              align="center"
+                              style={{
+                                backgroundColor: '#002884',
+                                color: '#F0F2F5',
+                                paddingTop: '20',
+                              }}
+                            >
+                              एकुण
+                            </Typography>
+                            <Divider variant="middle" />
+                          </Box>
+                        </Card>
+                      </Box>
+                    </Grid>
+
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                      <Card>
+                        <Box>
+                          <Typography
+                            sx={{ height: 120 }}
+                            component="div"
+                            align="center"
+                            style={{ backgroundColor: '#002884', color: '#F0F2F5' }}
+                          >
+                            {/* भाग - १ मधील गावांची संख्या */}
+                            {/* 100 % मागणी निश्चिती केलेले गांव संख्या */}
+                            {/* १००% मागणी निश्चिती केलेले गांव संख्या */}
+                            १००% मागणी निश्चिती केलेली गांव संख्या
+                          </Typography>
+
+                          <Divider variant="middle" />
+                        </Box>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                      <Card>
+                        <Box>
+                          <Typography
+                            sx={{ height: 120 }}
+                            component="div"
+                            align="center"
+                            style={{ backgroundColor: '#002884', color: '#F0F2F5' }}
+                          >
+                            १००% वसूली झालेल्या गावांची संख्या
+                          </Typography>
+
+                          <Divider variant="middle" />
+                        </Box>
+                      </Card>
+                    </Grid>
+                  </Grid>
+                  {/* Main Grid */}
+                  {dashBoardDetail2023_2024_MDiv &&
+                    dashBoardDetail2023_2024_MDiv.map((r, i) => {
+                      return (
+                        <>
+                          <Grid container spacing={1} columns={24} style={{ padding: '2px' }}>
+                            <Grid
+                              item
+                              xs={24}
+                              sm={24}
+                              md={24}
+                              lg={2}
+                              xl={3}
+                              style={{
+                                cursor: 'pointer',
+                                position: 'sticky!important',
+                                top: '0px',
+                                width: '100%',
+                              }}
+                            >
+                              <Card>
+                                <Box
+                                  sx={{
+                                    bgcolor: '#91ceff',
+                                    height: 50,
+                                  }}
+                                >
+                                  {/* Division Click */}
+                                  <CardContent>
+                                    <h3>
+                                      {' '}
+                                      <u
+                                        onClick={(e) => {
+                                          //alert('showdist');
+                                          if (
+                                            showDistrict === true &&
+                                            r.divisionCode === divisionCode
+                                          ) {
+                                            setshowDistrict(false);
+                                          } else {
+                                            setshowSpin(true);
+                                            setDashBoardDetail1_2023_2024_Dist([]);
+                                            setDivisionCode(r.divisionCode);
+                                            setDistricts(r.districtCode);
+                                            // get list of district when click division
+                                            getDashBoardDetails1_2023_2024_DistricrGrid(
+                                              r.divisionCode,
+                                            );
+                                            setshowDistrict(true);
+                                          }
+                                        }}
+                                      >
+                                        {r.divisionName}
+                                      </u>{' '}
+                                      &nbsp;
+                                      {showDistrict === true && r.divisionCode === divisionCode && (
+                                        <ExportToExcel
+                                          dataDistrict={dashBoardDetail1_2023_2024_Dist}
+                                          totalDistrict={dashBoardCount1_2023_2024_Dist_Count}
+                                          btnName={'GridDistrict'}
+                                          style={{ width: '10px' }}
+                                        >
+                                          {/* <DownloadOutlined style={{ width: '100%' }} /> */}
+                                        </ExportToExcel>
+                                      )}
+                                      {showSpin === true && r.divisionCode === divisionCode && (
+                                        <Spin indicator={antIcon} />
+                                      )}
+                                    </h3>
+                                  </CardContent>
+                                </Box>
+                              </Card>
+                            </Grid>
+                            {/* )} */}
+                            <Grid item xs={24} sm={24} md={24} lg={2} xl={2}>
+                              <Card>
+                                <Box
+                                  sx={{
+                                    bgcolor: '#91ceff',
+                                    height: 50,
+                                  }}
+                                >
+                                  <CardContent>
+                                    <center>
+                                      <h3>{r.districtsCount}</h3>
+                                    </center>
+                                  </CardContent>
+                                </Box>
+                              </Card>
+                            </Grid>
+                            <Grid item xs={24} sm={24} md={24} lg={2} xl={2}>
+                              <Card>
+                                <Box
+                                  sx={{
+                                    bgcolor: '#91ceff',
+                                    height: 50,
+                                  }}
+                                >
+                                  <CardContent>
+                                    <center>
+                                      <h3>{r.totalTaluka}</h3>
+                                    </center>
+                                  </CardContent>
+                                </Box>
+                              </Card>
+                            </Grid>
+                            <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                              <Card>
+                                <Box
+                                  sx={{
+                                    bgcolor: '#91ceff',
+                                    height: 50,
+                                  }}
+                                >
+                                  <CardContent>
+                                    <center>
+                                      <h3>{r.totalVillages}</h3>
+                                    </center>
+                                  </CardContent>
+                                </Box>
+                              </Card>
+                            </Grid>
+                            <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                              <Card>
+                                <Box
+                                  sx={{
+                                    bgcolor: '#91ceff',
+                                    height: 50,
+                                  }}
+                                >
+                                  <CardContent>
+                                    <center>
+                                      <h3>{r.totalEntry}</h3>
+                                    </center>
+                                  </CardContent>
+                                </Box>
+                              </Card>
+                            </Grid>
+                            <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                              <Card>
+                                <Box
+                                  sx={{
+                                    bgcolor: '#91ceff',
+                                    height: 50,
+                                  }}
+                                >
+                                  <CardContent>
+                                    <center>
+                                      <h3>{r.totalGaonNamunaCount}</h3>
+                                    </center>
+                                  </CardContent>
+                                </Box>
+                              </Card>
+                            </Grid>
+                            <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                              <Card>
+                                <Box
+                                  sx={{
+                                    bgcolor: '#91ceff',
+                                    height: 50,
+                                  }}
+                                >
+                                  <CardContent>
+                                    <center>
+                                      {/* <h3>4 </h3> */}
+                                      <h3>{r.demandCount} </h3>
+                                    </center>
+                                  </CardContent>
+                                </Box>
+                              </Card>
+                            </Grid>
+                            {/* Newly mapped variable */}
+
+                            <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                              <Card>
+                                <Box
+                                  sx={{
+                                    bgcolor: '#91ceff',
+                                    height: 50,
+                                  }}
+                                >
+                                  <CardContent>
+                                    <center>
+                                      <h3>{r.vasuliWithoutDemandCount}</h3>
+                                    </center>
+                                  </CardContent>
+                                </Box>
+                              </Card>
+                            </Grid>
+                            <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                              <Card>
+                                <Box
+                                  sx={{
+                                    bgcolor: '#91ceff',
+                                    height: 50,
+                                  }}
+                                >
+                                  <CardContent>
+                                    <center>
+                                      {/* <h3>T</h3> */}
+                                      <h3>{r.totalOfSevenEight}</h3>
+                                    </center>
+                                  </CardContent>
+                                </Box>
+                              </Card>
+                            </Grid>
+                            <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                              <Card>
+                                <Box
+                                  sx={{
+                                    bgcolor: '#91ceff',
+                                    height: 50,
+                                  }}
+                                >
+                                  <CardContent>
+                                    <center>
+                                      <h3>{r.totalDemandCompletedCount}</h3>
+                                    </center>
+                                  </CardContent>
+                                </Box>
+                              </Card>
+                            </Grid>
+                            <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                              <Card>
+                                <Box
+                                  sx={{
+                                    bgcolor: '#91ceff',
+                                    height: 50,
+                                  }}
+                                >
+                                  <CardContent>
+                                    <center>
+                                      <h3>{r.vasuliCompletedCount}</h3>
+                                    </center>
+                                  </CardContent>
+                                </Box>
+                              </Card>
+                            </Grid>
+                          </Grid>
+                          {/* District Grid */}
+                          {showDistrict === true && r.divisionCode === divisionCode && (
+                            <Grid
+                              container
+                              spacing={1}
+                              columns={24}
+                              style={{ padding: '2px' }}
+                            ></Grid>
+                          )}
+                          {showDistrict === true &&
+                            dashBoardDetail1_2023_2024_Dist?.length !== 0 &&
+                            r.divisionCode === divisionCode &&
+                            dashBoardDetail1_2023_2024_Dist?.map((r, i) => {
+                              return (
+                                <>
+                                  <Grid
+                                    container
+                                    spacing={1}
+                                    columns={24}
+                                    style={{ padding: '2px', cursor: 'pointer' }}
+                                  >
+                                    <Grid item xs={24} sm={24} md={24} lg={2} xl={3}>
+                                      <Card>
+                                        <Box
+                                          sx={{
+                                            // bgcolor: '#91ceff',
+                                            bgcolor: '#cce8ff',
+                                            height: r.districtName?.length >= 11 ? 60 : 50,
+                                          }}
+                                        >
+                                          <CardContent>
+                                            <h4>
+                                              <u
+                                                onClick={(e) => {
+                                                  //alert('showtaluka');
+                                                  if (
+                                                    showTaluka === true &&
+                                                    r.districtCode === districtsCode
+                                                  ) {
+                                                    setshowTaluka(false);
+                                                  } else {
+                                                    setshowSpin2(true);
+                                                    setDashBoardDetail2_2023_2024([]);
+                                                    setDivisionCode(r.divisionCode);
+                                                    setDistricts(r.districtCode);
+                                                    //for Taluka grid
+                                                    setTalukaCode(r.talukaCode);
+                                                    getDashBoardDetails2_2023_2024(
+                                                      r.divisionCode,
+                                                      r.districtCode,
+                                                    );
+                                                    setshowTaluka(true);
+                                                  }
+                                                }}
+                                              >
+                                                {' '}
+                                                {r.districtName}
+                                              </u>
+                                              &nbsp;
+                                              {showTaluka === true &&
+                                                r.districtCode === districtsCode && (
+                                                  <ExportToExcel
+                                                    dataTaluka={dashBoardDetail2_2023_2024}
+                                                    btnName={'GridTaluka'}
+                                                    style={{ width: '10px' }}
+                                                  />
+                                                )}
+                                              {showSpin2 === true &&
+                                                r.districtsCode === districtsCode && (
+                                                  <Spin indicator={antIcon} />
+                                                )}
+                                            </h4>
+                                          </CardContent>
+                                        </Box>
+                                      </Card>
+                                    </Grid>
+                                    <Grid item xs={24} sm={24} md={24} lg={2} xl={2}>
+                                      <Card>
+                                        <Box
+                                          sx={{
+                                            bgcolor: '#cce8ff',
+                                            //height: 50,
+                                            height: r.districtName?.length >= 11 ? 60 : 50,
+                                          }}
+                                        >
+                                          <CardContent>
+                                            <center>
+                                              <h3>{r.districtsCount}</h3>
+                                            </center>
+                                          </CardContent>
+                                        </Box>
+                                      </Card>
+                                    </Grid>
+                                    <Grid item xs={24} sm={24} md={24} lg={2} xl={2}>
+                                      <Card>
+                                        <Box
+                                          sx={{
+                                            bgcolor: '#cce8ff',
+                                            //height: 50,
+                                            height: r.districtName?.length >= 11 ? 60 : 50,
+                                          }}
+                                        >
+                                          <CardContent>
+                                            <center>
+                                              <h3>{r.totalTaluka}</h3>
+                                            </center>
+                                          </CardContent>
+                                        </Box>
+                                      </Card>
+                                    </Grid>
+                                    <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                      <Card>
+                                        <Box
+                                          sx={{
+                                            bgcolor: '#cce8ff',
+                                            //height: 50,
+                                            height: r.districtName?.length >= 11 ? 60 : 50,
+                                          }}
+                                        >
+                                          <CardContent>
+                                            <center>
+                                              <h3>{r.totalVillages}</h3>
+                                            </center>
+                                          </CardContent>
+                                        </Box>
+                                      </Card>
+                                    </Grid>
+                                    <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                      <Card>
+                                        <Box
+                                          sx={{
+                                            bgcolor: '#cce8ff',
+                                            //height: 50,
+                                            height: r.districtName?.length >= 11 ? 60 : 50,
+                                          }}
+                                        >
+                                          <CardContent>
+                                            <center>
+                                              <h3>{r.totalEntry}</h3>
+                                            </center>
+                                          </CardContent>
+                                        </Box>
+                                      </Card>
+                                    </Grid>
+                                    <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                      <Card>
+                                        <Box
+                                          sx={{
+                                            bgcolor: '#cce8ff',
+                                            // height: 50,
+                                            height: r.districtName?.length >= 11 ? 60 : 50,
+                                          }}
+                                        >
+                                          <CardContent>
+                                            <center>
+                                              <h3>{r.totalGaonNamunaCount}</h3>
+                                            </center>
+                                          </CardContent>
+                                        </Box>
+                                      </Card>
+                                    </Grid>
+                                    <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                      <Card>
+                                        <Box
+                                          sx={{
+                                            bgcolor: '#cce8ff',
+                                            // height: 50,
+                                            height: r.districtName?.length >= 11 ? 60 : 50,
+                                          }}
+                                        >
+                                          <CardContent>
+                                            <center>
+                                              {/* <h3>4 D</h3> */}
+                                              <h3>{r.demandCount}</h3>
+                                            </center>
+                                          </CardContent>
+                                        </Box>
+                                      </Card>
+                                    </Grid>
+
+                                    <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                                      <Card>
+                                        <Box
+                                          sx={{
+                                            bgcolor: '#cce8ff',
+                                            //height: 50,
+                                            height: r.districtName?.length >= 11 ? 60 : 50,
+                                          }}
+                                        >
+                                          <CardContent>
+                                            <center>
+                                              <h3>{r.vasuliWithoutDemandCount}</h3>
+                                            </center>
+                                          </CardContent>
+                                        </Box>
+                                      </Card>
+                                    </Grid>
+                                    <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                      <Card>
+                                        <Box
+                                          sx={{
+                                            bgcolor: '#cce8ff',
+                                            //height: 50,
+                                            height: r.districtName?.length >= 11 ? 60 : 50,
+                                          }}
+                                        >
+                                          <CardContent>
+                                            <center>
+                                              {/* <h3>T D</h3> */}
+                                              {/* <h3>0</h3> */}
+                                              <h3>{r.totalOfSevenEight}</h3>
+                                            </center>
+                                          </CardContent>
+                                        </Box>
+                                      </Card>
+                                    </Grid>
+                                    <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                      <Card>
+                                        <Box
+                                          sx={{
+                                            bgcolor: '#cce8ff',
+                                            //height: 50,
+                                            height: r.districtName?.length >= 11 ? 60 : 50,
+                                          }}
+                                        >
+                                          <CardContent>
+                                            <center>
+                                              <h3>{r.totalDemandCompletedCount}</h3>
+                                            </center>
+                                          </CardContent>
+                                        </Box>
+                                      </Card>
+                                    </Grid>
+                                    <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                      <Card>
+                                        <Box
+                                          sx={{
+                                            bgcolor: '#cce8ff',
+                                            //height: 50,
+                                            height: r.districtName?.length >= 11 ? 60 : 50,
+                                          }}
+                                        >
+                                          <CardContent>
+                                            <center>
+                                              <h3>{r.vasuliCompletedCount}</h3>
+                                            </center>
+                                          </CardContent>
+                                        </Box>
+                                      </Card>
+                                    </Grid>
+                                  </Grid>
+                                  {/* Show Taluka */}
+                                  {showTaluka === true && r.districtCode === districtsCode && (
+                                    <Grid
+                                      container
+                                      spacing={1}
+                                      columns={24}
+                                      style={{ padding: '2px' }}
+                                    ></Grid>
+                                  )}
+
+                                  {showTaluka === true &&
+                                    dashBoardDetail2_2023_2024?.length !== 0 &&
+                                    r.districtCode === districtsCode &&
+                                    dashBoardDetail2_2023_2024?.map((r, i) => {
+                                      return (
+                                        <>
+                                          <Grid
+                                            container
+                                            spacing={1}
+                                            columns={24}
+                                            style={{ padding: '2px' }}
+                                          >
+                                            <Grid item xs={24} sm={24} md={24} lg={2} xl={3}>
+                                              <Card>
+                                                <Box
+                                                  sx={{
+                                                    // bgcolor: '#91ceff',
+                                                    bgcolor: '#F0F2F5',
+                                                    height: 50,
+                                                  }}
+                                                >
+                                                  <CardContent>
+                                                    <center>
+                                                      <a
+                                                        onClick={() => {
+                                                          redirectToReport(
+                                                            r.districtName,
+                                                            r.districtCode,
+                                                            r.talukaName,
+                                                            r.talukaCode,
+                                                          );
+                                                        }}
+                                                      >
+                                                        <h4>
+                                                          <u> {r.talukaName}</u>
+                                                        </h4>
+                                                      </a>{' '}
+                                                    </center>
+                                                  </CardContent>
+                                                </Box>
+                                              </Card>
+                                            </Grid>
+                                            <Grid item xs={24} sm={24} md={24} lg={2} xl={2}>
+                                              <Card>
+                                                <Box
+                                                  sx={{
+                                                    bgcolor: '#F0F2F5',
+                                                    height: 50,
+                                                  }}
+                                                >
+                                                  <CardContent>
+                                                    <center>
+                                                      {/* <h3>{r.districtsCount}</h3> */}
+                                                      <h3>0</h3>
+                                                    </center>
+                                                  </CardContent>
+                                                </Box>
+                                              </Card>
+                                            </Grid>
+                                            <Grid item xs={24} sm={24} md={24} lg={2} xl={2}>
+                                              <Card>
+                                                <Box
+                                                  sx={{
+                                                    bgcolor: '#F0F2F5',
+                                                    height: 50,
+                                                  }}
+                                                >
+                                                  <CardContent>
+                                                    <center>
+                                                      {/* <h3>{r.totalTaluka}</h3>
+                                                       */}
+                                                      <h3>1</h3>
+                                                    </center>
+                                                  </CardContent>
+                                                </Box>
+                                              </Card>
+                                            </Grid>
+                                            <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                              <Card>
+                                                <Box
+                                                  sx={{
+                                                    // bgcolor: '#F0F2F5',
+                                                    bgcolor: '#e4f4ff',
+                                                    height: 50,
+                                                  }}
+                                                >
+                                                  <CardContent>
+                                                    <center>
+                                                      <h3>{r.totalVillages}</h3>
+                                                    </center>
+                                                  </CardContent>
+                                                </Box>
+                                              </Card>
+                                            </Grid>
+                                            <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                              <Card>
+                                                <Box
+                                                  sx={{
+                                                    bgcolor: '#e4f4ff',
+                                                    height: 50,
+                                                  }}
+                                                >
+                                                  <CardContent>
+                                                    <center>
+                                                      {/* <h3>{r.totalEntry}</h3> */}
+                                                      <a
+                                                        onClick={() => {
+                                                          redirectToReport(
+                                                            r.districtName,
+                                                            r.districtCode,
+                                                            r.talukaName,
+                                                            r.talukaCode,
+                                                          );
+                                                        }}
+                                                      >
+                                                        <h3>
+                                                          {/* <u> {r.vasuliCompletedCount}</u> */}
+                                                          <u> {r.totalEntry}</u>
+                                                        </h3>
+                                                      </a>{' '}
+                                                    </center>
+                                                  </CardContent>
+                                                </Box>
+                                              </Card>
+                                            </Grid>
+                                            <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                              <Card>
+                                                <Box
+                                                  sx={{
+                                                    bgcolor: '#e4f4ff',
+                                                    height: 50,
+                                                  }}
+                                                >
+                                                  <CardContent>
+                                                    <center>
+                                                      {/* <h3>{r.totalGaonNamunaCount}</h3> */}
+                                                      <a
+                                                        onClick={() => {
+                                                          redirectToGoannamune_Purna_Bharlyababat_Ghoshna_Keleli_Gaon_Sankhya(
+                                                            r.districtName,
+                                                            r.districtCode,
+                                                            r.totalPhase1Villages,
+                                                            r.talukaCode,
+                                                            selectedYear,
+                                                          );
+                                                        }}
+                                                      >
+                                                        <h3>
+                                                          <u> {r.totalGaonNamunaCount}</u>
+                                                        </h3>
+                                                      </a>
+                                                    </center>
+                                                  </CardContent>
+                                                </Box>
+                                              </Card>
+                                            </Grid>
+                                            <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                              <Card>
+                                                <Box
+                                                  sx={{
+                                                    bgcolor: '#e4f4ff',
+                                                    height: 50,
+                                                  }}
+                                                >
+                                                  <CardContent>
+                                                    <center>
+                                                      <a
+                                                        onClick={() => {
+                                                          redirectToMagniNichtiNaKartaVasuliSuruKelelyaGaoanSankhya1(
+                                                            r.districtName,
+                                                            r.districtCode,
+                                                            r.totalOnlineVillagesCount,
+                                                            r.talukaCode,
+                                                            selectedYear,
+                                                          );
+                                                        }}
+                                                      >
+                                                        <h3>
+                                                          {/* <u>4T</u> */}
+                                                          {/* <u>4</u> */}
+                                                          <u>{r.demandCount}</u>
+                                                        </h3>
+                                                      </a>
+                                                    </center>
+                                                  </CardContent>
+                                                </Box>
+                                              </Card>
+                                            </Grid>
+
+                                            {/* 7777 */}
+                                            <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                                              <Card>
+                                                <Box
+                                                  sx={{
+                                                    bgcolor: '#e4f4ff',
+                                                    height: 50,
+                                                  }}
+                                                >
+                                                  <CardContent>
+                                                    <center>
+                                                      <a
+                                                        onClick={() => {
+                                                          redirectToMagniNichtiNaKartaVasuliSuruKelelyaGaoanSankhya(
+                                                            r.districtName,
+                                                            r.districtCode,
+                                                            r.totalOnlineVillagesCount,
+                                                            r.talukaCode,
+                                                            selectedYear,
+                                                          );
+                                                        }}
+                                                      >
+                                                        <h3>
+                                                          <u>{r.vasuliWithoutDemandCount}</u>
+                                                        </h3>
+                                                      </a>
+                                                    </center>
+                                                  </CardContent>
+                                                </Box>
+                                              </Card>
+                                            </Grid>
+                                            <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                              <Card>
+                                                <Box
+                                                  sx={{
+                                                    bgcolor: '#e4f4ff',
+                                                    height: 50,
+                                                  }}
+                                                >
+                                                  <CardContent>
+                                                    <center>
+                                                      <a>
+                                                        <h3>
+                                                          {/* <u>T T</u> */}
+                                                          {r.totalOfSevenEight}
+                                                        </h3>
+                                                      </a>
+                                                    </center>
+                                                  </CardContent>
+                                                </Box>
+                                              </Card>
+                                            </Grid>
+                                            <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                              <Card>
+                                                <Box
+                                                  sx={{
+                                                    bgcolor: '#e4f4ff',
+                                                    height: 50,
+                                                  }}
+                                                >
+                                                  <CardContent>
+                                                    <center>
+                                                      <a
+                                                        onClick={() => {
+                                                          redirectToMagniNichtiKeleliGaoanSankhya(
+                                                            r.districtName,
+                                                            r.districtCode,
+                                                            r.totalPhase1Login,
+                                                            r.talukaCode,
+                                                            selectedYear,
+                                                          );
+                                                        }}
+                                                      >
+                                                        <h3>
+                                                          <u> {r.totalDemandCompletedCount}</u>
+                                                        </h3>
+                                                      </a>
+                                                    </center>
+                                                  </CardContent>
+                                                </Box>
+                                              </Card>
+                                            </Grid>
+                                            <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                              <Card>
+                                                <Box
+                                                  sx={{
+                                                    bgcolor: '#e4f4ff',
+                                                    height: 50,
+                                                  }}
+                                                >
+                                                  <CardContent>
+                                                    <center>
+                                                      <a
+                                                        onClick={() => {
+                                                          redirectToVasuli_Zalelya_Gawanchi_Sankhya(
+                                                            r.districtName,
+                                                            r.districtCode,
+                                                            r.totalOnlineVillagesCount,
+                                                            r.talukaCode,
+                                                            selectedYear,
+                                                          );
+                                                        }}
+                                                      >
+                                                        <h3>
+                                                          <u> {r.vasuliCompletedCount}</u>
+                                                        </h3>
+                                                      </a>
+                                                    </center>
+                                                  </CardContent>
+                                                </Box>
+                                              </Card>
+                                            </Grid>
+                                          </Grid>
+                                        </>
+                                      );
+                                    })}
+                                </>
+                              );
+                            })}
+
+                          {/* Taluka एकूण */}
+                          {/* TO add Taluka एकूण code put here */}
+                          {/* District एकूण */}
+                          {showDistrict === true && r.divisionCode === divisionCode && (
+                            <div>
+                              <Grid container spacing={1} columns={24}>
+                                <Grid item xs={24} sm={24} md={24} lg={2} xl={3}>
+                                  <Card>
+                                    <Box
+                                      sx={{
+                                        bgcolor: '#cce8ff',
+                                        height: 50,
+                                      }}
+                                    >
+                                      <CardContent>
+                                        <center>
+                                          <h3>एकूण</h3>
+                                          {/* <h3>एकूण district</h3> */}
+                                        </center>
+                                      </CardContent>
+                                    </Box>
+                                  </Card>
+                                </Grid>
+                                <Grid item xs={24} sm={24} md={24} lg={2} xl={2}>
+                                  <Card>
+                                    <Box
+                                      sx={{
+                                        bgcolor: '#cce8ff',
+                                        height: 50,
+                                      }}
+                                    >
+                                      <CardContent>
+                                        <center>
+                                          <h3>
+                                            {dashBoardCount1_2023_2024_Dist_Count?.districtsCount}
+                                          </h3>
+                                        </center>
+                                      </CardContent>
+                                    </Box>
+                                  </Card>
+                                </Grid>
+                                <Grid item xs={24} sm={24} md={24} lg={2} xl={2}>
+                                  <Card>
+                                    <Box
+                                      sx={{
+                                        bgcolor: '#cce8ff',
+                                        height: 50,
+                                      }}
+                                    >
+                                      <CardContent>
+                                        <center>
+                                          <h3>
+                                            {dashBoardCount1_2023_2024_Dist_Count?.totalTalukaT}
+                                          </h3>
+                                        </center>
+                                      </CardContent>
+                                    </Box>
+                                  </Card>
+                                </Grid>
+                                <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                  <Card>
+                                    <Box
+                                      sx={{
+                                        bgcolor: '#cce8ff',
+                                        height: 50,
+                                      }}
+                                    >
+                                      <CardContent>
+                                        <center>
+                                          <h3>
+                                            {' '}
+                                            {dashBoardCount1_2023_2024_Dist_Count?.totalVillagesT}
+                                          </h3>
+                                        </center>
+                                      </CardContent>
+                                    </Box>
+                                  </Card>
+                                </Grid>
+                                <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                  <Card>
+                                    <Box
+                                      sx={{
+                                        bgcolor: '#cce8ff',
+                                        height: 50,
+                                      }}
+                                    >
+                                      <CardContent>
+                                        <center>
+                                          <h3>
+                                            {' '}
+                                            {dashBoardCount1_2023_2024_Dist_Count?.totalEntryT}
+                                          </h3>
+                                        </center>
+                                      </CardContent>
+                                    </Box>
+                                  </Card>
+                                </Grid>
+                                <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                  <Card>
+                                    <Box
+                                      sx={{
+                                        bgcolor: '#cce8ff',
+                                        height: 50,
+                                      }}
+                                    >
+                                      <CardContent>
+                                        <center>
+                                          <h3>
+                                            {' '}
+                                            {
+                                              dashBoardCount1_2023_2024_Dist_Count?.totalGaonNamunaCountT
+                                            }
+                                          </h3>
+                                        </center>
+                                      </CardContent>
+                                    </Box>
+                                  </Card>
+                                </Grid>
+                                <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                  <Card>
+                                    <Box
+                                      sx={{
+                                        bgcolor: '#cce8ff',
+                                        height: 50,
+                                      }}
+                                    >
+                                      <CardContent>
+                                        <center>
+                                          {/* <h3>4T</h3> */}
+                                          <h3>
+                                            {dashBoardCount1_2023_2024_Dist_Count?.demandCountT}
+                                          </h3>
+                                        </center>
+                                      </CardContent>
+                                    </Box>
+                                  </Card>
+                                </Grid>
+
+                                <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                                  <Card>
+                                    <Box
+                                      sx={{
+                                        bgcolor: '#cce8ff',
+                                        height: 50,
+                                      }}
+                                    >
+                                      <CardContent>
+                                        <center>
+                                          <h3>
+                                            {' '}
+                                            {
+                                              dashBoardCount1_2023_2024_Dist_Count?.vasuliWithoutDemandCountT
+                                            }
+                                          </h3>
+                                        </center>
+                                      </CardContent>
+                                    </Box>
+                                  </Card>
+                                </Grid>
+                                <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                  <Card>
+                                    <Box
+                                      sx={{
+                                        bgcolor: '#cce8ff',
+                                        height: 50,
+                                      }}
+                                    >
+                                      <CardContent>
+                                        <center>
+                                          {/* <h3> T</h3> */}
+                                          <h3>
+                                            {
+                                              dashBoardCount1_2023_2024_Dist_Count?.totalOfSevenEightT
+                                            }
+                                          </h3>
+                                        </center>
+                                      </CardContent>
+                                    </Box>
+                                  </Card>
+                                </Grid>
+                                <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                  <Card>
+                                    <Box
+                                      sx={{
+                                        bgcolor: '#cce8ff',
+                                        height: 50,
+                                      }}
+                                    >
+                                      <CardContent>
+                                        <center>
+                                          <h3>
+                                            {' '}
+                                            {
+                                              dashBoardCount1_2023_2024_Dist_Count?.totalDemandCompletedCountT
+                                            }
+                                          </h3>
+                                        </center>
+                                      </CardContent>
+                                    </Box>
+                                  </Card>
+                                </Grid>
+                                <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                  <Card>
+                                    <Box
+                                      sx={{
+                                        bgcolor: '#cce8ff',
+                                        height: 50,
+                                      }}
+                                    >
+                                      <CardContent>
+                                        <center>
+                                          <h3>
+                                            {' '}
+                                            {
+                                              dashBoardCount1_2023_2024_Dist_Count?.vasuliCompletedCountT
+                                            }
+                                          </h3>
+                                        </center>
+                                      </CardContent>
+                                    </Box>
+                                  </Card>
+                                </Grid>
+                              </Grid>
+                            </div>
+                          )}
+                        </>
+                      );
+                    })}
+
+                  {/* Division एकूण */}
+                  <Grid container spacing={1} columns={24} style={{ padding: '2px' }}>
+                    <Grid item xs={24} sm={24} md={24} lg={2} xl={3}>
+                      <Card>
+                        <Box
+                          sx={{
+                            bgcolor: '#91ceff',
+                            height: 50,
+                          }}
+                        >
+                          <CardContent>
+                            <center>
+                              {/* <h3>एकूण Division t1</h3> */}
+                              <h3>एकूण</h3>
+                            </center>
+                          </CardContent>
+                        </Box>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={24} sm={24} md={24} lg={2} xl={2}>
+                      <Card>
+                        <Box
+                          sx={{
+                            bgcolor: '#91ceff',
+                            height: 50,
+                          }}
+                        >
+                          <CardContent>
+                            <center>
+                              <h3>{dashBoardCount2023_2024_TD?.districtsCount}</h3>
+                            </center>
+                          </CardContent>
+                        </Box>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={24} sm={24} md={24} lg={2} xl={2}>
+                      <Card>
+                        <Box
+                          sx={{
+                            bgcolor: '#91ceff',
+                            height: 50,
+                          }}
+                        >
+                          <CardContent>
+                            <center>
+                              <h3>{dashBoardCount2023_2024_TD?.totalTalukaT}</h3>
+                            </center>
+                          </CardContent>
+                        </Box>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                      <Card>
+                        <Box
+                          sx={{
+                            bgcolor: '#91ceff',
+                            height: 50,
+                          }}
+                        >
+                          <CardContent>
+                            <center>
+                              <h3> {dashBoardCount2023_2024_TD?.totalVillagesT}</h3>
+                            </center>
+                          </CardContent>
+                        </Box>
+                      </Card>
+                    </Grid>
+
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                      <Card>
+                        <Box
+                          sx={{
+                            bgcolor: '#91ceff',
+                            height: 50,
+                          }}
+                        >
+                          <CardContent>
+                            <center>
+                              <h3> {dashBoardCount2023_2024_TD?.totalEntryT}</h3>
+                            </center>
+                          </CardContent>
+                        </Box>
+                      </Card>
+                    </Grid>
+
+                    {/* New variable Mapped */}
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                      <Card>
+                        <Box
+                          sx={{
+                            bgcolor: '#91ceff',
+                            height: 50,
+                          }}
+                        >
+                          <CardContent>
+                            <center>
+                              <h3> {dashBoardCount2023_2024_TD?.totalGaonNamunaCountT}</h3>
+                            </center>
+                          </CardContent>
+                        </Box>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                      <Card>
+                        <Box
+                          sx={{
+                            bgcolor: '#91ceff',
+                            height: 50,
+                          }}
+                        >
+                          <CardContent>
+                            <center>
+                              {/* <h3> 4</h3> */}
+                              <h3> {dashBoardCount2023_2024_TD?.totalDemandJm}</h3>
+                            </center>
+                          </CardContent>
+                        </Box>
+                      </Card>
+                    </Grid>
+                    {/* <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                      <Card>
+                        <Box
+                          sx={{
+                            bgcolor: '#91ceff',
+                            height: 50,
+                          }}
+                        >
+                          <CardContent>
+                            <center>
+                              <h3> {dashBoardCount?.totalDemandCompletedCountT}</h3>
+                            </center>
+                          </CardContent>
+                        </Box>
+                      </Card>
+                    </Grid> */}
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                      <Card>
+                        <Box
+                          sx={{
+                            bgcolor: '#91ceff',
+                            height: 50,
+                          }}
+                        >
+                          <CardContent>
+                            <center>
+                              <h3> {dashBoardCount2023_2024_TD?.totalDemandSakirn}</h3>
+                            </center>
+                          </CardContent>
+                        </Box>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                      <Card>
+                        <Box
+                          sx={{
+                            bgcolor: '#91ceff',
+                            height: 50,
+                          }}
+                        >
+                          <CardContent>
+                            <center>
+                              {/* <h3> T</h3> */}
+                              <h3> {dashBoardCount2023_2024_TD?.totalDemandJm + dashBoardCount2023_2024_TD?.totalDemandSakirn }</h3>
+                            </center>
+                          </CardContent>
+                        </Box>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                      <Card>
+                        <Box
+                          sx={{
+                            bgcolor: '#91ceff',
+                            height: 50,
+                          }}
+                        >
+                          <CardContent>
+                            <center>
+                              <h3> {dashBoardCount2023_2024_TD?.totalDemandCompletedCountT}</h3>
+                            </center>
+                          </CardContent>
+                        </Box>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                      <Card>
+                        <Box
+                          sx={{
+                            bgcolor: '#91ceff',
+                            height: 50,
+                          }}
+                        >
+                          <CardContent>
+                            <center>
+                              <h3> {dashBoardCount2023_2024_TD?.vasuliCompletedCountT}</h3>
+                            </center>
+                          </CardContent>
+                        </Box>
+                      </Card>
+                    </Grid>
+                  </Grid>
+                </Paper>
+              </Paper>
+            </>
+          )}
+          {/* Current year 2024-2025 */}
+          {/* {selectedYear === '2023-2024' ? ( */}
+          {showCurrentDashboard === true && (
+            <>
+              {/*Current year 2023-2024 */}
+              <Paper className={styles.Footercard}>
+                {/* <ExportToExcel>
+                  <DownloadOutlined />
+                </ExportToExcel> */}
+
+                <ExportToExcel
+                  data={dashBoardDetail}
+                  total={dashBoardCount}
+                  btnName={'GridDivision'}
+                >
+                  <DownloadOutlined />
+                </ExportToExcel>
+
+
+
+
+
+
+
+
+
+
+
+                
+{/* saurav main reporta */}
+                <Paper className={styles.Footercard} style={{ height: '800px', overflowY: 'auto' }}>
+                  {/* Main Grid */}
+                  <Grid
+                    container
+                    spacing={1}
+                    columns={24}
+                    style={{
+                      padding: '2px',
+                      position: 'sticky',
+                      top: '0px',
+                      zIndex: '5',
+                    }}
+                  >
+                    <Grid
+                      item
+                      xs={24}
+                      sm={24}
+                      md={24}
+                      lg={2}
+                      xl={3}
+                      style={{ position: 'sticky! important', top: '0px', overflowY: 'auto' }}
+                    >
+                      <Card>
+                        <Box>
+                          <Typography
+                            sx={{ height: 120 }}
+                            component="div"
+                            align="center"
+                            style={{ backgroundColor: '#002884', color: '#F0F2F5' }}
+                          >
+                            {/* विभाग/जिल्हा नाव */}
+                            विभाग/जिल्हा
+                          </Typography>
+
+                          <Divider variant="middle" />
+                        </Box>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={24} sm={24} md={24} lg={2} xl={2}>
+                      <Card>
+                        <Box>
+                          <Typography
+                            sx={{ height: 120 }}
+                            component="div"
+                            align="center"
+                            style={{
+                              backgroundColor: '#002884',
+                              color: '#F0F2F5',
+                            }}
+                          >
+                            {/* जिल्ह्यांची संख्या */}
+                            जिल्हे
+                          </Typography>
+
+                          <Divider variant="middle" />
+                        </Box>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={24} sm={24} md={24} lg={2} xl={2}>
+                      <Card>
+                        <Box>
+                          <Typography
+                            sx={{ height: 120 }}
+                            component="div"
+                            align="center"
+                            style={{ backgroundColor: '#002884', color: '#F0F2F5' }}
+                          >
+                            {/* तालुक्यांची संख्या */}
+                            तालुके
+                          </Typography>
+
+                          <Divider variant="middle" />
+                        </Box>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                      <Card>
+                        <Box>
+                          <Typography
+                            sx={{ height: 120 }}
+                            component="div"
+                            align="center"
+                            style={{ backgroundColor: '#002884', color: '#F0F2F5' }}
+                          >
+                            एकूण गावांची संख्या
+                          </Typography>
+
+                          <Divider variant="middle" />
+                        </Box>
+                      </Card>
+                    </Grid>
+                    {/* <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                      <Card>
+                        <Box>
+                          <Typography
+                            sx={{ height: 120 }}
+                            component="div"
+                            align="center"
+                            style={{ backgroundColor: '#002884', color: '#F0F2F5' }}
+                          >
+                        
+                            गांव नमुन्या मध्ये केलेल्या एकूण नोंदीची संख्या
+                          </Typography>
+
+                          <Divider variant="middle" />
+                        </Box>
+                      </Card>
+                    </Grid> */}
+                    {/* <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                      <Card>
+                        <Box>
+                          <Typography
+                            sx={{ height: 120 }}
+                            component="div"
+                            align="center"
+                            style={{ backgroundColor: '#002884', color: '#F0F2F5' }}
+                          >
+                            गावनमुने पूर्ण भरलेबाबत घोषणा केलेली गाव संख्या
+                          </Typography>
+
+                          <Divider variant="middle" />
+                        </Box>
+                      </Card>
+                    </Grid> */}
+                    {/* <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                      <Card>
+                        <Box>
+                          <Typography
+                            sx={{ height: 70 }}
+                            component="div"
+                            align="center"
+                            style={{ backgroundColor: '#002884', color: '#F0F2F5' }}
+                          >
+                           
+                            १००% मागणी निश्चिती केलेली गांव संख्या
+                          </Typography>
+
+                          <Divider variant="middle" />
+                        </Box>
+                      </Card>
+                    </Grid> */}
+                    {/* new column added 8AUG24 */}
+
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={7}>
+                      <Card style={{ flex: 1 }}>
+                        <Box>
+                          <Typography
+                            sx={{ height: 25 }}
+                            component="div"
+                            align="center"
+                            style={{
+                              backgroundColor: '#002884',
+                              color: '#F0F2F5',
+                              fontSize: '14px',
+                            }}
+                          >
+                            एकूण मागणी
+                          </Typography>
+                          <Divider variant="middle" />
+                        </Box>
+                      </Card>
+                      <Box
+                        display="flex"
+                        flexDirection="row" // Change to 'column' for vertical layout
+                        gap={1} // Optional: Adds space between cards
+                        alignItems="stretch" // Ensures cards stretch to fill the container height
+                      >
+                        <Card style={{ flex: 1.1 }}>
+                          <Box>
+                            <Typography
+                              sx={{ height: 95 }}
+                              component="div"
+                              align="center"
+                              style={{
+                                backgroundColor: '#002884',
+                                color: '#F0F2F5',
+                                fontSize: '14px',
+                              }}
+                            >
+                              जमीन महसुलाची मागणी
+                            </Typography>
+                            <Divider variant="middle" />
+                          </Box>
+                        </Card>
+
+                        <Card style={{ flex: 1.6 }}>
+                          <Box>
+                            <Typography
+                              sx={{ height: 95 }}
+                              component="div"
+                              align="center"
+                              style={{
+                                backgroundColor: '#002884',
+                                color: '#F0F2F5',
+                                fontSize: '14px',
+                              }}
+                            >
+                              जमिनोत्तर महसुलाची मागणी
+                            </Typography>
+                            <Divider variant="middle" />
+                          </Box>
+                        </Card>
+
+                        <Card style={{ flex: 1.1 }}>
+                          <Box>
+                            <Typography
+                              sx={{ height: 95 }}
+                              component="div"
+                              align="center"
+                              style={{
+                                backgroundColor: '#002884',
+                                color: '#F0F2F5',
+                                paddingTop: '20',
+                                fontSize: '14px',
+
+                              }}
+                            >
+                              एकुण
+                            </Typography>
+                            <Divider variant="middle" />
+                          </Box>
+                        </Card>
+                      </Box>
+                    </Grid>
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={7}>
+                      <Card style={{ flex: 1 }}>
+                        <Box>
+                          <Typography
+                            sx={{ height: 25 }}
+                            component="div"
+                            align="center"
+                            style={{
+                              backgroundColor: '#002884',
+                              color: '#F0F2F5',
+                              fontSize: '14px',
+                            }}
+                          >
+                            एकूण वसूली
+                          </Typography>
+                          <Divider variant="middle" />
+                        </Box>
+                      </Card>
+                      <Box
+                        display="flex"
+                        flexDirection="row" // Change to 'column' for vertical layout
+                        gap={1} // Optional: Adds space between cards
+                        alignItems="stretch" // Ensures cards stretch to fill the container height
+                      >
+                        <Card style={{ flex: 1.1 }}>
+                          <Box>
+                            <Typography
+                              sx={{ height: 95 }}
+                              component="div"
+                              align="center"
+                              style={{
+                                backgroundColor: '#002884',
+                                color: '#F0F2F5',
+                                fontSize: '14px',
+                              }}
+                            >
+                              जमीन महसुलाची वसुली
+                            </Typography>
+                            <Divider variant="middle" />
+                          </Box>
+                        </Card>
+
+                        <Card style={{ flex: 1.6 }}>
+                          <Box>
+                            <Typography
+                              sx={{ height: 95 }}
+                              component="div"
+                              align="center"
+                              style={{
+                                backgroundColor: '#002884',
+                                color: '#F0F2F5',
+                                fontSize: '14px',
+                              }}
+                            >
+                              जमिनोत्तर महसुलाची वसुली
+                            </Typography>
+                            <Divider variant="middle" />
+                          </Box>
+                        </Card>
+
+                        <Card style={{ flex: 1.1 }}>
+                          <Box>
+                            <Typography
+                              sx={{ height: 95 }}
+                              component="div"
+                              align="center"
+                              style={{
+                                backgroundColor: '#002884',
+                                color: '#F0F2F5',
+                                paddingTop: '20',
+                                fontSize: '14px',
+
+                              }}
+                            >
+                              एकुण
+                            </Typography>
+                            <Divider variant="middle" />
+                          </Box>
+                        </Card>
+                      </Box>
+                    </Grid>
+                    {/* <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                      <Card>
+                        <Box>
+                          <Typography
+                            sx={{ height: 120 }}
+                            component="div"
+                            align="center"
+                            style={{
+                              backgroundColor: '#002884',
+                              color: '#F0F2F5',
+                              fontSize: '12px',
+                            }}
+                          >
+                            ई-चावडी प्रणाली- मध्ये एक ही खातेदारांची मागणी निश्चिती न केल्याने वसुली
+                            न करणाऱ्या गावांची संख्या
+                          </Typography>
+                          <Divider variant="middle" />
+                        </Box>
+                      </Card>
+                    </Grid>
+
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                      <Card>
+                        <Box>
+                          <Typography
+                            sx={{ height: 120 }}
+                            component="div"
+                            align="center"
+                            style={{ backgroundColor: '#002884', color: '#F0F2F5' }}
+                          >
+                            १००% मागणी निश्चिती न करता वसूली सुरू केलेल्या गावांची संख्या
+                          </Typography>
+
+                          <Divider variant="middle" />
+                        </Box>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                      <Card>
+                        <Box>
+                          <Typography
+                            sx={{ height: 120 }}
+                            component="div"
+                            align="center"
+                            style={{ backgroundColor: '#002884', color: '#F0F2F5' }}
+                          >
+                            <p>एकुण</p>
+                          </Typography>
+                          <Divider variant="middle" />
+                        </Box>
+                      </Card>
+                    </Grid> */}
+
+              
+                  </Grid>
+                  {/* Main Grid */}
+                  {dashBoardDetail &&
+                    dashBoardDetail.map((r, i) => {
+                      return (
+                        <>
+                          <Grid container spacing={1} columns={24} style={{ padding: '2px' }}>
+                            <Grid
+                              item
+                              xs={24}
+                              sm={24}
+                              md={24}
+                              lg={2}
+                              xl={3}
+                              style={{
+                                cursor: 'pointer',
+                                position: 'sticky!important',
+                                top: '0px',
+                                width: '100%',
+                              }}
+                            >
+                              <Card>
+                                <Box
+                                  sx={{
+                                    bgcolor: '#91ceff',
+                                    height: 50,
+                                  }}
+                                >
+                                  {/* Division Click */}
+                                  <CardContent>
+                                    <h3
+                                    // onClick={(e) => {
+                                    //   //alert('showdist');
+                                    //   if (
+                                    //     showDistrict === true &&
+                                    //     r.divisionCode === divisionCode
+                                    //   ) {
+                                    //     setshowDistrict(false);
+                                    //   } else {
+                                    //     setshowSpin(true);
+                                    //     setDashBoardDetail1([]);
+                                    //     setDivisionCode(r.divisionCode);
+                                    //     setDistricts(r.districtCode);
+                                    //     getDashBoardDetails1(r.divisionCode);
+                                    //     setshowDistrict(true);
+                                    //   }
+                                    // }}
+                                    >
+                                      {' '}
+                                      <u
+                                        onClick={(e) => {
+                                          //alert('showdist');
+                                          if (
+                                            showDistrict === true &&
+                                            r.divisionCode === divisionCode
+                                          ) {
+                                            setshowDistrict(false);
+                                          } else {
+                                            setshowSpin(true);
+                                            setDashBoardDetail1([]);
+                                            setDivisionCode(r.divisionCode);
+                                            setDistricts(r.districtCode);
+                                            getDashBoardDetails1(r.divisionCode);
+                                            setshowDistrict(true);
+                                          }
+                                        }}
+                                      >
+                                        {r.divisionName}
+                                      </u>{' '}
+                                      &nbsp;
+                                      {showDistrict === true && r.divisionCode === divisionCode && (
+                                        <ExportToExcel
+                                          dataDistrict={dashBoardDetail1}
+                                          totalDistrict={dashBoardCount1}
+                                          btnName={'GridDistrict'}
+                                          style={{ width: '10px' }}
+                                        >
+                                          {/* <DownloadOutlined style={{ width: '100%' }} /> */}
+                                        </ExportToExcel>
+                                      )}
+                                      {showSpin === true && r.divisionCode === divisionCode && (
+                                        <Spin indicator={antIcon} />
+                                      )}
+                                    </h3>
+                                  </CardContent>
+                                </Box>
+                              </Card>
+                            </Grid>
+                            {/* )} */}
+                            <Grid item xs={24} sm={24} md={24} lg={2} xl={2}>
+                              <Card>
+                                <Box
+                                  sx={{
+                                    bgcolor: '#91ceff',
+                                    height: 50,
+                                  }}
+                                >
+                                  <CardContent>
+                                    <center>
+                                      <h3>{r.districtsCount}</h3>
+                                    </center>
+                                  </CardContent>
+                                </Box>
+                              </Card>
+                            </Grid>
+                            <Grid item xs={24} sm={24} md={24} lg={2} xl={2}>
+                              <Card>
+                                <Box
+                                  sx={{
+                                    bgcolor: '#91ceff',
+                                    height: 50,
+                                  }}
+                                >
+                                  <CardContent>
+                                    <center>
+                                      <h3>{r.totalTaluka}</h3>
+                                    </center>
+                                  </CardContent>
+                                </Box>
+                              </Card>
+                            </Grid>
+                            <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                              <Card>
+                                <Box
+                                  sx={{
+                                    bgcolor: '#91ceff',
+                                    height: 50,
+                                  }}
+                                >
+                                  <CardContent>
+                                    <center>
+                                      <h3>{r.totalVillages}</h3>
+                                    </center>
+                                  </CardContent>
+                                </Box>
+                              </Card>
+                            </Grid>
+                            {/* <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                              <Card>
+                                <Box
+                                  sx={{
+                                    bgcolor: '#91ceff',
+                                    height: 50,
+                                  }}
+                                >
+                                  <CardContent>
+                                    <center>
+                                      <h3>{r.totalEntry}</h3>
+                                    </center>
+                                  </CardContent>
+                                </Box>
+                              </Card>
+                            </Grid> */}
+                            {/* <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                              <Card>
+                                <Box
+                                  sx={{
+                                    bgcolor: '#91ceff',
+                                    height: 50,
+                                  }}
+                                >
+                                  <CardContent>
+                                    <center>
+                                      <h3>{r.totalGaonNamunaCount}</h3>
+                                    </center>
+                                  </CardContent>
+                                </Box>
+                              </Card>
+                            </Grid> */}
+                            <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                              <Card>
+                                <Box
+                                  sx={{
+                                    bgcolor: '#91ceff',
+                                    height: 50,
+                                  }}
+                                >
+                                  <CardContent>
+                                    <center>
+                                      {/* <h3>4 </h3> */}
+                                      <h3>{r.totalDemandJm} </h3>
+                                    </center>
+                                  </CardContent>
+                                </Box>
+                              </Card>
+                            </Grid>
+                            {/* Newly mapped variable */}
+
+                            <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                              <Card>
+                                <Box
+                                  sx={{
+                                    bgcolor: '#91ceff',
+                                    height: 50,
+                                  }}
+                                >
+                                  <CardContent>
+                                    <center>
+                                      <h3>{r.totalDemandSakirn}</h3>
+                                    </center>
+                                  </CardContent>
+                                </Box>
+                              </Card>
+                            </Grid>
+                            <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                              <Card>
+                                <Box
+                                  sx={{
+                                    bgcolor: '#91ceff',
+                                    height: 50,
+                                  }}
+                                >
+                                  <CardContent>
+                                    <center>
+                                      {/* <h3>T</h3> */}
+                                      <h3>{r.totalDemandJm + r.totalDemandSakirn} </h3>
+                                    </center>
+                                  </CardContent>
+                                </Box>
+                              </Card>
+                            </Grid>
+                            <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                              <Card>
+                                <Box
+                                  sx={{
+                                    bgcolor: '#91ceff',
+                                    height: 50,
+                                  }}
+                                >
+                                  <CardContent>
+                                    <center>
+                                      {/* <h3>4 </h3> */}
+                                      <h3>{r.totalCollectedJm} </h3>
+                                    </center>
+                                  </CardContent>
+                                </Box>
+                              </Card>
+                            </Grid>
+                            {/* Newly mapped variable */}
+
+                            <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                              <Card>
+                                <Box
+                                  sx={{
+                                    bgcolor: '#91ceff',
+                                    height: 50,
+                                  }}
+                                >
+                                  <CardContent>
+                                    <center>
+                                      <h3>{r.totalCollectedSankirn}</h3>
+                                    </center>
+                                  </CardContent>
+                                </Box>
+                              </Card>
+                            </Grid>
+                            <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                              <Card>
+                                <Box
+                                  sx={{
+                                    bgcolor: '#91ceff',
+                                    height: 50,
+                                  }}
+                                >
+                                  <CardContent>
+                                    <center>
+                                      {/* <h3>T</h3> */}
+                                      <h3>{r.totalCollectedJm + r.totalCollectedSankirn} </h3>
+                                    </center>
+                                  </CardContent>
+                                </Box>
+                              </Card>
+                            </Grid>
+                            
+                          </Grid>
+                          {/* District Grid */}
+                          {showDistrict === true && r.divisionCode === divisionCode && (
+                            <Grid
+                              container
+                              spacing={1}
+                              columns={24}
+                              style={{ padding: '2px' }}
+                            ></Grid>
+                          )}
+                          {showDistrict === true &&
+                            dashBoardDetail1?.length !== 0 &&
+                            r.divisionCode === divisionCode &&
+                            dashBoardDetail1?.map((r, i) => {
+                              return (
+                                <>
+                                  <Grid
+                                    container
+                                    spacing={1}
+                                    columns={24}
+                                    style={{ padding: '2px', cursor: 'pointer' }}
+                                  >
+                                    <Grid item xs={24} sm={24} md={24} lg={2} xl={3}>
+                                      <Card>
+                                        <Box
+                                          sx={{
+                                            // bgcolor: '#91ceff',
+                                            bgcolor: '#cce8ff',
+                                            height: r.districtName?.length >= 11 ? 60 : 50,
+                                          }}
+                                        >
+                                          <CardContent>
+                                            <h4
+                                            // onClick={(e) => {
+                                            //   //alert('showtaluka');
+                                            //   if (
+                                            //     showTaluka === true &&
+                                            //     r.districtCode === districtsCode
+                                            //   ) {
+                                            //     setshowTaluka(false);
+                                            //   } else {
+                                            //     setshowSpin2(true);
+                                            //     setDashBoardDetail2([]);
+                                            //     setDivisionCode(r.divisionCode);
+                                            //     setDistricts(r.districtCode);
+                                            //     //for Taluka grid
+                                            //     setTalukaCode(r.talukaCode);
+                                            //     getDashBoardDetails2(
+                                            //       r.divisionCode,
+                                            //       r.districtCode,
+                                            //     );
+                                            //     setshowTaluka(true);
+                                            //   }
+                                            // }}
+                                            >
+                                              <u
+                                                onClick={(e) => {
+                                                  //alert('showtaluka');
+                                                  if (
+                                                    showTaluka === true &&
+                                                    r.districtCode === districtsCode
+                                                  ) {
+                                                    setshowTaluka(false);
+                                                  } else {
+                                                    setshowSpin2(true);
+                                                    setDashBoardDetail2([]);
+                                                    setDivisionCode(r.divisionCode);
+                                                    setDistricts(r.districtCode);
+                                                    //for Taluka grid
+                                                    setTalukaCode(r.talukaCode);
+                                                    getDashBoardDetails2(
+                                                      r.divisionCode,
+                                                      r.districtCode,
+                                                    );
+                                                    setshowTaluka(true);
+                                                  }
+                                                }}
+                                              >
+                                                {' '}
+                                                {r.districtName}
+                                              </u>
+                                              &nbsp;
+                                              {showTaluka === true &&
+                                                r.districtCode === districtsCode && (
+                                                  <ExportToExcel
+                                                    dataTaluka={dashBoardDetail2}
+                                                    btnName={'GridTaluka'}
+                                                    style={{ width: '10px' }}
+                                                  />
+                                                )}
+                                              {showSpin2 === true &&
+                                                r.districtsCode === districtsCode && (
+                                                  <Spin indicator={antIcon} />
+                                                )}
+                                            </h4>
+                                          </CardContent>
+                                        </Box>
+                                      </Card>
+                                    </Grid>
+                                    <Grid item xs={24} sm={24} md={24} lg={2} xl={2}>
+                                      <Card>
+                                        <Box
+                                          sx={{
+                                            bgcolor: '#cce8ff',
+                                            //height: 50,
+                                            height: r.districtName?.length >= 11 ? 60 : 50,
+                                          }}
+                                        >
+                                          <CardContent>
+                                            <center>
+                                              <h3>{r.districtsCount}</h3>
+                                            </center>
+                                          </CardContent>
+                                        </Box>
+                                      </Card>
+                                    </Grid>
+                                    <Grid item xs={24} sm={24} md={24} lg={2} xl={2}>
+                                      <Card>
+                                        <Box
+                                          sx={{
+                                            bgcolor: '#cce8ff',
+                                            //height: 50,
+                                            height: r.districtName?.length >= 11 ? 60 : 50,
+                                          }}
+                                        >
+                                          <CardContent>
+                                            <center>
+                                              <h3>{r.totalTaluka}</h3>
+                                            </center>
+                                          </CardContent>
+                                        </Box>
+                                      </Card>
+                                    </Grid>
+                                    <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                      <Card>
+                                        <Box
+                                          sx={{
+                                            bgcolor: '#cce8ff',
+                                            //height: 50,
+                                            height: r.districtName?.length >= 11 ? 60 : 50,
+                                          }}
+                                        >
+                                          <CardContent>
+                                            <center>
+                                              <h3>{r.totalVillages}</h3>
+                                            </center>
+                                          </CardContent>
+                                        </Box>
+                                      </Card>
+                                    </Grid>
+
+                                    {/* <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                      <Card>
+                                        <Box
+                                          sx={{
+                                            bgcolor: '#cce8ff',
+                                            //height: 50,
+                                            height: r.districtName?.length >= 11 ? 60 : 50,
+                                          }}
+                                        >
+                                          <CardContent>
+                                            <center>
+                                              <h3>{r.totalEntry}</h3>
+                                            </center>
+                                          </CardContent>
+                                        </Box>
+                                      </Card>
+                                    </Grid> */}
+                                    {/* <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                      <Card>
+                                        <Box
+                                          sx={{
+                                            bgcolor: '#cce8ff',
+                                            // height: 50,
+                                            height: r.districtName?.length >= 11 ? 60 : 50,
+                                          }}
+                                        >
+                                          <CardContent>
+                                            <center>
+                                              <h3>{r.totalGaonNamunaCount}</h3>
+                                            </center>
+                                          </CardContent>
+                                        </Box>
+                                      </Card>
+                                    </Grid> */}
+                                    <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                      <Card>
+                                        <Box
+                                          sx={{
+                                            bgcolor: '#cce8ff',
+                                            // height: 50,
+                                            height: r.districtName?.length >= 11 ? 60 : 50,
+                                          }}
+                                        >
+                                          <CardContent>
+                                            <center>
+                                              {/* <h3>4 D</h3> */}
+                                              <h3>{r.totalDemandJm}</h3>
+                                            </center>
+                                          </CardContent>
+                                        </Box>
+                                      </Card>
+                                    </Grid>
+
+                                    <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                                      <Card>
+                                        <Box
+                                          sx={{
+                                            bgcolor: '#cce8ff',
+                                            //height: 50,
+                                            height: r.districtName?.length >= 11 ? 60 : 50,
+                                          }}
+                                        >
+                                          <CardContent>
+                                            <center>
+                                              <h3>{r.totalDemandSakirn}</h3>
+                                            </center>
+                                          </CardContent>
+                                        </Box>
+                                      </Card>
+                                    </Grid>
+                                    <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                      <Card>
+                                        <Box
+                                          sx={{
+                                            bgcolor: '#cce8ff',
+                                            //height: 50,
+                                            height: r.districtName?.length >= 11 ? 60 : 50,
+                                          }}
+                                        >
+                                          <CardContent>
+                                            <center>
+                                              {/* <h3>T D</h3> */}
+                                              <h3>{r.totalDemandJm + r.totalDemandSakirn}</h3>
+                                            </center>
+                                          </CardContent>
+                                        </Box>
+                                      </Card>
+                                    </Grid>
+                                   
+                                    <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                      <Card>
+                                        <Box
+                                          sx={{
+                                            bgcolor: '#cce8ff',
+                                            // height: 50,
+                                            height: r.districtName?.length >= 11 ? 60 : 50,
+                                          }}
+                                        >
+                                          <CardContent>
+                                            <center>
+                                              {/* <h3>4 D</h3> */}
+                                              <h3>{r.totalCollectedJm}</h3>
+                                            </center>
+                                          </CardContent>
+                                        </Box>
+                                      </Card>
+                                    </Grid>
+
+                                    <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                                      <Card>
+                                        <Box
+                                          sx={{
+                                            bgcolor: '#cce8ff',
+                                            //height: 50,
+                                            height: r.districtName?.length >= 11 ? 60 : 50,
+                                          }}
+                                        >
+                                          <CardContent>
+                                            <center>
+                                              <h3>{r.totalCollectedSankirn}</h3>
+                                            </center>
+                                          </CardContent>
+                                        </Box>
+                                      </Card>
+                                    </Grid>
+                                    <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                      <Card>
+                                        <Box
+                                          sx={{
+                                            bgcolor: '#cce8ff',
+                                            //height: 50,
+                                            height: r.districtName?.length >= 11 ? 60 : 50,
+                                          }}
+                                        >
+                                          <CardContent>
+                                            <center>
+                                              {/* <h3>T D</h3> */}
+                                              <h3>{r.totalCollectedJm + r.totalCollectedSankirn}</h3>
+                                            </center>
+                                          </CardContent>
+                                        </Box>
+                                      </Card>
+                                    </Grid>
+                                   
+                                  </Grid>
+                                  {/* Show Taluka */}
+                                  {showTaluka === true && r.districtCode === districtsCode && (
+                                    <Grid
+                                      container
+                                      spacing={1}
+                                      columns={24}
+                                      style={{ padding: '2px' }}
+                                    ></Grid>
+                                  )}
+
+                                  {showTaluka === true &&
+                                    dashBoardDetail2?.length !== 0 &&
+                                    r.districtCode === districtsCode &&
+                                    dashBoardDetail2?.map((r, i) => {
+                                      return (
+                                        <>
+                                          <Grid
+                                            container
+                                            spacing={1}
+                                            columns={24}
+                                            style={{ padding: '2px' }}
+                                          >
+                                            <Grid item xs={24} sm={24} md={24} lg={2} xl={3}>
+                                              <Card>
+                                                <Box
+                                                  sx={{
+                                                    // bgcolor: '#91ceff',
+                                                    bgcolor: '#F0F2F5',
+                                                    height: 50,
+                                                  }}
+                                                >
+                                                  {/* <CardContent>
+                                                    <center>
+                                                      <h4>{r.talukaName}</h4>
+                                                    </center>
+                                                  </CardContent> */}
+                                                  <CardContent>
+                                                    <center>
+                                                      <a
+                                                        onClick={() => {
+                                                          redirectToReport(
+                                                            r.districtName,
+                                                            r.districtCode,
+                                                            r.talukaName,
+                                                            r.talukaCode,
+                                                          );
+                                                        }}
+                                                      >
+                                                        <h4>
+                                                          <u> {r.talukaName}</u>
+                                                        </h4>
+                                                      </a>{' '}
+                                                    </center>
+                                                  </CardContent>
+                                                </Box>
+                                              </Card>
+                                            </Grid>
+                                            <Grid item xs={24} sm={24} md={24} lg={2} xl={2}>
+                                              <Card>
+                                                <Box
+                                                  sx={{
+                                                    bgcolor: '#F0F2F5',
+                                                    height: 50,
+                                                  }}
+                                                >
+                                                  <CardContent>
+                                                    <center>
+                                                      {/* <h3>{r.districtsCount}</h3> */}
+                                                      <h3>0</h3>
+                                                    </center>
+                                                  </CardContent>
+                                                </Box>
+                                              </Card>
+                                            </Grid>
+                                            <Grid item xs={24} sm={24} md={24} lg={2} xl={2}>
+                                              <Card>
+                                                <Box
+                                                  sx={{
+                                                    bgcolor: '#F0F2F5',
+                                                    height: 50,
+                                                  }}
+                                                >
+                                                  <CardContent>
+                                                    <center>
+                                                      {/* <h3>{r.totalTaluka}</h3>
+                                                       */}
+                                                      <h3>1</h3>
+                                                    </center>
+                                                  </CardContent>
+                                                </Box>
+                                              </Card>
+                                            </Grid>
+                                            <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                              <Card>
+                                                <Box
+                                                  sx={{
+                                                    // bgcolor: '#F0F2F5',
+                                                    bgcolor: '#e4f4ff',
+                                                    height: 50,
+                                                  }}
+                                                >
+                                                  <CardContent>
+                                                    <center>
+                                                      <h3>{r.totalVillages}</h3>
+                                                    </center>
+                                                  </CardContent>
+                                                  {/* <CardContent>
+                                                    <center>
+                                                      <a
+                                                        onClick={() => {
+                                                          redirectToReport(
+                                                            r.districtName,
+                                                            r.districtCode,
+                                                          );
+                                                        }}
+                                                      >
+                                                        <h3>{r.totalVillages}</h3>
+                                                      </a>{' '}
+                                                    </center>
+                                                  </CardContent> */}
+                                                </Box>
+                                              </Card>
+                                            </Grid>
+                                            {/* <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                              <Card>
+                                                <Box
+                                                  sx={{
+                                                    bgcolor: '#e4f4ff',
+                                                    height: 50,
+                                                  }}
+                                                >
+                                                  <CardContent>
+                                                    <center>
+                                                      <a
+                                                        onClick={() => {
+                                                          redirectToReport(
+                                                            r.districtName,
+                                                            r.districtCode,
+                                                            r.talukaName,
+                                                            r.talukaCode,
+                                                          );
+                                                        }}
+                                                      >
+                                                        <h3>
+                                                          <u> {r.totalEntry}</u>
+                                                        </h3>
+                                                      </a>{' '}
+                                                    </center>
+                                                  </CardContent>
+                                                </Box>
+                                              </Card>
+                                            </Grid> */}
+                                            {/* <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                              <Card>
+                                                <Box
+                                                  sx={{
+                                                    bgcolor: '#e4f4ff',
+                                                    height: 50,
+                                                  }}
+                                                >
+                                                  <CardContent>
+                                                    <center>
+                                                      <a
+                                                        onClick={() => {
+                                                          redirectToGoannamune_Purna_Bharlyababat_Ghoshna_Keleli_Gaon_Sankhya(
+                                                            r.districtName,
+                                                            r.districtCode,
+                                                            r.totalPhase1Villages,
+                                                            r.talukaCode,
+                                                            selectedYear,
+                                                          );
+                                                        }}
+                                                      >
+                                                        <h3>
+                                                          <u> {r.totalGaonNamunaCount}</u>
+                                                        </h3>
+                                                      </a>
+                                                    </center>
+                                                  </CardContent>
+                                                </Box>
+                                              </Card>
+                                            </Grid> */}
+                                            <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                              <Card>
+                                                <Box
+                                                  sx={{
+                                                    bgcolor: '#e4f4ff',
+                                                    height: 50,
+                                                  }}
+                                                >
+                                                  <CardContent>
+                                                    <center>
+                                                      {/* <h3>{r.totalGaonNamunaCount}</h3> */}
+                                                      <a
+                                                        onClick={() => {
+                                                          redirectToMagniNichtiNaKartaVasuliSuruKelelyaGaoanSankhya1(
+                                                            r.districtName,
+                                                            r.districtCode,
+                                                            r.totalOnlineVillagesCount,
+                                                            r.talukaCode,
+                                                            selectedYear,
+                                                          );
+                                                        }}
+                                                      >
+                                                        <h3>
+                                                          {/* <u>4T</u> */}
+                                                          <u>{r.totalDemandJm}</u>
+                                                        </h3>
+                                                      </a>
+                                                    </center>
+                                                  </CardContent>
+                                                </Box>
+                                              </Card>
+                                            </Grid>
+                                            {/* <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                                              <Card>
+                                                <Box
+                                                  sx={{
+                                                    bgcolor: '#e4f4ff',
+                                                    height: 50,
+                                                  }}
+                                                >
+                                                  <CardContent>
+                                                    <center>
+                                                      
+                                                      <a
+                                                        onClick={() => {
+                                                          redirectToMagniNichtiKeleliGaoanSankhya(
+                                                            r.districtName,
+                                                            r.districtCode,
+                                                            r.totalPhase1Login,
+                                                            r.talukaCode,
+                                                          );
+                                                        }}
+                                                      >
+                                                        <h3>
+                                                          <u> {r.totalDemandCompletedCount}</u>
+                                                        </h3>
+                                                      </a>
+                                                    </center>
+                                                  </CardContent>
+                                                </Box>
+                                              </Card>
+                                            </Grid> */}
+
+                                            {/* 7777 */}
+                                            <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                                              <Card>
+                                                <Box
+                                                  sx={{
+                                                    bgcolor: '#e4f4ff',
+                                                    height: 50,
+                                                  }}
+                                                >
+                                                  <CardContent>
+                                                    <center>
+                                                      <a
+                                                        onClick={() => {
+                                                          redirectToMagniNichtiNaKartaVasuliSuruKelelyaGaoanSankhya(
+                                                            r.districtName,
+                                                            r.districtCode,
+                                                            r.totalOnlineVillagesCount,
+                                                            r.talukaCode,
+                                                            selectedYear,
+                                                          );
+                                                        }}
+                                                      >
+                                                        <h3>
+                                                          <u>{r.totalDemandSakirn}</u>
+                                                        </h3>
+                                                      </a>
+                                                    </center>
+                                                  </CardContent>
+                                                </Box>
+                                              </Card>
+                                            </Grid>
+                                            <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                              <Card>
+                                                <Box
+                                                  sx={{
+                                                    bgcolor: '#e4f4ff',
+                                                    height: 50,
+                                                  }}
+                                                >
+                                                  <CardContent>
+                                                    <center>
+                                                      <a
+                                                      // onClick={() => {
+                                                      //   redirectToMagniNichtiNaKartaVasuliSuruKelelyaGaoanSankhya(
+                                                      //     r.districtName,
+                                                      //     r.districtCode,
+                                                      //     r.totalOnlineVillagesCount,
+                                                      //     r.talukaCode,
+                                                      //   );
+                                                      // }}
+                                                      >
+                                                        <h3>
+                                                          {/* <u>T T</u> */}
+                                                          {r.totalDemandJm + r.totalDemandSakirn}
+                                                        </h3>
+                                                      </a>
+                                                    </center>
+                                                  </CardContent>
+                                                </Box>
+                                              </Card>
+                                            </Grid>
+                                           
+
+                                            <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                              <Card>
+                                                <Box
+                                                  sx={{
+                                                    bgcolor: '#e4f4ff',
+                                                    height: 50,
+                                                  }}
+                                                >
+                                                  <CardContent>
+                                                    <center>
+                                                      {/* <h3>{r.totalGaonNamunaCount}</h3> */}
+                                                      <a
+                                                        onClick={() => {
+                                                          redirectToMagniNichtiNaKartaVasuliSuruKelelyaGaoanSankhya1(
+                                                            r.districtName,
+                                                            r.districtCode,
+                                                            r.totalOnlineVillagesCount,
+                                                            r.talukaCode,
+                                                            selectedYear,
+                                                          );
+                                                        }}
+                                                      >
+                                                        <h3>
+                                                          {/* <u>4T</u> */}
+                                                          <u>{r.totalCollectedJm}</u>
+                                                        </h3>
+                                                      </a>
+                                                    </center>
+                                                  </CardContent>
+                                                </Box>
+                                              </Card>
+                                            </Grid>
+                                            {/* <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                                              <Card>
+                                                <Box
+                                                  sx={{
+                                                    bgcolor: '#e4f4ff',
+                                                    height: 50,
+                                                  }}
+                                                >
+                                                  <CardContent>
+                                                    <center>
+                                                      
+                                                      <a
+                                                        onClick={() => {
+                                                          redirectToMagniNichtiKeleliGaoanSankhya(
+                                                            r.districtName,
+                                                            r.districtCode,
+                                                            r.totalPhase1Login,
+                                                            r.talukaCode,
+                                                          );
+                                                        }}
+                                                      >
+                                                        <h3>
+                                                          <u> {r.totalDemandCompletedCount}</u>
+                                                        </h3>
+                                                      </a>
+                                                    </center>
+                                                  </CardContent>
+                                                </Box>
+                                              </Card>
+                                            </Grid> */}
+
+                                            {/* 7777 */}
+                                            <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                                              <Card>
+                                                <Box
+                                                  sx={{
+                                                    bgcolor: '#e4f4ff',
+                                                    height: 50,
+                                                  }}
+                                                >
+                                                  <CardContent>
+                                                    <center>
+                                                      <a
+                                                        onClick={() => {
+                                                          redirectToMagniNichtiNaKartaVasuliSuruKelelyaGaoanSankhya(
+                                                            r.districtName,
+                                                            r.districtCode,
+                                                            r.totalOnlineVillagesCount,
+                                                            r.talukaCode,
+                                                            selectedYear,
+                                                          );
+                                                        }}
+                                                      >
+                                                        <h3>
+                                                          <u>{r.totalCollectedSankirn}</u>
+                                                        </h3>
+                                                      </a>
+                                                    </center>
+                                                  </CardContent>
+                                                </Box>
+                                              </Card>
+                                            </Grid>
+                                            <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                              <Card>
+                                                <Box
+                                                  sx={{
+                                                    bgcolor: '#e4f4ff',
+                                                    height: 50,
+                                                  }}
+                                                >
+                                                  <CardContent>
+                                                    <center>
+                                                      <a
+                                                      // onClick={() => {
+                                                      //   redirectToMagniNichtiNaKartaVasuliSuruKelelyaGaoanSankhya(
+                                                      //     r.districtName,
+                                                      //     r.districtCode,
+                                                      //     r.totalOnlineVillagesCount,
+                                                      //     r.talukaCode,
+                                                      //   );
+                                                      // }}
+                                                      >
+                                                        <h3>
+                                                          {/* <u>T T</u> */}
+                                                          {r.totalCollectedJm + r.totalCollectedSankirn}
+                                                        </h3>
+                                                      </a>
+                                                    </center>
+                                                  </CardContent>
+                                                </Box>
+                                              </Card>
+                                            </Grid>
+                                           
+                                           
+                                          </Grid>
+                                        </>
+                                      );
+                                    })}
+                                </>
+                              );
+                            })}
+
+                          {/* Taluka एकूण */}
+                          {/* TO add Taluka एकूण code put here */}
+                          {/* District एकूण */}
+                          {showDistrict === true && r.divisionCode === divisionCode && (
+                            <div>
+                              <Grid container spacing={1} columns={24}>
+                                <Grid item xs={24} sm={24} md={24} lg={2} xl={3}>
+                                  <Card>
+                                    <Box
+                                      sx={{
+                                        bgcolor: '#cce8ff',
+                                        height: 50,
+                                      }}
+                                    >
+                                      <CardContent>
+                                        <center>
+                                          <h3>एकूण</h3>
+                                          {/* <h3>एकूण district</h3> */}
+                                        </center>
+                                      </CardContent>
+                                    </Box>
+                                  </Card>
+                                </Grid>
+                                <Grid item xs={24} sm={24} md={24} lg={2} xl={2}>
+                                  <Card>
+                                    <Box
+                                      sx={{
+                                        bgcolor: '#cce8ff',
+                                        height: 50,
+                                      }}
+                                    >
+                                      <CardContent>
+                                        <center>
+                                          <h3>{dashBoardCount1?.districtsCount}</h3>
+                                        </center>
+                                      </CardContent>
+                                    </Box>
+                                  </Card>
+                                </Grid>
+                                <Grid item xs={24} sm={24} md={24} lg={2} xl={2}>
+                                  <Card>
+                                    <Box
+                                      sx={{
+                                        bgcolor: '#cce8ff',
+                                        height: 50,
+                                      }}
+                                    >
+                                      <CardContent>
+                                        <center>
+                                          <h3>{dashBoardCount1?.totalTalukaT}</h3>
+                                        </center>
+                                      </CardContent>
+                                    </Box>
+                                  </Card>
+                                </Grid>
+                                <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                  <Card>
+                                    <Box
+                                      sx={{
+                                        bgcolor: '#cce8ff',
+                                        height: 50,
+                                      }}
+                                    >
+                                      <CardContent>
+                                        <center>
+                                          <h3> {dashBoardCount1?.totalVillagesT}</h3>
+                                        </center>
+                                      </CardContent>
+                                    </Box>
+                                  </Card>
+                                </Grid>
+
+                                {/* <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                  <Card>
+                                    <Box
+                                      sx={{
+                                        bgcolor: '#cce8ff',
+                                        height: 50,
+                                      }}
+                                    >
+                                      <CardContent>
+                                        <center>
+                                          <h3> {dashBoardCount1?.totalEntryT}</h3>
+                                        </center>
+                                      </CardContent>
+                                    </Box>
+                                  </Card>
+                                </Grid> */}
+                                {/* <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                  <Card>
+                                    <Box
+                                      sx={{
+                                        bgcolor: '#cce8ff',
+                                        height: 50,
+                                      }}
+                                    >
+                                      <CardContent>
+                                        <center>
+                                          <h3> {dashBoardCount1?.totalGaonNamunaCountT}</h3>
+                                        </center>
+                                      </CardContent>
+                                    </Box>
+                                  </Card>
+                                </Grid> */}
+                                <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                  <Card>
+                                    <Box
+                                      sx={{
+                                        bgcolor: '#cce8ff',
+                                        height: 50,
+                                      }}
+                                    >
+                                      <CardContent>
+                                        <center>
+                                          {/* <h3>4T</h3> */}
+                                          <h3>{dashBoardCount1?.totalDemandJm}</h3>
+                                        </center>
+                                      </CardContent>
+                                    </Box>
+                                  </Card>
+                                </Grid>
+
+                                <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                                  <Card>
+                                    <Box
+                                      sx={{
+                                        bgcolor: '#cce8ff',
+                                        height: 50,
+                                      }}
+                                    >
+                                      <CardContent>
+                                        <center>
+                                          <h3> {dashBoardCount1?.totalDemandSakirn}</h3>
+                                        </center>
+                                      </CardContent>
+                                    </Box>
+                                  </Card>
+                                </Grid>
+                                <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                  <Card>
+                                    <Box
+                                      sx={{
+                                        bgcolor: '#cce8ff',
+                                        height: 50,
+                                      }}
+                                    >
+                                      <CardContent>
+                                        <center>
+                                          {/* <h3> T</h3> */}
+                                          <h3>{dashBoardCount1?.totalDemandJm + dashBoardCount1?.totalDemandSakirn }</h3>
+                                        </center>
+                                      </CardContent>
+                                    </Box>
+                                  </Card>
+                                </Grid>
+                                <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                  <Card>
+                                    <Box
+                                      sx={{
+                                        bgcolor: '#cce8ff',
+                                        height: 50,
+                                      }}
+                                    >
+                                      <CardContent>
+                                        <center>
+                                          {/* <h3>4T</h3> */}
+                                          <h3>{dashBoardCount1?.totalCollectedJm}</h3>
+                                        </center>
+                                      </CardContent>
+                                    </Box>
+                                  </Card>
+                                </Grid>
+
+                                <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                                  <Card>
+                                    <Box
+                                      sx={{
+                                        bgcolor: '#cce8ff',
+                                        height: 50,
+                                      }}
+                                    >
+                                      <CardContent>
+                                        <center>
+                                          <h3> {dashBoardCount1?.totalCollectedSankirn}</h3>
+                                        </center>
+                                      </CardContent>
+                                    </Box>
+                                  </Card>
+                                </Grid>
+                                <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                  <Card>
+                                    <Box
+                                      sx={{
+                                        bgcolor: '#cce8ff',
+                                        height: 50,
+                                      }}
+                                    >
+                                      <CardContent>
+                                        <center>
+                                          {/* <h3> T</h3> */}
+                                          <h3>{dashBoardCount1?.totalCollectedJm + dashBoardCount1?.totalCollectedSankirn }</h3>
+                                        </center>
+                                      </CardContent>
+                                    </Box>
+                                  </Card>
+                                </Grid>
+                              </Grid>
+                            </div>
+                          )}
+                        </>
+                      );
+                    })}
+
+                  {/* Division एकूण */}
+                  <Grid container spacing={1} columns={24} style={{ padding: '2px' }}>
+                    <Grid item xs={24} sm={24} md={24} lg={2} xl={3}>
+                      <Card>
+                        <Box
+                          sx={{
+                            bgcolor: '#91ceff',
+                            height: 50,
+                          }}
+                        >
+                          <CardContent>
+                            <center>
+                              {/* <h3>एकूण Division t1</h3> */}
+                              <h3>एकूण</h3>
+                            </center>
+                          </CardContent>
+                        </Box>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={24} sm={24} md={24} lg={2} xl={2}>
+                      <Card>
+                        <Box
+                          sx={{
+                            bgcolor: '#91ceff',
+                            height: 50,
+                          }}
+                        >
+                          <CardContent>
+                            <center>
+                              <h3>{dashBoardCount?.districtsCount}</h3>
+                            </center>
+                          </CardContent>
+                        </Box>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={24} sm={24} md={24} lg={2} xl={2}>
+                      <Card>
+                        <Box
+                          sx={{
+                            bgcolor: '#91ceff',
+                            height: 50,
+                          }}
+                        >
+                          <CardContent>
+                            <center>
+                              <h3>{dashBoardCount?.totalTalukaT}</h3>
+                            </center>
+                          </CardContent>
+                        </Box>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                      <Card>
+                        <Box
+                          sx={{
+                            bgcolor: '#91ceff',
+                            height: 50,
+                          }}
+                        >
+                          <CardContent>
+                            <center>
+                              <h3> {dashBoardCount?.totalVillagesT}</h3>
+                            </center>
+                          </CardContent>
+                        </Box>
+                      </Card>
+                    </Grid>
+
+                    {/* <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                      <Card>
+                        <Box
+                          sx={{
+                            bgcolor: '#91ceff',
+                            height: 50,
+                          }}
+                        >
+                          <CardContent>
+                            <center>
+                              <h3> {dashBoardCount?.totalEntryT}</h3>
+                            </center>
+                          </CardContent>
+                        </Box>
+                      </Card>
+                    </Grid> */}
+
+                    {/* New variable Mapped */}
+                    {/* <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                      <Card>
+                        <Box
+                          sx={{
+                            bgcolor: '#91ceff',
+                            height: 50,
+                          }}
+                        >
+                          <CardContent>
+                            <center>
+                              <h3> {dashBoardCount?.totalGaonNamunaCountT}</h3>
+                            </center>
+                          </CardContent>
+                        </Box>
+                      </Card>
+                    </Grid> */}
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                      <Card>
+                        <Box
+                          sx={{
+                            bgcolor: '#91ceff',
+                            height: 50,
+                          }}
+                        >
+                          <CardContent>
+                            <center>
+                              {/* <h3> 4</h3> */}
+                              <h3> {dashBoardCount?.totalDemandJm}</h3>
+                            </center>
+                          </CardContent>
+                        </Box>
+                      </Card>
+                    </Grid>
+
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                      <Card>
+                        <Box
+                          sx={{
+                            bgcolor: '#91ceff',
+                            height: 50,
+                          }}
+                        >
+                          <CardContent>
+                            <center>
+                              <h3> {dashBoardCount?.totalDemandSakirn}</h3>
+                            </center>
+                          </CardContent>
+                        </Box>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                      <Card>
+                        <Box
+                          sx={{
+                            bgcolor: '#91ceff',
+                            height: 50,
+                          }}
+                        >
+                          <CardContent>
+                            <center>
+                              {/* <h3> T</h3> */}
+                              <h3> {dashBoardCount?.totalDemandJm + dashBoardCount?.totalDemandSakirn}</h3>
+                            </center>
+                          </CardContent>
+                        </Box>
+                      </Card>
+                    </Grid>
+
+
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                      <Card>
+                        <Box
+                          sx={{
+                            bgcolor: '#91ceff',
+                            height: 50,
+                          }}
+                        >
+                          <CardContent>
+                            <center>
+                              {/* <h3> 4</h3> */}
+                              <h3> {dashBoardCount?.totalCollectedJm}</h3>
+                            </center>
+                          </CardContent>
+                        </Box>
+                      </Card>
+                    </Grid>
+
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                      <Card>
+                        <Box
+                          sx={{
+                            bgcolor: '#91ceff',
+                            height: 50,
+                          }}
+                        >
+                          <CardContent>
+                            <center>
+                              <h3> {dashBoardCount?.totalCollectedSankirn}</h3>
+                            </center>
+                          </CardContent>
+                        </Box>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                      <Card>
+                        <Box
+                          sx={{
+                            bgcolor: '#91ceff',
+                            height: 50,
+                          }}
+                        >
+                          <CardContent>
+                            <center>
+                              {/* <h3> T</h3> */}
+                              <h3> {dashBoardCount?.totalCollectedJm + dashBoardCount?.totalCollectedSankirn}</h3>
+                            </center>
+                          </CardContent>
+                        </Box>
+                      </Card>
+                    </Grid>
+
+                  
+                  </Grid>
+                  {/*asha new 0ct13*/}
+                  {/************************************************list district**********************************************************8 */}
+                </Paper>
+              </Paper>
+            </>
+          )}
+
+          {/* Static Dashboard */}
+          {showStaticDashboard == true && (
+            <>
+              <Paper className={styles.Footercard}>
+                <Paper className={styles.Footercard} style={{ height: '800px', overflowY: 'auto' }}>
+                  {/* Main Grid */}
+                  <Grid
+                    container
+                    spacing={1}
+                    columns={24}
+                    style={{
+                      padding: '2px',
+                      position: 'sticky',
+                      top: '0px',
+                      zIndex: '5',
+                    }}
+                  >
+                    <Grid
+                      item
+                      xs={24}
+                      sm={24}
+                      md={24}
+                      lg={3}
+                      xl={3}
+                      style={{ position: 'sticky! important', top: '0px', overflowY: 'auto' }}
+                    >
+                      <Card>
+                        <Box>
+                          <Typography
+                            sx={{ height: 70 }}
+                            component="div"
+                            align="center"
+                            style={{ backgroundColor: '#002884', color: '#F0F2F5' }}
+                          >
+                            विभाग/जिल्हा नाव
+                          </Typography>
+
+                          <Divider variant="middle" />
+                        </Box>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                      <Card>
+                        <Box>
+                          <Typography
+                            sx={{ height: 70 }}
+                            component="div"
+                            align="center"
+                            style={{
+                              backgroundColor: '#002884',
+                              color: '#F0F2F5',
+                            }}
+                          >
+                            जिल्ह्यांची
+                          </Typography>
+
+                          <Divider variant="middle" />
+                        </Box>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                      <Card>
+                        <Box>
+                          <Typography
+                            sx={{ height: 70 }}
+                            component="div"
+                            align="center"
+                            style={{ backgroundColor: '#002884', color: '#F0F2F5' }}
+                          >
+                            तालुक्यांची संख्या
+                          </Typography>
+
+                          <Divider variant="middle" />
+                        </Box>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                      <Card>
+                        <Box>
+                          <Typography
+                            sx={{ height: 70 }}
+                            component="div"
+                            align="center"
+                            style={{ backgroundColor: '#002884', color: '#F0F2F5' }}
+                          >
+                            एकूण गावांची संख्या
+                          </Typography>
+
+                          <Divider variant="middle" />
+                        </Box>
+                      </Card>
+                    </Grid>
+
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                      <Card>
+                        <Box>
+                          <Typography
+                            sx={{ height: 70 }}
+                            component="div"
+                            align="center"
+                            style={{ backgroundColor: '#002884', color: '#F0F2F5' }}
+                          >
+                            भाग - १ मधील गावांची संख्या
+                          </Typography>
+
+                          <Divider variant="middle" />
+                        </Box>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                      <Card>
+                        <Box>
+                          <Typography
+                            sx={{ height: 70 }}
+                            component="div"
+                            align="center"
+                            style={{ backgroundColor: '#002884', color: '#F0F2F5' }}
+                          >
+                            लॉगिन गावांची संख्या
+                          </Typography>
+
+                          <Divider variant="middle" />
+                        </Box>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                      <Card>
+                        <Box>
+                          <Typography
+                            sx={{ height: 70 }}
+                            component="div"
+                            align="center"
+                            style={{ backgroundColor: '#002884', color: '#F0F2F5' }}
+                          >
+                            वसुली करणाऱ्या गावांची माहिती
+                          </Typography>
+
+                          <Divider variant="middle" />
+                        </Box>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                      <Card>
+                        <Box>
+                          <Typography
+                            sx={{ height: 70 }}
+                            component="div"
+                            align="center"
+                            style={{ backgroundColor: '#002884', color: '#F0F2F5' }}
+                          >
+                            एकूण भरलेली माहिती
+                          </Typography>
+
+                          <Divider variant="middle" />
+                        </Box>
+                      </Card>
+                    </Grid>
+                  </Grid>
+                  {/* Main Grid */}
+                  {staticdashBoardDivision &&
+                    staticdashBoardDivision.map((r, i) => {
+                      return (
+                        <>
+                          <Grid container spacing={1} columns={24} style={{ padding: '2px' }}>
+                            <Grid
+                              item
+                              xs={24}
+                              sm={24}
+                              md={24}
+                              lg={3}
+                              xl={3}
+                              style={{
+                                cursor: 'pointer',
+                                position: 'sticky!important',
+                                top: '0px',
+                                width: '100%',
+                              }}
+                            >
+                              <Card>
+                                <Box
+                                  sx={{
+                                    bgcolor: '#91ceff',
+                                    height: 50,
+                                  }}
+                                >
+                                  {/* Division Click */}
+                                  <CardContent>
+                                    {/* <h3>{r.vibhagjillaha1}</h3> */}
+                                    <h3
+                                      onClick={(e) => {
+                                        //alert('showdist');
+                                        if (
+                                          showDistrictforStaticDashboard === true &&
+                                          r.sequence == sequenceA
+                                        ) {
+                                          setshowDistrictforStaticDashboard(false);
+                                        } else {
+                                          setshowSpin(true);
+                                          setstaticdashBoardDistrict([]);
+                                          getStaticMISDataDistrict(r.sequence, r.year);
+                                          setSequenceA(r.sequence);
+                                          setshowDistrictforStaticDashboard(true);
+                                        }
+                                      }}
+                                    >
+                                      {' '}
+                                      {r.vibhagjillaha1 == 'एकूण' ? (
+                                        r.vibhagjillaha1
+                                      ) : (
+                                        <u>{r.vibhagjillaha1}</u>
+                                      )}{' '}
+                                      &nbsp;&nbsp;
+                                      {showSpin === true && r.sequence == sequenceA && (
+                                        <Spin indicator={antIcon} />
+                                      )}
+                                    </h3>
+                                  </CardContent>
+                                </Box>
+                              </Card>
+                            </Grid>
+                            {/* )} */}
+                            <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                              <Card>
+                                <Box
+                                  sx={{
+                                    bgcolor: '#91ceff',
+                                    height: 50,
+                                  }}
+                                >
+                                  <CardContent>
+                                    <center>
+                                      <h3>{r.jilhanchisankhya2}</h3>
+                                    </center>
+                                  </CardContent>
+                                </Box>
+                              </Card>
+                            </Grid>
+                            <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                              <Card>
+                                <Box
+                                  sx={{
+                                    bgcolor: '#91ceff',
+                                    height: 50,
+                                  }}
+                                >
+                                  <CardContent>
+                                    <center>
+                                      <h3>{r.talukasankhya3}</h3>
+                                    </center>
+                                  </CardContent>
+                                </Box>
+                              </Card>
+                            </Grid>
+                            <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                              <Card>
+                                <Box
+                                  sx={{
+                                    bgcolor: '#91ceff',
+                                    height: 50,
+                                  }}
+                                >
+                                  <CardContent>
+                                    <center>
+                                      <h3>{r.totalgaonsankhya4}</h3>
+                                    </center>
+                                  </CardContent>
+                                </Box>
+                              </Card>
+                            </Grid>
+                            <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                              <Card>
+                                <Box
+                                  sx={{
+                                    bgcolor: '#91ceff',
+                                    height: 50,
+                                  }}
+                                >
+                                  <CardContent>
+                                    <center>
+                                      <h3>{r.bhagonegoansankhya5}</h3>
+                                    </center>
+                                  </CardContent>
+                                </Box>
+                              </Card>
+                            </Grid>
+                            <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                              <Card>
+                                <Box
+                                  sx={{
+                                    bgcolor: '#91ceff',
+                                    height: 50,
+                                  }}
+                                >
+                                  <CardContent>
+                                    <center>
+                                      <h3>{r.logingoansankhya6}</h3>
+                                    </center>
+                                  </CardContent>
+                                </Box>
+                              </Card>
+                            </Grid>
+                            <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                              <Card>
+                                <Box
+                                  sx={{
+                                    bgcolor: '#91ceff',
+                                    height: 50,
+                                  }}
+                                >
+                                  <CardContent>
+                                    <center>
+                                      <h3>{r.vasuligoansankhya7}</h3>
+                                    </center>
+                                  </CardContent>
+                                </Box>
+                              </Card>
+                            </Grid>
+                            <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                              <Card>
+                                <Box
+                                  sx={{
+                                    bgcolor: '#91ceff',
+                                    height: 50,
+                                  }}
+                                >
+                                  <CardContent>
+                                    <center>
+                                      <h3>{r.totalbharlalihiti8}</h3>
+                                    </center>
+                                  </CardContent>
+                                </Box>
+                              </Card>
+                            </Grid>
+                          </Grid>
+                          {/* District Grid */}
+                          {showDistrictforStaticDashboard === true && (
+                            <Grid
+                              container
+                              spacing={1}
+                              columns={24}
+                              style={{ padding: '2px' }}
+                            ></Grid>
+                          )}
+                          {showDistrictforStaticDashboard === true &&
+                            staticdashBoardDistrict?.length !== 0 &&
+                            r.sequence == sequenceA &&
+                            staticdashBoardDistrict?.map((r, i) => {
+                              return (
+                                <>
+                                  <Grid
+                                    container
+                                    spacing={1}
+                                    columns={24}
+                                    style={{ padding: '2px', cursor: 'pointer' }}
+                                  >
+                                    <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                                      <Card>
+                                        <Box
+                                          sx={{
+                                            bgcolor: '#cce8ff',
+                                            //height: 50,
+                                            height: r.vibhagjillaha1d?.length >= 11 ? 60 : 50,
+                                          }}
+                                        >
+                                          <CardContent>
+                                            <center>
+                                              <h3>{r.vibhagjillaha1d}</h3>
+                                            </center>
+                                          </CardContent>
+                                        </Box>
+                                      </Card>
+                                    </Grid>
+                                    <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                                      <Card>
+                                        <Box
+                                          sx={{
+                                            bgcolor: '#cce8ff',
+                                            //height: 50,
+                                            height: r.vibhagjillaha1d?.length >= 11 ? 60 : 50,
+                                          }}
+                                        >
+                                          <CardContent>
+                                            <center>
+                                              <h3>{r.jilhanchisankhya2d}</h3>
+                                            </center>
+                                          </CardContent>
+                                        </Box>
+                                      </Card>
+                                    </Grid>
+                                    <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                                      <Card>
+                                        <Box
+                                          sx={{
+                                            bgcolor: '#cce8ff',
+                                            //height: 50,
+                                            height: r.vibhagjillaha1d?.length >= 11 ? 60 : 50,
+                                          }}
+                                        >
+                                          <CardContent>
+                                            <center>
+                                              <h3>{r.talukasankhya3d}</h3>
+                                            </center>
+                                          </CardContent>
+                                        </Box>
+                                      </Card>
+                                    </Grid>
+                                    <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                                      <Card>
+                                        <Box
+                                          sx={{
+                                            bgcolor: '#cce8ff',
+                                            //height: 50,
+                                            height: r.vibhagjillaha1d?.length >= 11 ? 60 : 50,
+                                          }}
+                                        >
+                                          <CardContent>
+                                            <center>
+                                              <h3>{r.totalgaonsankhya4d}</h3>
+                                            </center>
+                                          </CardContent>
+                                        </Box>
+                                      </Card>
+                                    </Grid>
+                                    <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                                      <Card>
+                                        <Box
+                                          sx={{
+                                            bgcolor: '#cce8ff',
+                                            // height: 50,
+                                            height: r.vibhagjillaha1d?.length >= 11 ? 60 : 50,
+                                          }}
+                                        >
+                                          <CardContent>
+                                            <center>
+                                              <h3>{r.bhagonegoansankhya5d}</h3>
+                                            </center>
+                                          </CardContent>
+                                        </Box>
+                                      </Card>
+                                    </Grid>
+                                    <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                                      <Card>
+                                        <Box
+                                          sx={{
+                                            bgcolor: '#cce8ff',
+                                            //height: 50,
+                                            height: r.vibhagjillaha1d?.length >= 11 ? 60 : 50,
+                                          }}
+                                        >
+                                          <CardContent>
+                                            <center>
+                                              <h3>{r.logingoansankhya6d}</h3>
+                                            </center>
+                                          </CardContent>
+                                        </Box>
+                                      </Card>
+                                    </Grid>
+                                    <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                                      <Card>
+                                        <Box
+                                          sx={{
+                                            bgcolor: '#cce8ff',
+                                            //height: 50,
+                                            height: r.vibhagjillaha1d?.length >= 11 ? 60 : 50,
+                                          }}
+                                        >
+                                          <CardContent>
+                                            <center>
+                                              <h3>{r.vasuligoansankhya7d}</h3>
+                                            </center>
+                                          </CardContent>
+                                        </Box>
+                                      </Card>
+                                    </Grid>
+                                    <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                                      <Card>
+                                        <Box
+                                          sx={{
+                                            bgcolor: '#cce8ff',
+                                            //height: 50,
+                                            height: r.vibhagjillaha1d?.length >= 11 ? 60 : 50,
+                                          }}
+                                        >
+                                          <CardContent>
+                                            <center>
+                                              <h3>{r.totalbharlalihiti8d}</h3>
+                                            </center>
+                                          </CardContent>
+                                        </Box>
+                                      </Card>
+                                    </Grid>
+                                  </Grid>
+                                </>
+                              );
+                            })}
+                        </>
+                      );
+                    })}
+                </Paper>
+              </Paper>
+            </>
+          )}
+        </Tabs.TabPane>
+
+
+
       </Tabs>
     </div>
   );

@@ -585,6 +585,7 @@ class ComponentToPrint extends React.Component {
                   <td>{r.employeeGuaranteeScheme}</td>
                   <td>{r.netAmount}</td>
                   <td colspan="2">{r.netPending}</td>
+                  {/* <td colspan="2">{r.netReceived}</td> */}
 
                   <td>{r.receiptNo}</td>
 

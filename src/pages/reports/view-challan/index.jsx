@@ -445,7 +445,7 @@ function ChallanReports() {
             loading={isLoading}
             onClick={() => {
               if (codeVillage && moneyStatus) {
-                getChallan();
+                // getChallan();
               } else if (!codeVillage) {
                 message.info('Please Select Village');
               } else if (!moneyStatus) {
