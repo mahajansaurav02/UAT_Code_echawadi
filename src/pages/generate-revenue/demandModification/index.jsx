@@ -37,7 +37,11 @@ function DemandForModification() {
   const { districtName, servarthId, districtCode, talukaCode, talukaName } = useModel('details');
   const { sendRequest } = useAxios();
   const location = useLocation();
-  //const [cCodeForPageMode, setCCodeForPageMode ]=useState()
+  const [jmAkrushakval, setJmAkrushakval] = useState();
+  const [gpAkrushakval, setGpAkrushakval] = useState();
+  const [zpAkrushakval, setZpAkrushakval] = useState();
+  const [lrBindumalaval, setLrBindumalaval] = useState();
+  const [remarkM, setRemarkM] = useState('');
 
   let pushedcCode;
   let pushedrevenueYear;
@@ -115,6 +119,7 @@ function DemandForModification() {
             preYearSankirnJmWith: row.preYearSankirnJmWith,
             preYearSankirnJmWithout: row.preYearSankirnJmWithout,
             preYearNoticeFee: row.preYearNoticeFee,
+            remarks:row.agauVasuliRemarks
           })),
         );
         // console.log(res.status);
@@ -154,43 +159,55 @@ function DemandForModification() {
   const [khataNumber, setKhataNumber] = useState();
   const [recordId, setRecordId] = useState();
   const [checkAgauVasuli, setCheckAgauVasuli] = useState(true);
+  const [remarkVisible, setRemarkVisible] = useState(true);
   const [modalForDelete, setModalForDelete] = useState(false);
   const [obj, setObj] = useState();
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const [vasuli, setVasuli] = useState(null);
+  const [remarkCheck, setRemarkCheck] = useState(null);
+  const [confirmLoading, setConfirmLoading] = useState(false);
 
   // useEffect(() => {
   //   console.log('vasuli', vasuli);
   // }, [vasuli]);
 
   const [dataInModal, setDataInModal] = useState({
-    agauVasuliRemarks: '',
-    assessment: '',
-    jmBindumala: '',
-    zpBindumala: '',
-    gpBindumala: '',
-    jmDumala: '',
-    zpDumala: '',
-    gpDumala: '',
-    jmAkrushik: '',
-    zpAkrushik: '',
-    gpAkrushik: '',
-    jmSankirn: '',
-    zpSankirn: '',
-    gpSankirn: '',
-    jmVajasut: '',
-    gpVajasut: '',
-    zpVajasut: '',
-    addlLandRevenue: '',
-    educationalCess: '',
     addlEducationalCess: '',
+    addlLandRevenue: '',
+    assessment: '',
+    educationalCess: '',
     employeeGuaranteeScheme: '',
+    gpAkrushik: '',
+    gpBindumala: '',
+    gpDumala: '',
+    gpSankirn: '',
+    gpVajasut: '',
+    jmAkrushik: '',
+    jmBindumala: '',
+    jmDumala: '',
+    jmSankirn: '',
+    jmVajasut: '',
+    miscellaneousAmount: '',
+    netAmount: '',
+    netPending: '',
+    preYearNoticeFee: '',
+    preYearPendingAddlEducationalCess: '',
+    preYearPendingAddlLandRevenue: '',
+    preYearPendingEducationalCess: '',
+    preYearPendingEmployeeGuaranteeScheme: '',
+    preYearPendingGp: '',
+    preYearPendingJm: '',
     preYearPendingNaCess: '',
+    preYearPendingZp: '',
     preYearSankirnJmWith: '',
     preYearSankirnJmWithout: '',
-    preYearNoticeFee: '',
-    miscellaneousAmount: '',
+    zpAkrushik: '',
+    zpBindumala: '',
+    zpDumala: '',
+    zpSankirn: '',
+    zpVajasut: '',
+    remarks: '',
   });
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [newTotal, setNewTotal] = useState();
@@ -229,6 +246,7 @@ function DemandForModification() {
     preYearSankirnJmWith,
     preYearSankirnJmWithout,
     preYearNoticeFee,
+    remarks
   } = dataInModal;
 
   useEffect(() => {
@@ -270,6 +288,8 @@ function DemandForModification() {
 
   const showModal = (record) => {
     // console.log('full Record', record);
+
+    console.log(record,"checkkkkkkModal")
     setDataInModal({
       districtCode: record.districtCode,
       revenueYear: record.revenueYear,
@@ -322,6 +342,8 @@ function DemandForModification() {
       preYearSankirnJmWith: record.preYearSankirnJmWith,
       preYearSankirnJmWithout: record.preYearSankirnJmWithout,
       preYearNoticeFee: record.preYearNoticeFee,
+      remarks:record.agauVasuliRemarks,
+      agauVasuliRemarks:record.agauVasuliRemarks
     });
     setIsModalVisible(true);
   };
@@ -408,8 +430,11 @@ function DemandForModification() {
 
   const onChangeCheckbox = (e) => {
     if (checkAgauVasuli === false) {
+      setRemarkVisible(true)
       setCheckAgauVasuli(true);
     } else {
+            setRemarkVisible(false)
+
       setCheckAgauVasuli(false);
     }
   };
@@ -476,7 +501,7 @@ function DemandForModification() {
       'POST',
       article,
       (res) => {
-        // console.log(res.data);
+        console.log(res.data[0]);
         setState(
           res.data.map((row, index) => ({
             districtCode: row.districtCode,
@@ -531,10 +556,21 @@ function DemandForModification() {
             preYearSankirnJmWith: row.preYearSankirnJmWith,
             preYearSankirnJmWithout: row.preYearSankirnJmWithout,
             preYearNoticeFee: row.preYearNoticeFee,
+            remarks:row.agauVasuliRemarks,
+            agauVasuliRemarks:row.agauVasuliRemarks
+            
           })),
         );
+
+        //  jmAkrushik: row.jmAkrushik,
+        //     zpAkrushik: row.zpAkrushik,
+        //     gpAkrushik: row.gpAkrushik,
         // console.log(res.status);
         if (res.status === 202) {
+          setGpAkrushakval(res.data[0].gpAkrushik);
+          setJmAkrushakval(res.data[0].jmAkrushik);
+          setZpAkrushakval(res.data[0].zpAkrushik);
+          setLrBindumalaval(res.data[0].jmBindumala);
           setIsLoading(false);
           message.success('Modification Records Fetched !');
         }
@@ -549,6 +585,7 @@ function DemandForModification() {
   };
   const resetTable = () => {
     setState();
+    setRemarkM('');
   };
 
   const columns = [
@@ -906,6 +943,7 @@ function DemandForModification() {
           preYearSankirnJmWith: row.preYearSankirnJmWith,
           preYearSankirnJmWithout: row.preYearSankirnJmWithout,
           preYearNoticeFee: row.preYearNoticeFee,
+          remarks:row.agauVasuliRemarks
         });
         //* refer generate challan to implement logic of pdf print
         // totalAmount += row.netAmountReceived;
@@ -996,24 +1034,83 @@ function DemandForModification() {
           );
 
     setNewTotal(newTotal.toFixed(2));
+
+    console.log(dataInModal, 'dataInModal========');
     const toSendData = {
       ...dataInModal,
       netAmount: newTotal >= 0 ? newTotal : 0,
       netPending: newTotal >= 0 ? newTotal : 0,
-      agauVasuliRemarks: vasuli,
+      // agauVasuliRemarks: vasuli ? vasuli : remarkCheck,
     };
+
+    console.log(toSendData, 'toSendData==========');
     setDataToSend(toSendData);
     // console.log('vasuli', vasuli);
   };
   const [selectionType, setSelectionType] = useState('checkbox');
 
   const saveEditedRecord = async () => {
+    // Validate JM Bindumala before submission
+    // if (!dataInModal?.jmBindumala || parseFloat(dataInModal.jmBindumala) === 0) {
+    //   message.error(
+    //     <FormattedMessage
+    //       id="demandGeneration.validation.jmBindumalaRequired"
+    //       defaultMessage="ज.म. बिंदुमाला आवश्यक आहे आणि शून्य असू शकत नाही"
+    //     />
+    //   );
+    //   return;
+    // }
+
+    //  jmAkrushik: row.jmAkrushik,
+    //           zpAkrushik: row.zpAkrushik,
+    //           gpAkrushik: row.gpAkrushik,
+    setConfirmLoading(true);
+    if (jmAkrushakval == 0 && zpAkrushakval == 0 && gpAkrushakval == 0) {
+      if (lrBindumalaval != 0 && dataInModal?.jmBindumala == 0) {
+        message.error(
+          <FormattedMessage
+            id="demandGeneration.validation.jmBindumalaRequired"
+            defaultMessage="ज.म. बिंदुमाला आवश्यक आहे आणि शून्य असू शकत नाही"
+          />,
+        );
+        return;
+      }
+    }
+console.log(dataToSend,"checkkkkkkk datato send")
+
+console.log(vasuli,"check vasuliii")
+console.log(remarkCheck,"check remarkCheck")
     const body = {
       ...dataToSend,
-      agauVasuliRemarks: vasuli,
+      agauVasuliRemarks: vasuli ? vasuli : remarkCheck,
+      jmBindumala: dataInModal.jmBindumala, // Ensure this is included in the payload
+      remarks: remarkM
     };
-    // console.log('Bodyyy+++', body);
+
+    const keysToCheck = [
+      'preYearPendingJm',
+      'preYearPendingZp',
+      'preYearPendingGp',
+      'preYearPendingAddlLandRevenue',
+      'preYearPendingEducationalCess',
+      'preYearPendingAddlEducationalCess',
+      'preYearPendingEmployeeGuaranteeScheme',
+      'preYearPendingNaCess',
+      'preYearSankirnJmWith',
+      'preYearSankirnJmWithout',
+      'preYearNoticeFee',
+    ];
+
+    keysToCheck.forEach((key) => {
+      if (body[key] == null || body[key].toString().trim() === '') {
+        body[key] = '0';
+      }
+    });
+    //
+    console.log(body, 'check bodyyy');
     const typeError = 'No Records For the Current Selection';
+    // setIsModalVisible(false);
+
     sendRequest(
       `${URLS.BaseURL}/landRevenue/updateLRDemand`,
       'PATCH',
@@ -1022,9 +1119,9 @@ function DemandForModification() {
         if (res.status === 204) {
           message.success('Updated Successfully');
           setIsModalVisible(false);
+          setConfirmLoading(false);
+
           resetTable();
-          // getData();
-          // getDataInUseEffect();
         }
       },
       'ERROR',
@@ -1179,13 +1276,12 @@ function DemandForModification() {
         }
         visible={isModalVisible}
         okText={<FormattedMessage id="demandGeneration.button.save" defaultMessage="जतन करा" />}
-        onOk={() => {
-          saveEditedRecord();
-        }}
+        onOk={saveEditedRecord}
         cancelText={
           <FormattedMessage id="demandGeneration.button.cancel" defaultMessage="रद्द करा" />
         }
         onCancel={handleCancelForModal}
+        confirmLoading={confirmLoading}
       >
         <>
           <Row>
@@ -1623,7 +1719,7 @@ function DemandForModification() {
           <Row style={{ paddingTop: 15 }}>
             <Col span={8}>
               <Input
-               disabled={false}
+                disabled={false}
                 style={{ paddingLeft: 10 }}
                 addonBefore={
                   <FormattedMessage
@@ -1795,7 +1891,7 @@ function DemandForModification() {
             </Col> */}
             <Col span={8}>
               <Input
-               disabled={false}
+                disabled={false}
                 style={{ paddingLeft: 10 }}
                 addonBefore={
                   <FormattedMessage
@@ -1900,7 +1996,29 @@ function DemandForModification() {
                 }}
               />
             </Col>
-            <Col span={1}></Col>
+            <Col span={2}></Col>
+{remarkVisible === true && (
+  <Col span={11}>
+    <Input
+      disabled={false}
+      addonBefore={
+        <FormattedMessage id="demandGeneration.table.remark" defaultMessage="अभिप्राय" />
+      }
+      value={dataInModal && dataInModal.agauVasuliRemarks}
+      onChange={(e) => {
+        console.log(e.target.value, "checkk target value")
+        setDataInModal((prevDataInModal) => ({
+          ...prevDataInModal,
+          agauVasuliRemarks: e.target.value,
+          remarks: e.target.value // Also update remarks for consistency
+        }));
+        setRemarkCheck(e.target.value)
+        setVasuli('')
+      }}
+    />
+  </Col>
+)}
+            <Col span={1}></Col> 
           </Row>
           <Row style={{ paddingTop: 10 }}>
             <Col xl={6} lg={6} md={24} xs={24} sm={24}>
@@ -1932,10 +2050,12 @@ function DemandForModification() {
                     // value={vasuli}
                     onChange={(e) => {
                       // console.log('agauVasuliRemarks', e.target.value);
+                      console.log(e.target.value)
                       setDataInModal((prevDataInModal) => ({
                         ...prevDataInModal,
                         agauVasuliRemarks: e.target.value,
                       }));
+                      setRemarkCheck('')
                       setVasuli(e.target.value);
                     }}
                   />

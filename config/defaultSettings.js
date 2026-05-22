@@ -8,7 +8,7 @@ const Settings = {
   fixedHeader: true,
   fixSiderbar: true,
   colorWeak: false,
-  title: 'ई -चावडी',
+  title: 'इ -चावडी',
   pwa: false,
   iconfontUrl: '',
 };

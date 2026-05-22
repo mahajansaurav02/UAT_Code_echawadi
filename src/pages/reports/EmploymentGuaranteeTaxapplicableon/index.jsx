@@ -15,7 +15,7 @@ function EducationalCess() {
   const [textForVillage, setTextForVillage] = useState();
   const [village, setVillage] = useState([]);
   const [tableData, setTableData] = useState();
-  const [revenueYear, setRevenueYear] = useState('2024-25');
+  const [revenueYear, setRevenueYear] = useState('2025-26');
   const [isNirank, setIsNirank] = useState(false);
   const componentRef = useRef();
   const { sendRequest } = useAxios();

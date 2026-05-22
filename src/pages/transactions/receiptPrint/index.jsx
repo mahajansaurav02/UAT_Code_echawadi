@@ -287,6 +287,7 @@ class ComponentToPrint extends React.Component {
                 <tr>
                   <td>१०) संकीर्ण जमीन महसूल (स्था.क. सह): </td>
                   <td colSpan={5}>{<>₹ {this.props.localCessAmount}</>}</td>
+                  {/* <td colSpan={5}>{<>₹ {this.props.localCessAmount}</>}</td> */}
                 </tr>
               </Row>
 

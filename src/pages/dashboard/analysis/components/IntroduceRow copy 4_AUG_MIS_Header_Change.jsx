@@ -361,7 +361,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
         okText: 'रद्द करा ',
 
         //cancelText: <FormattedMessage id="formLanguage.form.no" />,
-        title: 'ई-चावडी माहिती',
+        title: 'इ-चावडी माहिती',
         // content: 'सदर अहवालसाठी आपण पात्र नाही',
         content: 'सदर  अहवाल जिल्हाअधिकारी लॉगिनला उपलब्ध आहे',
         onCancel() {},
@@ -1570,7 +1570,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
         onTabClick={callbackTabClicked}
       >
         {/* <Tabs.TabPane tab="कामकाज प्रगती अहवाल" key="tab1"> */}
-        <Tabs.TabPane tab="ई-चावडी कामकाज प्रगती अहवाल" key="tab1">
+        <Tabs.TabPane tab="इ-चावडी कामकाज प्रगती अहवाल" key="tab1">
           {/* Old 2023-2024 */}
 
           {/* {selectedYear === '2023-2024' ? ( */}
@@ -1770,7 +1770,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                 fontSize: '12px',
                               }}
                             >
-                              ई-चावडी प्रणाली- मध्ये एक ही खातेदारांची मागणी निश्चिती न केल्याने
+                              इ-चावडी प्रणाली- मध्ये एक ही खातेदारांची मागणी निश्चिती न केल्याने
                               वसुली न करणाऱ्या गावांची संख्या
                             </Typography>
                             <Divider variant="middle" />
@@ -1828,7 +1828,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                               fontSize: '12px',
                             }}
                           >
-                            ई-चावडी प्रणाली- मध्ये एक ही खातेदारांची मागणी निश्चिती न केल्याने वसुली
+                            इ-चावडी प्रणाली- मध्ये एक ही खातेदारांची मागणी निश्चिती न केल्याने वसुली
                             न करणाऱ्या गावांची संख्या
                           </Typography>
                           <Divider variant="middle" />

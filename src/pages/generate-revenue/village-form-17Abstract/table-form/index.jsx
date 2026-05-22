@@ -55,7 +55,7 @@ function StepForm() {
     const selecterdVillage1 = villageData1[0]?.villageName;
     console.log(cCode1 + ' ' + selecterdVillage1);
     sendRequest(
-      `${URLS.BaseURL}/restservice/getNirankForFourForm?cCode=${cCode1}`,
+      `${URLS.BaseURL}/restservice/getNirankForFourForm?cCode=${cCode1} `,
       'GET',
       null,
       (res) => {

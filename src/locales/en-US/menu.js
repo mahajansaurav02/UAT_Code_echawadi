@@ -56,5 +56,9 @@ export default {
   'menu.form.One Time Data-Entry': 'One Time Data-Entry',
   'menu.Reports.Demand Generation': 'Demand Modification',
 
+  'menu.daptarTapasni': 'Daptar Tapasni Progress Report',
+  'menu.daptarTapasni.ahawal': 'Report',
+  'menu.daptarTapasni.abhiprayYadi': 'Remark List',
+
   
 };

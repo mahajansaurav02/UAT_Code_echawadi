@@ -2,7 +2,7 @@ export default {
   'pages.button.myButton': 'Cancel',
   // 'pages.layouts.userLayout.title':
   //   'Ant Design is the most influential web design specification in Xihu district',
-  'pages.login.title': 'E-Chawadi',
+  'pages.login.title': 'ℯ-Chawadi',
   'pages.login.accountLogin.tab': 'Account Login',
   'pages.login.accountLogin.errorMessage': 'Incorrect username/password(admin/ant.design)',
   'pages.login.failure': 'Login failed, please try again!',

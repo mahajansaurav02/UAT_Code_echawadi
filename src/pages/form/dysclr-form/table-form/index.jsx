@@ -27,9 +27,8 @@ import KeyPressEvents from '@/util/KeyPressEvents';
 import URLS from '@/URLs/urls';
 import useAxios from '@/components/eComponents/use-axios';
 import moment from 'moment';
-import { useHistory } from 'react-router-dom';
+import { useHistory  } from 'react-router-dom';
 import ValidationPatterns from '@/components/eComponents/ValidationPatterns';
-
 function dysclrForm() {
   const { districtName, servarthId, districtCode, talukaCode } = useModel('details');
   const [codeVillage, setCodeVillage] = useState('');
@@ -413,8 +412,8 @@ function dysclrForm() {
         let potkharabaTypeInt;
         let cultivableAreaInt;
         let naAgriAssesment;
-        // console.log('test-->', res.data.form1Data);
-
+        console.log('test-->', res);
+ 
         res.data.form1Data.map((r) => {
           if (r.naAssessment != null && r.naAssessment > 0) {
             naAgriAssesment = r.naAssessment;
@@ -479,7 +478,13 @@ function dysclrForm() {
         setIsLoading(false);
       },
       (err) => {
-        setIsLoading(false);
+ if(err.data.status === 403){
+          message.error('Unauthorized access');
+          history.push({
+                  pathname: `/user/login`,
+                });
+          return;
+        }        setIsLoading(false);
       },
     );
   };

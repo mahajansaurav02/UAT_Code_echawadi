@@ -151,7 +151,7 @@ class ComponentToPrint extends React.Component {
             <>
               <div className="row" style={{ marginTop: ' 20px' }}>
                 <label>
-                  <b>ई-चावडी भरणा क्रमांक : </b>
+                  <b>इ-चावडी भरणा क्रमांक : </b>
                   <td>{this.props.challanNo}</td>
                 </label>
               </div>
@@ -332,7 +332,7 @@ class ComponentToPrint extends React.Component {
             <>
               <div className="row" style={{ marginTop: '50px' }}>
                 <label>
-                  <b>ई-चावडी भरणा क्रमांक : </b>
+                  <b>इ-चावडी भरणा क्रमांक : </b>
                   <td>{this.props.challanNo0045}</td>
                 </label>
               </div>

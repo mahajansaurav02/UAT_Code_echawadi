@@ -141,7 +141,10 @@ function Table1B() {
       key: '6',
       title: <FormattedMessage id="villageForm1E.table.dateOfEnchroachment" />,
       render: (record) => {
-        return <FormattedMessage id={record.purposeOfEncroachmentLand} />;
+        if (record.purposeOfEncroachmentLand) {
+          return <FormattedMessage id={record.purposeOfEncroachmentLand} />;
+        }
+        return null;
       },
     },
     {
@@ -293,6 +296,7 @@ function Table1B() {
       'GET',
       null,
       (res) => {
+        console.log(res.data.form1EData, 'checkkkkkkkkkkkk');
         res.data.form1EData.map((r) => {
           // if (r.dateOfDecisionOnEncroachment == null) {
           //   setShowNewDate(true);

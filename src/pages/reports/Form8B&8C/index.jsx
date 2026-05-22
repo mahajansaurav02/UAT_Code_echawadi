@@ -27,7 +27,7 @@ function Report8b() {
   const [village, setVillage] = useState([]);
   const [tableData, setTableData] = useState();
   const history = useHistory();
-  const [revenueYear, setRevenueYear] = useState('2024-25');
+  const [revenueYear, setRevenueYear] = useState('2025-26');
   const [totalArea, setTotalArea] = useState(0);
   const [loading, setLoading] = useState(false);
 
@@ -159,6 +159,7 @@ function Report8b() {
 
             sanikirn: r.sanikirn,
             challanNo: r.challanNo,
+            challanNo0045:r.challanNo0045,
             challanDate: r.challanDate,
             landReceiveForm17Id: r.landReceiveForm17Id,
             area: r.area,
@@ -590,7 +591,7 @@ class ComponentToPrint extends React.Component {
                   <td>{r.receiptNo}</td>
 
                   <td>{r.challanDate}</td>
-                  <td>{r.challanNo}</td>
+                  <td>{r.challanNo} <br /> {r.challanNo0045} </td>
                   <td style={{ width: '20px' }}>{r.agauVasuliRemarks}</td>
                 </tr>
               ))}

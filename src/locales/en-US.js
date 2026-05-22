@@ -49,6 +49,8 @@ import loginpage from './en-US/loginpage';
 import OneTimeDataEntryReport from './en-US/OneTimeDataEntryReport';
 import EducationalCess from './en-US/EducationalCess';
 import RojgarlaguRojgarHami from './en-US/RojgarlaguRojgarHami';
+import abhiprayYadi  from './en-US/abhiprayYadi';
+import daptarTapasni  from './en-US/daptarTapasni';
 
 export default {
   'navBar.lang': 'Languages',
@@ -108,6 +110,9 @@ export default {
   ...loginpage,
   ...OneTimeDataEntryReport,
   ...EducationalCess,
-  ...RojgarlaguRojgarHami
+  ...RojgarlaguRojgarHami,
+  
+  ...daptarTapasni,
+  ...abhiprayYadi,
 
 };

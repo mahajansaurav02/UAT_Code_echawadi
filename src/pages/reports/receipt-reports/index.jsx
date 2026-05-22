@@ -46,7 +46,7 @@ function ReceiptReports() {
   const [dataInModal, setDataInModal] = useState();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [printButtonFlag, setPrintButtonFlag] = useState(true);
-  const [revenueYear, setRevenueYear] = useState('2024-25');
+  const [revenueYear, setRevenueYear] = useState('2025-26');
   const [isNirank, setIsNirank] = useState(false);
   const [khataNumber, setKhataNumber] = useState();
   const [test, setTest] = useState();

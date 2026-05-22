@@ -24,7 +24,7 @@ function AddLandRevenue() {
   const [tableData, setTableData] = useState();
   const [textVillage, setTextVillage] = useState('');
   const componentRef = useRef();
-  const [revenueYear, setRevenueYear] = useState('2024-25');
+  const [revenueYear, setRevenueYear] = useState('2025-26');
   const [isNirank, setIsNirank] = useState(false);
   const history = useHistory();
   const [totalArea, setTotalArea] = useState(0);

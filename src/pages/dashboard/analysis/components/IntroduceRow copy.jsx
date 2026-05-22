@@ -149,7 +149,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
         okText: 'रद्द करा ',
 
         //cancelText: <FormattedMessage id="formLanguage.form.no" />,
-        title: 'ई-चावडी माहिती',
+        title: 'इ-चावडी माहिती',
         content: 'सदर अहवालसाठी आपण पात्र नाही',
         onCancel() {},
       });
@@ -335,7 +335,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
     <div>
       <Card className={styles.Footercard}>
         <Grid container spacing={1} columns={16} style={{ padding: '10px' }}>
-        <Grid item xs={24} sm={24} md={24} lg={6} xl={6}>
+          <Grid item xs={24} sm={24} md={24} lg={6} xl={6}>
             <Stack sx={{ width: '100%' }} spacing={2}>
               <Button variant="contained" size="medium" style={{ height: 35 }}>
                 विभाग
@@ -380,7 +380,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
           </Grid> */}
           <Grid item xs={24} sm={24} md={24} lg={3} xl={5}>
             <h3>
-              <b>(1 ऑगस्ट  २०२३   पासूनची  स्थिति. दिनांक: {`${day} - ${month} - ${year}`})</b>
+              <b>(1 ऑगस्ट २०२३ पासूनची स्थिति. दिनांक: {`${day} - ${month} - ${year}`})</b>
             </h3>
           </Grid>
         </Grid>

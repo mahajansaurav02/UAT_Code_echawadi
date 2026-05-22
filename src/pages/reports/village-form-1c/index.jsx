@@ -233,7 +233,7 @@ class ComponentToPrint extends React.Component {
               <tbody>
                 <tr>
                   <td colSpan="14" style={{ color: 'red', textAlign: 'left' }}>
-                    १क(१)-मुंबई कुळ्वाहिवाट व शेत जमीन अधिनियम १९४८ चे कलम ३२ ग अन्वये विक्री
+                    १क(१)-मुंबइ कुळ्वाहिवाट व शेत जमीन अधिनियम १९४८ चे कलम ३२ ग अन्वये विक्री
                     झालेल्या जमिनी
                   </td>
                 </tr>

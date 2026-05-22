@@ -21,7 +21,7 @@ export default {
   'oneTimeEntry.form.netPending': 'एकूण प्रलंबित रक्कम',
   'oneTimeEntry.form.action': 'कृती',
   'oneTimeEntry.form.khataOwner': 'खातेदाराचे नाव',
-  'oneTimeEntry.form.echawdi': 'ई-चावडी',
+  'oneTimeEntry.form.echawdi': 'इ-चावडी',
   'oneTimeEntry.form.district': 'जिल्हा :',
   'oneTimeEntry.form.taluka': 'तालुका :',
   'oneTimeEntry.form.village': 'गाव :',

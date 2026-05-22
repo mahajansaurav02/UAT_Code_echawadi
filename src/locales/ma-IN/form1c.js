@@ -5,7 +5,7 @@ export default {
   'form1c.labels.remarks': 'शेरा',
   'form1c.labels.nameOfApplicant': 'भोगवटादाराचे नाव',
   'form1c.report.headings1': 'गाव नमुना १क ',
-  'form1c.labels.report': 'ई-फेरफार नमुना',
+  'form1c.labels.report': 'इ-फेरफार नमुना',
   'form1c.labels.termsOfGrant2': 'जमीन कोणत्या शर्तीवर प्रदान करण्‍यात आली आहे',
   'form1c.labels.orderNoAndDate': 'जमीन प्रदानाचे आदेश क्रमांक व दिनांक',
   'form1c.labels.authorityCompetentToPermitTransferOfLand':

@@ -36,6 +36,7 @@ export default {
   'demandGeneration.table.result': 'Result',
   'demandGeneration.table.edit': 'Edit',
   'demandGeneration.table.preAmount': 'Previous Year Amount',
+  'demandGeneration.table.remark': 'Remark',
   'demandGeneration.table.newTotal': 'New Total :',
   'demandGeneration.button.save': 'Save',
   'demandGeneration.table.editRecords': 'Edit Records',

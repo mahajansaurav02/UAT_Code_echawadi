@@ -197,7 +197,7 @@ function ReceiveMoney() {
             });
           },
 
-          (err) => {},
+          (err) => { },
         );
       }
       //------old---
@@ -370,18 +370,21 @@ function ReceiveMoney() {
                     ZP:
                       // res.data.landRevenueDemandData[index].assessment < 5
                       res.data.landRevenueDemandData[index].jmBindumala < 5
-                        ? res.data.landRevenueDemandData[index].zpAkrushik
-                        : res.data.landRevenueDemandData[index].zpBindumala +
-                          res.data.landRevenueDemandData[index].zpDumala +
-                          res.data.landRevenueDemandData[index].zpAkrushik,
+                        ? res.data.landRevenueDemandData[index].zpAkrushik + res.data.landRevenueDemandData[index].zpDumala
+                        : res.data.landRevenueDemandData[index].zpAkrushik +
+                        res.data.landRevenueDemandData[index].zpBindumala +
+                        res.data.landRevenueDemandData[index].zpDumala
+                        - res.data.landRevenueDemandData[index].zpVajasut,
                     VP:
                       // res.data.landRevenueDemandData[index].assessment < 5
                       res.data.landRevenueDemandData[index].jmBindumala < 5
-                        ? res.data.landRevenueDemandData[index].gpAkrushik
-                        : res.data.landRevenueDemandData[index].gpBindumala +
-                          res.data.landRevenueDemandData[index].gpDumala +
-                          res.data.landRevenueDemandData[index].gpAkrushik,
-                    AkrushikLR: res.data.landRevenueDemandData[index].jmAkrushik,
+                        ? res.data.landRevenueDemandData[index].gpAkrushik+ res.data.landRevenueDemandData[index].gpDumala
+                        : res.data.landRevenueDemandData[index].gpAkrushik +
+                        res.data.landRevenueDemandData[index].gpBindumala +
+                        res.data.landRevenueDemandData[index].gpDumala - res.data.landRevenueDemandData[index].gpVajasut,
+                   AkrushikLR: res.data.landRevenueDemandData[index].jmAkrushik,
+
+                        
                     //zpAmount: test.zpAkrushik,
                     // gvAmount: test.gpAkrushik,
                     // lrAmountAkrushik: test.jmAkrushik,
@@ -413,6 +416,9 @@ function ReceiveMoney() {
                     localCessAmount: res.data.landRevenueDemandData[index].localCess,
                     otherLocalCessAmount: res.data.landRevenueDemandData[index].otherLocalCess,
                     noticeAmount: res.data.landRevenueDemandData[index].noticeAmount,
+                    jmVajasut: res.data.landRevenueDemandData[index].jmVajasut,
+                    zpVajasut: res.data.landRevenueDemandData[index].zpVajasut,
+                    gpVajasut: res.data.landRevenueDemandData[index].gpVajasut, 
                   },
                   // console.log(
                   //   'res khataOwnerName',
@@ -442,10 +448,21 @@ function ReceiveMoney() {
                     ZP:
                       // res.data.landRevenueDemandData[index].assessment < 5
                       res.data.landRevenueDemandData[index].jmBindumala < 5
-                        ? res.data.landRevenueDemandData[index].zpAkrushik
+                        ? res.data.landRevenueDemandData[index].zpAkrushik + res.data.landRevenueDemandData[index].zpDumala
+
                         : res.data.landRevenueDemandData[index].zpAkrushik +
-                          res.data.landRevenueDemandData[index].zpBindumala +
-                          res.data.landRevenueDemandData[index].zpDumala,
+                        res.data.landRevenueDemandData[index].zpBindumala +
+                        res.data.landRevenueDemandData[index].zpDumala
+                        - res.data.landRevenueDemandData[index].zpVajasut,
+
+// 31-12-2025 before
+
+        //  : res.data.landRevenueDemandData[index].zpAkrushik +
+        //                 res.data.landRevenueDemandData[index].zpBindumala +
+        //                 res.data.landRevenueDemandData[index].zpDumala,
+
+
+
                     // res.data.landRevenueDemandData[index].zpBindumala +
                     // res.data.landRevenueDemandData[index].zpDumala +
                     // res.data.landRevenueDemandData[index].zpAkrushik,
@@ -453,10 +470,18 @@ function ReceiveMoney() {
                     VP:
                       // res.data.landRevenueDemandData[index].assessment < 5
                       res.data.landRevenueDemandData[index].jmBindumala < 5
-                        ? res.data.landRevenueDemandData[index].gpAkrushik
+                        ? res.data.landRevenueDemandData[index].gpAkrushik + res.data.landRevenueDemandData[index].gpDumala
                         : res.data.landRevenueDemandData[index].gpAkrushik +
-                          res.data.landRevenueDemandData[index].gpBindumala +
-                          res.data.landRevenueDemandData[index].gpDumala,
+                        res.data.landRevenueDemandData[index].gpBindumala +
+                        res.data.landRevenueDemandData[index].gpDumala - res.data.landRevenueDemandData[index].gpVajasut,
+
+
+                        // before 31-12-2025
+                        //  : res.data.landRevenueDemandData[index].gpAkrushik +
+                        // res.data.landRevenueDemandData[index].gpBindumala +
+                        // res.data.landRevenueDemandData[index].gpDumala ,
+
+
                     // res.data.landRevenueDemandData[index].gpBindumala +
                     // res.data.landRevenueDemandData[index].gpDumala +
                     // res.data.landRevenueDemandData[index].gpAkrushik,
@@ -490,7 +515,7 @@ function ReceiveMoney() {
                       res.data.landRevenueDemandData[index].jmSankirn +
                       res.data.landRevenueDemandData[index].gpSankirn +
                       res.data.landRevenueDemandData[index].zpSankirn,
-                    otherLocalCessAmount: res.data.landRevenueDemandData[index].jmSankirn,
+                    otherLocalCessAmount: res.data.landRevenueDemandData[index].otherLocalCessAmount || 0,
                     noticeAmount: res.data.landRevenueDemandData[index].noticeAmount,
                   },
                   // console.log(
@@ -533,7 +558,7 @@ function ReceiveMoney() {
               periodFromDate: res.data.form17Data[0].periodFromDate,
               periodToDate: res.data.form17Data[0].periodToDate,
               localCess: res.data.form17Data[0].localCess,
-              localCessAmount: res.data.form17Data[0].localCessAmount,
+              localCessAmount: res.data.form17Data[0].assessment - res.data.form17Data[0].otherLocalCessAmount,
               otherLocalCess: res.data.form17Data[0].otherLocalCess,
               otherLocalCessDesc: res.data.form17Data[0].otherLocalCessDesc,
               otherLocalCessAmount: res.data.form17Data[0].otherLocalCessAmount,
@@ -569,6 +594,8 @@ function ReceiveMoney() {
               NameofTenent: res.data.form17Data[0].NameofTenent,
               localCess: res.data.form17Data[0].localCess,
               localCessAmount: res.data.form17Data[0].localCessAmount,
+              // localCessAmount: res.data.form17Data[0].localCessAmount,
+
               otherLocalCess: res.data.form17Data[0].otherLocalCess,
               otherLocalCessDesc: res.data.form17Data[0].otherLocalCessDesc,
               otherLocalCessAmount: res.data.form17Data[0].otherLocalCessAmount,
@@ -592,15 +619,15 @@ function ReceiveMoney() {
     }
   };
 
-  
+
   const handleClick = async () => {
-    if (isLoading) return; 
-    setIsLoading(true); 
+    if (isLoading) return;
+    setIsLoading(true);
 
     try {
-      await onFinish(); 
+      await onFinish();
     } finally {
-      setIsLoading(false); 
+      setIsLoading(false);
     }
   };
   const onFinish = async (values, value) => {
@@ -620,6 +647,65 @@ function ReceiveMoney() {
     //   }
     // });
     setIsLoading(true);
+
+    console.log(test, "---test---");
+
+    if (test) {
+      console.log(test.LR, 'before test.LR')
+      console.log(test.ZP, 'after test.ZP')
+      console.log(test.VP, 'after test.VP')
+
+
+
+
+let calculateTotal = 
+  (test.LR || 0) + 
+  (test.ZP || 0) + 
+  (test.VP || 0) + 
+  (test.AkrushikLR || 0) +
+  (test.addlLandRevenue || 0) + 
+  (test.educationalCess || 0) + 
+  (test.addlEducationalCess || 0) +
+  (test.employeeGuaranteeScheme || 0) + 
+  (test.localCessAmount || 0) +
+  (test.otherLocalCessAmount || 0) + 
+  (test.preYearTotal || 0) + 
+  (test.noticeAmount || 0)  ;
+
+
+
+// before 31-12-2025
+
+// let calculateTotal = 
+//   (test.LR || 0) + 
+//   (test.ZP || 0) + 
+//   (test.VP || 0) + 
+//   (test.AkrushikLR || 0) +
+//   (test.addlLandRevenue || 0) + 
+//   (test.educationalCess || 0) + 
+//   (test.addlEducationalCess || 0) +
+//   (test.employeeGuaranteeScheme || 0) + 
+//   (test.localCessAmount || 0) +
+//   (test.otherLocalCessAmount || 0) + 
+//   (test.preYearTotal || 0) + 
+//   (test.noticeAmount || 0) ;
+
+
+
+  console.log(test.LR , test.ZP , test.VP , test.AkrushikLR ,test.addlLandRevenue , test.educationalCess , test.addlEducationalCess , test.employeeGuaranteeScheme , test.localCessAmount , test.otherLocalCessAmount , test.preYearTotal , test.noticeAmount,"all values")
+  console.log(calculateTotal,"calculateTotal before round")
+
+  calculateTotal = Math.round(calculateTotal);
+console.log(calculateTotal,"calculateTotal")
+console.log(test.TotalDemand,"test.TotalDemand")
+if (test.TotalDemand !== calculateTotal) {
+  message.error("कृपया पुन्हा एकदा शोधा कारण आकारणी मध्ये बदल झाला आहे");
+  console.log("कृपया पुन्हा एकदा शोधा कारण आकारणी मध्ये बदल झाला आहे");
+  setIsLoading(false);
+  return;  // stops execution of entire function
+}
+
+    }
 
     const article = {
       id: form.getFieldValue('id'),
@@ -1025,7 +1111,7 @@ function ReceiveMoney() {
                   message.info('Please Select Radio Value !');
                 }
               }}
-              // disabled={flagButton}
+            // disabled={flagButton}
             >
               <FormattedMessage id="transactionCommon.table.search" />
             </Button>
@@ -1245,15 +1331,15 @@ function ReceiveMoney() {
                   modeOfPayment === 'Cheque') &&
                   selectorState && (
                     <Button
-                    type="primary"
-                    disabled={isLoading}
-                    htmlType="submit"
-                    style={{ marginRight: 10 }}
-                    onClick={handleClick}        
-// changes above onclick
-                  >
-                    <FormattedMessage id="transactionCommon.table.save" />
-                  </Button>
+                      type="primary"
+                      disabled={isLoading}
+                      htmlType="submit"
+                      style={{ marginRight: 10 }}
+                      onClick={handleClick}
+                    // changes above onclick
+                    >
+                      <FormattedMessage id="transactionCommon.table.save" />
+                    </Button>
                   )}
 
                 <Button

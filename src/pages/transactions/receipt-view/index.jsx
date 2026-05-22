@@ -40,7 +40,7 @@ function ReceiptView() {
   const [village, setVillage] = useState([]);
   const [codeVillage, setCodeVillage] = useState('');
   const [radiovalue, setRadioValue] = useState();
-  const [revenueYear1, setRevenueYear1] = useState('2024-25');
+  const [revenueYear1, setRevenueYear1] = useState('2025-26');
   const [revenueYearLOC, setRevenueYearLOC] = useState();
   const { districtName, talukaName, districtCode, talukaCode } = useModel('details');
   const [revenueYearForVillage, setRevenueYearForVillage] = useState();

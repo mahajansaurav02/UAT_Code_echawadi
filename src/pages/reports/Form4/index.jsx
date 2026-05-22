@@ -28,7 +28,7 @@ function VillageForm() {
   const [tableData, setTableData] = useState();
   const [isNirank, setIsNirank] = useState(false);
   const [villageForm17, setVillageForm17] = useState();
-  const [revenueYear, setRevenueYear] = useState('2024-25');
+  const [revenueYear, setRevenueYear] =useState('2025-26');
   const componentRef = useRef();
   const [revenueYearForVillage, setRevenueYearForVillage] = useState();
 
@@ -185,7 +185,7 @@ class ComponentToPrint extends React.Component {
             <tr>
               <th colSpan="12">
                 <h3 style={{ color: 'red' }}>
-                  <b>( सिवाई आमदनी -- सिवाई जमाबंदी )</b>
+                  <b>( सिवाइ आमदनी -- सिवाइ जमाबंदी )</b>
                 </h3>
               </th>
             </tr>

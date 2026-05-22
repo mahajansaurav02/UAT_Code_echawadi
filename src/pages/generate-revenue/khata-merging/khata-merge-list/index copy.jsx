@@ -141,6 +141,7 @@ function khataMerging() {
     const inputParamsForMerge = {
       ...objForMergingTheModal,
       khataNo: mainKhata,
+            revenueYear:revenueYear
     };
     setSearchButtonState(true);
 

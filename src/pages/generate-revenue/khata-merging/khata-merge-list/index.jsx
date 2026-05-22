@@ -51,7 +51,7 @@ function khataMerging() {
   const [isNirank, setIsNirank] = useState(false);
   const [isNirank1, setIsNirank1] = useState();
   const { sendRequest } = useAxios();
-  const [revenueYear, setRevenueYear] = useState();
+  const [revenueYear, setRevenueYear] = useState('2025-26');
   const [modalForDelete, setModalForDelete] = useState(false);
   const [recordId, setRecordId] = useState();
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
@@ -84,7 +84,7 @@ function khataMerging() {
     const selecterdVillage1 = villageData1[0]?.villageName;
     console.log(cCode1 + ' ' + selecterdVillage1);
     sendRequest(
-      `${URLS.BaseURL}/restservice/getNirankForFourForm?cCode=${cCode1}`,
+      `${URLS.BaseURL}/restservice/getNirankForKhataMerge?cCode=${cCode1}&revenueYear=${revenueYear}`,
       'GET',
       null,
       (res) => {
@@ -109,10 +109,14 @@ function khataMerging() {
       },
     );
   };
+
   useEffect(() => {
     getNirankReq();
+    // getNirankForKhataMerge()
   }, [isNirank1]);
 
+
+  
   const getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
       <div style={{ padding: 8 }}>
@@ -196,6 +200,7 @@ function khataMerging() {
     const inputParamsForMerge = {
       ...objForMergingTheModal,
       khataNo: mainKhata,
+      revenueYear:revenueYear
     };
     setSearchButtonState(true);
 
@@ -287,7 +292,7 @@ function khataMerging() {
     setSearchButtonState(true);
 
     sendRequest(
-      `${URLS.BaseURL}/khatamerge/getKhataMergeDetails?cCode=${codeVillage}`,
+`${URLS.BaseURL}/khatamerge/getKhataMergeDetails?cCode=${codeVillage}&revenueYear=${revenueYear}`,
       'GET',
       null,
       (res) => {
@@ -462,17 +467,16 @@ function khataMerging() {
       <PageContainer>
         <Card>
           <Row>
-            <Col xl={12} lg={12} md={10} sm={6} xs={6}>
-              <VillageSelector
-                pageType="withoutYear"
-                setCodeVillage={setCodeVillage}
-                setTextForVillage={setTextForVillage}
-                onVillageChange={(setVillage, setMergeData)}
-                yearChange={setRevenueYear}
-                setIsNirank={setIsNirank}
-              />
-            </Col>
-
+           <Col xl={21} lg={21} md={21} sm={24} xs={24}>
+                       <VillageSelector
+                         pageType="withYear"
+                         setCodeVillage={setCodeVillage}
+                         setTextForVillage={setTextForVillage}
+                         onVillageChange={(setVillage)}
+                         yearChange={setRevenueYear}
+                         setIsNirank={setIsNirank}
+                       />
+                     </Col>
             <Col xl={2} lg={2} md={2} sm={2} xs={2}>
               {isNirank1 == false && (
                 <Button

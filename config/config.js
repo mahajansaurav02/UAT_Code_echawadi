@@ -852,7 +852,7 @@ export default defineConfig({
           path: '/reports/Dyslr-Delete-Record',
           component: './reports/Dyslr-Delete-Record',
         },
-      
+
         // {
         //   name: 'Dyslr Akarbndat-Changes',
         //   icon: 'smile',
@@ -1088,6 +1088,12 @@ export default defineConfig({
           path: '/reports/All-Village-Search-Data1',
           component: './reports/All-Village-Search-Data1',
         },
+        {
+          name: 'All Village Record - Echawadi Cess',
+          icon: 'smile',
+          path: '/reports/Echawadi-vasuli-report',
+          component: './reports/Echawadi-vasuli-report',
+        },
         // {
         //   name: 'Go Live Village List',
         //   icon: 'smile',
@@ -1173,6 +1179,30 @@ export default defineConfig({
         },
       ],
     },
+
+
+    {
+      name: 'Daptar Tapasni Report',
+      icon: 'file-text',
+      path: '/daptar-tapasni',
+      routes: [
+        {
+          path: '/daptar-tapasni',
+          redirect: '/daptar-tapasni/ahawal',
+        },
+        {
+          name: 'Ahawal',
+          path: '/daptar-tapasni/ahawal',
+          component: './reports/Daptar_Tapasni_Ahawal',
+        },
+        {
+          name: 'Abhipray Yadi',
+          path: '/daptar-tapasni/abhipray-yadi',
+          component: './reports/Abhipray_Yadi',
+        },
+      ],
+    },
+
     // {
     //   name: 'Help',
     //   icon: 'question',
@@ -1215,14 +1245,13 @@ export default defineConfig({
           path: '/dashboard/analysis',
           component: './dashboard/analysis',
         },
-           {
+        {
           name: 'Mis',
           icon: 'smile',
           path: '/dashboard/collectorMis',
           component: './dashboard/collectorMis',
           layout: false,
         },
-
 
         // {
         //   name: 'Supervisor Dashboard',
@@ -1405,7 +1434,7 @@ export default defineConfig({
     //     {
     //       component: '404',
     //     },
-    //   ],
+    //   ], 
     // },
     // {
     //   name: 'editor',
@@ -1453,10 +1482,28 @@ export default defineConfig({
   theme: {
     'primary-color': defaultSettings.primaryColor,
   },
-  // esbuild is father build tools
+  // esbuild is father build tools 
   // https://umijs.org/plugins/plugin-esbuild
   esbuild: {},
   title: false,
+metas: [
+  {
+    "http-equiv": "Content-Security-Policy",
+    content: `
+      default-src 'self';
+      script-src 'self';
+      style-src 'self' 'unsafe-inline';
+      img-src 'self' data:;
+      connect-src 'self' http://115.124.110.193:8091 ;
+      font-src 'self';
+      object-src 'none';,
+      frame-ancestors 'none';
+      base-uri 'self';
+    `,
+
+  },
+],
+   
   ignoreMomentLocale: true,
   proxy: proxy[REACT_APP_ENV || 'dev'],
   manifest: {

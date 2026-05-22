@@ -27,10 +27,13 @@ function Report8B() {
 
   const [tableData, setTableData] = useState();
   const history = useHistory();
-  const [revenueYear, setRevenueYear] = useState('2024-25');
+  const [revenueYear, setRevenueYear] = useState('2025-26');
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const [revenueYearForVillage, setRevenueYearForVillage] = useState();
+  const [jmVasuli, setJmVasuli] = useState();
+  const [zpVasuli, setZpVasuli] = useState();
+  const [gpVasuli, setGpVasuli] = useState();
 
   useEffect(() => {
     getRevenueYear();
@@ -225,72 +228,104 @@ function Report8B() {
   const getTableData = async () => {
     setLoading(true);
     sendRequest(
-      revenueYear == '2024-25'
-        ? // `${URLS.BaseURL}/reports/landRevenueForm8B?cCode=${codeVillage}&revenueYear=${revenueYear}&districtCode=${districtCode}&talukaCode=${talukaCode}`,
-          `${URLS.BaseURL}/reports/landRevenueForm8BView?cCode=${codeVillage}&revenueYear=${revenueYear}&districtCode=${districtCode}&talukaCode=${talukaCode}`
-        : `${URLS.BaseURL}/reports/landRevenueForm8BViewPre?cCode=${codeVillage}&revenueYear=${revenueYear}&districtCode=${districtCode}&talukaCode=${talukaCode}`,
+      // revenueYear == '2024-25'
+      //   ? // `${URLS.BaseURL}/reports/landRevenueForm8B?cCode=${codeVillage}&revenueYear=${revenueYear}&districtCode=${districtCode}&talukaCode=${talukaCode}`,
+      //     `${URLS.BaseURL}/reports/landRevenueForm8BView?cCode=${codeVillage}&revenueYear=${revenueYear}&districtCode=${districtCode}&talukaCode=${talukaCode}`
+      //   : `${URLS.BaseURL}/reports/landRevenueForm8BViewPre?cCode=${codeVillage}&revenueYear=${revenueYear}&districtCode=${districtCode}&talukaCode=${talukaCode}`,
+
+      `${URLS.BaseURL}/reports/landRevenueForm8BView?cCode=${codeVillage}&revenueYear=${revenueYear}&districtCode=${districtCode}&talukaCode=${talukaCode}`,
+
       'POST',
       null,
       (res) => {
         // res.data.map((r) => ({
         //   console.log("jmVajasut: "+ r.jmVajasut + " zpVajasut: " +r.zpVajasut +" gpVajasut: " +r.gpVajasut);
         // }));
-        setTableData(
-          res.data.map((r) => ({
-            khataNo: r.khataNo === null ? r.makhtaKhataNo : r.khataNo,
-            khataOwnerName: r.khataOwnerName,
-            jmBindumala: r.jmBindumala,
-            zpBindumala: r.zpBindumala,
-            gpBindumala: r.gpBindumala,
-            jmDumala: r.jmDumala,
-            zpDumala: r.zpDumala,
-            gpDumala: r.gpDumala,
-            jmAkrushik: r.jmAkrushik,
-            zpAkrushik: r.zpAkrushik,
-            gpAkrushik: r.gpAkrushik,
-            jmSankirn: r.jmSankirn,
-            zpSankirn: r.zpSankirn,
-            gpSankirn: r.gpSankirn,
+        const mappedData = res.data.map((r) => ({
+          khataNo: r.khataNo === null ? r.makhtaKhataNo : r.khataNo,
+          khataOwnerName: r.khataOwnerName,
+          jmBindumala: r.jmBindumala,
+          zpBindumala: r.zpBindumala,
+          gpBindumala: r.gpBindumala,
+          jmDumala: r.jmDumala,
+          zpDumala: r.zpDumala,
+          gpDumala: r.gpDumala,
+          jmAkrushik: r.jmAkrushik,
+          zpAkrushik: r.zpAkrushik,
+          gpAkrushik: r.gpAkrushik,
+          jmSankirn: r.jmSankirn,
+          zpSankirn: r.zpSankirn,
+          gpSankirn: r.gpSankirn,
 
-            jmVajasut: r.jmVajasut,
-            zpVajasut: r.zpVajasut,
-            gpVajasut: r.gpVajasut,
+          jmVajasut: r.jmVajasut,
+          zpVajasut: r.zpVajasut,
+          gpVajasut: r.gpVajasut,
 
-            addlLandRevenue: r.addlLandRevenue,
-            educationalCess: r.educationalCess,
-            addlEducationalCess: r.addlEducationalCess,
-            employeeGuaranteeScheme: r.employeeGuaranteeScheme,
-            preYearNoticeFee: r.preYearNoticeFee,
-            preYearPendingJm: r.preYearPendingJm,
-            preYearSankirnJmWith: r.preYearSankirnJmWith,
-            preYearSankirnJmWithout: r.preYearSankirnJmWithout,
-            preYearPendingNaCess: r.preYearPendingNaCess,
-            preYearPendingZp: r.preYearPendingZp,
-            preYearPendingGp: r.preYearPendingGp,
-            preYearPendingAddlLandRevenue: r.preYearPendingAddlLandRevenue,
-            preYearPendingEducationalCess: r.preYearPendingEducationalCess,
-            preYearPendingAddlEducationalCess: r.preYearPendingAddlEducationalCess,
-            preYearPendingEmployeeGuaranteeScheme: r.preYearPendingEmployeeGuaranteeScheme,
-            netAmount: r.netAmount,
-            noticeAmount: r.noticeAmount,
-            netReceived: r.netReceived,
-            netPending: r.netPending,
-            amountOfZp: r.amountOfZp,
-            amountOfJm: r.amountOfJm,
-            receiptNo: r.receiptNo,
-            netAmountReceived: r.netAmountReceived,
-            sanikirn: r.sanikirn,
-            challanNo: r.challanNo,
-            challanDate: r.challanDate,
-            landReceiveForm17Id: r.landReceiveForm17Id,
-            area: r.area === null ? 0 : r.area,
-            assessment: r.assessment,
-            totalGp: r.totalGp,
-            totalJm: r.totalJm,
-            totalZp: r.totalZp,
-            agauVasuliRemarks: r.agauVasuliRemarks,
-          })),
-        );
+          addlLandRevenue: r.addlLandRevenue,
+          educationalCess: r.educationalCess,
+          addlEducationalCess: r.addlEducationalCess,
+          employeeGuaranteeScheme: r.employeeGuaranteeScheme,
+          preYearNoticeFee: r.preYearNoticeFee,
+          preYearPendingJm: r.preYearPendingJm,
+          preYearSankirnJmWith: r.preYearSankirnJmWith,
+          preYearSankirnJmWithout: r.preYearSankirnJmWithout,
+          preYearPendingNaCess: r.preYearPendingNaCess,
+          preYearPendingZp: r.preYearPendingZp,
+          preYearPendingGp: r.preYearPendingGp,
+          preYearPendingAddlLandRevenue: r.preYearPendingAddlLandRevenue,
+          preYearPendingEducationalCess: r.preYearPendingEducationalCess,
+          preYearPendingAddlEducationalCess: r.preYearPendingAddlEducationalCess,
+          preYearPendingEmployeeGuaranteeScheme: r.preYearPendingEmployeeGuaranteeScheme,
+          netAmount: r.netAmount,
+          noticeAmount: r.noticeAmount,
+          netReceived: r.netReceived,
+          netPending: r.netPending,
+          amountOfZp: r.amountOfZp,
+          amountOfJm: r.amountOfJm,
+          receiptNo: r.receiptNo,
+          netAmountReceived: r.netAmountReceived,
+          sanikirn: r.sanikirn,
+          challanNo: r.challanNo,
+          challanDate: r.challanDate,
+          landReceiveForm17Id: r.landReceiveForm17Id,
+          area: r.area === null ? 0 : r.area,
+          assessment: r.assessment,
+          totalJm: r.totalJm,
+          totalGp: r.totalGp,
+          totalZp: r.totalZp,
+          agauVasuliRemarks: r.agauVasuliRemarks,
+        }));
+
+        const jmVasuliTotal = mappedData
+          .filter((x) => x.receiptNo !== null && x.receiptNo !== '')
+          .reduce((sum, x) => sum + (Number(x.totalJm) || 0), 0);
+
+        // GP Vasuli Total (sum of totalGp where challanNo is not null)
+        const gpVasuliTotal = mappedData
+          .filter((x) => x.receiptNo !== null && x.receiptNo !== '')
+          .reduce((sum, x) => sum + (Number(x.totalGp) || 0), 0);
+
+        // ZP Vasuli Total (sum of totalZp where challanNo is not null)
+        const zpVasuliTotal = mappedData
+          .filter((x) => x.receiptNo !== null && x.receiptNo !== '')
+          .reduce((sum, x) => sum + (Number(x.totalZp) || 0), 0);
+
+        // 👉 Attach values to last row (total object)
+        const last = mappedData[mappedData.length - 1];
+
+        console.log(gpVasuliTotal, 'gpVasuliTotal');
+        console.log(zpVasuliTotal, 'zpVasuli');
+        console.log(jmVasuliTotal, 'jmVasuliTotal');
+        last.totalJm = jmVasuliTotal;
+        last.totalGp = gpVasuliTotal;
+        last.totalZp = zpVasuliTotal;
+        last.receiptNo = 'test';
+        last.totalVasuliAmt = jmVasuliTotal + gpVasuliTotal + zpVasuliTotal;
+        // 👉 Finally set table data
+
+        console.log(mappedData, 'check mapped data');
+        setTableData(mappedData);
+
         message.success('Records Fetched !');
 
         setLoading(false);
@@ -341,6 +376,7 @@ function Report8B() {
                 onChange={(value, event) => onYearChange(value, event)}
                 // disabled
               >
+                <Select.Option value="2025-26">2025-26</Select.Option>
                 <Select.Option value="2024-25">2024-25</Select.Option>
                 <Select.Option value="2023-24">2023-24</Select.Option>
                 <Select.Option value="2022-23">2022-23</Select.Option>
@@ -649,31 +685,33 @@ class ComponentToPrint extends React.Component {
                   <td>{r.addlLandRevenue}</td>
                   {/* ---------------------------------------------------------------------25 */}
                   <td colSpan="2">
-                    {r.preYearPendingJm +
-                      r.jmBindumala +
-                      r.jmDumala +
-                      r.jmAkrushik +
-                      r.jmSankirn +
-                      r.noticeAmount -
-                      r.jmVajasut}
+                    {Math.round(
+  r.preYearPendingJm +
+  r.jmBindumala +
+  r.jmDumala +
+  r.jmAkrushik +
+  r.jmSankirn +
+  r.noticeAmount -
+  r.jmVajasut
+)}
                   </td>
                   {/* ---------------------------------------------------------------------26 */}
                   <td>
-                    {r.preYearPendingZp +
+                    {Math.round(r.preYearPendingZp +
                       r.zpBindumala +
                       r.zpDumala +
                       r.zpAkrushik +
                       r.zpSankirn -
-                      r.zpVajasut}
+                      r.zpVajasut)}
                   </td>
                   {/* ---------------------------------------------------------------------27 */}
                   <td>
-                    {r.preYearPendingGp +
+                    {Math.round(r.preYearPendingGp +
                       r.gpBindumala +
                       r.gpDumala +
                       r.gpAkrushik +
                       r.gpSankirn -
-                      r.gpVajasut}
+                      r.gpVajasut)}
                   </td>
                   {/*-----------------  */}
 
@@ -704,11 +742,26 @@ class ComponentToPrint extends React.Component {
 
                   {/* <td>{r.receiptNo}</td> */}
                   <td>{r.reciptFinal == 0 ? '' : r.receiptNo}</td>
-                  <td>{r.receiptNo != null ? r.totalJm : 0}</td>
+                  <td>{r.receiptNo != null ? r.totalJm : 0} </td>
                   <td colSpan="2">{r.receiptNo != null ? r.totalZp : 0}</td>
                   <td>{r.receiptNo != null ? r.totalGp : 0}</td>
                   <td>
-                    {r.receiptNo != null
+                    {
+  r.receiptNo === "test"
+    ? r.totalVasuliAmt
+    : r.receiptNo == null
+      ? 0
+      : r.netPending -
+        r.educationalCess -
+        r.employeeGuaranteeScheme -
+        r.addlEducationalCess -
+        r.preYearPendingEducationalCess -
+        r.preYearPendingAddlEducationalCess -
+        r.preYearPendingEmployeeGuaranteeScheme -
+        r.preYearNoticeFee
+}
+                    {/* backup above code */}
+                    {/* {r.receiptNo != null
                       ? r.netPending -
                         r.educationalCess -
                         r.employeeGuaranteeScheme -
@@ -717,7 +770,7 @@ class ComponentToPrint extends React.Component {
                         r.preYearPendingAddlEducationalCess -
                         r.preYearPendingEmployeeGuaranteeScheme -
                         r.preYearNoticeFee
-                      : 0}
+                      : 0} */}
                   </td>
 
                   <td>{r.challanDate}</td>

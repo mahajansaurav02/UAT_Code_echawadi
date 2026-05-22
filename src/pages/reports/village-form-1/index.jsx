@@ -229,7 +229,7 @@ function Report() {
     <div>
       <Card>
         <h1 style={{ textAlign: 'center' }}>
-          गाव नमुना एक (आकारबंद)(गाव नमुना-७,ई-फेरफार Live डेटा)
+          गाव नमुना एक (आकारबंद)(गाव नमुना-७,इ-फेरफार Live डेटा)
         </h1>
         <div style={{ padding: 10 }}>
           <Button type="primary" onClick={handlePrint}>
@@ -377,7 +377,7 @@ class ComponentToPrint extends React.Component {
                 <tr>
                   <th colSpan="12">
                     <h3 style={{ color: 'red' }}>
-                      <b>गाव नमुना एक (आकारबंद)( गाव नमुना-७,ई-फेरफार Live डेटा)</b>
+                      <b>गाव नमुना एक (आकारबंद)( गाव नमुना-७,इ-फेरफार Live डेटा)</b>
                     </h3>
                   </th>
                 </tr>

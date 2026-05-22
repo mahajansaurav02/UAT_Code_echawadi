@@ -2,6 +2,7 @@ import { PageLoading } from '@ant-design/pro-layout';
 import { history, Link } from 'umi';
 import RightContent from '@/components/RightContent';
 import Footer from '@/components/Footer';
+import AccessibilityWidget from '@/components/AccessibilityWidget';
 import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
 import {
   AccountBookOutlined,
@@ -31,19 +32,30 @@ export const initialStateConfig = {
 //   console.log('Menu API HIT !!!!!!!!!!============>>>>>>>>>');
 // });
 export async function getInitialState() {
+
   const fetchUserInfo = async () => {
     try {
-      const msg = await queryCurrentUser();
-      return msg.data;
-    } catch (error) {
-      history.push(loginPath);
-    }
 
-    return undefined;
+      const msg = await queryCurrentUser();
+
+      if (!msg?.data) {
+        throw new Error('Unauthorized');
+      }
+
+      return msg.data;
+
+    } catch (error) {
+
+      history.push('/user/login');
+
+      return undefined;
+    }
   };
 
-  if (history.location.pathname !== loginPath) {
+  if (history.location.pathname !== '/user/login') {
+
     const currentUser = await fetchUserInfo();
+
     return {
       fetchUserInfo,
       currentUser,
@@ -56,7 +68,7 @@ export async function getInitialState() {
     settings: {},
   };
 }
-
+ 
 export const layout = ({ initialState }) => {
   // console.log('layout called');
   // console.log('roles1', JSON.parse(localStorage.getItem('roles')));
@@ -79,18 +91,7 @@ export const layout = ({ initialState }) => {
             path: '/user',
             redirect: '/user/login',
           },
-          // {
-          //   name: 'register-result',
-          //   icon: 'smile',
-          //   path: '/user/register-result',
-          //   component: './user/register-result',
-          // },
-          // {
-          //   name: 'register',
-          //   icon: 'smile',
-          //   path: '/user/register',
-          //   component: './user/register',
-          // },
+         
           {
             component: '404',
           },
@@ -558,18 +559,6 @@ export const layout = ({ initialState }) => {
             component: './form/village-target',
           },
 
-          // {
-          //   /*  name: 'Village Form 21',
-          //   icon: 'smile',  */
-          //   path: '/form/village-form-21/village-form',
-          //   component: './form/village-form-21/village-form',
-          // },
-          // {
-          //   name: 'Village Form 21',
-          //   icon: 'smile',
-          //   path: '/form/village-form-21/table-form',
-          //   component: './form/village-form-21/table-form',
-          // },
 
           {
             component: '404',
@@ -932,6 +921,24 @@ export const layout = ({ initialState }) => {
           },
         ],
       },
+
+      {
+        name: 'daptarTapasni',
+        icon: <BookOutlined />,
+        path: '/daptar-tapasni',
+        routes: [
+          {
+            name: 'ahawal',
+            path: '/daptar-tapasni/ahawal',
+            component: './reports/Daptar_Tapasni_Ahawal',
+          },
+          {
+            name: 'abhiprayYadi',
+            path: '/daptar-tapasni/abhipray-yadi',
+            component: './reports/Abhipray_Yadi',
+          },
+        ],
+      },
       // {
       //   path: '/dashboard',
       //   name: 'dashboard',
@@ -968,8 +975,10 @@ export const layout = ({ initialState }) => {
         path: '/all-villages',
         redirect: '/reports/All-Village-Report',
       },
-      {
+     {
+        path: '/*',
         component: '404',
+        layout: false, 
       },
     ],
     ROLE_COLLECTOR: [
@@ -1024,336 +1033,7 @@ export const layout = ({ initialState }) => {
           },
         ],
       },
-      // {
-      //   path: '/village-selection',
-      //   name: (
-      //     <>
-      //       <Button type="primary" /*  onClick={(e) => pushToPage(e)} */>गाव आणि वर्ष निवडा</Button>
-      //     </>
-      //   ),
-      //   //name: 'Home Page ',
-      //   // icon: 'smile',
-      //   routes: [
-      //     // {
-      //     //   path: '/homepage',
-      //     //   redirect: '/homepage',
-      //     // },
-      //     {
-      //       //name: 'Home Page',
-      //       // icon: 'smile',
-      //       path: '/village-selection',
-      //       component: './village-selection',
-      //     },
-      //     {
-      //       component: '404',
-      //     },
-      //   ],
-      // },
-      // {
-      //   name: 'Reports',
-      //   icon: <TableOutlined />,
-      //   path: '/reports',
-      //   routes: [
-      //     {
-      //       path: '/reports',
-      //       redirect: '/reports/reports',
-      //     },
-      //     // {
-      //     //   name: 'Demand Generation Report',
-      //     //   icon: 'smile',
-      //     //   path: '/reports/Demand-Generation-Challan-Report',
-      //     //   component: './reports/Demand-Generation-Challan-Report',
-      //     // },
-      //     // {
-      //     //   name: 'Demand Generation',
-      //     //   layout: false,
-      //     //   icon: 'form',
-      //     //   path: '/reports/demand-generation-report',
-      //     //   component: './reports/demand-generation-report',
-      //     // },
-      //     // {
-      //     //   name: 'View Challan',
-      //     //   icon: 'smile',
-      //     //   path: '/reports/view-challan',
-      //     //   component: './reports/view-challan',
-      //     // },
-      //     // {
-      //     //   //   name: 'Print Receipts',
-      //     //   //   icon: 'form',
-      //     //   path: '/reports/challan-report-print',
-      //     //   component: './reports/challan-report-print',
-      //     // },
-      //     // {
-      //     //   name: 'View Receipts',
-      //     //   icon: 'smile',
-      //     //   path: '/reports/receipt-reports',
-      //     //   component: './reports/receipt-reports',
-      //     // },
-      //     // {
-      //     //   //   name: 'Print Receipts',
-      //     //   //   icon: 'form',
-      //     //   path: '/reports/receipt-report-print',
-      //     //   component: './reports/receipt-report-print',
-      //     // },
-      //     // {
-      //     //   name: 'Additional Land Revenue',
-      //     //   icon: 'smile',
-      //     //   path: '/reports/Additional-Land-Revenue-Report',
-      //     //   component: './reports/Additional-Land-Revenue-Report',
-      //     // },
-      //     // {
-      //     //   name: 'Merged Khata',
-      //     //   icon: 'smile',
-      //     //   path: '/reports/merged-khata-report',
-      //     //   component: './reports/merged-khata-report',
-      //     // },
-      //     // {
-      //     //   name: 'Form 1',
-      //     //   icon: 'smile',
-      //     //   path: '/reports/village-form-1',
-      //     //   component: './reports/village-form-1',
-      //     // },
-      //     // {
-      //     //   name: 'Form 1 ODC',
-      //     //   icon: 'smile',
-      //     //   path: '/reports/Form1ODC',
-      //     //   component: './reports/Form1ODC',
-      //     // },
-      //     // {
-      //     //   name: 'Form 1 ODC Difference',
-      //     //   icon: 'smile',
-      //     //   path: '/reports/Form1ODC-Difference',
-      //     //   component: './reports/Form1ODC-Difference',
-      //     // },
-      //     // {
-      //     //   name: 'Form 1A',
-      //     //   icon: 'smile',
-      //     //   path: '/reports/village-form-1a',
-      //     //   component: './reports/village-form-1a',
-      //     // },
-      //     // {
-      //     //   name: 'Form 1 Abstract',
-      //     //   icon: 'smile',
-      //     //   path: '/reports/From 1Abstract',
-      //     //   component: './reports/From 1Abstract',
-      //     // },
-      //     // {
-      //     //   name: 'Form 1B',
-      //     //   icon: 'smile',
-      //     //   path: '/reports/village-form-1B',
-      //     //   component: './reports/village-form-1B',
-      //     // },
-      //     // {
-      //     //   name: 'Form 1C',
-      //     //   icon: 'smile',
-      //     //   path: '/reports/village-form-1c',
-      //     //   component: './reports/village-form-1c',
-      //     // },
-      //     // {
-      //     //   name: 'Form 1D',
-      //     //   icon: 'smile',
-      //     //   path: '/reports/village-form-1D',
-      //     //   component: './reports/village-form-1D',
-      //     // },
-      //     // {
-      //     //   name: 'Form 1E',
-      //     //   icon: 'smile',
-      //     //   path: '/reports/village-form-1E',
-      //     //   component: './reports/village-form-1E',
-      //     // },
-      //     // {
-      //     //   name: 'Form 2',
-      //     //   icon: 'smile',
-      //     //   path: '/reports/village-form-2',
-      //     //   component: './reports/village-form-2',
-      //     // },
-      //     // {
-      //     //   name: 'Form 3',
-      //     //   icon: 'smile',
-      //     //   path: '/reports/village-form-3',
-      //     //   component: './reports/village-form-3',
-      //     // },
-      //     // {
-      //     //   name: 'Form 3 Abstract',
-      //     //   icon: 'smile',
-      //     //   path: '/reports/Form 3Abstract',
-      //     //   component: './reports/Form 3Abstract',
-      //     // },
-      //     // {
-      //     //   name: 'Form 4',
-      //     //   icon: 'smile',
-      //     //   path: '/reports/Form4',
-      //     //   component: './reports/Form4',
-      //     // },
-      //     // {
-      //     //   name: 'Form 5',
-      //     //   icon: 'smile',
-      //     //   path: '/reports/Form5',
-      //     //   component: './reports/Form5',
-      //     // },
-
-      //     // {
-      //     //   name: 'Form 6A',
-      //     //   icon: 'smile',
-      //     //   path: '/reports/Form6A',
-      //     //   component: './reports/Form6A',
-      //     // },
-      //     // {
-      //     //   name: 'Form 6B',
-      //     //   icon: 'smile',
-      //     //   path: '/reports/village-form-6B',
-      //     //   component: './reports/village-form-6B',
-      //     // },
-      //     // {
-      //     //   name: 'Form 6D',
-      //     //   icon: 'smile',
-      //     //   path: '/reports/village-form-6D',
-      //     //   component: './reports/village-form-6D',
-      //     // },
-      //     // {
-      //     //   name: 'Form 7A',
-      //     //   icon: 'smile',
-      //     //   path: '/reports/village-form-7a',
-      //     //   component: './reports/village-form-7a',
-      //     // },
-      //     // {
-      //     //   name: 'Form 7B',
-      //     //   icon: 'smile',
-      //     //   path: '/reports/village-form-7b',
-      //     //   component: './reports/village-form-7b',
-      //     // },
-      //     // {
-      //     //   name: 'Form 8B',
-      //     //   layout: false,
-      //     //   icon: 'smile',
-      //     //   path: '/reports/Form8B',
-      //     //   component: './reports/Form8B',
-      //     // },
-      //     // {
-      //     //   name: 'Form 8C',
-      //     //   // layout: false,
-      //     //   icon: 'smile',
-      //     //   path: '/reports/Form8C',
-      //     //   component: './reports/Form8C',
-      //     // },
-      //     // {
-      //     //   name: 'Form 8B & 8C',
-      //     //   layout: false,
-      //     //   icon: 'smile',
-      //     //   path: '/reports/Form8B&8C',
-      //     //   component: './reports/Form8B&8C',
-      //     // },
-
-      //     // {
-      //     //   name: 'Form 8D',
-      //     //   //    layout: false,
-      //     //   icon: 'smile',
-      //     //   path: '/reports/Form8D',
-      //     //   component: './reports/Form8D',
-      //     // },
-      //     // {
-      //     //   name: 'Form 9B',
-      //     //   icon: 'smile',
-      //     //   path: '/reports/Form9B',
-      //     //   component: './reports/Form9B',
-      //     // },
-      //     // // {
-      //     // //   name: 'Form 11',
-      //     // //   icon: 'smile',
-      //     // //   path: '/reports/Form11',
-      //     // //   component: './reports/Form11',
-      //     // // },
-      //     // // {
-      //     // //   name: 'Form 11B',
-      //     // //   icon: 'smile',
-      //     // //   path: '/reports/Form11B',
-      //     // //   component: './reports/Form11B',
-      //     // // },
-      //     // {
-      //     //   name: 'Form 14',
-      //     //   icon: 'smile',
-      //     //   path: '/reports/village-form-14',
-      //     //   component: './reports/village-form-14',
-      //     // },
-      //     // {
-      //     //   name: 'Inward / Outward',
-      //     //   icon: 'smile',
-      //     //   path: '/reports/Form15',
-      //     //   component: './reports/Form15',
-      //     // },
-      //     // {
-      //     //   name: 'Form 17',
-      //     //   icon: 'smile',
-      //     //   path: '/reports/village-form-17',
-      //     //   component: './reports/village-form-17',
-      //     // },
-      //     // {
-      //     //   name: 'Form 19',
-      //     //   icon: 'smile',
-      //     //   path: '/reports/Form19',
-      //     //   component: './reports/Form19',
-      //     // },
-      //     // {
-      //     //   name: 'All Taluka Record',
-      //     //   icon: 'smile',
-      //     //   path: '/reports/All-Taluka-Data',
-      //     //   component: './reports/All-Taluka-Data',
-      //     // },
-      //     {
-      //       name: 'All Village Record',
-      //       icon: 'smile',
-      //       path: '/reports/All-Village-Search-Data',
-      //       component: './reports/All-Village-Search-Data',
-      //     },
-      //     // {
-      //     //   name: 'Go Live Village List',
-      //     //   icon: 'smile',
-      //     //   path: '/reports/Go-Live-VillageList',
-      //     //   component: './reports/Go-Live-VillageList',
-      //     // },
-      //     {
-      //       // name: 'Online Village Count List',
-      //       // icon: 'smile',
-      //       path: '/reports/Online-Village-Count-Report',
-      //       component: './reports/Online-Village-Count-Report',
-      //     },
-      //     {
-      //       // name: 'Total Login Villages',
-      //       // icon: 'smile',
-      //       path: '/reports/Total-Phase-1-Login-Report',
-      //       component: './reports/Total-Phase-1-Login-Report',
-      //     },
-      //     {
-      //       // name: 'Total Phase One Villages',
-      //       // icon: 'smile',
-      //       path: '/reports/Total-Phase-1-Villages-Report',
-      //       component: './reports/Total-Phase-1-Villages-Report',
-      //     },
-      //     // {
-      //     //   name: 'Ashish sir',
-      //     //   icon: 'smile',
-      //     //   path: '/reports/ashishSir',
-      //     //   component: './reports/ashishSir',
-      //     // },
-
-      //     // {
-      //     //   name: 'Form 21',
-      //     //   icon: 'smile',
-      //     //   path: '/reports/Form21',
-      //     //   component: './reports/Form21',
-      //     // },
-      //     {
-      //       // name: 'All Village Record',
-      //       // icon: 'smile',
-      //       path: '/reports/All-Village-Report',
-      //       component: './reports/All-Village-Report',
-      //     },
-
-      //     {
-      //       component: '404',
-      //     },
-      //   ],
-      // },
+     
       {
         path: '/dashboard',
         name: 'dashboard',
@@ -1385,8 +1065,10 @@ export const layout = ({ initialState }) => {
         path: '/all-villages',
         redirect: '/reports/All-Village-Report',
       },
-      {
+     {
+        path: '/*',
         component: '404',
+        layout: false, 
       },
     ],
     ROLE_DYSLR: [
@@ -1404,43 +1086,13 @@ export const layout = ({ initialState }) => {
             path: '/user',
             redirect: '/user/login',
           },
-          // {
-          //   name: 'register-result',
-          //   icon: 'smile',
-          //   path: '/user/register-result',
-          //   component: './user/register-result',
-          // },
-          // {
-          //   name: 'register',
-          //   icon: 'smile',
-          //   path: '/user/register',
-          //   component: './user/register',
-          // },
+        
           {
             component: '404',
           },
         ],
       },
-      // {
-      //   path: '/homepage',
-      //   //name: 'Home Page ',
-      //   // icon: 'smile',
-      //   routes: [
-      //     // {
-      //     //   path: '/homepage',
-      //     //   redirect: '/homepage',
-      //     // },
-      //     {
-      //       //name: 'Home Page',
-      //       // icon: 'smile',
-      //       path: '/homepage',
-      //       component: './homepage',
-      //     },
-      //     {
-      //       component: '404',
-      //     },
-      //   ],
-      // },
+     
       {
         path: '/homepageDYSLR',
         //name: 'Home Page ',
@@ -1531,55 +1183,7 @@ export const layout = ({ initialState }) => {
             path: '/reports',
             redirect: '/reports/reports',
           },
-          // {
-          //   name: 'Demand Generation Report',
-          //   icon: 'smile',
-          //   path: '/reports/Demand-Generation-Challan-Report',
-          //   component: './reports/Demand-Generation-Challan-Report',
-          // },
-          // {
-          //   name: 'Demand Generation',
-          //   layout: false,
-          //   icon: 'form',
-          //   path: '/reports/demand-generation-report',
-          //   component: './reports/demand-generation-report',
-          // },
-          // {
-          //   name: 'View Challan',
-          //   icon: 'smile',
-          //   path: '/reports/view-challan',
-          //   component: './reports/view-challan',
-          // },
-          // {
-          //   //   name: 'Print Receipts',
-          //   //   icon: 'form',
-          //   path: '/reports/challan-report-print',
-          //   component: './reports/challan-report-print',
-          // },
-          // {
-          //   name: 'View Receipts',
-          //   icon: 'smile',
-          //   path: '/reports/receipt-reports',
-          //   component: './reports/receipt-reports',
-          // },
-          // {
-          //   //   name: 'Print Receipts',
-          //   //   icon: 'form',
-          //   path: '/reports/receipt-report-print',
-          //   component: './reports/receipt-report-print',
-          // },
-          // {
-          //   name: 'Additional Land Revenue',
-          //   icon: 'smile',
-          //   path: '/reports/Additional-Land-Revenue-Report',
-          //   component: './reports/Additional-Land-Revenue-Report',
-          // },
-          // {
-          //   name: 'Merged Khata',
-          //   icon: 'smile',
-          //   path: '/reports/merged-khata-report',
-          //   component: './reports/merged-khata-report',
-          // },
+  
           {
             name: 'Form 1',
             icon: 'smile',
@@ -1611,259 +1215,7 @@ export const layout = ({ initialState }) => {
             component: './reports/Dyslr-Delete-Record',
           },
 
-          // {
-          //   name: 'Dyslr Akarbndat-Changes',
-          //   icon: 'smile',
-          //   path: '/reports/Akarbndat-Changes',
-          //   component: './reports/Akarbndat-Changes',
-          // },
-          // {
-          //   name: 'Dyslr Akarbndat-Changes Farak',
-          //   icon: 'smile',
-          //   path: '/reports/Akarbndat-Changes-Farak',
-          //   component: './reports/Akarbndat-Changes-Farak',
-          // },
-          // {
-          //   name: 'Newly Created 7/12',
-          //   icon: 'smile',
-          //   path: '/reports/NewlyCreated-SatBara',
-          //   component: './reports/NewlyCreated-SatBara',
-          // },
-          // {
-          //   name: 'Newly Created 7/12 which is Excluded',
-          //   icon: 'smile',
-          //   path: '/reports/CreatedExcludingNewlyCreated_SatBara',
-          //   component: './reports/CreatedExcludingNewlyCreated_SatBara',
-          // },
-          // {
-          //   name: 'Newly Created 7/12 (Pin completely changed)',
-          //   icon: 'smile',
-          //   path: '/reports/NewlyCreatedPinCompletelyChanged-SatBara',
-          //   component: './reports/NewlyCreatedPinCompletelyChanged-SatBara',
-          // },
-          // {
-          //   name: 'Form 1A',
-          //   icon: 'smile',
-          //   path: '/reports/village-form-1a',
-          //   component: './reports/village-form-1a',
-          // },
-          // {
-          //   name: 'Form 1 Abstract',
-          //   icon: 'smile',
-          //   path: '/reports/From 1Abstract',
-          //   component: './reports/From 1Abstract',
-          // },
-          // {
-          //   name: 'Form 1B',
-          //   icon: 'smile',
-          //   path: '/reports/village-form-1B',
-          //   component: './reports/village-form-1B',
-          // },
-          // {
-          //   name: 'Form 1C',
-          //   icon: 'smile',
-          //   path: '/reports/village-form-1c',
-          //   component: './reports/village-form-1c',
-          // },
-          // {
-          //   name: 'Form 1D',
-          //   icon: 'smile',
-          //   path: '/reports/village-form-1D',
-          //   component: './reports/village-form-1D',
-          // },
-          // {
-          //   name: 'Form 1E',
-          //   icon: 'smile',
-          //   path: '/reports/village-form-1E',
-          //   component: './reports/village-form-1E',
-          // },
-          // {
-          //   name: 'Form 2',
-          //   icon: 'smile',
-          //   path: '/reports/village-form-2',
-          //   component: './reports/village-form-2',
-          // },
-          // {
-          //   name: 'Form 3',
-          //   icon: 'smile',
-          //   path: '/reports/village-form-3',
-          //   component: './reports/village-form-3',
-          // },
-          // {
-          //   name: 'Form 3 Abstract',
-          //   icon: 'smile',
-          //   path: '/reports/Form 3Abstract',
-          //   component: './reports/Form 3Abstract',
-          // },
-          // {
-          //   name: 'Form 4',
-          //   icon: 'smile',
-          //   path: '/reports/Form4',
-          //   component: './reports/Form4',
-          // },
-          // {
-          //   name: 'Form 5',
-          //   icon: 'smile',
-          //   path: '/reports/Form5',
-          //   component: './reports/Form5',
-          // },
-
-          // {
-          //   name: 'Form 6A',
-          //   icon: 'smile',
-          //   path: '/reports/Form6A',
-          //   component: './reports/Form6A',
-          // },
-          // {
-          //   name: 'Form 6B',
-          //   icon: 'smile',
-          //   path: '/reports/village-form-6B',
-          //   component: './reports/village-form-6B',
-          // },
-          // {
-          //   name: 'Form 6D',
-          //   icon: 'smile',
-          //   path: '/reports/village-form-6D',
-          //   component: './reports/village-form-6D',
-          // },
-          // {
-          //   name: 'Form 7A',
-          //   icon: 'smile',
-          //   path: '/reports/village-form-7a',
-          //   component: './reports/village-form-7a',
-          // },
-          // {
-          //   name: 'Form 7B',
-          //   icon: 'smile',
-          //   path: '/reports/village-form-7b',
-          //   component: './reports/village-form-7b',
-          // },
-          // {
-          //   name: 'Form 8B',
-          //   layout: false,
-          //   icon: 'smile',
-          //   path: '/reports/Form8B',
-          //   component: './reports/Form8B',
-          // },
-          // {
-          //   name: 'Form 8C',
-          //   // layout: false,
-          //   icon: 'smile',
-          //   path: '/reports/Form8C',
-          //   component: './reports/Form8C',
-          // },
-          // {
-          //   name: 'Form 8B & 8C',
-          //   layout: false,
-          //   icon: 'smile',
-          //   path: '/reports/Form8B&8C',
-          //   component: './reports/Form8B&8C',
-          // },
-
-          // {
-          //   name: 'Form 8D',
-          //   //    layout: false,
-          //   icon: 'smile',
-          //   path: '/reports/Form8D',
-          //   component: './reports/Form8D',
-          // },
-          // {
-          //   name: 'Form 9B',
-          //   icon: 'smile',
-          //   path: '/reports/Form9B',
-          //   component: './reports/Form9B',
-          // },
-          // // {
-          // //   name: 'Form 11',
-          // //   icon: 'smile',
-          // //   path: '/reports/Form11',
-          // //   component: './reports/Form11',
-          // // },
-          // // {
-          // //   name: 'Form 11B',
-          // //   icon: 'smile',
-          // //   path: '/reports/Form11B',
-          // //   component: './reports/Form11B',
-          // // },
-          // {
-          //   name: 'Form 14',
-          //   icon: 'smile',
-          //   path: '/reports/village-form-14',
-          //   component: './reports/village-form-14',
-          // },
-          // {
-          //   name: 'Inward / Outward',
-          //   icon: 'smile',
-          //   path: '/reports/Form15',
-          //   component: './reports/Form15',
-          // },
-          // {
-          //   name: 'Form 17',
-          //   icon: 'smile',
-          //   path: '/reports/village-form-17',
-          //   component: './reports/village-form-17',
-          // },
-          // {
-          //   name: 'Form 19',
-          //   icon: 'smile',
-          //   path: '/reports/Form19',
-          //   component: './reports/Form19',
-          // },
-          // {
-          //   name: 'All Taluka Record',
-          //   icon: 'smile',
-          //   path: '/reports/All-Taluka-Data',
-          //   component: './reports/All-Taluka-Data',
-          // },
-          // {
-          //   name: 'All Village Record',
-          //   icon: 'smile',
-          //   path: '/reports/All-Village-Search-Data',
-          //   component: './reports/All-Village-Search-Data',
-          // },
-          // {
-          //   name: 'Go Live Village List',
-          //   icon: 'smile',
-          //   path: '/reports/Go-Live-VillageList',
-          //   component: './reports/Go-Live-VillageList',
-          // },
-          // {
-          //   // name: 'Online Village Count List',
-          //   // icon: 'smile',
-          //   path: '/reports/Online-Village-Count-Report',
-          //   component: './reports/Online-Village-Count-Report',
-          // },
-          // {
-          //   // name: 'Total Login Villages',
-          //   // icon: 'smile',
-          //   path: '/reports/Total-Phase-1-Login-Report',
-          //   component: './reports/Total-Phase-1-Login-Report',
-          // },
-          // {
-          //   // name: 'Total Phase One Villages',
-          //   // icon: 'smile',
-          //   path: '/reports/Total-Phase-1-Villages-Report',
-          //   component: './reports/Total-Phase-1-Villages-Report',
-          // },
-          // {
-          //   name: 'Ashish sir',
-          //   icon: 'smile',
-          //   path: '/reports/ashishSir',
-          //   component: './reports/ashishSir',
-          // },
-
-          // {
-          //   name: 'Form 21',
-          //   icon: 'smile',
-          //   path: '/reports/Form21',
-          //   component: './reports/Form21',
-          // },
-          // {
-          //   // name: 'All Village Record',
-          //   // icon: 'smile',
-          //   path: '/reports/All-Village-Report',
-          //   component: './reports/All-Village-Report',
-          // },
+         
 
           {
             component: '404',
@@ -1879,7 +1231,9 @@ export const layout = ({ initialState }) => {
         redirect: '/reports/All-Village-Report',
       },
       {
+        path: '/*',
         component: '404',
+        layout: false, 
       },
     ],
   };
@@ -1896,17 +1250,26 @@ export const layout = ({ initialState }) => {
       },
     },
 
-    rightContentRender: () => <RightContent />,
-    disableContentMargin: false,
+ rightContentRender: () => (
+    <>
+      {/* <AccessibilityWidget /> */}
+      <RightContent />
+    </>
+  ),    disableContentMargin: false,
 
     footerRender: () => <Footer />,
-    onPageChange: () => {
-      const { location } = history;
+  onPageChange: () => {
 
-      if (!initialState?.currentUser && location.pathname !== loginPath) {
-        history.push(loginPath);
-      }
-    },
+  const { location } = history;
+
+  if (
+    !initialState?.currentUser &&
+    location.pathname !== '/user/login'
+  ) {
+
+    history.push('/user/login');
+  }
+},
     menuHeaderRender: undefined,
 
     ...initialState?.settings,

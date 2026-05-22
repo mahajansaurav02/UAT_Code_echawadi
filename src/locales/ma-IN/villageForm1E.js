@@ -12,7 +12,7 @@ export default {
   'villageForm1E.table.enchroachmentDate': 'अतिक्रमणाचा दिनांक',
   'villageForm1E.table.enchroachmentPurpose': 'अतिक्रमित जमिनीचा उपयोग',
   'villageForm1E.table.agriculture': 'शेती',
-  'villageForm1E.table.nameOfForm': 'गाव अर्ज १ई',
+  'villageForm1E.table.nameOfForm': 'गाव अर्ज १इ',
   'villageForm1E.table.showArea': 'शोधा',
   'villageForm1E.table.uploadImage': 'अतिक्रमण केलेल्या जमिनीचा फोटो अपलोड',
   'villageForm1E.table.villageForm1E': 'गाव नमुना १इ',

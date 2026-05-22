@@ -70,7 +70,8 @@ function StepForm() {
           talukaCode: talukaCode,
           cCode: codeVillage,
           surveyHissaNo: record.surveyHissaNo,
-
+          periodFromDate: record.periodFromDate,
+          periodToDate: record.periodToDate,
           id: record.id,
         },
       });

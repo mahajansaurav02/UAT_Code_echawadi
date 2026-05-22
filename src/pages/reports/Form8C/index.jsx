@@ -15,7 +15,7 @@ function Report8C() {
   const [textForVillage, setTextForVillage] = useState();
   const [village, setVillage] = useState([]);
   const [tableData, setTableData] = useState();
-  const [revenueYear, setRevenueYear] = useState('2024-25');
+  const [revenueYear, setRevenueYear] = useState('2025-26');
   const [isNirank, setIsNirank] = useState(false);
   const componentRef = useRef();
   const { sendRequest } = useAxios();
@@ -69,21 +69,20 @@ function Report8C() {
       'POST',
       null,
       (res) => {
-        setTableData(
-          res.data
-            .filter((r) => {
-              if (
-                r.addlEducationalCess > 0 ||
-                r.educationalCess > 0 ||
-                r.employeeGuaranteeScheme > 0 ||
-                r.preYearPendingEducationalCess > 0 ||
-                r.preYearPendingAddlEducationalCess > 0 ||
-                r.preYearPendingEmployeeGuaranteeScheme > 0
-              )
-                return res.data;
-            })
-            .map((r, i) => ({
-              srNo: i + 1,
+        console.log(res.data, 'check data ssm===========');
+        const filteredMappedData = res.data
+  .filter((r) => {
+    return (
+      r.addlEducationalCess > 0 ||
+      r.educationalCess > 0 ||
+      r.employeeGuaranteeScheme > 0 ||
+      r.preYearPendingEducationalCess > 0 ||
+      r.preYearPendingAddlEducationalCess > 0 ||
+      r.preYearPendingEmployeeGuaranteeScheme > 0
+    );
+  })
+  .map((r, i) => ({
+        srNo: i + 1,
               id: r.id,
               khataNo: r.khataNo,
               khataOwnerName: r.khataOwnerName,
@@ -104,10 +103,39 @@ function Report8C() {
               challanNoCreditInTreasury: r.challanNoCreditInTreasury,
               challanDate: r.challanDate,
               challanNo: r.challanNo,
-              remarks: r.remarks,
-            })),
-          // message.success('Records Fetched!!'),
-        );
+              challanNo0045: r.challanNo0045,
+              remarks: r.remarks, 
+  }));
+
+               const amountRecovered = filteredMappedData
+          .filter((x) => x.receiptNo !== null && x.receiptDate !== '')
+          .reduce((sum, x) => sum + (Number(x.preYearPendingEducationalCess +
+                          x.preYearPendingAddlEducationalCess +
+                          x.preYearPendingEmployeeGuaranteeScheme +
+                          x.educationalCess +
+                          x.addlEducationalCess +
+                          x.employeeGuaranteeScheme) || 0), 0);
+               const balanceRemain = filteredMappedData
+          // .filter((x) => (x.receiptNo == null ||x.receiptNo == 'test' )&& x.receiptDate == '')
+          .reduce((sum, x) =>  (Number(x.preYearPendingEducationalCess +
+                          x.preYearPendingAddlEducationalCess +
+                          x.preYearPendingEmployeeGuaranteeScheme +
+                          x.educationalCess +
+                          x.addlEducationalCess +
+                          x.employeeGuaranteeScheme) || 0), 0);
+
+ console.log(amountRecovered,"check amountRecovered=====")
+console.log(filteredMappedData,"==========filteredMappedData+++++++++++")
+         const last = filteredMappedData[filteredMappedData.length - 1];
+last.receiptNo='test'
+last.totalAmountRecoverd=amountRecovered
+last.totalBalanceRemained=balanceRemain-amountRecovered
+
+
+
+
+        setTableData(filteredMappedData);
+
         setLoading(false);
       },
       (err) => {
@@ -354,17 +382,31 @@ class ComponentToPrint extends React.Component {
                         {r.receiptNo}-{r.receiptDate}
                       </td>
                       <td>
-                        {r.preYearPendingEducationalCess +
+                        {/* amount recovered */}
+{r.receiptNo =='test'   ? r.totalAmountRecoverd: 
+( r.receiptNo && r.receiptDate ? r.preYearPendingEducationalCess +
                           r.preYearPendingAddlEducationalCess +
                           r.preYearPendingEmployeeGuaranteeScheme +
                           r.educationalCess +
                           r.addlEducationalCess +
-                          r.employeeGuaranteeScheme}
+                          r.employeeGuaranteeScheme:0)}
+
+                       
+
+
                       </td>
-                      <td>{0}</td>
+
+                      {/* balance for recovery  */}
+                      <td>{r.receiptNo=='test'   ?r.totalBalanceRemained
+                    :  ( !r.receiptNo && !r.receiptDate ?r.preYearPendingEducationalCess +
+                          r.preYearPendingAddlEducationalCess +
+                          r.preYearPendingEmployeeGuaranteeScheme +
+                          r.educationalCess +
+                          r.addlEducationalCess +
+                          r.employeeGuaranteeScheme:0)}</td>
 
                       <td>
-                        {r.challanNo}-{r.challanDate}
+                        {r.challanNo0045}-{r.challanDate}
                       </td>
                       <td>{r.remarks}</td>
                     </tr>

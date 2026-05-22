@@ -406,7 +406,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
         okText: 'रद्द करा ',
 
         //cancelText: <FormattedMessage id="formLanguage.form.no" />,
-        title: 'ई-चावडी माहिती',
+        title: 'इ-चावडी माहिती',
         // content: 'सदर अहवालसाठी आपण पात्र नाही',
         content: 'सदर  अहवाल जिल्हाअधिकारी लॉगिनला उपलब्ध आहे',
         onCancel() {},
@@ -528,10 +528,10 @@ export const IntroduceRow = ({ loading, visitData }) => {
           vasuliWithoutDemandCountT: r.data.vasuliWithoutDemandCount,
           demandCountT: r.data.demandCount,
           totalOfSevenEightT: r.data.totalOfSevenEight,
-          totalDemandJm:r.data.totalDemandJm,
-          totalDemandSakirn:r.data.totalDemandSakirn,
-          totalCollectedJm:r.data.totalCollectedJm,
-          totalCollectedSankirn:r.data.totalCollectedSankirn,
+          totalDemandJm: r.data.totalDemandJm,
+          totalDemandSakirn: r.data.totalDemandSakirn,
+          totalCollectedJm: r.data.totalCollectedJm,
+          totalCollectedSankirn: r.data.totalCollectedSankirn,
         });
       },
     );
@@ -721,10 +721,10 @@ export const IntroduceRow = ({ loading, visitData }) => {
             totalOnlineVillagesCount: r.totalOnlineVillagesCount,
             demandCount: r.demandCount,
             totalOfSevenEight: r.totalOfSevenEight,
-            totalDemandJm:r.totalDemandJm,
-            totalDemandSakirn:r.totalDemandSakirn,
-            totalCollectedJm:r.totalCollectedJm,
-            totalCollectedSankirn:r.totalCollectedSankirn,
+            totalDemandJm: r.totalDemandJm,
+            totalDemandSakirn: r.totalDemandSakirn,
+            totalCollectedJm: r.totalCollectedJm,
+            totalCollectedSankirn: r.totalCollectedSankirn,
             chartPlotting: getChartData(
               r.divisionCode,
               r.totalVillages,
@@ -785,10 +785,10 @@ export const IntroduceRow = ({ loading, visitData }) => {
             totalOnlineVillagesCount: r.totalOnlineVillagesCount,
             demandCount: r.demandCount,
             totalOfSevenEight: r.totalOfSevenEight,
-            totalDemandJm:r.totalDemandJm,
-            totalDemandSakirn:r.totalDemandSakirn,
-            totalCollectedJm:r.totalCollectedJm,
-            totalCollectedSankirn:r.totalCollectedSankirn,
+            totalDemandJm: r.totalDemandJm,
+            totalDemandSakirn: r.totalDemandSakirn,
+            totalCollectedJm: r.totalCollectedJm,
+            totalCollectedSankirn: r.totalCollectedSankirn,
             chartPlotting: getChartData(
               r.divisionCode,
               r.totalVillages,
@@ -845,10 +845,10 @@ export const IntroduceRow = ({ loading, visitData }) => {
             totalOnlineVillagesCount: r.totalOnlineVillagesCount,
             demandCount: r.demandCount,
             totalOfSevenEight: r.totalOfSevenEight,
-            totalDemandJm:r.totalDemandJm,
-            totalDemandSakirn:r.totalDemandSakirn,
-            totalCollectedJm:r.totalCollectedJm,
-            totalCollectedSankirn:r.totalCollectedSankirn,
+            totalDemandJm: r.totalDemandJm,
+            totalDemandSakirn: r.totalDemandSakirn,
+            totalCollectedJm: r.totalCollectedJm,
+            totalCollectedSankirn: r.totalCollectedSankirn,
             chartPlotting: getChartData(
               r.divisionCode,
               r.totalVillages,
@@ -1541,10 +1541,10 @@ export const IntroduceRow = ({ loading, visitData }) => {
           vasuliWithoutDemandCountT: r.data.vasuliWithoutDemandCount,
           demandCountT: r.data.demandCount,
           totalOfSevenEightT: r.data.totalOfSevenEight,
-          totalDemandJm:r.data.totalDemandJm,
-          totalDemandSakirn:r.data.totalDemandSakirn,
-          totalCollectedJm:r.data.totalCollectedJm,
-          totalCollectedSankirn:r.data.totalCollectedSankirn,
+          totalDemandJm: r.data.totalDemandJm,
+          totalDemandSakirn: r.data.totalDemandSakirn,
+          totalCollectedJm: r.data.totalCollectedJm,
+          totalCollectedSankirn: r.data.totalCollectedSankirn,
         });
 
         getTab3Details();
@@ -1580,10 +1580,10 @@ export const IntroduceRow = ({ loading, visitData }) => {
           totalDemandCompletedCountT: r.data.totalDemandCompletedCount,
           demandCountT: r.data.demandCount,
           totalOfSevenEightT: r.data.totalOfSevenEight,
-          totalDemandJm:r.data.totalDemandJm,
-          totalDemandSakirn:r.data.totalDemandSakirn,
-          totalCollectedJm:r.data.totalCollectedJm,
-          totalCollectedSankirn:r.data.totalCollectedSankirn,
+          totalDemandJm: r.data.totalDemandJm,
+          totalDemandSakirn: r.data.totalDemandSakirn,
+          totalCollectedJm: r.data.totalCollectedJm,
+          totalCollectedSankirn: r.data.totalCollectedSankirn,
         });
 
         getTab2Details();
@@ -1950,7 +1950,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
         onTabClick={callbackTabClicked}
       >
         {/* <Tabs.TabPane tab="कामकाज प्रगती अहवाल" key="tab1"> */}
-        <Tabs.TabPane tab="ई-चावडी कामकाज प्रगती अहवाल" key="tab1">
+        <Tabs.TabPane tab="इ-चावडी कामकाज प्रगती अहवाल" key="tab1">
           {/* Old 2023-2024 */}
           {showPreDashboard == true && showStaticDashboard != true && (
             <>
@@ -2129,7 +2129,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                 fontSize: '12px',
                               }}
                             >
-                              ई-चावडी प्रणाली- मध्ये एक ही खातेदारांची मागणी निश्चिती न केल्याने
+                              इ-चावडी प्रणाली- मध्ये एक ही खातेदारांची मागणी निश्चिती न केल्याने
                               वसुली न करणाऱ्या गावांची संख्या
                             </Typography>
                             <Divider variant="middle" />
@@ -3651,7 +3651,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                 fontSize: '12px',
                               }}
                             >
-                              ई-चावडी प्रणाली- मध्ये एक ही खातेदारांची मागणी निश्चिती न केल्याने
+                              इ-चावडी प्रणाली- मध्ये एक ही खातेदारांची मागणी निश्चिती न केल्याने
                               वसुली न करणाऱ्या गावांची संख्या
                             </Typography>
                             <Divider variant="middle" />
@@ -3709,7 +3709,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                               fontSize: '12px',
                             }}
                           >
-                            ई-चावडी प्रणाली- मध्ये एक ही खातेदारांची मागणी निश्चिती न केल्याने वसुली
+                            इ-चावडी प्रणाली- मध्ये एक ही खातेदारांची मागणी निश्चिती न केल्याने वसुली
                             न करणाऱ्या गावांची संख्या
                           </Typography>
                           <Divider variant="middle" />
@@ -6437,7 +6437,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
           </Paper>
         </Tabs.TabPane>
 
-        <Tabs.TabPane tab="ई-चावडी वसूली अहवाल" >
+        <Tabs.TabPane tab="इ-चावडी वसूली अहवाल">
           {/* Old 2023-2024 */}
           {showPreDashboard == true && showStaticDashboard != true && (
             <>
@@ -6616,7 +6616,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                 fontSize: '12px',
                               }}
                             >
-                             जमीन महसुलाची मागणी
+                              जमीन महसुलाची मागणी
                             </Typography>
                             <Divider variant="middle" />
                           </Box>
@@ -7896,7 +7896,11 @@ export const IntroduceRow = ({ loading, visitData }) => {
                           <CardContent>
                             <center>
                               {/* <h3> T</h3> */}
-                              <h3> {dashBoardCount2023_2024_TD?.totalDemandJm + dashBoardCount2023_2024_TD?.totalDemandSakirn }</h3>
+                              <h3>
+                                {' '}
+                                {dashBoardCount2023_2024_TD?.totalDemandJm +
+                                  dashBoardCount2023_2024_TD?.totalDemandSakirn}
+                              </h3>
                             </center>
                           </CardContent>
                         </Box>
@@ -7957,18 +7961,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                   <DownloadOutlined />
                 </ExportToExcel>
 
-
-
-
-
-
-
-
-
-
-
-                
-{/* saurav main reporta */}
+                {/* saurav main reporta */}
                 <Paper className={styles.Footercard} style={{ height: '800px', overflowY: 'auto' }}>
                   {/* Main Grid */}
                   <Grid
@@ -8183,7 +8176,6 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                 color: '#F0F2F5',
                                 paddingTop: '20',
                                 fontSize: '14px',
-
                               }}
                             >
                               एकुण
@@ -8264,7 +8256,6 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                 color: '#F0F2F5',
                                 paddingTop: '20',
                                 fontSize: '14px',
-
                               }}
                             >
                               एकुण
@@ -8287,7 +8278,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                               fontSize: '12px',
                             }}
                           >
-                            ई-चावडी प्रणाली- मध्ये एक ही खातेदारांची मागणी निश्चिती न केल्याने वसुली
+                            इ-चावडी प्रणाली- मध्ये एक ही खातेदारांची मागणी निश्चिती न केल्याने वसुली
                             न करणाऱ्या गावांची संख्या
                           </Typography>
                           <Divider variant="middle" />
@@ -8326,8 +8317,6 @@ export const IntroduceRow = ({ loading, visitData }) => {
                         </Box>
                       </Card>
                     </Grid> */}
-
-              
                   </Grid>
                   {/* Main Grid */}
                   {dashBoardDetail &&
@@ -8601,7 +8590,6 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                 </Box>
                               </Card>
                             </Grid>
-                            
                           </Grid>
                           {/* District Grid */}
                           {showDistrict === true && r.divisionCode === divisionCode && (
@@ -8841,7 +8829,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                         </Box>
                                       </Card>
                                     </Grid>
-                                   
+
                                     <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
                                       <Card>
                                         <Box
@@ -8890,13 +8878,14 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                           <CardContent>
                                             <center>
                                               {/* <h3>T D</h3> */}
-                                              <h3>{r.totalCollectedJm + r.totalCollectedSankirn}</h3>
+                                              <h3>
+                                                {r.totalCollectedJm + r.totalCollectedSankirn}
+                                              </h3>
                                             </center>
                                           </CardContent>
                                         </Box>
                                       </Card>
                                     </Grid>
-                                   
                                   </Grid>
                                   {/* Show Taluka */}
                                   {showTaluka === true && r.districtCode === districtsCode && (
@@ -9204,7 +9193,6 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                                 </Box>
                                               </Card>
                                             </Grid>
-                                           
 
                                             <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
                                               <Card>
@@ -9322,7 +9310,8 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                                       >
                                                         <h3>
                                                           {/* <u>T T</u> */}
-                                                          {r.totalCollectedJm + r.totalCollectedSankirn}
+                                                          {r.totalCollectedJm +
+                                                            r.totalCollectedSankirn}
                                                         </h3>
                                                       </a>
                                                     </center>
@@ -9330,8 +9319,6 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                                 </Box>
                                               </Card>
                                             </Grid>
-                                           
-                                           
                                           </Grid>
                                         </>
                                       );
@@ -9489,7 +9476,10 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                       <CardContent>
                                         <center>
                                           {/* <h3> T</h3> */}
-                                          <h3>{dashBoardCount1?.totalDemandJm + dashBoardCount1?.totalDemandSakirn }</h3>
+                                          <h3>
+                                            {dashBoardCount1?.totalDemandJm +
+                                              dashBoardCount1?.totalDemandSakirn}
+                                          </h3>
                                         </center>
                                       </CardContent>
                                     </Box>
@@ -9540,7 +9530,10 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                       <CardContent>
                                         <center>
                                           {/* <h3> T</h3> */}
-                                          <h3>{dashBoardCount1?.totalCollectedJm + dashBoardCount1?.totalCollectedSankirn }</h3>
+                                          <h3>
+                                            {dashBoardCount1?.totalCollectedJm +
+                                              dashBoardCount1?.totalCollectedSankirn}
+                                          </h3>
                                         </center>
                                       </CardContent>
                                     </Box>
@@ -9700,13 +9693,15 @@ export const IntroduceRow = ({ loading, visitData }) => {
                           <CardContent>
                             <center>
                               {/* <h3> T</h3> */}
-                              <h3> {dashBoardCount?.totalDemandJm + dashBoardCount?.totalDemandSakirn}</h3>
+                              <h3>
+                                {' '}
+                                {dashBoardCount?.totalDemandJm + dashBoardCount?.totalDemandSakirn}
+                              </h3>
                             </center>
                           </CardContent>
                         </Box>
                       </Card>
                     </Grid>
-
 
                     <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
                       <Card>
@@ -9753,14 +9748,16 @@ export const IntroduceRow = ({ loading, visitData }) => {
                           <CardContent>
                             <center>
                               {/* <h3> T</h3> */}
-                              <h3> {dashBoardCount?.totalCollectedJm + dashBoardCount?.totalCollectedSankirn}</h3>
+                              <h3>
+                                {' '}
+                                {dashBoardCount?.totalCollectedJm +
+                                  dashBoardCount?.totalCollectedSankirn}
+                              </h3>
                             </center>
                           </CardContent>
                         </Box>
                       </Card>
                     </Grid>
-
-                  
                   </Grid>
                   {/*asha new 0ct13*/}
                   {/************************************************list district**********************************************************8 */}
@@ -10272,9 +10269,6 @@ export const IntroduceRow = ({ loading, visitData }) => {
             </>
           )}
         </Tabs.TabPane>
-
-
-
       </Tabs>
     </div>
   );

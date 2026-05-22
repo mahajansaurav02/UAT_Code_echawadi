@@ -24,7 +24,7 @@ function DemandGenerationChallan() {
   const [village, setVillage] = useState([]);
   const [tableData, setTableData] = useState();
   const history = useHistory();
-  const [revenueYear, setRevenueYear] = useState('2024-25');
+  const [revenueYear, setRevenueYear] = useState('2025-26');
   const [moneyStatus, setMoneyStatus] = useState();
   const [loading, setLoading] = useState(false);
   const [revenueYearForVillage, setRevenueYearForVillage] = useState();

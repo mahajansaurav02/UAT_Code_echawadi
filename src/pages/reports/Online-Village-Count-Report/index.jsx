@@ -101,7 +101,7 @@ class ComponentToPrint extends React.Component {
                 <tr>
                   <th colSpan={24}>
                     <h3 style={{ color: 'red' }}>
-                      <b>ऑनलाईन वसुली करणाऱ्या गावांची माहिती</b>
+                      <b>ऑनलाइन वसुली करणाऱ्या गावांची माहिती</b>
                     </h3>
                   </th>
                 </tr>
@@ -112,7 +112,7 @@ class ComponentToPrint extends React.Component {
                       <pre>
                         <b>
                           <FormattedMessage id="formLanguage.form.district" /> -{' '}
-                          {this.props.districtName} मधील ऑनलाईन वसुली करणाऱ्या गावांची संख्या{' '}
+                          {this.props.districtName} मधील ऑनलाइन वसुली करणाऱ्या गावांची संख्या{' '}
                           {this.props.totalOnlineVillagesCount}
                         </b>
                       </pre>

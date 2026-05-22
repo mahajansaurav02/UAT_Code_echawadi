@@ -70,6 +70,7 @@ function GChallan() {
   const [revenueYear, setRevenueYear] = useState();
   const [lGDCode, setLGDCode] = useState();
   const [confirmLoading, setConfirmLoading] = useState(false);
+  const [button1State, setButton1State] = useState(false);
 
   useEffect(() => {
     const result = villageData.filter(
@@ -111,10 +112,17 @@ function GChallan() {
 
     if (jmBindumala < 5) {
       // zp = zpAkrushik + zpSankirn + preYearPendingZp + zpBindumala;
-      zp = zp = zpAkrushik + zpSankirn + preYearPendingZp;
+      // zp = zp = zpAkrushik + zpSankirn + preYearPendingZp;
+      zp = zp = zpAkrushik + zpSankirn + preYearPendingZp+zpDumala;
+      console.log(zp,"check if zp")
+
     } else {
       zp = zpAkrushik + zpBindumala + zpDumala + zpSankirn + preYearPendingZp;
+console.log(zp,"check else zp")
+      
     }
+
+console.log(zp,"check final zp")
 
     return zp;
   }
@@ -162,8 +170,24 @@ function GChallan() {
     });
   };
 
+const popConfirm = () => {
+  setButton1State(true);   
+  generateChallan();
+};
+
+
+
   const generateChallan = async () => {
-    setConfirmLoading(true),
+setIsLoading(true)
+    console.log(button1State,"check button state2222222")
+    setConfirmLoading(true)
+    console.log(confirmLoading,"check confirm loading")
+
+
+    
+
+
+      // setButton1StateLoading(true),
       sendRequest(
         `${URLS.BaseURL}/landRevenue/persistLandRevenueChallan`,
         'POST',
@@ -173,6 +197,8 @@ function GChallan() {
           {
             if (resForPrint.status === 201) {
               message.success('Challan Created!!!');
+                setButton1State(false);   // enable button back after success
+        setConfirmLoading(false);
               history.push({
                 pathname: '/transactions/generateChallanPrint',
                 state: {
@@ -204,6 +230,7 @@ function GChallan() {
             }
           }
         },
+        console.log(button1State,"check button state"),
         setConfirmLoading(false),
         (prevTotalJM = 0),
         (prevTotalZP = 0),
@@ -221,7 +248,11 @@ function GChallan() {
         (prevTotalAmountInWordsFor0029 = 0),
         (prevTotalAmountInWordsFor0045 = 0),
         (err) => {
-          setConfirmLoading(false);
+                message.error("Something went wrong");
+      setButton1State(false);   // re-enable on error
+      setConfirmLoading(false);
+setIsLoading(false)
+
         },
       );
 
@@ -730,29 +761,31 @@ function GChallan() {
         <Row>
           <Col xl={3} lg={3} md={3} sm={24} xs={24}>
             <Popconfirm
-              title={<FormattedMessage id="transactionCommon.table.popForSave" />}
-              onConfirm={() => {
-                if (textVillage && revenueYear && modeOfPaymentText) {
-                  generateChallan();
-                } else if (textVillage == null) {
-                  message.info('Please Select Village !');
-                } else if (revenueYear == null) {
-                  message.info('Please Select Revenue Year !');
-                } else if (modeOfPaymentText == null) {
-                  message.info('Please Select Mode of Payment !');
-                }
-              }}
-              okButtonProps={{
-                loading: confirmLoading,
-              }}
-              onCancel={cancel}
-              okText={<FormattedMessage id="transactionCommon.table.yes" />}
-              cancelText={<FormattedMessage id="transactionCommon.table.no" />}
-            >
-              <Button type="primary" style={{ marginTop: '15px' }}>
-                <FormattedMessage id="generateChallan.table.handWrittenChallan" />
-              </Button>
-            </Popconfirm>
+  title={<FormattedMessage id="transactionCommon.table.popForSave" />}
+  onConfirm={() => {
+    if (textVillage && revenueYear && modeOfPaymentText) {
+      popConfirm();
+    } else if (!textVillage) {
+      message.info('Please Select Village !');
+    } else if (!revenueYear) {
+      message.info('Please Select Revenue Year !');
+    } else if (!modeOfPaymentText) {
+      message.info('Please Select Mode of Payment !');
+    }
+  }}
+  okButtonProps={{ loading: confirmLoading }}
+  onCancel={cancel}
+  okText={<FormattedMessage id="transactionCommon.table.yes" />}
+  cancelText={<FormattedMessage id="transactionCommon.table.no" />}
+>
+  <Button
+    type="primary"
+    style={{ marginTop: '15px' }}
+    disabled={button1State}
+  >
+    <FormattedMessage id="generateChallan.table.handWrittenChallan" />
+  </Button>
+</Popconfirm>
           </Col>
           <Col xl={1} lg={1} md={1} sm={1} xs={1}></Col>
           <Col xl={4} lg={4} md={4} sm={24} xs={24}>

@@ -22,7 +22,7 @@ function Report5() {
   const [isNirank, setIsNirank] = useState(false);
   const [village, setVillage] = useState([]);
   const [tableData, setTableData] = useState();
-  const [revenueYear, setRevenueYear] = useState('2024-25');
+  const [revenueYear, setRevenueYear] = useState('2025-26');
   const componentRef = useRef();
   const { districtName, talukaName, districtCode, talukaCode } = useModel('details');
   const [revenueYearForVillage, setRevenueYearForVillage] = useState();

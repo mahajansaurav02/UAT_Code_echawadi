@@ -62,19 +62,28 @@ function Form15Report() {
       'GET',
       null,
       (res) => {
-        setTableData(
-          res.data.form15Data.map((r) => ({
-            communicationDispatchedToWhom: r.communicationDispatchedToWhom,
-            communicationReceivedFrom: r.communicationReceivedFrom,
-            noOfCommunication: r.noOfCommunication,
-            dateOfReceipt: r.dateOfReceipt,
-            subjectActionToTake: r.subjectActionToTake,
-            dateOfDispatch: r.dateOfDispatch ? r.dateOfDispatch : '',
-            noInList: r.noInList,
-            remarks: r.remarks,
-            designation: r.designation,
-          })),
-        );
+    setTableData(
+  res.data.form15Data
+    .sort((a, b) => {
+      const getNumber = (val) => {
+        const match = val?.toString().trim().match(/\d+/); // extract first number
+        return match ? Number(match[0]) : Infinity; // non-numeric goes last
+      };
+
+      return getNumber(a.noOfCommunication) - getNumber(b.noOfCommunication);
+    })
+    .map((r) => ({
+      communicationDispatchedToWhom: r.communicationDispatchedToWhom,
+      communicationReceivedFrom: r.communicationReceivedFrom,
+      noOfCommunication: r.noOfCommunication,
+      dateOfReceipt: r.dateOfReceipt,
+      subjectActionToTake: r.subjectActionToTake,
+      dateOfDispatch: r.dateOfDispatch ? r.dateOfDispatch : '',
+      noInList: r.noInList,
+      remarks: r.remarks,
+      designation: r.designation,
+    }))
+);
         message.success('Records Fetched!!');
       },
     );

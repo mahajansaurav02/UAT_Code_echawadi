@@ -25,8 +25,8 @@ export default {
   'formLanguage.button.add': 'नवीन नोंदणी',
   'formLanguage.form.hissaNo': 'हिस्सा क्रमांक',
   'formLanguage.button.getFerfar': 'शोधा',
-  'formLanguage.form.eFerfar': 'ई-फेरफार मधील माहिती',
-  'formLanguage.form.echawdi': 'ई-चावडी',
+  'formLanguage.form.eFerfar': 'इ-फेरफार मधील माहिती',
+  'formLanguage.form.echawdi': 'इ-चावडी',
   'formLanguage.form.assessment': 'आकारणी',
   'formLanguage.form.rupees': '₹',
   'formLanguage.button.khataNo': 'खाता क्रमांक',
@@ -55,6 +55,8 @@ export default {
 
   'formLanguage.form.name9b': 'गाव नमुना नऊ - ब',
   'villageForm.form.allVillageReport': 'सर्व गावांची नोंदवलेली माहिती',
+  'villageForm.form.allVillageReportEchawadi':
+    'सर्व गावांची नोंदवलेली माहिती (इ-चावडी वसूली अहवाल)',
   'villageForm.form.allVillageName': 'गावांचे नाव ',
 
   'villageForm.form.VillageName2': 'गाव नमुना दोन',

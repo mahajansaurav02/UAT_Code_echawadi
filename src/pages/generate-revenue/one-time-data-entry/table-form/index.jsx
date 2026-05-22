@@ -35,6 +35,8 @@ function ViewOneTimeEntry() {
   const [isNirank, setIsNirank] = useState(false);
   const [isNirank1, setIsNirank1] = useState();
   const [flagForSearch, setFlagForSearch] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState();
+
 
   const [cCodeVillageData1, setcCodeVillaheData1] = useState();
   const [villageNameVillageData1, setvillageNameVillageData1] = useState();
@@ -86,8 +88,30 @@ function ViewOneTimeEntry() {
       },
     );
   };
+
+
+    const getFlagOfSubmission = () => {
+    const villageData1 = JSON.parse(localStorage.getItem('villageData1'));
+    const cCode1 = villageData1[0]?.cCode;
+    const selecterdVillage1 = villageData1[0]?.villageName;
+    sendRequest(
+      `${URLS.BaseURL}/landRevenue/checkPreviousYear?ccode=${cCode1}`,
+      // `http://localhost:8092/echawdi/api/landRevenue/checkPreviousYear?ccode=272400110296420000`,
+      'GET',
+      null,
+      (res) => {
+        console.log(res.data.yearsExist, 'checkkkkkkkkkkk respooooooo ssm');
+        setIsSubmitted(res.data.yearsExist);
+      },
+      (err) => {
+        console.log('message', err);
+        //message.error(err.data.message);
+      },
+    );
+  };
   useEffect(() => {
     getNirankReq();
+    getFlagOfSubmission()
   }, [isNirank1]);
 
   // useEffect(() => {
@@ -320,7 +344,7 @@ function ViewOneTimeEntry() {
         <Row>
           <Col span={21}></Col>
           <Col span={3}>
-            {isNirank1 == false && (
+            {isNirank1 == false &&isSubmitted == 'N' && (
               <Button onClick={addOneTimeEntry} type="primary" style={{ margin: 10 }}>
                 <FormattedMessage id="oneTimeEntry.table.add" />
               </Button>
@@ -339,7 +363,7 @@ function ViewOneTimeEntry() {
         />
 
         {/* </Row> */}
-        {isNirank1 == false && (
+        {isNirank1 == false && isSubmitted == 'N'&& (
           <Row style={{ marginTop: '40px' }}>
             <label Col span={4} htmlFor="" style={{ paddingRight: '5px' }}>
               <FormattedMessage id="oneTimeEntry.form.khataNo" /> :
@@ -387,10 +411,21 @@ function ViewOneTimeEntry() {
           />
         </>
       )}
+
+         {isSubmitted == 'Y' && (
+        <>
+          <Alert
+            message="टीप"
+            description="सदर थकबाकी सुविधा चालू वर्षात उपलब्ध नाही "
+            type="info"
+            showIcon
+          />
+        </>
+      )}
       <Card border={true}>
         <Row>
           <Col span={23}>
-            {isNirank1 == false && (
+            {isNirank1 == false && isSubmitted == 'N'&& (
               <Table bordered scroll={{ x: 100 }} columns={columns} dataSource={dataSoruce} />
             )}
           </Col>

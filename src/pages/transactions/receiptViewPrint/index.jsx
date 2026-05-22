@@ -136,7 +136,7 @@ class ComponentToPrint extends React.Component {
                   <h5>क्रमांक: {this.props.receiptNo}</h5>
                 </strong>
                  <strong>
-                  <h5>दिनांक: {this.props.receiptDate}</h5>
+                  <h5>दिनांक: {this.props.receiptDateForReceipt}</h5>
                 </strong>
               </Col>
             </Row>
@@ -317,7 +317,7 @@ class ComponentToPrint extends React.Component {
               <Col span={8}>
                 <tr>
                   {/* <td>दिनांक: {this.props.receiptDate}</td> */}
-                  <td>दिनांक: {this.props.receiptDate}</td>
+                  <td>दिनांक: {this.props.receiptDateForReceipt}</td>
                   <td></td>
                 </tr>
               </Col>

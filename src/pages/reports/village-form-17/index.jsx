@@ -21,7 +21,7 @@ function Report() {
   const [tableData, setTableData] = useState();
   const [textVillage, setTextVillage] = useState('');
   const componentRef = useRef();
-  const [revenueYear, setRevenueYear] = useState('2024-25');
+  const [revenueYear, setRevenueYear] = useState('2025-26');
   const [isNirank, setIsNirank] = useState(false);
   const [revenueYearForVillage, setRevenueYearForVillage] = useState();
   const history = useHistory();
@@ -81,7 +81,7 @@ function Report() {
         // console.log('report 17 data', res.data);
         setTableData(
           res.data.form17Data.map((row) => ({
-            khataNo: row.khataNo === null ? row.makhtaKhataNo : row.khataNo,
+            khataNo: row.khataNo === null ||row.khataNo.trim() =="" ? row.makhtaKhataNo : row.khataNo,
             caseNo: row.caseNo,
             id: row.id,
             totalArea: row.totalArea,

@@ -1,0 +1,195 @@
+/* ========== NEW OUTER LAYOUT ========== */
+.layoutWrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  margin-top: 16px;
+}
+
+/* Left Sidebar (fixed width, stacked cards) */
+.leftSidebar {
+  width: 280px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.summaryCard {
+  border-color: #dcdfe6;
+  border-radius: 8px;
+}
+
+.summaryCard .ant-card-body {
+  padding: 16px;
+}
+
+.cardLabel {
+  font-size: 12px;
+  color: #8c92a4;
+  margin-bottom: 4px;
+}
+
+.cardValue {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Chat Section (takes remaining width) */
+.chatSection {
+  flex: 1;
+  min-width: 0;   /* prevents overflow in flex child */
+}
+
+/* ========== ORIGINAL CHAT STYLES (exactly as before) ========== */
+.chatContainer {
+  background-color: #f4f5f7;
+  padding: 24px;
+  border-radius: 8px;
+  margin-top: 0;   /* was 16px, now handled by .layoutWrapper */
+}
+
+.dateDivider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #8c92a4;
+  font-size: 12px;
+  margin: 24px 0;
+}
+
+.dateDivider::before,
+.dateDivider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #dcdfe6;
+}
+
+.dateDivider::before {
+  margin-right: 16px;
+}
+
+.dateDivider::after {
+  margin-left: 16px;
+}
+
+.messageRow {
+  display: flex;
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.messageRow.left {
+  justify-content: flex-start;
+}
+
+.messageRow.right {
+  justify-content: flex-end;
+}
+
+.messageContent {
+  max-width: 60%;
+  display: flex;
+  flex-direction: column;
+}
+
+.messageContent.left {
+  margin-left: 16px;
+  align-items: flex-start;
+}
+
+.messageContent.right {
+  margin-right: 16px;
+  align-items: flex-end;
+}
+
+.senderInfo {
+  font-size: 13px;
+  color: #5c6277;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.messageBubble {
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.6;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.messageBubble.left {
+  background-color: #5f7cf6;
+  color: #ffffff;
+  border-top-left-radius: 0;
+}
+
+.messageBubble.right {
+  background-color: #d32453;
+  color: #ffffff;
+  border-top-right-radius: 0;
+}
+
+.attachmentTag {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(0,0,0,0.08);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.timeStamp {
+  font-size: 11px;
+  color: #8c92a4;
+  margin-top: 6px;
+}
+
+.replyBox {
+  background-color: #ffffff;
+  padding: 24px;
+  border-radius: 8px;
+  border: 1px solid #e4e7ed;
+  margin-top: 24px;
+}
+
+.replyHeader {
+  font-size: 14px;
+  color: #5c6277;
+  margin-bottom: 12px;
+}
+
+.replyActions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .layoutWrapper {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .leftSidebar {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .summaryCard {
+    flex: 1 1 auto;
+    min-width: 120px;
+  }
+
+  .cardValue {
+    font-size: 18px;
+  }
+
+  .chatSection {
+    width: 100%;
+  }
+}

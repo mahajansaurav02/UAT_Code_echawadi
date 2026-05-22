@@ -225,7 +225,12 @@ const TableForm1C = () => {
 
   const showForm1c = async () => {
     setIsLoading(true);
+    if (!clause) {
+      message.error('कृपया प्रकार निवडा');
+      setIsLoading(false);
 
+      return;
+    }
     sendRequest(
       `${
         URLS.BaseURL

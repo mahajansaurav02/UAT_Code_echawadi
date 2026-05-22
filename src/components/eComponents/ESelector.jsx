@@ -139,7 +139,7 @@ const ESelector = (props) => {
                 />
               </Form.Item>
             </Col>
-            <Col xl={1} lg={1} md={1} sm={1}></Col>
+            <Col xl={1} lg={1} md={1} sm={1} />
             <Col xl={2} lg={7} md={2} sm={7} xs={24}>
               <Button
                 // style={{ marginLeft: 10 }}

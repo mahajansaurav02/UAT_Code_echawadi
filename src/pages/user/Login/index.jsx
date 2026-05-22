@@ -73,131 +73,112 @@ const Login = () => {
   };
 
   const handleSubmit = async (values) => {
-    // console.log('API encrypted password', encrypted);
-
-    let user_captcha_value = document.getElementById('user_captcha_input').value;
-
-    // if (validateCaptcha(user_captcha_value) == true) {
-    //   alert('Captcha Matched');
-    // } else {
-    //   alert('Captcha Does Not Match');
-    // }
-
-    enterLoading(2);
-    // setButtonLoadingState(true);
-    const article = {
-      servarthId: username,
-      password: encrypted.toString(),
-    };
-
-    let loginStatus;
-    await Axios.post(`${URLS.AuthURL}/authenticateUserByUsernameAndPassword`, article)
-      .then((res) => {
-        let testStatus = res.status;
-        // console.log(testStatus);
-        if (testStatus === 200 && validateCaptcha(user_captcha_value) == true) {
-          loginStatus = 'ok';
-          // alert('Captcha Matched');
-
-          details(
-            res.data.challanHeads,
-            res.data.servarthId,
-            res.data.districtCode,
-            res.data.districtName,
-            res.data.talukaCode,
-            res.data.talukaName,
-            res.data.marathiName,
-            res.data.desg,
-            res.data.echDbName,
-            res.data.echSchemaName,
-            res.data.mhrDbName,
-            res.data.mhrSchemaName,
-            res.data.echHost,
-            res.data.mhrHost,
-            res.data.villages,
-            res.data.revenueYear,
-            res.data.roles,
-            res.data.niranks,
-          );
-
-          authLogin(res.data.token, 3600000);
-          reload();
-        } else {
-          alert('Captcha Does Not Match');
-        }
-      })
-      .catch((err) => {
-        if (login_attempts == 0) {
-          alert('No Login Attempts Available');
-        } else {
-          login_attempts = login_attempts - 1;
-          alert('Login Failed Now Only ' + login_attempts + ' Login Attempts Available');
-          if (login_attempts == 0) {
-            document.getElementById('username1').disabled = true;
-            document.getElementById('password1').disabled = true;
-            document.getElementById('btnbtn').disabled = true;
-          }
-        }
-        return false;
-        // console.log('err', err);
-        // setModalForDelete(true);
-      });
+    enterLoading(2); // Start loading
 
     try {
-      // Login
-      const msg = await login({ ...values, type });
-      // console.log(loginStatus + '<----Login--msg.status------>' + msg.status);
-      if (loginStatus !== null && msg.status === loginStatus) {
-        const defaultLoginSuccessMessage = intl.formatMessage({
-          id: 'pages.login.success',
-          defaultMessage: 'Login Successful',
-        });
-        let ROLES = JSON.parse(localStorage.getItem('roles'));
-        
-        message.success(defaultLoginSuccessMessage, 2); // 3 seconds duration
-        
-        await fetchUserInfo();
-        
-        if (!history) return;
-        const { query } = history.location;
-        const { redirect } = query;
-        console.log('ROLES', ROLES);
-        if (ROLES[0] === 'ROLE_COLLECTOR') {
-          // console.log('checkeddddd')
-          // history.push('/dashboard/analysis');
-           const defaultLoginFailureMessage = intl.formatMessage({
-          id: 'pages.login.failure',
-          defaultMessage: 'Login failed, please try again!',
-        });
-                message.error(defaultLoginFailureMessage, 2); // 3 seconds duration
+      let user_captcha_value = document.getElementById('user_captcha_input').value;
+      const article = {
+        servarthId: username,
+        password: encrypted.toString(),
+      };
 
-        
-        } else
-         if (ROLES[0] === 'ROLE_DYSLR') {
-          history.push( '/homepageDYSLR');
+      const res = await Axios.post(
+        `${URLS.AuthURL}/authenticateUserByUsernameAndPassword`,
+        article,
+      );
+
+      if (res.status === 200 && validateCaptcha(user_captcha_value) === true) {
+        // Successful login logic
+        details(
+          res.data.challanHeads,
+          res.data.servarthId,
+          res.data.districtCode,
+          res.data.districtName,
+          res.data.talukaCode,
+          res.data.talukaName,
+          res.data.marathiName,
+          res.data.desg,
+          res.data.echDbName,
+          res.data.echSchemaName,
+          res.data.mhrDbName,
+          res.data.mhrSchemaName,
+          res.data.echHost,
+          res.data.mhrHost,
+          res.data.villages,
+          res.data.revenueYear,
+          res.data.roles,
+          res.data.niranks,
+        );
+
+        authLogin(res.data.token, 3600000);
+        reload();
+
+        // Proceed with additional login logic
+        const msg = await login({ ...values, type });
+        if (msg.status === 'ok') {
+          const defaultLoginSuccessMessage = intl.formatMessage({
+            id: 'pages.login.success',
+            defaultMessage: 'Login Successful',
+          });
+          message.success(defaultLoginSuccessMessage, 2);
+
+          await fetchUserInfo();
+
+          if (!history) return;
+          const { query } = history.location;
+          const { redirect } = query;
+          const ROLES = JSON.parse(localStorage.getItem('roles'));
+
+          if (ROLES[0] === 'ROLE_COLLECTOR') {
+            message.error(
+              intl.formatMessage({
+                id: 'pages.login.failure',
+                defaultMessage: 'Login failed, please try again!',
+              }),
+              2,
+            );
+          } else if (ROLES[0] === 'ROLE_DYSLR') {
+            history.push('/homepageDYSLR');
+          } else {
+            history.push('/homepageThalati');
+          }
         } else {
-          history.push('/homepageThalati');
-          // history.push('redirect || /homepageThalati');
+          throw new Error('Login failed');
         }
-        return;
       } else {
-        const defaultLoginFailureMessage = intl.formatMessage({
+        throw new Error('Captcha validation failed');
+      }
+    } catch (err) {
+      // Handle all errors in one place
+      if (login_attempts <= 0) {
+        alert('No Login Attempts Available');
+        document.getElementById('username1').disabled = true;
+        document.getElementById('password1').disabled = true;
+        document.getElementById('btnbtn').disabled = true;
+      } else {
+        login_attempts -= 1;
+        alert(`Login Failed. Now Only ${login_attempts} Login Attempts Available`);
+        if (login_attempts <= 0) {
+          document.getElementById('username1').disabled = true;
+          document.getElementById('password1').disabled = true;
+          document.getElementById('btnbtn').disabled = true;
+        }
+      }
+
+      message.error(
+        intl.formatMessage({
           id: 'pages.login.failure',
           defaultMessage: 'Login failed, please try again!',
-        });
-        
-        message.error(defaultLoginFailureMessage, 2); // 3 seconds duration
-      }
-      // console.log(msg); //If it fails to set user error message
-
-      setUserLoginState(msg);
-    } catch (error) {
-      // console.log(error);
-      const defaultLoginFailureMessage = intl.formatMessage({
-        id: 'pages.login.failure',
-        defaultMessage: 'Login failed, please try again!',
+        }),
+        2,
+      );
+    } finally {
+      // Always stop loading, whether success or failure
+      setLoadings((prevLoadings) => {
+        const newLoadings = [...prevLoadings];
+        newLoadings[2] = false;
+        return newLoadings;
       });
-      message.error(defaultLoginFailureMessage);
     }
   };
 
@@ -209,13 +190,6 @@ const Login = () => {
       newLoadings[index] = true;
       return newLoadings;
     });
-    setTimeout(() => {
-      setLoadings((prevLoadings) => {
-        const newLoadings = [...prevLoadings];
-        newLoadings[index] = false;
-        return newLoadings;
-      });
-    }, 50000);
   };
 
   const onCancelForHelp = () => {
@@ -226,21 +200,21 @@ const Login = () => {
     setModalHelp(true);
   };
 
-const goToMis = (e) => {
-  e.preventDefault();
-  
-  // 1. Use raw DOM manipulation to change the URL
-  window.history.pushState({}, '', '/#/dashboard/collectorMis');
-  
-  // 2. Manually re-render the app (if using React)
-  const event = new Event('forceRender');
-  window.dispatchEvent(event);
-  
-  // 3. Fallback to full reload if still blocked
-  setTimeout(() => {
-    window.location.reload();
-  }, 100);
-};
+  const goToMis = (e) => {
+    e.preventDefault();
+
+    // 1. Use raw DOM manipulation to change the URL
+    window.history.pushState({}, '', '/#/dashboard/collectorMis');
+
+    // 2. Manually re-render the app (if using React)
+    const event = new Event('forceRender');
+    window.dispatchEvent(event);
+
+    // 3. Fallback to full reload if still blocked
+    setTimeout(() => {
+      window.location.reload();
+    }, 100);
+  };
 
   const info = () => {
     Modal.info({
@@ -248,7 +222,7 @@ const goToMis = (e) => {
       okText: 'रद्द करा ',
 
       //cancelText: <FormattedMessage id="formLanguage.form.no" />,
-      title: 'ई-चावडी माहिती आणि मदत',
+      title: 'इ-चावडी माहिती आणि मदत',
       content: (
         <div>
           <a href={`${URLS.AuthURL}/file/1`} target="_blank" rel="noreferrer">
@@ -257,38 +231,76 @@ const goToMis = (e) => {
           <br></br>
           <br />
           <a href={`${URLS.AuthURL}/file/2`} target="_blank" rel="noreferrer">
-            २) ई-चावडी सर्वसमावेशक सूचना
+            २) इ-चावडी सर्वसमावेशक सूचना
           </a>
         </div>
       ),
       onCancel() {},
     });
   };
-  const SiteStop = () => {
-    Modal.info({
-      okType: 'danger',
-      okText: 'रद्द करा ',
+const SiteStop = () => {
+  Modal.info({
+    okType: "danger",
+    okText: "रद्द करा",
+    width: 600, // optional for better layout
 
-      //cancelText: <FormattedMessage id="formLanguage.form.no" />,
+    title: "इ-चावडी माहिती आणि मदत",
 
-      title: 'ई-चावडी माहिती आणि मदत',
-      content: (
-        <div>
-          <p>
-            {/* ई - चावडी प्रणाली मेंटेनन्स कामकाज करिता आज दिनांक १४ फेब्रुवारी २०२४, रात्री १० ते ११ या वेळेत बंद राहील...     */}
-            {/* ई - चावडी प्रणाली मेंटेनन्स कामकाज करिता आज रात्री १० ते उद्या सकाळी ३ या वेळेत बंद
-            राहील... */}
-            ई - चावडी प्रणाली मेंटेनन्स कामकाज करिता ११ जुलै  २०२५ रात्री ११:००  ते  १२ जुलै २०२५ सकाळी  ०७:०० पर्यन्त बंद 
-            राहील...
-            {/*  ई - चावडी प्रणाली मेंटेनन्स कामकाज करिता आज दिनांक ८ फेब्रुवारी संध्याकाळी १० ते ११  डिसेंबर सकाळी २ या वेळेत बंद राहील...           */}
-          </p>
-          <br />
-          {/* <p>ई-चावड़ी हेल्प डेस्क,पुणे</p> */}
+    content: (
+      <div style={{ lineHeight: "1.6", fontSize: "14px" }}>
+
+        {/* ================= IMAGE ================= */}
+        <div style={{ textAlign: "center", marginBottom: "15px" }}>
+          <img
+            src="/images/maintenance_notice.jpeg"
+            alt="Maintenance Notice"
+            style={{
+              width: "100%",
+              maxHeight: "300px",
+              objectFit: "contain",
+              borderRadius: "8px",
+            }}
+          />
         </div>
-      ),
-      onCancel() {},
-    });
-  };
+
+        {/* ================= OLD COMMENTS (KEPT) ================= */}
+
+        {/* इ - चावडी प्रणाली मेंटेनन्स कामकाज करिता आज दिनांक १४ फेब्रुवारी २०२४, रात्री १० ते ११ या वेळेत बंद राहील... */}
+        
+        {/* इ - चावडी प्रणाली मेंटेनन्स कामकाज करिता आज रात्री १० ते उद्या सकाळी ३ या वेळेत बंद राहील... */}
+        
+        {/* इ - चावडी प्रणाली मेंटेनन्स कामकाज करिता ११ जुलै २०२५ रात्री ११:०० ते १२ जुलै २०२५ सकाळी ०७:०० पर्यन्त बंद राहील... */}
+        
+        {/* इ - चावडी प्रणाली मेंटेनन्स कामकाज करिता आज दिनांक ८ फेब्रुवारी संध्याकाळी १० ते ११ डिसेंबर सकाळी २ या वेळेत बंद राहील... */}
+
+        {/* ================= NEW NOTICE ================= */}
+
+        <h3 style={{ marginBottom: "10px", color: "#d32f2f", textAlign: "center" }}>
+          देखभाल सूचना
+        </h3>
+
+        <p>
+          ही वेबसाईट सध्या नियोजित देखभाल व दुरुस्तीच्या कामासाठी{" "}
+          <b>2 एप्रिल २०२६ (रात्री 11:59 वाजेपासून)</b> ते{" "}
+          <b>५ एप्रिल २०२६ (रात्री 11:59 वाजेपर्यंत)</b> या कालावधीत बंद राहील.
+        </p>
+
+        <p>या दरम्यान कोणतीही सेवा उपलब्ध राहणार नाही.</p>
+
+        <p>
+          कृपया देखभाल पूर्ण झाल्यानंतर पुन्हा वेबसाईटला भेट द्यावी.
+        </p>
+
+        <p>आपल्या सहकार्याबद्दल धन्यवाद.</p>
+
+        {/* <p>इ-चावड़ी हेल्प डेस्क, पुणे</p> */}
+
+      </div>
+    ),
+
+    onCancel() {},
+  });
+};
 
   const { status, type: loginType } = userLoginState;
 
@@ -316,16 +328,9 @@ const goToMis = (e) => {
           <h3 style={{ color: 'blueviolet' }}>
             {/*  मागणी निश्चिती केल्यावर पण काही दुरुस्ती बाकी असल्यास खातेदारांची मागणी दुरुस्तीची
             सुविधा देण्यात आलेली आहे. */}
-            <img src="/new.gif" style={{width:'30px',height:'30px'}} alt="New" className="new-gif" />
-महत्वाची सूचना:- आज दि. 31/07/2025  रात्री 12 नंतर मागणी निश्चिती आणि पावती सुविधा बंद होईल.
-          </h3>
-        </marquee>
-        <br/>
-        <marquee>
-          <h3 style={{ color: 'blueviolet' }}>
-            {/*  मागणी निश्चिती केल्यावर पण काही दुरुस्ती बाकी असल्यास खातेदारांची मागणी दुरुस्तीची
-            सुविधा देण्यात आलेली आहे. */}
-            गाव नमुना निरंक आणि गाव नमुना कामकाज पूर्ण निवडण्याचा पर्याय सुविधा देण्यात आली आहे. ई-चावडी मधील MIS बघण्यासाठी User id/pw ची आवश्यकता नाही. ई चावडी MIS बघण्यासाठी वरील  लिंकवर क्लिक करा.
+            गाव नमुना निरंक आणि गाव नमुना कामकाज पूर्ण निवडण्याचा पर्याय सुविधा देण्यात आली आहे.
+            इ-चावडी मधील MIS बघण्यासाठी User id/pw ची आवश्यकता नाही. इ चावडी MIS बघण्यासाठी वरील
+            लिंकवर क्लिक करा.
           </h3>
         </marquee>
 
@@ -342,8 +347,16 @@ const goToMis = (e) => {
       </div>
 
       <div className="rightSide">
-       <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
-   {/* <button
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+            gap: '10px',
+            marginBottom: '10px',
+          }}
+        >
+          {/* <button
   type="primary"
   className="go-to-mis-button"
 onClick={() => {
@@ -355,16 +368,29 @@ onClick={() => {
   <img src="/new.gif" alt="New" className="new-gif" />
 </button> */}
 
+          <Button
+            id="registerButton"
+            className="registerbttn"
+            type="default"
+            href="https://testechawadi.mahabhumi.gov.in/user/" // Replace with your actual registration route**
+          >
+             
+            <FormattedMessage
+              id="pages.login.inspectionRegistration"
+              defaultMessage="ग्राम दप्तर तपासणीसाठी अधिकारी यांची माहिती भरा"
+            />
+            <img src="/new.gif" alt="New" className="new-gif" />
+          </Button>
 
-<Button   className="go-to-mis-button"
- type="primary" onClick={goToMis}><ArrowRightOutlined style={{ marginRight: '8px', fontSize: '16px' }} />
-  <FormattedMessage id="login.gotoMis" />
-  </Button> 
+          <Button className="go-to-mis-button" type="primary" onClick={goToMis}>
+            <ArrowRightOutlined style={{ marginRight: '8px', fontSize: '16px' }} />
+            <FormattedMessage id="login.gotoMis" />
+          </Button>
 
-    <div className="translator" data-lang>
-      {SelectLang && <SelectLang className="trans" />}
-    </div>
-  </div>
+          <div className="translator" data-lang>
+            {SelectLang && <SelectLang className="trans" />}
+          </div>
+        </div>
         <div className="loginForm" id="loginForm1">
           {/* <img className="firstAugustImage" src={FirstAugustTitle} /> */}
           <h1>
@@ -423,6 +449,7 @@ onClick={() => {
                       id="user_captcha_input"
                       name="user_captcha_input"
                       type="text"
+                      autoComplete="off"
                     ></input>
                   </div>
                 </div>
@@ -496,13 +523,13 @@ onClick={() => {
             ></CardHeader>
 
             <CardContent>
-                <Grid container spacing={1} columns={12}>
+              <Grid container spacing={1} columns={12}>
                 <Grid item xs={24} sm={24} md={2} lg={2} xl={2}>
                   <ArrowForwardTwoToneIcon sx={{ color: 'skyblue' }}></ArrowForwardTwoToneIcon>
                 </Grid>
                 <Grid item xs={24} sm={24} md={10} lg={10} xl={10}>
-                  <a href={`${URLS.AuthURL}/file/12`} target="_blank" rel="noreferrer">
-                    ई-चावडी मार्गदर्शक सूचना २०२५ 
+                  <a href={`${URLS.AuthURL}/file/14`} target="_blank" rel="noreferrer">
+                    शिक्षण आणि रोजगार हमी (उपकर) अधिनियम, १९६२{' '}
                   </a>
                 </Grid>
               </Grid>
@@ -511,9 +538,28 @@ onClick={() => {
                   <ArrowForwardTwoToneIcon sx={{ color: 'skyblue' }}></ArrowForwardTwoToneIcon>
                 </Grid>
                 <Grid item xs={24} sm={24} md={10} lg={10} xl={10}>
-                  <a
-                    href="https://drive.google.com/u/0/uc?id=1AodMBTimjwcisfdNsPprClpk5ViMOJFr&export=download"
-                    target="_blank"
+                  <a href={`${URLS.AuthURL}/file/13`} target="_blank" rel="noreferrer">
+                    महसूल मागणी निश्चिती २०२५-२६
+                  </a>
+                </Grid>
+              </Grid>
+              <Grid container spacing={1} columns={12}>
+                <Grid item xs={24} sm={24} md={2} lg={2} xl={2}>
+                  <ArrowForwardTwoToneIcon sx={{ color: 'skyblue' }}></ArrowForwardTwoToneIcon>
+                </Grid>
+                <Grid item xs={24} sm={24} md={10} lg={10} xl={10}>
+                  <a href={`${URLS.AuthURL}/file/12`} target="_blank" rel="noreferrer">
+                    इ-चावडी मार्गदर्शक सूचना २०२५
+                  </a>
+                </Grid>
+              </Grid>
+              <Grid container spacing={1} columns={12}>
+                <Grid item xs={24} sm={24} md={2} lg={2} xl={2}>
+                  <ArrowForwardTwoToneIcon sx={{ color: 'skyblue' }}></ArrowForwardTwoToneIcon>
+                </Grid>
+                <Grid item xs={24} sm={24} md={10} lg={10} xl={10}>
+                  <a href="https://drive.google.com/u/0/uc?id=1AodMBTimjwcisfdNsPprClpk5ViMOJFr&export=download"
+                    target="_blank" rel="noreferrer"
                   >
                     <FormattedMessage id="login.downloadTranslator" />
                   </a>
@@ -525,7 +571,7 @@ onClick={() => {
                 </Grid>
                 <Grid item xs={24} sm={24} md={10} lg={10} xl={10}>
                   <a href={`${URLS.AuthURL}/file/10`} target="_blank" rel="noreferrer">
-                    ई-चावडी भाग - १ आकारणी विषयक अद्ययावतीकरण
+                    इ-चावडी भाग - १ आकारणी विषयक अद्ययावतीकरण
                   </a>
                 </Grid>
               </Grid>
@@ -566,7 +612,7 @@ onClick={() => {
                 </Grid>
                 <Grid item xs={24} sm={24} md={10} lg={10} xl={10}>
                   <a href={`${URLS.AuthURL}/file/5`} target="_blank" rel="noreferrer">
-                    ई-चावडी भाग-1 (महसूल मागणी व वसुली)
+                    इ-चावडी भाग-1 (महसूल मागणी व वसुली)
                   </a>
                 </Grid>
               </Grid>
@@ -576,7 +622,7 @@ onClick={() => {
                 </Grid>
                 <Grid item xs={24} sm={24} md={10} lg={10} xl={10}>
                   <a href={`${URLS.AuthURL}/file/6`} target="_blank" rel="noreferrer">
-                    ई-चावडी भाग-2 ( दप्तर अद्यायवत आणि अहवाल )
+                    इ-चावडी भाग-2 ( दप्तर अद्यायवत आणि अहवाल )
                   </a>
                 </Grid>
               </Grid>
@@ -586,7 +632,7 @@ onClick={() => {
                 </Grid>
                 <Grid item xs={24} sm={24} md={10} lg={10} xl={10}>
                   <a href="https://forms.gle/B3d6dyscKc5hK9LZA" target="_blank" rel="noreferrer">
-                    ई-चावडी मधील काही समस्या अथवा सुधारणा असल्यास फॉर्म भरा
+                    इ-चावडी मधील काही समस्या अथवा सुधारणा असल्यास फॉर्म भरा
                   </a>
                 </Grid>
               </Grid>
@@ -606,7 +652,7 @@ onClick={() => {
                 </Grid>
                 <Grid item xs={24} sm={24} md={10} lg={10} xl={10}>
                   <a href={`${URLS.AuthURL}/file/2`} target="_blank" rel="noreferrer">
-                    ई-चावडी सर्वसमावेशक सूचना
+                    इ-चावडी सर्वसमावेशक सूचना
                   </a>
                 </Grid>
               </Grid>
@@ -616,7 +662,7 @@ onClick={() => {
                 </Grid>
                 <Grid item xs={24} sm={24} md={10} lg={10} xl={10}>
                   <a href={`${URLS.AuthURL}/file/3`} target="_blank" rel="noreferrer">
-                    ई-चावडी जमीन महसूल वसुली बाबत माहिती
+                    इ-चावडी जमीन महसूल वसुली बाबत माहिती
                   </a>
                 </Grid>
               </Grid>
@@ -636,7 +682,7 @@ onClick={() => {
                 </Grid>
                 <Grid item xs={24} sm={24} md={10} lg={10} xl={10}>
                   <a href={`${URLS.AuthURL}/file/11`} target="_blank" rel="noreferrer">
-                    ई-चावडी प्रणाली -मार्गदर्शक सूचना
+                    इ-चावडी प्रणाली -मार्गदर्शक सूचना
                   </a>
                 </Grid>
               </Grid>
@@ -647,7 +693,7 @@ onClick={() => {
                 </Grid>
                 <Grid item xs={24} sm={24} md={10} lg={10} xl={10}>
                   <a href="https://youtu.be/hdR8IvHex98" target="_blank" rel="noreferrer">
-                    ई-चावडी भाग १ (संपूर्ण विडीओ)
+                    इ-चावडी भाग १ (संपूर्ण विडीओ)
                   </a>
                 </Grid>
               </Grid>
@@ -657,7 +703,7 @@ onClick={() => {
                 </Grid>
                 <Grid item xs={24} sm={24} md={10} lg={10} xl={10}>
                   <a href="https://youtu.be/6kqh8iujKQk" target="_blank" rel="noreferrer">
-                    ई-चावडी भाग २ (संपूर्ण विडीओ)
+                    इ-चावडी भाग २ (संपूर्ण विडीओ)
                   </a>
                 </Grid>
               </Grid> */}
@@ -683,7 +729,7 @@ onClick={() => {
             />
           </Form.Item> */}
           {/* <Modal
-            title="ई-चावडी माहिती आणि मदत"
+            title="इ-चावडी माहिती आणि मदत"
             visible={modalHelp}
             okText={<FormattedMessage id="formLanguage.form.yes" />}
             okType="danger"
@@ -698,7 +744,7 @@ onClick={() => {
             <br></br>
             <br />
             <a href="http://localhost:8091/echawdi/auth/file/2" target="_blank" rel="noreferrer">
-              २) ई-चावडी सर्वसमावेशक सूचना
+              २) इ-चावडी सर्वसमावेशक सूचना
             </a>
           </Modal> */}
         </div>
@@ -728,7 +774,7 @@ onClick={() => {
     //     </svg>
     //     {/* <h1>We&rsquo;ll be back soon!</h1> */}
     //     <div>
-    //       <p>नवीन ई-चावडी आज्ञावली साठी खालील संकेतस्थळावर क्लिक करा.</p>
+    //       <p>नवीन इ-चावडी आज्ञावली साठी खालील संकेतस्थळावर क्लिक करा.</p>
     //       <h2>
     //         {' '}
     //         <u>
@@ -741,7 +787,7 @@ onClick={() => {
     //       <br />
     //       <br />
     //       <p>
-    //         &mdash; ई-चावडी हेल्प डेस्क <br />
+    //         &mdash; इ-चावडी हेल्प डेस्क <br />
     //         जमाबंदी आयुक्त कार्यालय, पुणे{' '}
     //       </p>
     //     </div>

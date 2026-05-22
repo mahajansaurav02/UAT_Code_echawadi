@@ -24,7 +24,7 @@ function Report9B() {
   const [codeVillage, setCodeVillage] = useState('');
   const [village, setVillage] = useState([]);
   const [tableData, setTableData] = useState();
-  const [revenueYear, setRevenueYear] = useState('2024-25');
+  const [revenueYear, setRevenueYear] = useState('2025-26');
   const [isNirank, setIsNirank] = useState(false);
   const [loading, setLoading] = useState(false);
   const componentRef = useRef();
@@ -58,9 +58,8 @@ function Report9B() {
     setLoading(true);
 
     sendRequest(
-      revenueYear == '2024-25'
-        ? `${URLS.BaseURL}/reports/getForm9BReport?districtCode=${districtCode}&talukaCode=${talukaCode}&cCode=${codeVillage}&revenueYear=${revenueYear}`
-        : `${URLS.BaseURL}/reports/getForm9BReportPre?districtCode=${districtCode}&talukaCode=${talukaCode}&cCode=${codeVillage}&revenueYear=${revenueYear}`,
+     // revenueYear == '2024-25'
+        `${URLS.BaseURL}/reports/getForm9BReport?districtCode=${districtCode}&talukaCode=${talukaCode}&cCode=${codeVillage}&revenueYear=${revenueYear}`,
       'GET',
       null,
       (res) => {

@@ -113,7 +113,7 @@ export default {
   'form1abstract.(fENG)': '(फ)',
   'form1abstract.(gENG)': '(ग)',
   'form1abstract.(hENG)': '(ह)',
-  'form1abstract.(iENG)': '(ई)',
+  'form1abstract.(iENG)': '(इ)',
   'form1abstract.(jENG)': '(ज)',
   'form1abstract.(kENG)': '(के)',
   'form1abstract.(lENG)': '(ल)',

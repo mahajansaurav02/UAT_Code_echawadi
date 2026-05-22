@@ -56,7 +56,7 @@ function ChallanReports() {
   const [printButtonFlag, setPrintButtonFlag] = useState(true);
   const [challanData, setChallanData] = useState([]);
   const [moneyStatus, setMoneyStatus] = useState();
-  const [revenueYear, setRevenueYear] = useState('2024-25');
+  const [revenueYear, setRevenueYear] = useState('2025-26');
   const [allButtonState, setAllButtonState] = useState(false);
   const [revenueYearForVillage, setRevenueYearForVillage] = useState();
 

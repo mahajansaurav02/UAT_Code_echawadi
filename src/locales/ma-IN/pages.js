@@ -1,7 +1,7 @@
 export default {
   'pages.button.myButton': 'रद्द करा',
   // 'pages.layouts.userLayout.title':
-  'pages.login.title': 'ई-चावडी',
+  'pages.login.title': 'इ-चावडी',
   // 'Ant Design is the most influential web design specification in Xihu district',
   'pages.login.accountLogin.tab': 'Account Login',
   'pages.login.accountLogin.errorMessage': 'Incorrect username/password(admin/ant.design)',

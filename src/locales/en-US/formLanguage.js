@@ -59,6 +59,8 @@ export default {
 
   'formLanguage.form.name9b': 'Village Form 9-B',
   'villageForm.form.allVillageReport': 'All Village Entry Records',
+  'villageForm.form.allVillageReportEchawadi':
+    'All Village Entry Records (E-Chavadi Recovery Report)',
   'villageForm.form.allVillageName': 'Village Name ',
   'villageForm.form.VillageName2': 'Village Form 2 ',
   'formLanguage.form.totalArea': 'Total Area',

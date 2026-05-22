@@ -1,5 +1,5 @@
 export default {
-  'challanDetails.table.challanNo': 'ई-चावडी भरणा क्रमांक',
+  'challanDetails.table.challanNo': 'इ-चावडी भरणा क्रमांक',
   'challanDetails.table.challanDate': 'चलनाची तारीख',
   'challanDetails.table.paymentMode': 'देय पद्धत',
   'challanDetails.table.totalAmount': 'एकूण रक्कम ₹',
@@ -18,9 +18,9 @@ export default {
   'transactionCommon.table.cancel': 'रद्द करा',
   'transactionCommon.table.reset': 'रीसेट',
   'transactionCommon.table.save': 'जतन करा',
-  'transactionCommon.table.sankirn': '१ ऑगस्ट २४ - नंतर नव्याने निर्माण झालेला संकीर्ण महसूल',
+  'transactionCommon.table.sankirn': '१ ऑगस्ट २५ - नंतर नव्याने निर्माण झालेला संकीर्ण महसूल',
   'transactionCommon.table.landRevenue': 'जमीन महसूल',
-  'transactionCommon.table.landRevenueMaganiPavti': '१ ऑगस्ट २४ - मागणीची पावती',
+  'transactionCommon.table.landRevenueMaganiPavti': '१ ऑगस्ट २५ - मागणीची पावती',
   'transactionCommon.table.khataNo': 'खाता क्रमांक',
   'transactionCommon.table.maktaNo': 'मक्ताखाता क्रमांक',
   'transactionCommon.table.header2': 'कृपया पर्याय निवडा ',

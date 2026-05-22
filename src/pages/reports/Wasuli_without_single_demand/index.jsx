@@ -119,7 +119,7 @@ class ComponentToPrint extends React.Component {
                     <h3 style={{ color: 'red' }}>
                       {/* <b> लॉगिन केलेली गावांची माहिती</b> */}
                       <b>
-                        ई-चावडी प्रणाली- मध्ये एक ही खातेदारांची मागणी निश्चिती न केल्याने वसुली न
+                        इ-चावडी प्रणाली- मध्ये एक ही खातेदारांची मागणी निश्चिती न केल्याने वसुली न
                         करणाऱ्या गावांची संख्या
                       </b>
                     </h3>
@@ -133,7 +133,7 @@ class ComponentToPrint extends React.Component {
                         <b>
                           <FormattedMessage id="formLanguage.form.district" /> -{' '}
                           {/* {this.props.districtName} मधील लॉगिन केलेली गावांची संख्या{' '} */}
-                          {this.props.districtName} ई-चावडी प्रणाली- मध्ये एक ही खातेदारांची मागणी
+                          {this.props.districtName} इ-चावडी प्रणाली- मध्ये एक ही खातेदारांची मागणी
                           निश्चिती न केल्याने वसुली न करणाऱ्या गावांची संख्या
                           {this.props.totalPhase1Login}
                         </b>

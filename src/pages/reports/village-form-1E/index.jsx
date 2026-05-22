@@ -119,7 +119,7 @@ function Report() {
     <div>
       <Card>
         <h1 style={{ textAlign: 'center' }}>
-          {/* गाव नमुना एक- ई */}
+          {/* गाव नमुना एक- इ */}
           <FormattedMessage id="villageForm1E.table.villageForm1E" />
         </h1>
         <div style={{ padding: 10 }}>

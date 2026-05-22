@@ -300,9 +300,9 @@ function NirankForm() {
       (res) => {
         if (res.status === 200) {
           message.success('Data Saved!!');
-          // history.push({
-          //   pathname: '/user/login',
-          // });
+          history.push({
+            pathname: '/user/login',
+          });
         }
         setLoading(false);
         setOpen(false);
@@ -388,6 +388,7 @@ function NirankForm() {
             //   return;
             // }
             let id = data.index;
+            console.log(e.target.checked, '------------------->>>');
             const checked = e.target.checked;
 
             // handlecheck(e, id);

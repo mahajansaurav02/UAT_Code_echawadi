@@ -1,8 +1,13 @@
 import ExportToExcel from './components/ExportToExcelFile';
+import ExportToExcelVasuli from './components/ExportToExcelVasuliFile';
 
-import { ArrowLeftOutlined, DownloadOutlined, InfoCircleOutlined, LoadingOutlined } from '@ant-design/icons';
+import {
+  ArrowLeftOutlined,
+  DownloadOutlined,
+  InfoCircleOutlined,
+  LoadingOutlined,
+} from '@ant-design/icons';
 import react, { useState } from 'react';
-
 
 import URLS from '@/URLs/urls';
 import useAxios from '@/components/eComponents/use-axios';
@@ -92,6 +97,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
 
   const [dashBoardCount, setDashBoardCount] = useState();
   const [dashBoardCount1, setDashBoardCount1] = useState();
+  const [dashBoardCountTab3, setDashBoardCountTab3] = useState();
 
   const [dashBoardCountTab4, setDashBoardCountTab4] = useState();
   const [dashBoardCount1Tab4, setDashBoardCount1Tab4] = useState();
@@ -216,7 +222,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
   const [dashBoardforTalukaTab5, setDashBoardforTalukaTab5] = useState();
 
   //selectedYear
-  const [selectedYear, setSelectedYear] = useState('2024-2025');
+  const [selectedYear, setSelectedYear] = useState('2025-2026');
   const [showDistrictforStaticDashboard, setshowDistrictforStaticDashboard] = useState(false);
   const [sequenceA, setSequenceA] = useState();
   const [active, setActive] = useState(false);
@@ -286,7 +292,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
       getStaticMISData();
     }
 
-    if (e?.target?.value === '2023-2024') {
+    if (e?.target?.value === '2023-2024' || e?.target?.value === '2024-2025') {
       setshowPreDashboard(true);
       setshowStaticDashboard(false);
       setshowCurrentDashboard(false);
@@ -295,12 +301,29 @@ export const IntroduceRow = ({ loading, visitData }) => {
       getDashBoardDetails2_2023_2024();
     }
 
-    if (e?.target?.value === '2024-2025') {
+    if (e?.target?.value === '2025-2026') {
       setshowCurrentDashboard(true);
       setshowPreDashboard(false);
       setshowStaticDashboard(false);
     }
   };
+
+  const handleInLakh = (num) => {
+    if (num === undefined || num === null || num === 0) {
+      return 0;
+    } else {
+      return (num / 100000).toFixed(2);
+    }
+  };
+  function calculateVasuliPercentage(r) {
+    const totalMagani = (r.totalDemandJm || 0) + (r.totalDemandSankirn || 0);
+    const totalVasuli = (r.totalCollectedJm || 0) + (r.totalCollectedSankirn || 0);
+
+    if (totalMagani > 0) {
+      return (totalVasuli / totalMagani) * 100;
+    }
+    return 0;
+  }
 
   const getStaticMISData = async () => {
     sendRequest(
@@ -382,7 +405,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
   useEffect(() => {
     if (servarthId === 'Collector' || servarthId === null) {
       getZoneData();
-    } 
+    }
   }, []);
 
   const date = new Date();
@@ -499,10 +522,10 @@ export const IntroduceRow = ({ loading, visitData }) => {
           vasuliWithoutDemandCountT: r.data.vasuliWithoutDemandCount,
           demandCountT: r.data.demandCount,
           totalOfSevenEightT: r.data.totalOfSevenEight,
-          totalDemandJm:r.data.totalDemandJm,
-          totalDemandSakirn:r.data.totalDemandSakirn,
-          totalCollectedJm:r.data.totalCollectedJm,
-          totalCollectedSankirn:r.data.totalCollectedSankirn,
+          totalDemandJm: r.data.totalDemandJm,
+          totalDemandSakirn: r.data.totalDemandSakirn,
+          totalCollectedJm: r.data.totalCollectedJm,
+          totalCollectedSankirn: r.data.totalCollectedSankirn,
         });
       },
     );
@@ -692,10 +715,10 @@ export const IntroduceRow = ({ loading, visitData }) => {
             totalOnlineVillagesCount: r.totalOnlineVillagesCount,
             demandCount: r.demandCount,
             totalOfSevenEight: r.totalOfSevenEight,
-            totalDemandJm:r.totalDemandJm,
-            totalDemandSakirn:r.totalDemandSakirn,
-            totalCollectedJm:r.totalCollectedJm,
-            totalCollectedSankirn:r.totalCollectedSankirn,
+            totalDemandJm: r.totalDemandJm,
+            totalDemandSakirn: r.totalDemandSakirn,
+            totalCollectedJm: r.totalCollectedJm,
+            totalCollectedSankirn: r.totalCollectedSankirn,
             chartPlotting: getChartData(
               r.divisionCode,
               r.totalVillages,
@@ -756,10 +779,10 @@ export const IntroduceRow = ({ loading, visitData }) => {
             totalOnlineVillagesCount: r.totalOnlineVillagesCount,
             demandCount: r.demandCount,
             totalOfSevenEight: r.totalOfSevenEight,
-            totalDemandJm:r.totalDemandJm,
-            totalDemandSakirn:r.totalDemandSakirn,
-            totalCollectedJm:r.totalCollectedJm,
-            totalCollectedSankirn:r.totalCollectedSankirn,
+            totalDemandJm: r.totalDemandJm,
+            totalDemandSakirn: r.totalDemandSakirn,
+            totalCollectedJm: r.totalCollectedJm,
+            totalCollectedSankirn: r.totalCollectedSankirn,
             chartPlotting: getChartData(
               r.divisionCode,
               r.totalVillages,
@@ -816,10 +839,10 @@ export const IntroduceRow = ({ loading, visitData }) => {
             totalOnlineVillagesCount: r.totalOnlineVillagesCount,
             demandCount: r.demandCount,
             totalOfSevenEight: r.totalOfSevenEight,
-            totalDemandJm:r.totalDemandJm,
-            totalDemandSakirn:r.totalDemandSakirn,
-            totalCollectedJm:r.totalCollectedJm,
-            totalCollectedSankirn:r.totalCollectedSankirn,
+            totalDemandJm: r.totalDemandJm,
+            totalDemandSakirn: r.totalDemandSakirn,
+            totalCollectedJm: r.totalCollectedJm,
+            totalCollectedSankirn: r.totalCollectedSankirn,
             chartPlotting: getChartData(
               r.divisionCode,
               r.totalVillages,
@@ -1512,10 +1535,10 @@ export const IntroduceRow = ({ loading, visitData }) => {
           vasuliWithoutDemandCountT: r.data.vasuliWithoutDemandCount,
           demandCountT: r.data.demandCount,
           totalOfSevenEightT: r.data.totalOfSevenEight,
-          totalDemandJm:r.data.totalDemandJm,
-          totalDemandSakirn:r.data.totalDemandSakirn,
-          totalCollectedJm:r.data.totalCollectedJm,
-          totalCollectedSankirn:r.data.totalCollectedSankirn,
+          totalDemandJm: r.data.totalDemandJm,
+          totalDemandSakirn: r.data.totalDemandSakirn,
+          totalCollectedJm: r.data.totalCollectedJm,
+          totalCollectedSankirn: r.data.totalCollectedSankirn,
         });
 
         getTab3Details();
@@ -1551,10 +1574,31 @@ export const IntroduceRow = ({ loading, visitData }) => {
           totalDemandCompletedCountT: r.data.totalDemandCompletedCount,
           demandCountT: r.data.demandCount,
           totalOfSevenEightT: r.data.totalOfSevenEight,
-          totalDemandJm:r.data.totalDemandJm,
-          totalDemandSakirn:r.data.totalDemandSakirn,
-          totalCollectedJm:r.data.totalCollectedJm,
-          totalCollectedSankirn:r.data.totalCollectedSankirn,
+          totalDemandJm: r.data.totalDemandJm,
+          totalDemandSakirn: r.data.totalDemandSakirn,
+          totalCollectedJm: r.data.totalCollectedJm,
+          totalCollectedSankirn: r.data.totalCollectedSankirn,
+        });
+
+        setDashBoardCountTab3({
+          districtsCount: r.data.districtsCount,
+          totalEntryT: r.data.totalEntry,
+          totalPhase1LoginT: r.data.totalPhase1Login,
+          totalPhase1VillagesT: r.data.totalPhase1Villages,
+          totalTalukaT: r.data.totalTaluka,
+          totalVillagesT: r.data.totalVillages,
+          totalKhataNumberT: r.data.totalKhataNumbers,
+          totalOnlineVillagesCount: r.data.totalOnlineVillagesCount,
+          totalGaonNamunaCountT: r.data.totalGaonNamunaCount,
+          vasuliCompletedCountT: r.data.vasuliCompletedCount,
+          vasuliWithoutDemandCountT: r.data.vasuliWithoutDemandCount,
+          totalDemandCompletedCountT: r.data.totalDemandCompletedCount,
+          demandCountT: r.data.demandCount,
+          totalOfSevenEightT: r.data.totalOfSevenEight,
+          totalDemandJm: r.data.totalDemandJm,
+          totalDemandSakirn: r.data.totalDemandSakirn,
+          totalCollectedJm: r.data.totalCollectedJm,
+          totalCollectedSankirn: r.data.totalCollectedSankirn,
         });
 
         getTab2Details();
@@ -1688,6 +1732,25 @@ export const IntroduceRow = ({ loading, visitData }) => {
         districtCode: districtCode,
         talukaname: talukaname,
         talukacode: talukaCode,
+      },
+    });
+  };
+
+  const redirectToTotalVillages = async (
+    districtName,
+    districtCode,
+    talukaname,
+    talukaCode,
+    selectedYear,
+  ) => {
+    history.push({
+      pathname: `/reports/Echawadi-vasuli-report`,
+      state: {
+        district: districtName,
+        districtCode: districtCode,
+        talukaname: talukaname,
+        talukacode: talukaCode,
+        selectedYear: selectedYear == undefined ? '2024-2025' : selectedYear,
       },
     });
   };
@@ -1875,43 +1938,51 @@ export const IntroduceRow = ({ loading, visitData }) => {
     }
   };
 
-   const handleClick = () => {
+  const handleClick = () => {
     history.push('/user/login');
   };
 
   return (
     <div style={{ margin: '20px' }}>
-        <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '15px', marginTop: '25px' }}>
-  {/* Go to MIS Button */}
- <Button
-  type="primary"
-  className="go-to-mis-button"
-  onClick={handleClick}
->
-  <ArrowLeftOutlined style={{ marginRight: '8px', fontSize: '16px' }} /><FormattedMessage id="login.gotologin" />
-</Button>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+          gap: '15px',
+          marginTop: '25px',
+        }}
+      >
+        {/* Go to MIS Button */}
+        <Button type="primary" className="go-to-mis-button" onClick={handleClick}>
+          <ArrowLeftOutlined
+            style={{ marginRight: '8px', fontSize: '16px', marginBottom: '3px' }}
+          />
+          <FormattedMessage id="login.gotologin" />
+        </Button>
 
-  {/* Date */}
-  <h3 style={{ margin: 0 }}>
-    <b>(आज रोजी : {`${day} - ${month} - ${year}`})</b>
-  </h3>
+        {/* Date */}
+        <h3 style={{ margin: 0 }}>
+          <b>(आज रोजी : {`${day} - ${month} - ${year}`})</b>
+        </h3>
 
-  {/* Year Dropdown */}
-  <FormControl sx={{ width: 160 }} size="small">
-    <InputLabel id="demo-simple-select-label">Select Year</InputLabel>
-    <Select
-      labelId="demo-simple-select-label"
-      id="demo-simple-select"
-      value={selectedYear}
-      label="Select Revenue Year"
-      onChange={handleYearChange}
-    >
-      <MenuItem value="2022-2023">2022-2023</MenuItem>
-      <MenuItem value="2023-2024">2023-2024</MenuItem>
-      <MenuItem value="2024-2025">2024-2025</MenuItem>
-    </Select>
-  </FormControl>
-</div>
+        {/* Year Dropdown */}
+        <FormControl sx={{ width: 160 }} size="small">
+          <InputLabel id="demo-simple-select-label">Select Year</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={selectedYear}
+            label="Select Revenue Year"
+            onChange={handleYearChange}
+          >
+            <MenuItem value="2022-2023">2022-2023</MenuItem>
+            <MenuItem value="2023-2024">2023-2024</MenuItem>
+            <MenuItem value="2024-2025">2024-2025</MenuItem>
+            <MenuItem value="2025-2026">2025-2026</MenuItem>
+          </Select>
+        </FormControl>
+      </div>
       <Tabs
         defaultActiveKey="tab1"
         type="card"
@@ -1922,7 +1993,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
         onTabClick={callbackTabClicked}
       >
         {/* <Tabs.TabPane tab="कामकाज प्रगती अहवाल" key="tab1"> */}
-        <Tabs.TabPane tab="ई-चावडी कामकाज प्रगती अहवाल" key="tab1">
+        <Tabs.TabPane tab="इ-चावडी कामकाज प्रगती अहवाल" key="tab1">
           {/* Old 2023-2024 */}
           {showPreDashboard == true && showStaticDashboard != true && (
             <>
@@ -2101,7 +2172,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                 fontSize: '12px',
                               }}
                             >
-                              ई-चावडी प्रणाली- मध्ये एक ही खातेदारांची मागणी निश्चिती न केल्याने
+                              इ-चावडी प्रणाली- मध्ये एक ही खातेदारांची मागणी निश्चिती न केल्याने
                               वसुली न करणाऱ्या गावांची संख्या
                             </Typography>
                             <Divider variant="middle" />
@@ -3623,7 +3694,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                 fontSize: '12px',
                               }}
                             >
-                              ई-चावडी प्रणाली- मध्ये एक ही खातेदारांची मागणी निश्चिती न केल्याने
+                              इ-चावडी प्रणाली- मध्ये एक ही खातेदारांची मागणी निश्चिती न केल्याने
                               वसुली न करणाऱ्या गावांची संख्या
                             </Typography>
                             <Divider variant="middle" />
@@ -3681,7 +3752,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                               fontSize: '12px',
                             }}
                           >
-                            ई-चावडी प्रणाली- मध्ये एक ही खातेदारांची मागणी निश्चिती न केल्याने वसुली
+                            इ-चावडी प्रणाली- मध्ये एक ही खातेदारांची मागणी निश्चिती न केल्याने वसुली
                             न करणाऱ्या गावांची संख्या
                           </Typography>
                           <Divider variant="middle" />
@@ -6409,19 +6480,21 @@ export const IntroduceRow = ({ loading, visitData }) => {
           </Paper>
         </Tabs.TabPane>
 
-        <Tabs.TabPane tab="ई-चावडी वसूली अहवाल" >
+        {/*---------------------------------------------- इ-चावडी वसूली अहवाल --------------------------------------------------------------------------------------*/}
+        <Tabs.TabPane tab="इ-चावडी वसूली अहवाल" key="tab5">
           {/* Old 2023-2024 */}
           {showPreDashboard == true && showStaticDashboard != true && (
             <>
               {/*Current year 2023-2024 */}
               <Paper className={styles.Footercard}>
-                <ExportToExcel
-                  data={dashBoardDetail}
-                  total={dashBoardCount}
+                <ExportToExcelVasuli
+                  data={dashBoardDetail2023_2024_MDiv}
+                  total={dashBoardCount2023_2024_TD}
                   btnName={'GridDivision'}
+                  tableId={'GridDivisionTab5'}
                 >
                   <DownloadOutlined />
-                </ExportToExcel>
+                </ExportToExcelVasuli>
                 {/* <h1>2023-2024 Prev</h1> */}
 
                 <Paper className={styles.Footercard} style={{ height: '800px', overflowY: 'auto' }}>
@@ -6588,7 +6661,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                 fontSize: '12px',
                               }}
                             >
-                             जमीन महसुलाची मागणी
+                              जमीन महसुलाची मागणी
                             </Typography>
                             <Divider variant="middle" />
                           </Box>
@@ -6724,14 +6797,15 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                       </u>{' '}
                                       &nbsp;
                                       {showDistrict === true && r.divisionCode === divisionCode && (
-                                        <ExportToExcel
+                                        <ExportToExcelVasuli
                                           dataDistrict={dashBoardDetail1_2023_2024_Dist}
                                           totalDistrict={dashBoardCount1_2023_2024_Dist_Count}
                                           btnName={'GridDistrict'}
+                                          tableId={'GridDistrictTab5'}
                                           style={{ width: '10px' }}
                                         >
                                           {/* <DownloadOutlined style={{ width: '100%' }} /> */}
-                                        </ExportToExcel>
+                                        </ExportToExcelVasuli>
                                       )}
                                       {showSpin === true && r.divisionCode === divisionCode && (
                                         <Spin indicator={antIcon} />
@@ -6968,9 +7042,10 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                               &nbsp;
                                               {showTaluka === true &&
                                                 r.districtCode === districtsCode && (
-                                                  <ExportToExcel
+                                                  <ExportToExcelVasuli
                                                     dataTaluka={dashBoardDetail2_2023_2024}
                                                     btnName={'GridTaluka'}
+                                                    tableId={'GridTalukaTab5'}
                                                     style={{ width: '10px' }}
                                                   />
                                                 )}
@@ -7193,11 +7268,12 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                                     <center>
                                                       <a
                                                         onClick={() => {
-                                                          redirectToReport(
+                                                          redirectToTotalVillages(
                                                             r.districtName,
                                                             r.districtCode,
                                                             r.talukaName,
                                                             r.talukaCode,
+                                                            selectedYear,
                                                           );
                                                         }}
                                                       >
@@ -7275,11 +7351,12 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                                       {/* <h3>{r.totalEntry}</h3> */}
                                                       <a
                                                         onClick={() => {
-                                                          redirectToReport(
+                                                          redirectToTotalVillages(
                                                             r.districtName,
                                                             r.districtCode,
                                                             r.talukaName,
                                                             r.talukaCode,
+                                                            selectedYear,
                                                           );
                                                         }}
                                                       >
@@ -7868,7 +7945,11 @@ export const IntroduceRow = ({ loading, visitData }) => {
                           <CardContent>
                             <center>
                               {/* <h3> T</h3> */}
-                              <h3> {dashBoardCount2023_2024_TD?.totalDemandJm + dashBoardCount2023_2024_TD?.totalDemandSakirn }</h3>
+                              <h3>
+                                {' '}
+                                {dashBoardCount2023_2024_TD?.totalDemandJm +
+                                  dashBoardCount2023_2024_TD?.totalDemandSakirn}
+                              </h3>
                             </center>
                           </CardContent>
                         </Box>
@@ -7921,26 +8002,16 @@ export const IntroduceRow = ({ loading, visitData }) => {
                   <DownloadOutlined />
                 </ExportToExcel> */}
 
-                <ExportToExcel
+                <ExportToExcelVasuli
                   data={dashBoardDetail}
                   total={dashBoardCount}
                   btnName={'GridDivision'}
+                  tableId={'GridDivisionTab5Current'}
                 >
                   <DownloadOutlined />
-                </ExportToExcel>
+                </ExportToExcelVasuli>
 
-
-
-
-
-
-
-
-
-
-
-                
-{/* saurav main reporta */}
+                {/* saurav main reporta */}
                 <Paper className={styles.Footercard} style={{ height: '800px', overflowY: 'auto' }}>
                   {/* Main Grid */}
                   <Grid
@@ -7979,7 +8050,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                         </Box>
                       </Card>
                     </Grid>
-                    <Grid item xs={24} sm={24} md={24} lg={2} xl={2}>
+                    <Grid item xs={24} sm={24} md={24} lg={2} xl={1}>
                       <Card>
                         <Box>
                           <Typography
@@ -8032,6 +8103,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                         </Box>
                       </Card>
                     </Grid>
+
                     {/* <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
                       <Card>
                         <Box>
@@ -8097,7 +8169,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                               fontSize: '14px',
                             }}
                           >
-                            एकूण मागणी
+                            एकूण मागणी (रुपये लाखात )
                           </Typography>
                           <Divider variant="middle" />
                         </Box>
@@ -8155,7 +8227,6 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                 color: '#F0F2F5',
                                 paddingTop: '20',
                                 fontSize: '14px',
-
                               }}
                             >
                               एकुण
@@ -8178,7 +8249,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                               fontSize: '14px',
                             }}
                           >
-                            एकूण वसूली
+                            एकूण वसूली (रुपये लाखात )
                           </Typography>
                           <Divider variant="middle" />
                         </Box>
@@ -8236,7 +8307,6 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                 color: '#F0F2F5',
                                 paddingTop: '20',
                                 fontSize: '14px',
-
                               }}
                             >
                               एकुण
@@ -8245,6 +8315,22 @@ export const IntroduceRow = ({ loading, visitData }) => {
                           </Box>
                         </Card>
                       </Box>
+                    </Grid>
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                      <Card>
+                        <Box>
+                          <Typography
+                            sx={{ height: 120 }}
+                            component="div"
+                            align="center"
+                            style={{ backgroundColor: '#002884', color: '#F0F2F5' }}
+                          >
+                            टक्केवारी ( % )
+                          </Typography>
+
+                          <Divider variant="middle" />
+                        </Box>
+                      </Card>
                     </Grid>
                     {/* <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
                       <Card>
@@ -8259,7 +8345,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                               fontSize: '12px',
                             }}
                           >
-                            ई-चावडी प्रणाली- मध्ये एक ही खातेदारांची मागणी निश्चिती न केल्याने वसुली
+                            इ-चावडी प्रणाली- मध्ये एक ही खातेदारांची मागणी निश्चिती न केल्याने वसुली
                             न करणाऱ्या गावांची संख्या
                           </Typography>
                           <Divider variant="middle" />
@@ -8298,8 +8384,6 @@ export const IntroduceRow = ({ loading, visitData }) => {
                         </Box>
                       </Card>
                     </Grid> */}
-
-              
                   </Grid>
                   {/* Main Grid */}
                   {dashBoardDetail &&
@@ -8371,14 +8455,15 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                       </u>{' '}
                                       &nbsp;
                                       {showDistrict === true && r.divisionCode === divisionCode && (
-                                        <ExportToExcel
+                                        <ExportToExcelVasuli
                                           dataDistrict={dashBoardDetail1}
                                           totalDistrict={dashBoardCount1}
                                           btnName={'GridDistrict'}
+                                          tableId={'GridDistrictTab5Current'}
                                           style={{ width: '10px' }}
                                         >
                                           {/* <DownloadOutlined style={{ width: '100%' }} /> */}
-                                        </ExportToExcel>
+                                        </ExportToExcelVasuli>
                                       )}
                                       {showSpin === true && r.divisionCode === divisionCode && (
                                         <Spin indicator={antIcon} />
@@ -8389,7 +8474,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                               </Card>
                             </Grid>
                             {/* )} */}
-                            <Grid item xs={24} sm={24} md={24} lg={2} xl={2}>
+                            <Grid item xs={24} sm={24} md={24} lg={2} xl={1}>
                               <Card>
                                 <Box
                                   sx={{
@@ -8477,10 +8562,12 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                     height: 50,
                                   }}
                                 >
+                                  {/* saurav mahajan */}
                                   <CardContent>
                                     <center>
                                       {/* <h3>4 </h3> */}
-                                      <h3>{r.totalDemandJm} </h3>
+                                      <h3>{handleInLakh(r.totalDemandJm)} </h3>
+                                      {/* <h3>{r.totalDemandJm} </h3> */}
                                     </center>
                                   </CardContent>
                                 </Box>
@@ -8498,7 +8585,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                 >
                                   <CardContent>
                                     <center>
-                                      <h3>{r.totalDemandSakirn}</h3>
+                                      <h3>{handleInLakh(r.totalDemandSakirn)}</h3>
                                     </center>
                                   </CardContent>
                                 </Box>
@@ -8515,7 +8602,9 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                   <CardContent>
                                     <center>
                                       {/* <h3>T</h3> */}
-                                      <h3>{r.totalDemandJm + r.totalDemandSakirn} </h3>
+                                      <h3>
+                                        {handleInLakh(r.totalDemandJm + r.totalDemandSakirn)}{' '}
+                                      </h3>
                                     </center>
                                   </CardContent>
                                 </Box>
@@ -8532,7 +8621,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                   <CardContent>
                                     <center>
                                       {/* <h3>4 </h3> */}
-                                      <h3>{r.totalCollectedJm} </h3>
+                                      <h3>{handleInLakh(r.totalCollectedJm)} </h3>
                                     </center>
                                   </CardContent>
                                 </Box>
@@ -8550,7 +8639,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                 >
                                   <CardContent>
                                     <center>
-                                      <h3>{r.totalCollectedSankirn}</h3>
+                                      <h3>{handleInLakh(r.totalCollectedSankirn)}</h3>
                                     </center>
                                   </CardContent>
                                 </Box>
@@ -8567,13 +8656,30 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                   <CardContent>
                                     <center>
                                       {/* <h3>T</h3> */}
-                                      <h3>{r.totalCollectedJm + r.totalCollectedSankirn} </h3>
+                                      <h3>
+                                        {handleInLakh(r.totalCollectedJm + r.totalCollectedSankirn)}{' '}
+                                      </h3>
                                     </center>
                                   </CardContent>
                                 </Box>
                               </Card>
                             </Grid>
-                            
+                            <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                              <Card>
+                                <Box
+                                  sx={{
+                                    bgcolor: '#91ceff',
+                                    height: 50,
+                                  }}
+                                >
+                                  <CardContent>
+                                    <center>
+                                      <h3>{Math.round(calculateVasuliPercentage(r))}%</h3>
+                                    </center>
+                                  </CardContent>
+                                </Box>
+                              </Card>
+                            </Grid>
                           </Grid>
                           {/* District Grid */}
                           {showDistrict === true && r.divisionCode === divisionCode && (
@@ -8658,9 +8764,10 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                               &nbsp;
                                               {showTaluka === true &&
                                                 r.districtCode === districtsCode && (
-                                                  <ExportToExcel
+                                                  <ExportToExcelVasuli
                                                     dataTaluka={dashBoardDetail2}
                                                     btnName={'GridTaluka'}
+                                                    tableId={'GridTalukaTab5Current'}
                                                     style={{ width: '10px' }}
                                                   />
                                                 )}
@@ -8673,7 +8780,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                         </Box>
                                       </Card>
                                     </Grid>
-                                    <Grid item xs={24} sm={24} md={24} lg={2} xl={2}>
+                                    <Grid item xs={24} sm={24} md={24} lg={2} xl={1}>
                                       <Card>
                                         <Box
                                           sx={{
@@ -8771,7 +8878,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                           <CardContent>
                                             <center>
                                               {/* <h3>4 D</h3> */}
-                                              <h3>{r.totalDemandJm}</h3>
+                                              <h3>{handleInLakh(r.totalDemandJm)}</h3>
                                             </center>
                                           </CardContent>
                                         </Box>
@@ -8789,7 +8896,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                         >
                                           <CardContent>
                                             <center>
-                                              <h3>{r.totalDemandSakirn}</h3>
+                                              <h3>{handleInLakh(r.totalDemandSakirn)}</h3>
                                             </center>
                                           </CardContent>
                                         </Box>
@@ -8807,13 +8914,17 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                           <CardContent>
                                             <center>
                                               {/* <h3>T D</h3> */}
-                                              <h3>{r.totalDemandJm + r.totalDemandSakirn}</h3>
+                                              <h3>
+                                                {handleInLakh(
+                                                  r.totalDemandJm + r.totalDemandSakirn,
+                                                )}
+                                              </h3>
                                             </center>
                                           </CardContent>
                                         </Box>
                                       </Card>
                                     </Grid>
-                                   
+
                                     <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
                                       <Card>
                                         <Box
@@ -8826,7 +8937,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                           <CardContent>
                                             <center>
                                               {/* <h3>4 D</h3> */}
-                                              <h3>{r.totalCollectedJm}</h3>
+                                              <h3>{handleInLakh(r.totalCollectedJm)}</h3>
                                             </center>
                                           </CardContent>
                                         </Box>
@@ -8844,7 +8955,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                         >
                                           <CardContent>
                                             <center>
-                                              <h3>{r.totalCollectedSankirn}</h3>
+                                              <h3>{handleInLakh(r.totalCollectedSankirn)}</h3>
                                             </center>
                                           </CardContent>
                                         </Box>
@@ -8862,13 +8973,32 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                           <CardContent>
                                             <center>
                                               {/* <h3>T D</h3> */}
-                                              <h3>{r.totalCollectedJm + r.totalCollectedSankirn}</h3>
+                                              <h3>
+                                                {handleInLakh(
+                                                  r.totalCollectedJm + r.totalCollectedSankirn,
+                                                )}
+                                              </h3>
                                             </center>
                                           </CardContent>
                                         </Box>
                                       </Card>
                                     </Grid>
-                                   
+                                    <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                      <Card>
+                                        <Box
+                                          sx={{
+                                            bgcolor: '#91ceff',
+                                            height: 50,
+                                          }}
+                                        >
+                                          <CardContent>
+                                            <center>
+                                              <h3>{Math.round(calculateVasuliPercentage(r))}%</h3>
+                                            </center>
+                                          </CardContent>
+                                        </Box>
+                                      </Card>
+                                    </Grid>
                                   </Grid>
                                   {/* Show Taluka */}
                                   {showTaluka === true && r.districtCode === districtsCode && (
@@ -8910,11 +9040,12 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                                     <center>
                                                       <a
                                                         onClick={() => {
-                                                          redirectToReport(
+                                                          redirectToTotalVillages(
                                                             r.districtName,
                                                             r.districtCode,
                                                             r.talukaName,
                                                             r.talukaCode,
+                                                            selectedYear,
                                                           );
                                                         }}
                                                       >
@@ -8927,7 +9058,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                                 </Box>
                                               </Card>
                                             </Grid>
-                                            <Grid item xs={24} sm={24} md={24} lg={2} xl={2}>
+                                            <Grid item xs={24} sm={24} md={24} lg={2} xl={1}>
                                               <Card>
                                                 <Box
                                                   sx={{
@@ -9076,7 +9207,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                                       >
                                                         <h3>
                                                           {/* <u>4T</u> */}
-                                                          <u>{r.totalDemandJm}</u>
+                                                          <u>{handleInLakh(r.totalDemandJm)}</u>
                                                         </h3>
                                                       </a>
                                                     </center>
@@ -9138,7 +9269,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                                         }}
                                                       >
                                                         <h3>
-                                                          <u>{r.totalDemandSakirn}</u>
+                                                          <u>{handleInLakh(r.totalDemandSakirn)}</u>
                                                         </h3>
                                                       </a>
                                                     </center>
@@ -9168,7 +9299,9 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                                       >
                                                         <h3>
                                                           {/* <u>T T</u> */}
-                                                          {r.totalDemandJm + r.totalDemandSakirn}
+                                                          {handleInLakh(
+                                                            r.totalDemandJm + r.totalDemandSakirn,
+                                                          )}
                                                         </h3>
                                                       </a>
                                                     </center>
@@ -9176,7 +9309,6 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                                 </Box>
                                               </Card>
                                             </Grid>
-                                           
 
                                             <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
                                               <Card>
@@ -9202,7 +9334,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                                       >
                                                         <h3>
                                                           {/* <u>4T</u> */}
-                                                          <u>{r.totalCollectedJm}</u>
+                                                          <u>{handleInLakh(r.totalCollectedJm)}</u>
                                                         </h3>
                                                       </a>
                                                     </center>
@@ -9264,7 +9396,9 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                                         }}
                                                       >
                                                         <h3>
-                                                          <u>{r.totalCollectedSankirn}</u>
+                                                          <u>
+                                                            {handleInLakh(r.totalCollectedSankirn)}
+                                                          </u>
                                                         </h3>
                                                       </a>
                                                     </center>
@@ -9294,7 +9428,10 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                                       >
                                                         <h3>
                                                           {/* <u>T T</u> */}
-                                                          {r.totalCollectedJm + r.totalCollectedSankirn}
+                                                          {handleInLakh(
+                                                            r.totalCollectedJm +
+                                                              r.totalCollectedSankirn,
+                                                          )}
                                                         </h3>
                                                       </a>
                                                     </center>
@@ -9302,8 +9439,24 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                                 </Box>
                                               </Card>
                                             </Grid>
-                                           
-                                           
+                                            <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                              <Card>
+                                                <Box
+                                                  sx={{
+                                                    bgcolor: '#91ceff',
+                                                    height: 50,
+                                                  }}
+                                                >
+                                                  <CardContent>
+                                                    <center>
+                                                      <h3>
+                                                        {Math.round(calculateVasuliPercentage(r))}%
+                                                      </h3>
+                                                    </center>
+                                                  </CardContent>
+                                                </Box>
+                                              </Card>
+                                            </Grid>
                                           </Grid>
                                         </>
                                       );
@@ -9335,7 +9488,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                     </Box>
                                   </Card>
                                 </Grid>
-                                <Grid item xs={24} sm={24} md={24} lg={2} xl={2}>
+                                <Grid item xs={24} sm={24} md={24} lg={2} xl={1}>
                                   <Card>
                                     <Box
                                       sx={{
@@ -9427,7 +9580,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                       <CardContent>
                                         <center>
                                           {/* <h3>4T</h3> */}
-                                          <h3>{dashBoardCount1?.totalDemandJm}</h3>
+                                          <h3>{handleInLakh(dashBoardCount1?.totalDemandJm)}</h3>
                                         </center>
                                       </CardContent>
                                     </Box>
@@ -9444,7 +9597,10 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                     >
                                       <CardContent>
                                         <center>
-                                          <h3> {dashBoardCount1?.totalDemandSakirn}</h3>
+                                          <h3>
+                                            {' '}
+                                            {handleInLakh(dashBoardCount1?.totalDemandSakirn)}
+                                          </h3>
                                         </center>
                                       </CardContent>
                                     </Box>
@@ -9461,7 +9617,12 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                       <CardContent>
                                         <center>
                                           {/* <h3> T</h3> */}
-                                          <h3>{dashBoardCount1?.totalDemandJm + dashBoardCount1?.totalDemandSakirn }</h3>
+                                          <h3>
+                                            {handleInLakh(
+                                              dashBoardCount1?.totalDemandJm +
+                                                dashBoardCount1?.totalDemandSakirn,
+                                            )}
+                                          </h3>
                                         </center>
                                       </CardContent>
                                     </Box>
@@ -9478,7 +9639,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                       <CardContent>
                                         <center>
                                           {/* <h3>4T</h3> */}
-                                          <h3>{dashBoardCount1?.totalCollectedJm}</h3>
+                                          <h3>{handleInLakh(dashBoardCount1?.totalCollectedJm)}</h3>
                                         </center>
                                       </CardContent>
                                     </Box>
@@ -9495,7 +9656,10 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                     >
                                       <CardContent>
                                         <center>
-                                          <h3> {dashBoardCount1?.totalCollectedSankirn}</h3>
+                                          <h3>
+                                            {' '}
+                                            {handleInLakh(dashBoardCount1?.totalCollectedSankirn)}
+                                          </h3>
                                         </center>
                                       </CardContent>
                                     </Box>
@@ -9512,7 +9676,31 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                       <CardContent>
                                         <center>
                                           {/* <h3> T</h3> */}
-                                          <h3>{dashBoardCount1?.totalCollectedJm + dashBoardCount1?.totalCollectedSankirn }</h3>
+                                          <h3>
+                                            {handleInLakh(
+                                              dashBoardCount1?.totalCollectedJm +
+                                                dashBoardCount1?.totalCollectedSankirn,
+                                            )}
+                                          </h3>
+                                        </center>
+                                      </CardContent>
+                                    </Box>
+                                  </Card>
+                                </Grid>
+                                <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                                  <Card>
+                                    <Box
+                                      sx={{
+                                        bgcolor: '#91ceff',
+                                        height: 50,
+                                      }}
+                                    >
+                                      <CardContent>
+                                        <center>
+                                          <h3>
+                                            {Math.round(calculateVasuliPercentage(dashBoardCount1))}
+                                            %
+                                          </h3>
                                         </center>
                                       </CardContent>
                                     </Box>
@@ -9544,7 +9732,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                         </Box>
                       </Card>
                     </Grid>
-                    <Grid item xs={24} sm={24} md={24} lg={2} xl={2}>
+                    <Grid item xs={24} sm={24} md={24} lg={2} xl={1}>
                       <Card>
                         <Box
                           sx={{
@@ -9638,7 +9826,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                           <CardContent>
                             <center>
                               {/* <h3> 4</h3> */}
-                              <h3> {dashBoardCount?.totalDemandJm}</h3>
+                              <h3> {handleInLakh(dashBoardCount?.totalDemandJm)}</h3>
                             </center>
                           </CardContent>
                         </Box>
@@ -9655,7 +9843,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                         >
                           <CardContent>
                             <center>
-                              <h3> {dashBoardCount?.totalDemandSakirn}</h3>
+                              <h3> {handleInLakh(dashBoardCount?.totalDemandSakirn)}</h3>
                             </center>
                           </CardContent>
                         </Box>
@@ -9672,13 +9860,17 @@ export const IntroduceRow = ({ loading, visitData }) => {
                           <CardContent>
                             <center>
                               {/* <h3> T</h3> */}
-                              <h3> {dashBoardCount?.totalDemandJm + dashBoardCount?.totalDemandSakirn}</h3>
+                              <h3>
+                                {' '}
+                                {handleInLakh(
+                                  dashBoardCount?.totalDemandJm + dashBoardCount?.totalDemandSakirn,
+                                )}
+                              </h3>
                             </center>
                           </CardContent>
                         </Box>
                       </Card>
                     </Grid>
-
 
                     <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
                       <Card>
@@ -9691,7 +9883,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                           <CardContent>
                             <center>
                               {/* <h3> 4</h3> */}
-                              <h3> {dashBoardCount?.totalCollectedJm}</h3>
+                              <h3> {handleInLakh(dashBoardCount?.totalCollectedJm)}</h3>
                             </center>
                           </CardContent>
                         </Box>
@@ -9708,7 +9900,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
                         >
                           <CardContent>
                             <center>
-                              <h3> {dashBoardCount?.totalCollectedSankirn}</h3>
+                              <h3> {handleInLakh(dashBoardCount?.totalCollectedSankirn)}</h3>
                             </center>
                           </CardContent>
                         </Box>
@@ -9725,14 +9917,51 @@ export const IntroduceRow = ({ loading, visitData }) => {
                           <CardContent>
                             <center>
                               {/* <h3> T</h3> */}
-                              <h3> {dashBoardCount?.totalCollectedJm + dashBoardCount?.totalCollectedSankirn}</h3>
+                              <h3>
+                                {' '}
+                                {handleInLakh(
+                                  dashBoardCount?.totalCollectedJm +
+                                    dashBoardCount?.totalCollectedSankirn,
+                                )}
+                              </h3>
                             </center>
                           </CardContent>
                         </Box>
                       </Card>
                     </Grid>
 
-                  
+                    <Grid item xs={24} sm={24} md={24} lg={3} xl={2}>
+                      <Card>
+                        <Box
+                          sx={{
+                            bgcolor: '#91ceff',
+                            height: 50,
+                          }}
+                        >
+                          <CardContent>
+                            <center>
+                              <h3>
+                                {' '}
+                                {(() => {
+                                  const totalDemand =
+                                    (dashBoardCount?.totalDemandJm || 0) +
+                                    (dashBoardCount?.totalDemandSankirn || 0);
+                                  const totalCollected =
+                                    (dashBoardCount?.totalCollectedJm || 0) +
+                                    (dashBoardCount?.totalCollectedSankirn || 0);
+
+                                  if (totalDemand > 0) {
+                                    return ((totalCollected / totalDemand) * 100).toFixed(2);
+                                  }
+                                  return '0.00';
+                                })()}
+                                %
+                              </h3>
+                            </center>
+                          </CardContent>
+                        </Box>
+                      </Card>
+                    </Grid>
                   </Grid>
                   {/*asha new 0ct13*/}
                   {/************************************************list district**********************************************************8 */}
@@ -10244,9 +10473,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
             </>
           )}
         </Tabs.TabPane>
-
-
-
+        {/* ssmnew */}
       </Tabs>
     </div>
   );

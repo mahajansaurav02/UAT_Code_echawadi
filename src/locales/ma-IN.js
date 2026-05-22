@@ -51,6 +51,8 @@ import loginpage from './ma-IN/loginpage';
 import OneTimeDataEntryReport from './ma-IN/OneTimeDataEntryReport';
 import EducationalCess from './ma-IN/EducationalCess';
 import RojgarlaguRojgarHami from './ma-IN/RojgarlaguRojgarHami';
+import daptarTapasni  from './ma-IN/daptarTapasni';
+import abhiprayYadi   from './ma-IN/abhiprayYadi';
 export default {
   'navBar.lang': 'Languages',
   'layout.user.link.help': 'Help',
@@ -112,4 +114,7 @@ export default {
   
 
   ...OneTimeDataEntryReport,
+
+  ...daptarTapasni,
+  ...abhiprayYadi,
 };

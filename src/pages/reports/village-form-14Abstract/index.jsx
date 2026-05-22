@@ -427,7 +427,7 @@ class ComponentToPrint extends React.Component {
                   </tr>
                   <tr>
                     <td>
-                      <b>ई)</b>
+                      <b>इ)</b>
                     </td>
                     <td>
                       <b> इतर साधने,धेकुडी,(तेल,वाफ किंवा पवन शक्तीवर चालणारे) पंप</b>

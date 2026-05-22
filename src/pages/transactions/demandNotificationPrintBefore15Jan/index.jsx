@@ -75,7 +75,7 @@ class ComponentToPrint extends React.Component {
                 <Col xl={9} lg={8} md={6} sm={5} xs={7}></Col>
 
                 <Col>
-                  <b> मागणी तपशील ( 01/08/2024 रोजी निश्चित मागणी नुसार)</b>
+                  <b> मागणी तपशील ( 01/08/2025 रोजी निश्चित मागणी नुसार)</b>
                 </Col>
               </Row>
 

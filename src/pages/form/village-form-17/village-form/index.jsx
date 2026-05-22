@@ -63,7 +63,7 @@ const BasicForm = () => {
   const [flagForSearch, setFlagForSearch] = useState(false);
   const [stateForKSearch, setStateForKSearch] = useState(false);
   const [khataNumbersList, setKhataNumbersList] = useState([]);
-  const [radiovalue, setRadioValue] = useState("KhataNumber");
+  const [radiovalue, setRadioValue] = useState('KhataNumber');
   const [isLoading, setIsLoading] = useState(false);
   const [lGDCode, setLGDCode] = useState();
   const [lGDCodeFromVillageData, setLGDCodeFromVillageData] = useState();
@@ -74,42 +74,21 @@ const BasicForm = () => {
   }, [codeVillage, revenueYear]);
 
   useEffect(() => {
+    const total = parseFloat(totalAreaValue);
+    const affected = parseFloat(affectedAreaValue);
 
-    // if (totalAreaValue < affectedAreaValue) {
-
-    console.log(totalAreaValue,affectedAreaValue,"ssammmmmmmm")
-
-    if (!(totalAreaValue >= affectedAreaValue)) {
-
-      console.log(
-
-        parseFloat(totalAreaValue) +
-
-          '  ' +
-
-          parseFloat(affectedAreaValue) +
-
-          '-----------------Data123',
-
-      );
-
-      if(affectedAreaValue){
-
-        message.info('Affected Area should be Less that or Equal to Total Area');
-
-
-
-      }
-
+    if (isNaN(total) || isNaN(affected)) {
       setSaveFlag(false);
-
-    } else {
-
-      setSaveFlag(true);
-
+      return;
     }
 
-  }, [affectedAreaValue]);
+    if (affected > total) {
+      message.error('Affected area must be less than or equal to total area');
+      setSaveFlag(false);
+    } else {
+      setSaveFlag(true);
+    }
+  }, [affectedAreaValue, totalAreaValue]);
 
   useEffect(() => {
     if (
@@ -369,7 +348,7 @@ const BasicForm = () => {
       uomOfTotalArea: totalAreaInUOM,
       caseNo: form.getFieldValue('caseNo'),
       surveyHissaNo: form.getFieldValue('surveyHissaNo'),
-      areaAffected: totalAreaValue,
+      areaAffected: affectedAreaValue,
       uomOfAreaAffected: totalAreaInUOM,
       natureOfCase: natureOfCaseValue,
       periodFromDate: periodFromDateForedit,
@@ -385,16 +364,33 @@ const BasicForm = () => {
       assessment: form.getFieldValue('assessment'),
       remarks: form.getFieldValue('remarks'),
     };
-    if(!inputParamsForAdd.periodFromDate){
+
+    if (location.state?.pageMode === 'Edit' && !inputParamsForEdit.periodFromDate) {
       setIsLoading(false);
 
-      return console.log("from date is required ")
+      return console.log('from date is required ');
     }
-     if(!inputParamsForAdd.periodToDate){
-          setIsLoading(false);
+    if (location.state?.pageMode === 'Edit' && !inputParamsForEdit.periodToDate) {
+      setIsLoading(false);
 
-    return console.log("To date is required")
+      return console.log('To date is required');
+    }
 
+    if (location.state?.pageMode === 'Add' && !inputParamsForAdd.periodToDate) {
+      setIsLoading(false);
+
+      return console.log('from date is required ');
+    }
+    if (location.state?.pageMode === 'Add' && !inputParamsForAdd.periodToDate) {
+      setIsLoading(false);
+
+      return console.log('To date is required');
+    }
+
+    if (!inputParamsForAdd.localCess || !inputParamsForAdd.localCessAmount) {
+      console.log('Local Cess and is required');
+      setIsLoading(false);
+      return message.error('Local Cess and Amount is required');
     }
     if (location.state?.pageMode === 'Edit') {
       sendRequest(
@@ -855,64 +851,58 @@ const BasicForm = () => {
               <Col xl={1} lg={1} md={1} sm={1} xs={1}></Col>
 
               <Col xl={7} lg={7} md={7} sm={24} xs={24}>
-              {radiovalue && radiovalue === 'maktaNumber' ? (
-                <Form.Item
-                  label={<FormattedMessage id="formLanguage.table.totalArea" />}
-                  name="totalArea"
-                  // rules={[
-                  //   {
-                  //     required: true,
-                  //     // message: 'Please Enter total area1111',
-                  //     message: 'Total Area should be greater that or Equal to Affected Area',
-                  //     //'Please Enter total area1111'
-                  //   },
-                  // ]}
-                >
-                  <Input.Group compact>
-                    {/* <Input disabled style={{ width: '60%' }} value={totalAreaValue} /> */}
-                    <Input 
-                      style={{ width: '60%' }}
-                      value={totalAreaValue}
-                      onChange={(e) => {
-                        setTotalAreaValue(e.target.value);
-                        
-                      }}
-                    />
-                    <Input disabled style={{ width: '40%' }} value={totalAreaInUOM} />
-                  </Input.Group>
-                </Form.Item>
-              ):(
-
-
-
-<Form.Item
-                  label={<FormattedMessage id="formLanguage.table.totalArea" />}
-                  name="totalArea"
-                  // rules={[
-                  //   {
-                  //     required: true,
-                  //     // message: 'Please Enter total area1111',
-                  //     message: 'Total Area should be greater that or Equal to Affected Area',
-                  //     //'Please Enter total area1111'
-                  //   },
-                  // ]}
-                >
-                  <Input.Group compact>
-                    {/* <Input disabled style={{ width: '60%' }} value={totalAreaValue} /> */}
-                    <Input  disabled
-                      style={{ width: '60%' }}
-                      value={totalAreaValue}
-                      onChange={(e) => {
-                        setTotalAreaValue(e.target.value);
-                        
-                      }}
-                    />
-                    <Input disabled style={{ width: '40%' }} value={totalAreaInUOM} />
-                  </Input.Group>
-                </Form.Item>
-
-
-              )}
+                {radiovalue && radiovalue === 'maktaNumber' ? (
+                  <Form.Item
+                    label={<FormattedMessage id="formLanguage.table.totalArea" />}
+                    name="totalArea"
+                    // rules={[
+                    //   {
+                    //     required: true,
+                    //     // message: 'Please Enter total area1111',
+                    //     message: 'Total Area should be greater that or Equal to Affected Area',
+                    //     //'Please Enter total area1111'
+                    //   },
+                    // ]}
+                  >
+                    <Input.Group compact>
+                      {/* <Input disabled style={{ width: '60%' }} value={totalAreaValue} /> */}
+                      <Input
+                        style={{ width: '60%' }}
+                        value={totalAreaValue}
+                        onChange={(e) => {
+                          setTotalAreaValue(e.target.value);
+                        }}
+                      />
+                      <Input disabled style={{ width: '40%' }} value={totalAreaInUOM} />
+                    </Input.Group>
+                  </Form.Item>
+                ) : (
+                  <Form.Item
+                    label={<FormattedMessage id="formLanguage.table.totalArea" />}
+                    name="totalArea"
+                    // rules={[
+                    //   {
+                    //     required: true,
+                    //     // message: 'Please Enter total area1111',
+                    //     message: 'Total Area should be greater that or Equal to Affected Area',
+                    //     //'Please Enter total area1111'
+                    //   },
+                    // ]}
+                  >
+                    <Input.Group compact>
+                      {/* <Input disabled style={{ width: '60%' }} value={totalAreaValue} /> */}
+                      <Input
+                        disabled
+                        style={{ width: '60%' }}
+                        value={totalAreaValue}
+                        onChange={(e) => {
+                          setTotalAreaValue(e.target.value);
+                        }}
+                      />
+                      <Input disabled style={{ width: '40%' }} value={totalAreaInUOM} />
+                    </Input.Group>
+                  </Form.Item>
+                )}
               </Col>
             </Row>
 
@@ -946,11 +936,10 @@ const BasicForm = () => {
                 <Form.Item
                   style={{ marginLeft: 5 }}
                   label={<FormattedMessage id="villageForm17.table.areaAffected" />}
-                  name="areaAffected"
                   rules={[
                     {
                       required: true,
-                 
+
                       message: 'Total Area should be greater than or Equal to Affected Area',
                     },
                   ]}
@@ -966,9 +955,8 @@ const BasicForm = () => {
                       rules={[
                         {
                           required: true,
-    
+
                           message: 'Total Area should be greater than or Equal to Affected Area',
-                          
                         },
                       ]}
                     />
@@ -1007,7 +995,7 @@ const BasicForm = () => {
                     </Select.Option>
                     <Select.Option value="कलिंगडांच्या बागा">कलिंगडांच्या बागा</Select.Option>
                     <Select.Option value="बेट">बेट </Select.Option>
-                    <Select.Option value="मळई जमीन किंमत">मळई जमीन किंमत </Select.Option>
+                    <Select.Option value="मळइ जमीन किंमत">मळइ जमीन किंमत </Select.Option>
                     <Select.Option value="कुमरी किंवा डोंगराळ पट्टे प्रदान">
                       कुमरी किंवा डोंगराळ पट्टे प्रदान
                     </Select.Option>
@@ -1016,8 +1004,8 @@ const BasicForm = () => {
                     </Select.Option>
                     <Select.Option value="एक साला लावणी फी">एक साला लावणी फी </Select.Option>
                     <Select.Option value="कुरणे">कुरणे </Select.Option>
-                    <Select.Option value="लिलावात विकलेले गवत किंवा चराई">
-                      लिलावात विकलेले गवत किंवा चराई
+                    <Select.Option value="लिलावात विकलेले गवत किंवा चराइ">
+                      लिलावात विकलेले गवत किंवा चराइ
                     </Select.Option>
                     <Select.Option value="झाडांपासून मिळणारे उत्पन्न विक्री">
                       झाडांपासून मिळणारे उत्पन्न विक्री
@@ -1040,8 +1028,8 @@ const BasicForm = () => {
                     <Select.Option value="सरकारी पड जमिनीवरील चुनाभट्‍टी फी">
                       सरकारी पड जमिनीवरील चुनाभट्‍टी फी
                     </Select.Option>
-                    <Select.Option value="अकृषिक प्रयोजनार्थ अस्‍थाई रूपांतरण आकारणी">
-                      अकृषिक प्रयोजनार्थ अस्‍थाई रूपांतरण आकारणी
+                    <Select.Option value="अकृषिक प्रयोजनार्थ अस्‍थाइ रूपांतरण आकारणी">
+                      अकृषिक प्रयोजनार्थ अस्‍थाइ रूपांतरण आकारणी
                     </Select.Option>
                     <Select.Option value="अनधिकृत भोगवट्याकरिता आकारणी">
                       अनधिकृत भोगवट्याकरिता आकारणी
@@ -1083,7 +1071,7 @@ const BasicForm = () => {
                       धारणाधिकार वर्ग दोन चे वर्ग एक मध्ये केलेल्या अधिकृत रूपांतरांवरील अधिमूल्य
                     </Select.Option>
                     <Select.Option value="पैज कर">पैज कर </Select.Option>
-                    <Select.Option value="नुकसान भरपाई">नुकसान भरपाई </Select.Option>
+                    <Select.Option value="नुकसान भरपाइ">नुकसान भरपाइ </Select.Option>
                     <Select.Option value="दंड">दंड </Select.Option>
                     <Select.Option value="गौण खनीज शुल्‍क">गौण खनीज शुल्‍क </Select.Option>
                     <Select.Option value="स्‍वामित्‍वधन"> स्‍वामित्‍वधन </Select.Option>
@@ -1163,15 +1151,6 @@ const BasicForm = () => {
                   <Form.Item
                     label={<FormattedMessage id="villageForm17.table.fromDate" />}
                     name="periodFromDate"
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Please Select Period From Date',
-                      },
-                      {
-                        type: 'date',
-                      },
-                    ]}
                   >
                     <DatePicker
                       style={{ width: '100%' }}
@@ -1221,15 +1200,6 @@ const BasicForm = () => {
                   <Form.Item
                     label={<FormattedMessage id="villageForm17.table.toDate" />}
                     name="periodToDate"
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Please Select Period From Date',
-                      },
-                      {
-                        type: 'date',
-                      },
-                    ]}
                   >
                     <DatePicker
                       style={{ width: '100%' }}
@@ -1255,19 +1225,25 @@ const BasicForm = () => {
 
             <Row style={{ marginTop: 10 }}>
               <Col xl={7} lg={7} md={7} sm={24} xs={24}>
-              <Form.Item
+                <Form.Item
                   label={<FormattedMessage id="villageForm17.table.localCess" />}
                   name="localCess"
                   rules={[
                     {
                       required: true,
-                      message: 'Local Cess is required ',
+                      message: '',
                     },
                     {
-                      validator: (_, value) =>
-                        value == ''
-                          ? Promise.resolve()
-                          : Promise.reject('Please enter A-Liable For Local Cess'),
+                      validator: (_, value) => {
+                        // If either select has value OR input has value
+                        if (localCess || localCessValue) {
+                          // Then both must have values
+                          if (!localCess || !localCessValue) {
+                            return Promise.reject('Please complete Local Cess information');
+                          }
+                        }
+                        return Promise.resolve();
+                      },
                     },
                   ]}
                 >
@@ -1291,7 +1267,7 @@ const BasicForm = () => {
                       </Select.Option>
                       <Select.Option value="कलिंगडांच्या बागा">कलिंगडांच्या बागा</Select.Option>
                       <Select.Option value="बेट">बेट </Select.Option>
-                      <Select.Option value="मळई जमीन किंमत">मळई जमीन किंमत </Select.Option>
+                      <Select.Option value="मळइ जमीन किंमत">मळइ जमीन किंमत </Select.Option>
                       <Select.Option value="कुमरी किंवा डोंगराळ पट्टे प्रदान">
                         कुमरी किंवा डोंगराळ पट्टे प्रदान
                       </Select.Option>
@@ -1300,8 +1276,8 @@ const BasicForm = () => {
                       </Select.Option>
                       <Select.Option value="एक साला लावणी फी">एक साला लावणी फी </Select.Option>
                       <Select.Option value="कुरणे">कुरणे </Select.Option>
-                      <Select.Option value="लिलावात विकलेले गवत किंवा चराई">
-                        लिलावात विकलेले गवत किंवा चराई
+                      <Select.Option value="लिलावात विकलेले गवत किंवा चराइ">
+                        लिलावात विकलेले गवत किंवा चराइ
                       </Select.Option>
                       <Select.Option value="झाडांपासून मिळणारे उत्पन्न विक्री">
                         झाडांपासून मिळणारे उत्पन्न विक्री
@@ -1326,8 +1302,8 @@ const BasicForm = () => {
                       <Select.Option value="सरकारी पड जमिनीवरील चुनाभट्‍टी फी">
                         सरकारी पड जमिनीवरील चुनाभट्‍टी फी
                       </Select.Option>
-                      <Select.Option value="अकृषिक प्रयोजनार्थ अस्‍थाई रूपांतरण आकारणी">
-                        अकृषिक प्रयोजनार्थ अस्‍थाई रूपांतरण आकारणी
+                      <Select.Option value="अकृषिक प्रयोजनार्थ अस्‍थाइ रूपांतरण आकारणी">
+                        अकृषिक प्रयोजनार्थ अस्‍थाइ रूपांतरण आकारणी
                       </Select.Option>
                       <Select.Option value="अनधिकृत भोगवट्याकरिता आकारणी">
                         अनधिकृत भोगवट्याकरिता आकारणी
@@ -1453,7 +1429,7 @@ const BasicForm = () => {
                         धारणाधिकार वर्ग दोनचे वर्ग एकमध्ये केलेल्या अधिकृत रूपांतरांवरील अधिमूल्य
                       </Select.Option>
                       <Select.Option value="पैज कर">पैज कर </Select.Option>
-                      <Select.Option value="नुकसान भरपाई">नुकसान भरपाई </Select.Option>
+                      <Select.Option value="नुकसान भरपाइ">नुकसान भरपाइ </Select.Option>
                       <Select.Option value="दंड">दंड </Select.Option>
                       <Select.Option value="गौण खनीज शुल्‍क">गौण खनीज शुल्‍क </Select.Option>
                       <Select.Option value="स्‍वामित्‍वधन"> स्‍वामित्‍वधन </Select.Option>
@@ -1542,7 +1518,7 @@ const BasicForm = () => {
                 <Form.Item
                   label={<FormattedMessage id="villageForm17.table.amountOfLR" />}
                   name="amountOfJm"
-                  rules={[  
+                  rules={[
                     {
                       required: true,
                       message: 'Please Enter Amount Of L.R',
@@ -1632,6 +1608,7 @@ const BasicForm = () => {
                         } else {
                           // if (totalAreaValue < affectedAreaValue) {
                           if (totalAreaValue >= affectedAreaValue) {
+                            console.log('error ssm 1');
                             message.error(
                               'Affected Area should be Less that or Equal to Total Area1',
                             );

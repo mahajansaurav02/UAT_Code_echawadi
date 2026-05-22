@@ -361,7 +361,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
         okText: 'रद्द करा ',
 
         //cancelText: <FormattedMessage id="formLanguage.form.no" />,
-        title: 'ई-चावडी माहिती',
+        title: 'इ-चावडी माहिती',
         // content: 'सदर अहवालसाठी आपण पात्र नाही',
         content: 'सदर  अहवाल जिल्हाअधिकारी लॉगिनला उपलब्ध आहे',
         onCancel() {},
@@ -1559,7 +1559,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
         onTabClick={callbackTabClicked}
       >
         {/* <Tabs.TabPane tab="कामकाज प्रगती अहवाल" key="tab1"> */}
-        <Tabs.TabPane tab="ई-चावडी कामकाज प्रगती अहवाल" key="tab1">
+        <Tabs.TabPane tab="इ-चावडी कामकाज प्रगती अहवाल" key="tab1">
           {/* Old 2023-2024 */}
 
           {selectedYear === '2023-2024' ? (

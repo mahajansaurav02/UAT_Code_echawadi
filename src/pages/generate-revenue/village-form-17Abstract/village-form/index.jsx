@@ -46,8 +46,10 @@ const BasicForm = () => {
   const [flagForSearch, setFlagForSearch] = useState(false);
   const [loading, setLoading] = useState(false);
   const [part, setPart] = useState(null);
+  const [partL, setPartL] = useState(null);
   const [prayojan, setPrayojan] = useState(null);
   const [outsideGavthanRate,setOutsideGavthanRate]=useState()
+  const [outsideGavthanData,setOutsideGavthanData]=useState()
       
   useEffect(() => {
     if (codeVillage) {
@@ -57,18 +59,34 @@ const BasicForm = () => {
 
   useEffect(() => {
      console.log(outsideGavthanRate,'outsideGavthanRate---------11111111111111111111')
-    if(part=='form2.table.partB' && outsideGavthanRate){
-      
-      console.log(outsideGavthanRate,'outsideGavthanRate---------222222222222222222222')
+     console.log(partL,"----------partL")
+    if(partL=='form2.table.partB' && outsideGavthanRate!=undefined){
     
+
     if (prayojan == 'निवासी') {
-      form.setFieldsValue({
-        amountOfJm: Math.round(outsideGavthanRate * (affectedAreaValue * h2R) * 1).toFixed(2),
-        amountOfGp: 0,
-        amountOfZp:0,
-        assessment:  Math.round(outsideGavthanRate * (affectedAreaValue * h2R) * 1).toFixed(2),
-      });
- 
+ const jm = !outsideGavthanData?.rate
+  ? kaJaPaRate * (affectedAreaValue * h2R)
+  : outsideGavthanRate * (affectedAreaValue * h2R);
+
+const zp = !outsideGavthanData?.rate
+  ? kaJaPaRate * (affectedAreaValue * h2R) * 7
+  : 0;
+
+const gp = !outsideGavthanData?.rate
+  ? kaJaPaRate * (affectedAreaValue * h2R)
+  : 0;
+
+const assessment = !outsideGavthanData?.rate
+  ? jm * 9
+  : jm + zp + gp;
+
+form.setFieldsValue({
+  amountOfJm: jm.toFixed(2),
+  amountOfZp: zp.toFixed(2),
+  amountOfGp: gp.toFixed(2),
+  assessment: assessment.toFixed(2),
+});
+
       // console.log('निवासी', rate * affectedAreaValue * h2R);
     }
     
@@ -79,128 +97,191 @@ const BasicForm = () => {
     
     
     else if (prayojan == 'औद्योगिक') {
-      // form.setFieldsValue({
-      //   amountOfJm: (kaJaPaRate * (affectedAreaValue * h2R) * 1.5).toFixed(2),
-      //   amountOfZp: (
-      //     (part == 'form2.table.partA' ? 0 : kaJaPaRate * (affectedAreaValue * h2R) * 1.5) * 7
-      //   ).toFixed(2),
-      //   amountOfGp: (part == 'form2.table.partA'
-      //     ? 0
-      //     : kaJaPaRate * (affectedAreaValue * h2R) * 1.5
-      //   ).toFixed(2),
-      //   assessment: (part == 'form2.table.partA'
-      //     ? kaJaPaRate * (affectedAreaValue * h2R) * 1.5
-      //     : kaJaPaRate * (affectedAreaValue * h2R) * 1.5 * 9
-      //   ).toFixed(2),
-      // });
-      form.setFieldsValue({
-        amountOfJm: Math.round(outsideGavthanRate * (affectedAreaValue * h2R) * 1.5).toFixed(2),
-        amountOfGp: 0,
-        amountOfZp:0,
-        assessment:  Math.round(outsideGavthanRate * (affectedAreaValue * h2R) * 1.5).toFixed(2),
-      });
+     const jm = !outsideGavthanData?.rate
+  ? kaJaPaRate * (affectedAreaValue * h2R) * 1.5
+  : outsideGavthanRate * (affectedAreaValue * h2R) * 1.5;
+
+const zp = !outsideGavthanData?.rate
+  ? kaJaPaRate * (affectedAreaValue * h2R) * 1.5 * 7
+  : 0;
+
+const gp = !outsideGavthanData?.rate
+  ? kaJaPaRate * (affectedAreaValue * h2R) * 1.5
+  : 0;
+
+const assessment = !outsideGavthanData?.rate
+  ? kaJaPaRate * (affectedAreaValue * h2R) * 1.5 * 9
+  : jm + zp + gp;
+
+form.setFieldsValue({
+  amountOfJm: jm.toFixed(2),
+  amountOfZp: zp.toFixed(2),
+  amountOfGp: gp.toFixed(2),
+  assessment: assessment.toFixed(2),
+});
+
     } else if (prayojan == 'वाणिज्य') {
-      // form.setFieldsValue({
-      //   amountOfJm: (kaJaPaRate * (affectedAreaValue * h2R) * 2).toFixed(2),
-      //   amountOfZp: (
-      //     (part == 'form2.table.partA' ? 0 : kaJaPaRate * (affectedAreaValue * h2R) * 2) * 7
-      //   ).toFixed(2),
-      //   amountOfGp: (part == 'form2.table.partA'
-      //     ? 0
-      //     : kaJaPaRate * (affectedAreaValue * h2R) * 2
-      //   ).toFixed(2),
-      //   assessment: (part == 'form2.table.partA'
-      //     ? kaJaPaRate * (affectedAreaValue * h2R) * 2
-      //     : kaJaPaRate * (affectedAreaValue * h2R) * 2 * 9
-      //   ).toFixed(2),
-      // });
-      form.setFieldsValue({
-        amountOfJm: Math.round(outsideGavthanRate * (affectedAreaValue * h2R) * 2).toFixed(2),
-        amountOfGp: 0,
-        amountOfZp:0,
-        assessment:  Math.round(outsideGavthanRate * (affectedAreaValue * h2R) * 2).toFixed(2),
-      });
+  const jm = !outsideGavthanData?.rate
+  ? kaJaPaRate * (affectedAreaValue * h2R) * 2
+  : outsideGavthanRate * (affectedAreaValue * h2R) * 2;
+
+const zp = !outsideGavthanData?.rate
+  ? kaJaPaRate * (affectedAreaValue * h2R) * 2 * 7
+  : 0;
+
+const gp = !outsideGavthanData?.rate
+  ? kaJaPaRate * (affectedAreaValue * h2R) * 2
+  : 0;
+
+  const assessment = !outsideGavthanData?.rate
+    ? kaJaPaRate * (affectedAreaValue * h2R) * 2 * 9
+    : jm + zp + gp;
+
+form.setFieldsValue({
+  amountOfJm: jm.toFixed(2),
+  amountOfZp: zp.toFixed(2),
+  amountOfGp: gp.toFixed(2),
+  assessment: assessment.toFixed(2),
+});
+
+    
     } else if (prayojan == 'इतर') {
-      // 
-      form.setFieldsValue({
-        amountOfJm: Math.round(outsideGavthanRate * (affectedAreaValue * h2R) * 1.5).toFixed(2),
-        amountOfGp: 0,
-        amountOfZp:0,
-        assessment:  Math.round(outsideGavthanRate * (affectedAreaValue * h2R) * 1.5).toFixed(2),
-      });
+     const jm = !outsideGavthanData?.rate
+  ? kaJaPaRate * (affectedAreaValue * h2R) * 1.5
+  : outsideGavthanRate * (affectedAreaValue * h2R) * 1.5;
+
+const zp = !outsideGavthanData?.rate
+  ? kaJaPaRate * (affectedAreaValue * h2R) * 1.5 * 7
+  : 0;
+
+const gp = !outsideGavthanData?.rate
+  ? kaJaPaRate * (affectedAreaValue * h2R) * 1.5
+  : 0;
+
+const assessment = !outsideGavthanData?.rate
+  ? kaJaPaRate * (affectedAreaValue * h2R) * 1.5 * 9
+  : jm + zp + gp;
+
+form.setFieldsValue({
+  amountOfJm: jm.toFixed(2),
+  amountOfZp: zp.toFixed(2),
+  amountOfGp: gp.toFixed(2),
+  assessment: assessment.toFixed(2),
+});
     }
   }else{
 
     if (prayojan == 'निवासी') {
-      form.setFieldsValue({
-        amountOfJm: Math.round(kaJaPaRate * (affectedAreaValue * h2R) * 1).toFixed(2),
-        amountOfGp: 0,
-        amountOfZp:0,
-        assessment: Math.round(kaJaPaRate * (affectedAreaValue * h2R) * 1).toFixed(2),
-      });
+      // form.setFieldsValue({
+      //   amountOfJm: Math.round(kaJaPaRate * (affectedAreaValue * h2R) * 1).toFixed(2),
+      //   amountOfGp: 0,
+      //   amountOfZp:0,
+      //   assessment: Math.round(kaJaPaRate * (affectedAreaValue * h2R) * 1).toFixed(2),
+      // });
  
       // console.log('निवासी', rate * affectedAreaValue * h2R);
+    const jm = !outsideGavthanData?.rate
+  ? kaJaPaRate * (affectedAreaValue * h2R) * 1
+  : outsideGavthanRate * (affectedAreaValue * h2R) * 1;
+
+const zp = !outsideGavthanData?.rate
+  ? kaJaPaRate * (affectedAreaValue * h2R) * 1 * 7
+  : 0;
+
+const gp = !outsideGavthanData?.rate
+  ? kaJaPaRate * (affectedAreaValue * h2R) * 1
+  : 0;
+
+const assessment = !outsideGavthanData?.rate
+  ? kaJaPaRate * (affectedAreaValue * h2R) * 1 * 9
+  : jm + zp + gp;
+
+
+form.setFieldsValue({
+  amountOfJm: jm.toFixed(2),
+  amountOfZp: zp.toFixed(2),
+  amountOfGp: gp.toFixed(2),
+  assessment: assessment.toFixed(2),
+});
+
     }
-    
-    
-    
-    
-    
-    
     
     else if (prayojan == 'औद्योगिक') {
-      // form.setFieldsValue({
-      //   amountOfJm: (kaJaPaRate * (affectedAreaValue * h2R) * 1.5).toFixed(2),
-      //   amountOfZp: (
-      //     (part == 'form2.table.partA' ? 0 : kaJaPaRate * (affectedAreaValue * h2R) * 1.5) * 7
-      //   ).toFixed(2),
-      //   amountOfGp: (part == 'form2.table.partA'
-      //     ? 0
-      //     : kaJaPaRate * (affectedAreaValue * h2R) * 1.5
-      //   ).toFixed(2),
-      //   assessment: (part == 'form2.table.partA'
-      //     ? kaJaPaRate * (affectedAreaValue * h2R) * 1.5
-      //     : kaJaPaRate * (affectedAreaValue * h2R) * 1.5 * 9
-      //   ).toFixed(2),
-      // });
-      form.setFieldsValue({
-        amountOfJm: Math.round(kaJaPaRate * (affectedAreaValue * h2R) * 1.5).toFixed(2),
-        amountOfGp: 0,
-        amountOfZp:0,
-        assessment:  Math.round(kaJaPaRate * (affectedAreaValue * h2R) * 1.5).toFixed(2),
-      });
+      const jm = !outsideGavthanData?.rate
+  ? kaJaPaRate * (affectedAreaValue * h2R) * 1.5
+  : outsideGavthanRate * (affectedAreaValue * h2R) * 1.5;
+
+const zp = !outsideGavthanData?.rate
+  ? kaJaPaRate * (affectedAreaValue * h2R) * 1.5 * 7
+  : 0;
+
+const gp = !outsideGavthanData?.rate
+  ? kaJaPaRate * (affectedAreaValue * h2R) * 1.5
+  : 0;
+
+const assessment = !outsideGavthanData?.rate
+  ? kaJaPaRate * (affectedAreaValue * h2R) * 1.5 * 9
+  : jm + zp + gp;
+
+
+form.setFieldsValue({
+  amountOfJm: jm.toFixed(2),
+  amountOfZp: zp.toFixed(2),
+  amountOfGp: gp.toFixed(2),
+  assessment: assessment.toFixed(2),
+});
+
     } else if (prayojan == 'वाणिज्य') {
-      // form.setFieldsValue({
-      //   amountOfJm: (kaJaPaRate * (affectedAreaValue * h2R) * 2).toFixed(2),
-      //   amountOfZp: (
-      //     (part == 'form2.table.partA' ? 0 : kaJaPaRate * (affectedAreaValue * h2R) * 2) * 7
-      //   ).toFixed(2),
-      //   amountOfGp: (part == 'form2.table.partA'
-      //     ? 0
-      //     : kaJaPaRate * (affectedAreaValue * h2R) * 2
-      //   ).toFixed(2),
-      //   assessment: (part == 'form2.table.partA'
-      //     ? kaJaPaRate * (affectedAreaValue * h2R) * 2
-      //     : kaJaPaRate * (affectedAreaValue * h2R) * 2 * 9
-      //   ).toFixed(2),
-      // });
-      form.setFieldsValue({
-        amountOfJm: Math.round(kaJaPaRate * (affectedAreaValue * h2R) * 2).toFixed(2),
-        amountOfGp: 0,
-        amountOfZp:0,
-        assessment:  Math.round(kaJaPaRate * (affectedAreaValue * h2R) * 2).toFixed(2),
-      });
+    const jm = !outsideGavthanData?.rate
+  ? kaJaPaRate * (affectedAreaValue * h2R) * 2
+  : outsideGavthanRate * (affectedAreaValue * h2R) * 2;
+
+const zp = !outsideGavthanData?.rate
+  ? kaJaPaRate * (affectedAreaValue * h2R) * 2 * 7
+  : 0;
+
+const gp = !outsideGavthanData?.rate
+  ? kaJaPaRate * (affectedAreaValue * h2R) * 2
+  : 0;
+
+const assessment = !outsideGavthanData?.rate
+  ? kaJaPaRate * (affectedAreaValue * h2R) * 2 * 9
+  : jm + zp + gp;
+
+form.setFieldsValue({
+  amountOfJm: jm.toFixed(2),
+  amountOfZp: zp.toFixed(2),
+  amountOfGp: gp.toFixed(2),
+  assessment: assessment.toFixed(2),
+});
+
+      
     } else if (prayojan == 'इतर') {
-      // 
-      form.setFieldsValue({
-        amountOfJm: (kaJaPaRate * (affectedAreaValue * h2R) * 1.5).toFixed(2),
-        amountOfGp: 0,
-        amountOfZp:0,
-        assessment:  (kaJaPaRate * (affectedAreaValue * h2R) * 1.5).toFixed(2),
-      });
+    const jm = !outsideGavthanData?.rate
+  ? kaJaPaRate * (affectedAreaValue * h2R) * 1.5
+  : outsideGavthanRate * (affectedAreaValue * h2R) * 1.5;
+
+const zp = !outsideGavthanData?.rate
+  ? kaJaPaRate * (affectedAreaValue * h2R) * 1.5 * 7
+  : 0;
+
+const gp = !outsideGavthanData?.rate
+  ? kaJaPaRate * (affectedAreaValue * h2R) * 1.5
+  : 0;
+
+const assessment = !outsideGavthanData?.rate
+  ? kaJaPaRate * (affectedAreaValue * h2R) * 1.5 * 9
+  : jm + zp + gp;
+
+form.setFieldsValue({
+  amountOfJm: jm.toFixed(2),
+  amountOfZp: zp.toFixed(2),
+  amountOfGp: gp.toFixed(2),
+  assessment: assessment.toFixed(2),
+});
     }
   }
-  }, [prayojan, part, affectedAreaValue]);
+  }, [prayojan, partL, affectedAreaValue]);
 
   useEffect(() => {
     if (totalAreaValue < affectedAreaValue) {
@@ -342,7 +423,7 @@ const BasicForm = () => {
         setAffectedAreaValue(res.data.areaAffected);
         setSurveyHissaNoValue(res.data.surveyHissaNo),
           setPrayojan(res.data.prayojanType),
-          setPart(res.data.locationOfLand),
+          setPartL(res.data.locationOfLand),
           setDataById({
             revenueYear: res.data.revenueYear,
             districtCode: res.data.districtCode,
@@ -392,7 +473,9 @@ const BasicForm = () => {
         'GET',
         null,
         (res) => {
+          console.log(res,"check reponse for rate");
             setOutsideGavthanRate(res.data.rate);
+            setOutsideGavthanData(res.data);
             console.log(rate, "check rateeee");
             console.log(res.data.rate, "checkreponse");
         }
@@ -412,7 +495,7 @@ const BasicForm = () => {
       orderNo: form.getFieldValue('orderNo'),
       areaAffected: affectedAreaValue,
       uomOfAreaAffected: totalAreaInUOM,
-      locationOfLand: part,
+      locationOfLand: partL,
       prayojanType: prayojan,
       amountOfJm: form.getFieldValue('amountOfJm'),
       amountOfZp: form.getFieldValue('amountOfZp'),
@@ -445,7 +528,7 @@ const BasicForm = () => {
       surveyHissaNo: form.getFieldValue('surveyHissaNo'),
       areaAffected: totalAreaValue,
       uomOfAreaAffected: totalAreaInUOM,
-      locationOfLand: part,
+      locationOfLand: partL,
       prayojanType: prayojan,
       amountOfJm: form.getFieldValue('amountOfJm'),
       amountOfZp: form.getFieldValue('amountOfZp'),
@@ -781,7 +864,7 @@ const BasicForm = () => {
                 <Select
                   defaultValue={location.state?.locationOfLand}
                   onChange={(value) => {
-                    setPart(value);
+                    setPartL(value);
                   }}
                   placeholder="बिनशेती क्षेत्राचे स्थान"
                 >

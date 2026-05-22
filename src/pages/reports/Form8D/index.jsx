@@ -22,7 +22,7 @@ function Report8D() {
   const [tableData, setTableData] = useState();
   const [textVillage, setTextVillage] = useState('');
   const componentRef = useRef();
-  const [revenueYear, setRevenueYear] = useState('2024-25');
+  const [revenueYear, setRevenueYear] = useState('2025-26');
   const [loading, setLoading] = useState(false);
   const [revenueYearForVillage, setRevenueYearForVillage] = useState();
 
@@ -194,7 +194,7 @@ class ComponentToPrint extends React.Component {
           <Card>
             <Alert
               message="टीप"
-              description="आपल्या दफ्तरातील महसुलाची रक्कम रु. २५०० पेक्षा अधिक जमा झाली असेल तर सदर रकमेचा चलनाद्वारे भरणा शासकीय कोषागारात तत्काळ करावा.(परिपत्रकानुसार) परिपत्रक क्रमांक : संकीर्ण-१०९२/प्र.क्र.४०३-ई-१० , दिनांक १ ऑगस्ट, १९९५   "
+              description="आपल्या दफ्तरातील महसुलाची रक्कम रु. २५०० पेक्षा अधिक जमा झाली असेल तर सदर रकमेचा चलनाद्वारे भरणा शासकीय कोषागारात तत्काळ करावा.(परिपत्रकानुसार) परिपत्रक क्रमांक : संकीर्ण-१०९२/प्र.क्र.४०३-इ-१० , दिनांक १ ऑगस्ट, १९९५   "
               type="info"
               showIcon
             />

@@ -34,7 +34,7 @@ export default {
   'demandGeneration.table.remarks': 'आगाऊ वसुली शेरा',
   'demandGeneration.table.result': 'परिणाम',
   'demandGeneration.table.edit': 'सुधारणा',
-  'demandGeneration.table.preAmount': 'मागील एकूण',
+  '': 'मागील एकूण',
   'demandGeneration.table.newTotal': 'नवीन एकूण :',
   'demandGeneration.button.save': 'जतन करा',
   'demandGeneration.table.editRecords': 'रेकॉर्ड संपादित करा',
@@ -48,6 +48,7 @@ export default {
 
   'demandGeneration.table.edit': 'सुधारणा',
   'demandGeneration.table.preAmount': 'मागील एकूण',
+  'demandGeneration.table.remark': 'अभिप्राय',
   'demandGeneration.table.newTotal': 'नवीन एकूण :',
   'demandGeneration.button.save': 'जतन करा',
   'demandGeneration.table.editRecords': 'रेकॉर्ड संपादित करा',

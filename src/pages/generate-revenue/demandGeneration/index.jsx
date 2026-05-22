@@ -37,7 +37,11 @@ function GRevenue() {
   // flags = 'Ok';
 
   function poPconfirm(e) {
+          setButton1State(true);
+
     demandConfirm();
+
+    console.log(button1State,"check button state")
     // console.log(e);
   }
   function success(e) {
@@ -216,51 +220,57 @@ function GRevenue() {
       article,
       (res) => {
         // console.log('log for status', res.status, res.data, res);
-        setState(
-          res.data.map((row, index) => ({
-            id: row.khataNo,
-            khataNo: row.khataNo,
-            khataOwnerName: row.khataOwnerName,
-            jmBindumala: row.jmBindumala,
-            zpBindumala: row.zpBindumala,
-            gpBindumala: row.gpBindumala,
-            jmDumala: row.jmDumala,
-            zpDumala: row.zpDumala,
-            gpDumala: row.gpDumala,
-            jmAkrushik: row.jmAkrushik,
-            zpAkrushik: row.zpAkrushik,
-            gpAkrushik: row.gpAkrushik,
-            jmSankirn: row.jmSankirn,
-            zpSankirn: row.zpSankirn,
-            gpSankirn: row.gpSankirn,
-            jmVajasut: row.jmVajasut,
-            gpVajasut: row.gpVajasut,
-            zpVajasut: row.zpVajasut,
-            addlLandRevenue: row.addlLandRevenue,
-            educationalCess: row.educationalCess,
-            addlEducationalCess: row.addlEducationalCess,
-            employeeGuaranteeScheme: row.employeeGuaranteeScheme,
-            netAmount: row.netAmount,
-            netPending: row.netPending,
-            preYearPendingJm: row.preYearPendingJm,
-            preYearPendingZp: row.preYearPendingZp,
-            preYearPendingGp: row.preYearPendingGp,
-            preYearPendingAddlLandRevenue: row.preYearPendingAddlLandRevenue,
-            preYearPendingEducationalCess: row.preYearPendingEducationalCess,
-            preYearPendingAddlEducationalCess: row.preYearPendingAddlEducationalCess,
-            preYearPendingEmployeeGuaranteeScheme: row.preYearPendingEmployeeGuaranteeScheme,
-            miscellaneousAmount: row.miscellaneousAmount,
-            area: row.area,
-            assessment: row.assessment,
-            srNo: index + 1,
-            surveyHissaNo: row.surveyHissaNo,
-            uom: row.uom,
-            preYearPendingNaCess: row.preYearPendingNaCess,
-            preYearSankirnJmWith: row.preYearSankirnJmWith,
-            preYearSankirnJmWithout: row.preYearSankirnJmWithout,
-            preYearNoticeFee: row.preYearNoticeFee,
-          })),
-        );
+
+    setState(
+  res.data
+    .filter(row => row.khataOwnerName && row.khataOwnerName.trim() !== '')
+    .map((row, index) => ({
+      id: row.khataNo,
+      khataNo: row.khataNo,
+      khataOwnerName: row.khataOwnerName,
+      jmBindumala: row.jmBindumala,
+      zpBindumala: row.zpBindumala,
+      gpBindumala: row.gpBindumala,
+      jmDumala: row.jmDumala,
+      zpDumala: row.zpDumala,
+      gpDumala: row.gpDumala,
+      jmAkrushik: row.jmAkrushik,
+      zpAkrushik: row.zpAkrushik,
+      gpAkrushik: row.gpAkrushik,
+      jmSankirn: row.jmSankirn,
+      zpSankirn: row.zpSankirn,
+      gpSankirn: row.gpSankirn,
+      jmVajasut: row.jmVajasut,
+      gpVajasut: row.gpVajasut,
+      zpVajasut: row.zpVajasut,
+      addlLandRevenue: row.addlLandRevenue,
+      educationalCess: row.educationalCess,
+      addlEducationalCess: row.addlEducationalCess,
+      employeeGuaranteeScheme: row.employeeGuaranteeScheme,
+      netAmount: row.netAmount,
+      netPending: row.netPending,
+      preYearPendingJm: row.preYearPendingJm,
+      preYearPendingZp: row.preYearPendingZp,
+      preYearPendingGp: row.preYearPendingGp,
+      preYearPendingAddlLandRevenue: row.preYearPendingAddlLandRevenue,
+      preYearPendingEducationalCess: row.preYearPendingEducationalCess,
+      preYearPendingAddlEducationalCess: row.preYearPendingAddlEducationalCess,
+      preYearPendingEmployeeGuaranteeScheme: row.preYearPendingEmployeeGuaranteeScheme,
+      miscellaneousAmount: row.miscellaneousAmount,
+      area: row.area,
+      assessment: row.assessment,
+      srNo: index + 1, 
+      surveyHissaNo: row.surveyHissaNo,
+      uom: row.uom,
+      preYearPendingNaCess: row.preYearPendingNaCess,
+      preYearSankirnJmWith: row.preYearSankirnJmWith,
+      preYearSankirnJmWithout: row.preYearSankirnJmWithout,
+      preYearNoticeFee: row.preYearNoticeFee,
+    })),
+);
+
+
+
         setIsLoading(false);
         setFlagCalculateDemand(false);
         message.success('Demand Generate Successfully!!!');
@@ -801,11 +811,12 @@ function GRevenue() {
                   loading: confirmLoading,
                 }}
               >
-                <Button type="primary">
+                <Button type="primary"
+                disabled={button1State}
+>
                   <FormattedMessage
                     id="demandGeneration.button.generate"
                     defaultMessage="मागणीची पुष्टी करा"
-                    //  disabled={button1State}
                   />
                 </Button>
               </Popconfirm>

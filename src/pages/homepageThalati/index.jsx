@@ -92,6 +92,7 @@ function HomePage(props) {
     paperRadius: {
       borderRadius: 10,
       marginTop: 20,
+      textAlign: 'center',
     },
 
     button1: {
@@ -200,6 +201,7 @@ function HomePage(props) {
       TotalLiveKhatedar();
       TotalLiveDemandDetails();
       getTargetData();
+      getUpdatedData();
     }
   }, [codeVillage, revenueYear1]);
 
@@ -252,7 +254,22 @@ function HomePage(props) {
         setSankirnWith(res.data.landRevenueDemandData[0].totalOfWithSankirn);
         setSankirnWithOut(res.data.landRevenueDemandData[0].totalOfWithuotSankirn);
         //setDemandGenerated(res.data.landRevenueDemandData[0].demandGeneratedKhataNo); 15 March 2024
-        setDemandGenerated(res.data.demandGenerated[0].demandGenerated); //--15 March 2024
+        // setDemandGenerated(res.data.demandGenerated[0].demandGenerated); //--15 March 2024
+      },
+    );
+  };
+
+  const getUpdatedData = async () => {
+    console.log('checkkkkk111111111meeee');
+    sendRequest(
+      `${URLS.BaseURL}/restservice/getDashboardLrDataUpdated?cCode=${codeVillage}&revenueYear=${revenueYear1}`,
+      'GET',
+      null,
+      (res) => {
+
+        console.log(res.data,"res.data")
+        //setDemandGenerated(res.data.landRevenueDemandData[0].demandGeneratedKhataNo); 15 March 2024
+        setDemandGenerated(res.data.demandGeneratedd); //--15 March 2024
       },
     );
   };
@@ -366,7 +383,7 @@ function HomePage(props) {
           style={{
             padding: 10,
             height: '163vh',
-            width: 1000,
+            width: 1498,
             margin: '20px auto',
           }}
         >
@@ -478,7 +495,7 @@ function HomePage(props) {
                     <Col xl={24} lg={24} md={18} sm={18} xs={18}>
                       <center>
                         <h4 style={{ padding: '5px' }}>
-                          <b>०१ ऑगस्ट २०२४ रोजी </b>
+                          <b>०१ ऑगस्ट २०२५ रोजी </b>
                         </h4>
                       </center>
                       <center style={{ marginBottom: '30px' }}>
@@ -536,7 +553,7 @@ function HomePage(props) {
                     <Col xl={24} lg={24} md={18} sm={18} xs={18}>
                       <center>
                         <h4 style={{ padding: '5px' }}>
-                          <b>०१ ऑगस्ट २०२४ रोजी</b>
+                          <b>०१ ऑगस्ट २०२५ रोजी</b>
                         </h4>
                       </center>
                       <center style={{ marginBottom: '30px' }}>
@@ -646,7 +663,7 @@ function HomePage(props) {
             style={{
               padding: 10,
               // height: '68vh',
-              width: 910,
+              width: 1200,
               margin: '20px auto',
             }}
           >
@@ -944,7 +961,7 @@ function HomePage(props) {
             style={{
               padding: 10,
               height: '61vh',
-              width: 900,
+              width: 1200,
               margin: '20px auto',
             }}
           >
@@ -1214,7 +1231,7 @@ function HomePage(props) {
                           },
                         },
                         title: {
-                          text: 'Against जमाबंदी',
+                          text: 'Against उद्दिष्टे',
                         },
                         colors: ['#33FF99', '#f00'],
                       }}
@@ -1266,76 +1283,6 @@ function HomePage(props) {
             </Grid>
           </Card>
         </Card>
-        <FormProvider /* {...methods} */>
-          <form>
-            <div className="demo-wrap">
-              <Paper
-                // className="echawdiLogo"
-                elevation={10}
-                style={{
-                  padding: 20,
-                  height: '163vh',
-                  width: 300,
-                  margin: '20px auto',
-                }}
-              >
-                <Button
-                  onClick={handleOnChange}
-                  className={classes.button1}
-                  variant="contained"
-                  size="large"
-                >
-                  संकीर्ण महसूल
-                </Button>
-                <Button
-                  style={{ marginTop: '35px' }}
-                  onClick={handleOnChangeForOTE}
-                  className={classes.button1}
-                  variant="contained"
-                  size="large"
-                >
-                  थकबाकी भरणे
-                </Button>
-                <Button
-                  style={{ marginTop: '35px' }}
-                  onClick={handleOnChangeForDemand}
-                  className={classes.button1}
-                  variant="contained"
-                  size="large"
-                >
-                  मागणी तपशील
-                </Button>
-                <Button
-                  style={{ marginTop: '35px' }}
-                  onClick={handleOnChangeReceipts}
-                  className={classes.button1}
-                  variant="contained"
-                  size="large"
-                >
-                  पावती तयार करा
-                </Button>
-                <Button
-                  style={{ marginTop: '35px' }}
-                  onClick={handleOnChangeForChallanGeneration}
-                  className={classes.button1}
-                  variant="contained"
-                  size="large"
-                >
-                  चलन तयार करा
-                </Button>
-                <Button
-                  style={{ marginTop: '35px' }}
-                  onClick={handleOnChangeForReceiptReport}
-                  className={classes.button1}
-                  variant="contained"
-                  size="large"
-                >
-                  पावत्या पहा
-                </Button>
-              </Paper>
-            </div>
-          </form>
-        </FormProvider>
       </Box>
       {/* <Box
         sx={{

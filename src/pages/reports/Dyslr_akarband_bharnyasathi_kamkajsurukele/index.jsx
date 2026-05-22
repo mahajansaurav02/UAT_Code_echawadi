@@ -48,9 +48,7 @@ function TotalPhase1Login() {
     await axios
       .post(
         // `${URLS.AuthURL}/getphase1loginvillagecount?districtCode=${location?.state?.districtCode}`,
-        revenueYear == '2024-2025'
-          ? `${URLS.AuthURL}/getDyslrStarted?districtCode=${location?.state?.districtCode}&talukaCode=${location?.state?.talukaCode}`
-          : `${URLS.AuthURL}/getDyslrStartedPre?districtCode=${location?.state?.districtCode}&talukaCode=${location?.state?.talukaCode}`,
+      `${URLS.AuthURL}/getDyslrStarted?districtCode=${location?.state?.districtCode}&talukaCode=${location?.state?.talukaCode}`
       )
       .then((res) => {
         // console.log(res, '------getDyslrStarted----*');

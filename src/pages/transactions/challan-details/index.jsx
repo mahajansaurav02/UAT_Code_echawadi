@@ -73,7 +73,7 @@ function ChallanDetails() {
   const [dataInModal, setDataInModal] = useState();
   const [imageDownLoad, setImageDownLoad] = useState();
   const [imageDownLoad0045, setImageDownLoad0045] = useState();
-  const [revenueYear, setRevenueYear] = useState('2024-25');
+  const [revenueYear, setRevenueYear] = useState('2025-26');
   const [isNirank, setIsNirank] = useState(false);
   const [okText, setOkText] = useState();
   const [upperModalData, setUpperModalData] = useState();
@@ -98,17 +98,13 @@ function ChallanDetails() {
 
   const getRevenueYear = async () => {
     sendRequest(`${URLS.BaseURL}/revenueYear/getRevenueYearData`, 'GET', null, (res) => {
-      // var data = res.data?.revenueYearData?.slice(0, 2);
       var data = res.data?.revenueYearData;
-      //console.log(data, '-------dataeeeeeeeee');
       setRevenueYearForVillage(
-        // res.data.revenueYearData.map((row) => ({
         data.map((row) => ({
           label: row.revenueYear,
           value: row.revenueYear,
         })),
       );
-      // message.success('Records Fetched!!');
     });
   };
   useEffect(() => {
@@ -117,16 +113,47 @@ function ChallanDetails() {
 
   const initvalues = {
     image: '',
+    image1: '',
+    bankName: '',
+    bankAddress: '',
+    bankReceiptNumber: '',
+    bankReceiptNumber0045: ''
   };
+
   const [myForm] = Form.useForm();
+
+  // Reset form function
+  const resetFormAndState = () => {
+    myForm.resetFields();
+    setFile(null);
+    setFile0045(null);
+    setSelectedImage(null);
+    setSelectedImage1(null);
+    setDownloadedImageName(null);
+    setDownloadedImageName0045(null);
+    setNewImageState(null);
+    setNewImageState0045(null);
+    setFile0029Flag(false);
+    setFile0045Flag(false);
+    setChallan0029Flag(false);
+    setChallan0045Flag(false);
+    setDataInModal(null);
+    setModalData(null);
+    setUpperModalData(null);
+  };
+
   const showModal = (record) => {
+    resetFormAndState(); // Reset form when opening modal for new record
+
     setModalData();
     const body = {
       id: record.id,
       cCode: codeVillage,
     };
-    sendRequest(`${URLS.BaseURL}/landRevenue/download`, 'POST', body, (res) => {
-      setUpperModalData({
+
+    console.log(body, "payload check")
+    sendRequest(`${URLS.BaseURL}/landRevenue/download?districtCode=${districtCode}&talukaCode=${talukaCode}&revenueYear=${revenueYear}&cCode=${codeVillage}`, 'POST', body, (res) => {
+      const upperData = {
         bankName: res.data.bankName,
         id: res.data.id,
         challanNo: res.data.challanNo,
@@ -146,10 +173,21 @@ function ChallanDetails() {
         challanNo0045: res.data.challanNo0045,
         totalOfHead0029: res.data.totalOfHead0029,
         totalOfHead0045: res.data.totalOfHead0045,
-      });
+      };
+      setUpperModalData(upperData);
+
+      // Set form values based on the record data
+      const formValues = {
+        bankName: record.bankName || '',
+        bankAddress: record.bankAddress || '',
+        bankReceiptNumber: record.bankReceiptNumber || '',
+        bankReceiptNumber0045: record.bankReceiptNumber0045 || '',
+      };
+
+      myForm.setFieldsValue(formValues);
     });
 
-    setDataInModal({
+    const modalDataObj = {
       bankName: record.bankName,
       id: record.id,
       challanNo: record.challanNo,
@@ -167,13 +205,14 @@ function ChallanDetails() {
       challanNo0045: record.challanNo0045,
       totalOfHead0029: record.totalOfHead0029,
       totalOfHead0045: record.totalOfHead0045,
-    });
+    };
+
+    setDataInModal(modalDataObj);
+
     let bankNameDisabled = false,
       bankAddressDisabled = false,
       bankReceiptNumberDisabled = false,
       bankReceiptNumber0045Disabled = false;
-
-    // bankReceiptPathDisabled = false;
 
     if (record.bankName != null) {
       bankNameDisabled = true;
@@ -187,9 +226,6 @@ function ChallanDetails() {
     if (record.bankReceiptNumber0045 != null) {
       bankReceiptNumber0045Disabled = true;
     }
-    // if (record.bankReceiptPath != null) {
-    //   bankReceiptPathDisabled = true;
-    // }
 
     const showDownloadedImage = async () => {
       function base64ToArrayBuffer(base64) {
@@ -214,8 +250,8 @@ function ChallanDetails() {
         return bytes.buffer;
       }
 
-      sendRequest(`${URLS.BaseURL}/landRevenue/download`, 'POST', body, (res) => {
-        setModalData({
+      sendRequest(`${URLS.BaseURL}/landRevenue/download?districtCode=${districtCode}&talukaCode=${talukaCode}&revenueYear=${revenueYear}&cCode=${codeVillage}`, 'POST', body, (res) => {
+        const modalDataResponse = {
           bankName: res.data.bankName,
           id: res.data.id,
           challanNo: res.data.challanNo,
@@ -235,7 +271,9 @@ function ChallanDetails() {
           challanNo0045: res.data.challanNo0045,
           totalOfHead0029: res.data.totalOfHead0029,
           totalOfHead0045: res.data.totalOfHead0045,
-        });
+        };
+
+        setModalData(modalDataResponse);
 
         setNewImageState('data:image/jpeg;base64,' + res.data.path0029);
         base64ToArrayBuffer(res.data.path0029);
@@ -243,6 +281,7 @@ function ChallanDetails() {
         base64ToArrayBuffer0045(res.data.path0045);
       });
     };
+
     if (record.actualFileName != null) {
       showDownloadedImage();
       setDownloadedImageName(record.actualFileName);
@@ -253,161 +292,155 @@ function ChallanDetails() {
       setDownloadedImageName0045(record.actualFileName0045);
       setSelectedImage1();
     }
+
     setModalDisabled({
       bankNameDisabled,
       bankAddressDisabled,
       bankReceiptNumberDisabled,
       bankReceiptNumber0045Disabled,
     });
-    setBankName(record.bankName);
-    setBankReceiptNumber(record.bankReceiptNumber);
-    setBankReceiptNumber0045(record.bankReceiptNumber0045);
-    setBankAddress(record.bankAddress);
+
     setIsModalVisible(true);
   };
 
-  const handleOk = () => {
-    enterLoading(0);
-    // console.log(
-    //   'bank deatils to be sent',
-    //   dataInModal.id,
-    //   bankReceiptNumber,
-    //   bankAddress,
-    //   bankName,
-    //   bankReceiptNumber0045,
-    // );
-    saveChallan();
-  };
-
-  const enterLoading = (index) => {
-    setLoading((prevLoadings) => {
-      const newLoadings = [...prevLoadings];
-      newLoadings[index] = true;
-      return newLoadings;
+ const handleOk = () => {
+  // Validate all form fields before proceeding
+  myForm.validateFields()
+    .then((values) => {
+      // Get the current form values and update dataInModal immediately
+      const formValues = myForm.getFieldsValue();
+      const updatedDataInModal = {
+        ...dataInModal,
+        ...formValues
+      };
+      
+      // Use the updated data immediately
+      setDataInModal(updatedDataInModal);
+      
+      // enterLoading(0);
+      saveChallan(updatedDataInModal); // Pass the updated data directly
+    })
+    .catch((errorInfo) => {
+      console.log('Validation failed:', errorInfo);
+      message.error('Please fill all required fields correctly!');
     });
-    setTimeout(() => {
-      setLoading((prevLoadings) => {
-        const newLoadings = [...prevLoadings];
-        newLoadings[index] = false;
-        return newLoadings;
-      });
-    }, 2000);
-  };
-  let formData = new FormData();
+};
 
-  const saveChallanMethod = async () => {
-    if (modalButtonState == 'Not Deposited') {
-      await Axios.put(
-        `${URLS.BaseURL}/landRevenue/updateChallanDetails?id=${dataInModal.id}&bankAddress=${dataInModal.bankAddress}&bankName=${dataInModal.bankName}&bankReceiptNumber=${dataInModal.bankReceiptNumber}&bankReceiptNumber0045=${dataInModal.bankReceiptNumber0045}`,
-        formData,
-        //formData1,
-        {
-          headers: {
-            Authorization: Header,
-            echHost: echHost,
-            mhrHost: mhrHost,
-            echDbName: echDbName,
-            echSchemaName: echSchemaName,
-            mhrDbName: mhrDbName,
-            mhrSchemaName: mhrSchemaName,
-          },
+// Update saveChallan to accept parameter
+const saveChallan = async (currentData = dataInModal) => {
+  let myfile = file;
+  let myFile1 = file0045;
+  const val0029 = upperModalData?.totalOfHead0029 || 0;
+  const val0045 = upperModalData?.totalOfHead0045 || 0;
+
+  // Create FormData here and pass it to saveChallanMethod
+  const formData = new FormData();
+
+  // Use currentData instead of dataInModal
+  if (
+    val0029 > 0 &&
+    val0045 > 0 &&
+    file0029Flag == false &&
+    file0045Flag == false
+  ) {
+    message.error('कृपया 0029 आणि 0045 भरणा केलेले चलन अपलोड करा');
+  } else if ((val0029 != null || val0029 > 0) && val0045 == 0 && file0029Flag == true) {
+    formData.append('file', myfile);
+    saveChallanMethod(currentData, formData); // Pass both currentData and formData
+  } else if (
+    (val0045 != null || val0045 > 0) &&
+    (val0029 == 0 || val0029 == null) &&
+    file0045Flag == true
+  ) {
+    formData.append('file0045', myFile1);
+    saveChallanMethod(currentData, formData); // Pass both currentData and formData
+  } else if (val0029 > 0 && val0045 > 0 && file0045Flag == true && file0029Flag == false) {
+    message.error('कृपया 0029 भरणा केलेले चलन अपलोड करा');
+  } else if (val0029 > 0 && val0045 == 0 && file0045Flag == false && file0029Flag == false) {
+    message.error('कृपया 0029 भरणा केलेले चलन अपलोड करा');
+  } else if (val0029 > 0 && val0045 > 0 && file0029Flag == true && file0045Flag == false) {
+    message.error('कृपया 0045 भरणा केलेले चलन अपलोड करा');
+  } else if (val0045 > 0 && val0029 == 0 && file0045Flag == false && file0029Flag == false) {
+    message.error('कृपया 0045 भरणा केलेले चलन अपलोड करा');
+  } else {
+    formData.append('file', myfile);
+    formData.append('file0045', myFile1);
+    saveChallanMethod(currentData, formData); // Pass both currentData and formData
+  }
+};
+
+// Update saveChallanMethod to accept both parameters
+const saveChallanMethod = async (currentData = dataInModal, formData = new FormData()) => {
+  if (modalButtonState == 'Not Deposited') {
+    // Use currentData instead of dataInModal
+    if (!currentData?.bankName?.trim()) {
+      message.error('Bank Name is required!');
+      return;
+    }
+    if (!currentData?.bankAddress?.trim()) {
+      message.error('Bank Branch is required!');
+      return;
+    }
+    if (currentData?.challanNo && !currentData?.bankReceiptNumber?.trim()) {
+      message.error('Bank Challan Number (0029) is required!');
+      return;
+    }
+    if (currentData?.challanNo0045 && !currentData?.bankReceiptNumber0045?.trim()) {
+      message.error('Bank Challan Number (0045) is required!');
+      return;
+    }
+
+    // Append all data to FormData
+    formData.append('id', currentData.id);
+    formData.append('bankName', currentData.bankName);
+    formData.append('bankAddress', currentData.bankAddress);
+    formData.append('bankReceiptNumber', currentData.bankReceiptNumber || '');
+    formData.append('bankReceiptNumber0045', currentData.bankReceiptNumber0045 || '');
+    formData.append('revenueYear', revenueYear);
+    formData.append('districtCode', districtCode);
+    formData.append('talukaCode', talukaCode);
+    formData.append('ccode', codeVillage);
+
+    console.log('Saving data:', currentData); // Debug log
+
+    await Axios.put(
+      `${URLS.BaseURL}/landRevenue/updateChallanDetails`,
+      formData,
+      {
+        headers: {
+          Authorization: Header,
+          echHost: echHost,
+          mhrHost: mhrHost,
+          echDbName: echDbName,
+          echSchemaName: echSchemaName,
+          mhrDbName: mhrDbName,
+          mhrSchemaName: mhrSchemaName,
+          'Content-Type': 'multipart/form-data',
         },
-      ).then((res) => {
-        if (res.status === 204) {
-          setSelectedImage();
-          setSelectedImage1();
-          message.success('Challan Details Saved!!');
-          setBankName(res.bankName);
-          // console.log('Challan Data Saved');
-          // console.log('Saved Challan Data==> ', res.data);
-          getChallan();
-          setChallanData();
-          setIsModalVisible(false);
-          setChallan0029Flag(false);
-          setChallan0045Flag(false);
-          setFile0029Flag(false);
-          setFile0045Flag(false);
-        }
-      });
-
-      // setSelectedImage();
-      // setSelectedImage1();
-      // message.success('Challan Details Saved!!');
-      // //setBankName(res.bankName);
-      // getChallan();
-      // setChallanData();
-      // setIsModalVisible(false);
-
-      setChallan0029Flag(false);
-      setChallan0045Flag(false);
-      setFile0029Flag(false);
-      setFile0045Flag(false);
-    } else {
-      setIsModalVisible(false);
-    }
-  };
-
-  const saveChallan = async () => {
-    let myfile = file;
-    let myFile1 = file0045;
-    const val0029 = upperModalData.totalOfHead0029;
-    const val0045 = upperModalData.totalOfHead0045;
-
-    // new code
-
-    //  if (val0029 != null && val0045 > 0 && file0029Flag == false && file0045Flag == false) {
-    if (
-      // (val0029 != null || val0029 > 0) &&
-      // (val0045 != null || val0045 > 0) &&
-      val0029 > 0 &&
-      val0045 > 0 &&
-      file0029Flag == false &&
-      file0045Flag == false
-    ) {
-      message.error('कृपया 0029 आणि 0045 भरणा केलेले चलन अपलोड करा');
-      // console.info('1');
-    } else if ((val0029 != null || val0029 > 0) && val0045 == 0 && file0029Flag == true) {
-      formData.append('file', myfile);
-      // console.info('2');
-      saveChallanMethod();
-    } else if (
-      (val0045 != null || val0045 > 0) &&
-      (val0029 == 0 || val0029 == null) &&
-      file0045Flag == true
-    ) {
-      formData.append('file0045', myFile1);
-      // console.info('3');
-      saveChallanMethod();
-    } else if (val0029 > 0 && val0045 > 0 && file0045Flag == true && file0029Flag == false) {
-      // console.info('4');
-      message.error('कृपया 0029 भरणा केलेले चलन अपलोड करा');
-    } else if (val0029 > 0 && val0045 == 0 && file0045Flag == false && file0029Flag == false) {
-      // console.info('44');
-      message.error('कृपया 0029 भरणा केलेले चलन अपलोड करा');
-    } else if (val0029 > 0 && val0045 > 0 && file0029Flag == true && file0045Flag == false) {
-      // console.info('5');
-      message.error('कृपया 0045 भरणा केलेले चलन अपलोड करा');
-    } else if (val0045 > 0 && val0029 == 0 && file0045Flag == false && file0029Flag == false) {
-      // console.info('55');
-      message.error('कृपया 0045 भरणा केलेले चलन अपलोड करा');
-    } else {
-      formData.append('file', myfile);
-      formData.append('file0045', myFile1);
-      // console.info('6');
-      saveChallanMethod();
-    }
-  };
+      },
+    ).then((res) => {
+      if (res.status === 204) {
+        resetFormAndState();
+        message.success('Challan Details Saved!!');
+        getChallan();
+        setIsModalVisible(false);
+      }
+    }).catch((error) => {
+      console.error('Error saving challan:', error);
+      message.error('Error saving challan details!');
+    });
+  } else {
+    setIsModalVisible(false);
+    resetFormAndState();
+  }
+};
 
   const handleCancel = () => {
     setIsModalVisible(false);
-    setSelectedImage();
-    setSelectedImage1();
-    setFile0029Flag(false);
-    setFile0045Flag(false);
+    resetFormAndState(); // Reset form when canceling
   };
 
   const handleOnChangeForStatus = (value, event) => {
-    // console.log('current Value for Status', value);
     setMoneyStatus(value);
     setButtonFlag2(false);
     setChallanData([]);
@@ -437,7 +470,6 @@ function ChallanDetails() {
       'POST',
       article,
       (res) => {
-        // console.log('res for get challan details', res.data);
         setChallanData(
           res.data.map((row) => ({
             id: row.id,
@@ -484,7 +516,6 @@ function ChallanDetails() {
     }
     function checkFileExtension(filename) {
       const extension = filename.split('.').pop();
-      // console.log(extension);
       if (['jpeg', 'jpg', 'png', 'pdf'].indexOf(extension) < 0) {
         message.error('Please Select Valid File Format JPEG,JPG,PNG,PDF!');
         myForm.setFieldsValue({ image: '' });
@@ -505,12 +536,6 @@ function ChallanDetails() {
       setSelectedImage(null);
     }
     e.target.files = null;
-    // const myfile = URL.creatObjectURL(e.target.files[0]);
-    // setFile(myfile);
-    // console.log(e.target.files);
-    // if (e.target.files && e.target.files.length > 0) {
-    //   setSelectedImage(myfile);
-    // }
   };
 
   const handleFile0045 = async (e) => {
@@ -526,7 +551,6 @@ function ChallanDetails() {
     }
     function checkFileExtension(filename) {
       const extension = filename.split('.').pop();
-      // console.log(extension);
       if (['jpeg', 'jpg', 'png', 'pdf'].indexOf(extension) < 0) {
         message.error('Please Select Valid File Format JPEG,JPG,PNG,PDF!');
         myForm.setFieldsValue({ image1: '' });
@@ -547,26 +571,6 @@ function ChallanDetails() {
       setSelectedImage1(null);
     }
     e.target.files = null;
-  };
-
-  const handleUpload = (e) => {
-    // console.log(file, 'this is the file data');
-  };
-  const showModalForImageModal = () => {
-    setImageModalVisible(true);
-    // console.log(selectedImage);
-  };
-
-  const handleOkForImageModal = () => {
-    setImageModalVisible(false);
-  };
-
-  const handleCancelForImageModal = () => {
-    setImageModalVisible(false);
-  };
-
-  const removeSelectedImage = () => {
-    setSelectedImage();
   };
 
   const columns = [
@@ -623,7 +627,6 @@ function ChallanDetails() {
         <Row style={{ marginBottom: 10 }}>
           <Col span={20}>
             <VillageSelector
-              // pageType="withYear"
               pageType="withoutYear"
               setCodeVillage={setCodeVillage}
               setTextForVillage={setTextVillage}
@@ -641,13 +644,11 @@ function ChallanDetails() {
               label={<FormattedMessage id="villageSelector.label.revenueYear" />}
             >
               <Select
-                // style={{ width: 200, marginRight: '15px' }}
                 options={revenueYearForVillage}
                 style={{ width: 142 }}
                 value={revenueYear}
                 placeholder={'महसूल वर्ष'}
                 onChange={(value, event) => onYearChange(value, event)}
-                // disabled
               ></Select>
             </Form.Item>
           </Col>
@@ -677,7 +678,6 @@ function ChallanDetails() {
           <Col span={6}>
             <Button
               type="primary"
-              /* disabled={buttonFlag || buttonFlag2} */ /* onClick={getChallan} */
               onClick={() => {
                 if (textVillage && revenueYear && moneyStatus) {
                   getChallan();
@@ -713,6 +713,7 @@ function ChallanDetails() {
           cancelText={<FormattedMessage id="challanDetails.button.cancel" />}
           onCancel={handleCancel}
           confirmLoading={loading[0]}
+          destroyOnClose={true} // This ensures modal content is destroyed when closed
         >
           <>
             <Card>
@@ -749,11 +750,6 @@ function ChallanDetails() {
                     addonBefore={<FormattedMessage id="challanDetails.table.totalAmount45" />}
                     disabled
                     value={upperModalData && upperModalData.totalOfHead0045}
-                    onChange={(e) => {
-                      upperModalData.totalOfHead0045 != null
-                        ? setChallan0045Flag(true)
-                        : setChallan0045Flag(false);
-                    }}
                   />
                 </Col>
               </Row>
@@ -787,89 +783,68 @@ function ChallanDetails() {
               </Row>
             </Card>
 
-            <>
+            <Form
+              form={myForm}
+              layout="vertical"
+              initialValues={initvalues}
+              preserve={false} // This ensures form values are not preserved when unmounted
+            >
               <Row style={{ marginTop: '30px' }}>
                 <Col xl={11} lg={11} md={11} sm={24} xs={24}>
-                  <Form.Item rules={[{ required: true, message: 'Bank Name is Required..' }]}>
+                  <Form.Item
+                    name='bankName'
+                    label="Bank Name"
+                    rules={[{ required: true, message: 'Bank Name is Required!' }]}
+                  >
                     <Input
-                      addonBefore={<FormattedMessage id="challanDetails.table.bankName" />}
-                      value={modalData && modalData.bankName}
-                      disabled={modalDisabled.bankAddressDisabled}
-                      onChange={(e) => {
-                        setDataInModal((prevDataInModal) => ({
-                          ...prevDataInModal,
-                          bankName: e.target.value,
-                        }));
-                      }}
+                      disabled={modalDisabled.bankNameDisabled}
                       maxLength={50}
                       onKeyPress={KeyPressEvents.isInputVarchar}
-                    ></Input>
+                    />
                   </Form.Item>
                 </Col>
                 <Col xl={1} lg={1} md={1} sm={1} xs={1}></Col>
                 <Col xl={11} lg={11} md={11} sm={24} xs={24}>
-                  <Form.Item rules={[{ required: true, message: 'Bank Branch is Required..' }]}>
+                  <Form.Item
+                    name='bankAddress'
+                    label="Bank Branch"
+                    rules={[{ required: true, message: 'Bank Branch is Required!' }]}
+                  >
                     <Input
-                      addonBefore={<FormattedMessage id="challanDetails.table.bankBranch" />}
-                      value={modalData && modalData.bankAddress}
                       disabled={modalDisabled.bankAddressDisabled}
-                      onChange={(e) => {
-                        setDataInModal((prevDataInModal) => ({
-                          ...prevDataInModal,
-                          bankAddress: e.target.value,
-                        }));
-                      }}
                       maxLength={25}
                       onKeyPress={KeyPressEvents.isInputVarchar}
-                    ></Input>
+                    />
                   </Form.Item>
                 </Col>
               </Row>
-              <br />
+
               <Row>
                 {dataInModal && dataInModal.challanNo == null ? (
                   <Col xl={11} lg={11} md={11} sm={24} xs={24}>
                     <Form.Item
-                      rules={[{ required: true, message: 'Bank Challan Number is Required..' }]}
+                      name="bankReceiptNumber"
+                      label="Grass Challan No (0029)"
                     >
                       <Input
-                        addonBefore={
-                          <FormattedMessage id="challanDetails.table.grassChallanNo0029" />
-                        }
-                        // value={dataInModal && dataInModal.bankReceiptNumber}
                         disabled={true}
-                        // onChange={(e) => {
-                        //   setDataInModal((prevDataInModal) => ({
-                        //     ...prevDataInModal,
-                        //     bankReceiptNumber: e.target.value,
-                        //   }));
-                        // }}
                         maxLength={18}
                         onKeyPress={KeyPressEvents.isInputVarchar}
-                      ></Input>
+                      />
                     </Form.Item>
                   </Col>
                 ) : (
                   <Col xl={11} lg={11} md={11} sm={24} xs={24}>
                     <Form.Item
-                      rules={[{ required: true, message: 'Bank Challan Number is Required..' }]}
+                      name='bankReceiptNumber'
+                      label="Grass Challan No (0029)"
+                      rules={[{ required: true, message: 'Bank Challan Number is Required!' }]}
                     >
                       <Input
-                        addonBefore={
-                          <FormattedMessage id="challanDetails.table.grassChallanNo0029" />
-                        }
-                        value={modalData && modalData.bankReceiptNumber}
                         disabled={modalDisabled.bankReceiptNumberDisabled}
-                        onChange={(e) => {
-                          setDataInModal((prevDataInModal) => ({
-                            ...prevDataInModal,
-                            bankReceiptNumber: e.target.value,
-                          }));
-                          setChallan0029Flag(true);
-                        }}
                         maxLength={18}
                         onKeyPress={KeyPressEvents.isInputVarchar}
-                      ></Input>
+                      />
                     </Form.Item>
                   </Col>
                 )}
@@ -877,49 +852,33 @@ function ChallanDetails() {
                 {dataInModal && dataInModal.challanNo0045 == null ? (
                   <Col xl={11} lg={11} md={11} sm={24} xs={24}>
                     <Form.Item
-                      rules={[{ required: true, message: 'Bank Challan Number is Required..' }]}
+                      name="bankReceiptNumber0045"
+                      label="Grass Challan No (0045)"
                     >
                       <Input
-                        addonBefore={
-                          <FormattedMessage id="challanDetails.table.grassChallanNo0045" />
-                        }
-                        // value={dataInModal && dataInModal.bankReceiptNumber0045}
                         disabled={true}
-                        // onChange={(e) => {
-                        //   setDataInModal((prevDataInModal) => ({
-                        //     ...prevDataInModal,
-                        //     bankReceiptNumber0045: e.target.value,
-                        //   }));
-                        // }}
                         maxLength={18}
                         onKeyPress={KeyPressEvents.isInputVarchar}
-                      ></Input>
+                      />
                     </Form.Item>
                   </Col>
                 ) : (
                   <Col xl={11} lg={11} md={11} sm={24} xs={24}>
                     <Form.Item
-                      rules={[{ required: true, message: 'Bank Challan Number is Required..' }]}
+                      name='bankReceiptNumber0045'
+                      label="Grass Challan No (0045)"
+                      rules={[{ required: true, message: 'Bank Challan Number is Required!' }]}
                     >
                       <Input
-                        addonBefore={
-                          <FormattedMessage id="challanDetails.table.grassChallanNo0045" />
-                        }
-                        value={modalData && modalData.bankReceiptNumber0045}
                         disabled={modalDisabled.bankReceiptNumber0045Disabled}
-                        onChange={(e) => {
-                          setDataInModal((prevDataInModal) => ({
-                            ...prevDataInModal,
-                            bankReceiptNumber0045: e.target.value,
-                          }));
-                        }}
                         maxLength={18}
                         onKeyPress={KeyPressEvents.isInputVarchar}
-                      ></Input>
+                      />
                     </Form.Item>
                   </Col>
                 )}
               </Row>
+
               <Row>
                 <Col xl={11} lg={11} md={11} sm={24} xs={24}>
                   <Input
@@ -927,41 +886,35 @@ function ChallanDetails() {
                     addonAfter="₹"
                     value={dataInModal && dataInModal.totalAmount}
                     disabled={true}
-                    onChange={(e) => setBankAmount(e.target.value)}
                     maxLength={10}
                     onKeyPress={KeyPressEvents.isInputVarchar}
-                  ></Input>
+                  />
                 </Col>
               </Row>
+
               {moneyStatus && moneyStatus === 'Not Deposited' && (
-                <Form form={myForm} initialValues={initvalues}>
+                <>
                   <Row style={{ marginTop: '20px' }}>
                     {dataInModal &&
-                    (dataInModal.challanNo == null || dataInModal.challanNo == 0) ? (
+                      (dataInModal.challanNo == null || dataInModal.challanNo == 0) ? (
                       <Col xl={11} lg={11} md={11} sm={24} xs={24}>
                         <Form.Item
                           name="image"
-                          rules={[
-                            {
-                              required: true,
-                              message: 'Please Add Image',
-                            },
-                          ]}
+                          label="भरणा केलेले चलन अपलोड करा (0029)"
                         >
                           <Input
                             disabled={true}
-                            addonBefore="भरणा केलेले चलन अपलोड करा (0029)"
-                            // accept="image/png,image/jpeg,image/jpeg,application/pdf"
+                            accept="image/png,image/jpeg,image/jpeg,application/pdf"
                             type={'file'}
                             name={'file'}
-                            // onChange={(e) => handleFile(e)}
-                          ></Input>
+                          />
                         </Form.Item>
                       </Col>
                     ) : (
                       <Col xl={11} lg={11} md={11} sm={24} xs={24}>
                         <Form.Item
                           name="image"
+                          label="भरणा केलेले चलन अपलोड करा (0029)"
                           rules={[
                             {
                               required: true,
@@ -970,43 +923,36 @@ function ChallanDetails() {
                           ]}
                         >
                           <Input
-                            addonBefore="भरणा केलेले चलन अपलोड करा (0029)"
                             accept="image/png,image/jpeg,image/jpeg,application/pdf"
                             type={'file'}
                             name={'file'}
                             onChange={(e) => handleFile(e)}
-                          ></Input>
+                          />
                         </Form.Item>
                       </Col>
                     )}
                     <Col xl={1} lg={1} md={1} sm={1} xs={1}></Col>
 
                     {dataInModal &&
-                    (dataInModal.challanNo0045 == null || dataInModal.challanNo0045 == 0) ? (
+                      (dataInModal.challanNo0045 == null || dataInModal.challanNo0045 == 0) ? (
                       <Col xl={11} lg={11} md={11} sm={24} xs={24}>
                         <Form.Item
                           name="image1"
-                          rules={[
-                            {
-                              required: true,
-                              message: 'Please Add Image',
-                            },
-                          ]}
+                          label="भरणा केलेले चलन अपलोड करा (0045)"
                         >
                           <Input
                             disabled={true}
-                            addonBefore="भरणा केलेले चलन अपलोड करा (0045)"
-                            // accept="image/png,image/jpeg,image/jpeg,application/pdf"
+                            accept="image/png,image/jpeg,image/jpeg,application/pdf"
                             type={'file'}
                             name={'file0045'}
-                            // onChange={(e) => handleFile0045(e)}
-                          ></Input>
+                          />
                         </Form.Item>
                       </Col>
                     ) : (
                       <Col xl={11} lg={11} md={11} sm={24} xs={24}>
                         <Form.Item
                           name="image1"
+                          label="भरणा केलेले चलन अपलोड करा (0045)"
                           rules={[
                             {
                               required: true,
@@ -1015,102 +961,105 @@ function ChallanDetails() {
                           ]}
                         >
                           <Input
-                            addonBefore="भरणा केलेले चलन अपलोड करा (0045)"
                             accept="image/png,image/jpeg,image/jpeg,application/pdf"
                             type={'file'}
                             name={'file0045'}
                             onChange={(e) => handleFile0045(e)}
-                          ></Input>
+                          />
                         </Form.Item>
                       </Col>
                     )}
                   </Row>
-                </Form>
-              )}
-              <Row>
-                <Col xl={11} lg={11} md={11} sm={24} xs={24}>
-                  {selectedImage && <Image width={300} height={200} src={selectedImage} />}
-                </Col>
-                <Col xl={1} lg={1} md={1} sm={1} xs={1}></Col>
 
-                <Col xl={11} lg={11} md={11} sm={24} xs={24}>
-                  {selectedImage1 && <Image width={300} height={200} src={selectedImage1} />}
-                </Col>
-              </Row>
-              {moneyStatus && moneyStatus === 'Deposited' && (
-                <>
-                  {dataInModal && dataInModal.challanNo == null ? (
-                    ''
-                  ) : (
-                    <>
-                      <Row style={{ marginTop: '20px' }}>
-                        <Col span={8}>
-                          <Image width={300} height={200} src={newImageState} />
-                        </Col>
-                        <Col span={1}></Col>
-                        <Col span={8}>
-                          <p>
-                            {<FormattedMessage id="challanDetails.table.fileName" />}
-                            {downloadedImageName}
-                          </p>
-                        </Col>
-                      </Row>
-                      <Row style={{ marginTop: 10 }}>
-                        <Button
-                          type="primary"
-                          onClick={() => {
-                            const link = document.createElement('a');
-                            link.href = newImageState;
-                            link.setAttribute('download', 'file.jpeg,file.png,file.pdf'); //or any other extension
-                            document.body.appendChild(link);
-                            link.click();
-                          }}
-                        >
-                          <FormattedMessage id="challanDetails.table.download" />
-                        </Button>
-                      </Row>
-                    </>
-                  )}
-
-                  {dataInModal && dataInModal.challanNo0045 == null ? (
-                    ''
-                  ) : (
-                    <>
-                      <Row style={{ marginTop: '10px' }}>
-                        <Col span={8}>
-                          <Image width={300} height={200} src={newImageState0045} />
-                        </Col>
-                        <Col span={1}></Col>
-                        <Col span={8}>
-                          <p>
-                            {<FormattedMessage id="challanDetails.table.fileName" />}
-                            {downloadedImageName0045}
-                          </p>
-                        </Col>
-                      </Row>
-                      <Row style={{ marginTop: 10 }}>
-                        <Button
-                          type="primary"
-                          onClick={() => {
-                            const link = document.createElement('a');
-                            link.href = newImageState0045;
-                            link.setAttribute('download', 'file.jpeg,file.png,file.pdf'); //or any other extension
-                            document.body.appendChild(link);
-                            link.click();
-                          }}
-                        >
-                          <FormattedMessage id="challanDetails.table.download" />
-                        </Button>
-                      </Row>
-                    </>
-                  )}
+                  <Row>
+                    <Col xl={11} lg={11} md={11} sm={24} xs={24}>
+                      {selectedImage && <Image width={300} height={200} src={selectedImage} />}
+                    </Col>
+                    <Col xl={1} lg={1} md={1} sm={1} xs={1}></Col>
+                    <Col xl={11} lg={11} md={11} sm={24} xs={24}>
+                      {selectedImage1 && <Image width={300} height={200} src={selectedImage1} />}
+                    </Col>
+                  </Row>
                 </>
               )}
-            </>
+            </Form>
+
+            {moneyStatus && moneyStatus === 'Deposited' && (
+              <>
+                {dataInModal && dataInModal.challanNo == null ? (
+                  ''
+                ) : (
+                  <>
+                    <Row style={{ marginTop: '20px' }}>
+                      <Col span={8}>
+                        <Image width={300} height={200} src={newImageState} />
+                      </Col>
+                      <Col span={1}></Col>
+                      <Col span={8}>
+                        <p>
+                          {<FormattedMessage id="challanDetails.table.fileName" />}
+                          {downloadedImageName}
+                        </p>
+                      </Col>
+                    </Row>
+                    <Row style={{ marginTop: 10 }}>
+                      <Button
+                        type="primary"
+                        onClick={() => {
+                          const link = document.createElement('a');
+                          link.href = newImageState;
+                          link.setAttribute('download', downloadedImageName);
+                          document.body.appendChild(link);
+                          link.click();
+                          document.body.removeChild(link);
+                        }}
+                      >
+                        <FormattedMessage id="challanDetails.table.download" />
+                      </Button>
+                    </Row>
+                  </>
+                )}
+
+                {dataInModal && dataInModal.challanNo0045 == null ? (
+                  ''
+                ) : (
+                  <>
+                    <Row style={{ marginTop: '10px' }}>
+                      <Col span={8}>
+                        <Image width={300} height={200} src={newImageState0045} />
+                      </Col>
+                      <Col span={1}></Col>
+                      <Col span={8}>
+                        <p>
+                          {<FormattedMessage id="challanDetails.table.fileName" />}
+                          {downloadedImageName0045}
+                        </p>
+                      </Col>
+                    </Row>
+                    <Row style={{ marginTop: 10 }}>
+                      <Button
+                        type="primary"
+                        onClick={() => {
+                          const link = document.createElement('a');
+                          link.href = newImageState0045;
+                          link.setAttribute('download', downloadedImageName0045 || 'file.jpg');
+                          document.body.appendChild(link);
+                          link.click();
+                          document.body.removeChild(link);
+                        }}
+                      >
+                        <FormattedMessage id="challanDetails.table.download" />
+                      </Button>
+                    </Row>
+                  </>
+                )}
+              </>
+            )}
           </>
         </Modal>
       </Card>
     </PageContainer>
   );
 }
+
 export default ChallanDetails;

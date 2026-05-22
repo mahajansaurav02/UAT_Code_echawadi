@@ -55,7 +55,7 @@ export default {
   'menu.form.Village Form 1': 'गाव नमुना १',
   'menu.form.View Form 1': 'गाव नमुना १ पहा',
   'menu.form.Report 1': 'अहवाल 1',
-  'menu.form.EChawdi': 'ईचावडी',
+  'menu.form.EChawdi': 'इचावडी',
   'menu.form.Receive Money': 'पैसे मिळवा',
   'menu.Generate Revenue': 'महसूल मागणी निश्चिती',
   'menu.Generate Revenue.Demand Generation': 'मागणी निश्चिती',
@@ -179,4 +179,8 @@ export default {
   'menu.Generate Revenue.Village Form 17 ka.ja.pa': 'गाव नमुना १७ क. जा. प.',
   'menu.Reports.Village Form 17 ka.ja.pa Report': 'गाव नमुना १७ क. जा. प.',
   'menu.Reports.One Time Data Entry Report': 'थकबाकीचा तपशील',
+
+  'menu.daptarTapasni': 'दप्तर तपासणी प्रगती अहवाल',
+  'menu.daptarTapasni.ahawal': 'अहवाल',
+  'menu.daptarTapasni.abhiprayYadi': 'अभिप्राय यादी',
 };

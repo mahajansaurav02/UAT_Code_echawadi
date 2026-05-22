@@ -151,7 +151,7 @@ function Report1ODC() {
   return (
     <div>
       <Card>
-        <h1 style={{ textAlign: 'center' }}>गाव नमुना एक( ई फेरफार ओ.डी.सी )</h1>
+        <h1 style={{ textAlign: 'center' }}>गाव नमुना एक( इ फेरफार ओ.डी.सी )</h1>
         <div style={{ padding: 10 }}>
           <Button type="primary" onClick={handlePrint}>
             <FormattedMessage id="villageReport1.button.print" />
@@ -266,7 +266,7 @@ class ComponentToPrint extends React.Component {
                 <tr>
                   <th colSpan="8">
                     <h3 style={{ color: 'red' }}>
-                      <b>गाव नमुना एक( ई फेरफार मधील ओ.डी.सी प्रमाणे दुरुस्त)</b>
+                      <b>गाव नमुना एक( इ फेरफार मधील ओ.डी.सी प्रमाणे दुरुस्त)</b>
                     </h3>
                   </th>
                 </tr>
