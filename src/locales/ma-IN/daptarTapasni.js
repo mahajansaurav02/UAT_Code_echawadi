@@ -117,4 +117,5 @@ export default {
   'daptar.msg.pdfGenerationError': 'PDF तैयार करने में त्रुटि आई। कृपया पुनः प्रयास करें।',
   'daptar.remarkBox.submittedPlaceholder': 'अभिप्राय नोंदवला गेला आहे.',
   'daptar.remarkBox.btn.saved': 'अभिप्राय जतन झाला',
-}
+  'daptar.remarkBox.waitingReply': 'निरीक्षण अधिकाऱ्याच्या अभिप्रायाची प्रतीक्षा करत आहे...',
+};

@@ -1,4 +1,11 @@
-import { ArrowRightOutlined, LockOutlined, UserOutlined } from '@ant-design/icons';
+// import { ArrowRightOutlined, LockOutlined, UserOutlined } from '@ant-design/icons';
+import {
+  ArrowRightOutlined,
+  LockOutlined,
+  UserOutlined,
+  EyeOutlined,
+  EyeInvisibleOutlined,
+} from '@ant-design/icons';
 import Axios from 'axios';
 import { Alert, Button, Col, Form, Input, message, Modal, Row, Select, Space } from 'antd';
 import React, { useEffect, useState } from 'react';
@@ -30,6 +37,9 @@ import { useHistory } from 'react-router-dom';
 // );
 var login_attempts = 3;
 const Login = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+
   const [userLoginState, setUserLoginState] = useState({});
   const [type, setType] = useState('account');
   const { initialState, setInitialState } = useModel('@@initialState');
@@ -238,69 +248,65 @@ const Login = () => {
       onCancel() {},
     });
   };
-const SiteStop = () => {
-  Modal.info({
-    okType: "danger",
-    okText: "रद्द करा",
-    width: 600, // optional for better layout
+  const SiteStop = () => {
+    Modal.info({
+      okType: 'danger',
+      okText: 'रद्द करा',
+      width: 600, // optional for better layout
 
-    title: "इ-चावडी माहिती आणि मदत",
+      title: 'इ-चावडी माहिती आणि मदत',
 
-    content: (
-      <div style={{ lineHeight: "1.6", fontSize: "14px" }}>
+      content: (
+        <div style={{ lineHeight: '1.6', fontSize: '14px' }}>
+          {/* ================= IMAGE ================= */}
+          <div style={{ textAlign: 'center', marginBottom: '15px' }}>
+            <img
+              src="/images/maintenance_notice.jpeg"
+              alt="Maintenance Notice"
+              style={{
+                width: '100%',
+                maxHeight: '300px',
+                objectFit: 'contain',
+                borderRadius: '8px',
+              }}
+            />
+          </div>
 
-        {/* ================= IMAGE ================= */}
-        <div style={{ textAlign: "center", marginBottom: "15px" }}>
-          <img
-            src="/images/maintenance_notice.jpeg"
-            alt="Maintenance Notice"
-            style={{
-              width: "100%",
-              maxHeight: "300px",
-              objectFit: "contain",
-              borderRadius: "8px",
-            }}
-          />
+          {/* ================= OLD COMMENTS (KEPT) ================= */}
+
+          {/* इ - चावडी प्रणाली मेंटेनन्स कामकाज करिता आज दिनांक १४ फेब्रुवारी २०२४, रात्री १० ते ११ या वेळेत बंद राहील... */}
+
+          {/* इ - चावडी प्रणाली मेंटेनन्स कामकाज करिता आज रात्री १० ते उद्या सकाळी ३ या वेळेत बंद राहील... */}
+
+          {/* इ - चावडी प्रणाली मेंटेनन्स कामकाज करिता ११ जुलै २०२५ रात्री ११:०० ते १२ जुलै २०२५ सकाळी ०७:०० पर्यन्त बंद राहील... */}
+
+          {/* इ - चावडी प्रणाली मेंटेनन्स कामकाज करिता आज दिनांक ८ फेब्रुवारी संध्याकाळी १० ते ११ डिसेंबर सकाळी २ या वेळेत बंद राहील... */}
+
+          {/* ================= NEW NOTICE ================= */}
+
+          <h3 style={{ marginBottom: '10px', color: '#d32f2f', textAlign: 'center' }}>
+            देखभाल सूचना
+          </h3>
+
+          <p>
+            ही वेबसाईट सध्या नियोजित देखभाल व दुरुस्तीच्या कामासाठी{' '}
+            <b>2 एप्रिल २०२६ (रात्री 11:59 वाजेपासून)</b> ते{' '}
+            <b>५ एप्रिल २०२६ (रात्री 11:59 वाजेपर्यंत)</b> या कालावधीत बंद राहील.
+          </p>
+
+          <p>या दरम्यान कोणतीही सेवा उपलब्ध राहणार नाही.</p>
+
+          <p>कृपया देखभाल पूर्ण झाल्यानंतर पुन्हा वेबसाईटला भेट द्यावी.</p>
+
+          <p>आपल्या सहकार्याबद्दल धन्यवाद.</p>
+
+          {/* <p>इ-चावड़ी हेल्प डेस्क, पुणे</p> */}
         </div>
+      ),
 
-        {/* ================= OLD COMMENTS (KEPT) ================= */}
-
-        {/* इ - चावडी प्रणाली मेंटेनन्स कामकाज करिता आज दिनांक १४ फेब्रुवारी २०२४, रात्री १० ते ११ या वेळेत बंद राहील... */}
-        
-        {/* इ - चावडी प्रणाली मेंटेनन्स कामकाज करिता आज रात्री १० ते उद्या सकाळी ३ या वेळेत बंद राहील... */}
-        
-        {/* इ - चावडी प्रणाली मेंटेनन्स कामकाज करिता ११ जुलै २०२५ रात्री ११:०० ते १२ जुलै २०२५ सकाळी ०७:०० पर्यन्त बंद राहील... */}
-        
-        {/* इ - चावडी प्रणाली मेंटेनन्स कामकाज करिता आज दिनांक ८ फेब्रुवारी संध्याकाळी १० ते ११ डिसेंबर सकाळी २ या वेळेत बंद राहील... */}
-
-        {/* ================= NEW NOTICE ================= */}
-
-        <h3 style={{ marginBottom: "10px", color: "#d32f2f", textAlign: "center" }}>
-          देखभाल सूचना
-        </h3>
-
-        <p>
-          ही वेबसाईट सध्या नियोजित देखभाल व दुरुस्तीच्या कामासाठी{" "}
-          <b>2 एप्रिल २०२६ (रात्री 11:59 वाजेपासून)</b> ते{" "}
-          <b>५ एप्रिल २०२६ (रात्री 11:59 वाजेपर्यंत)</b> या कालावधीत बंद राहील.
-        </p>
-
-        <p>या दरम्यान कोणतीही सेवा उपलब्ध राहणार नाही.</p>
-
-        <p>
-          कृपया देखभाल पूर्ण झाल्यानंतर पुन्हा वेबसाईटला भेट द्यावी.
-        </p>
-
-        <p>आपल्या सहकार्याबद्दल धन्यवाद.</p>
-
-        {/* <p>इ-चावड़ी हेल्प डेस्क, पुणे</p> */}
-
-      </div>
-    ),
-
-    onCancel() {},
-  });
-};
+      onCancel() {},
+    });
+  };
 
   const { status, type: loginType } = userLoginState;
 
@@ -357,16 +363,16 @@ const SiteStop = () => {
           }}
         >
           {/* <button
-  type="primary"
-  className="go-to-mis-button"
-onClick={() => {
+       type="primary"
+     className="go-to-mis-button"
+       onClick={() => {
         console.log('Navigating...');
         history.push('/dashboard/collectorMis'); // or any valid route
-      }}>
-  <ArrowRightOutlined style={{ marginRight: '8px', fontSize: '16px' }} />
-  <FormattedMessage id="login.gotoMis" />
-  <img src="/new.gif" alt="New" className="new-gif" />
-</button> */}
+       }}>
+        <ArrowRightOutlined style={{ marginRight: '8px', fontSize: '16px' }} />
+        <FormattedMessage id="login.gotoMis" />
+        <img src="/new.gif" alt="New" className="new-gif" />
+       </button> */}
 
           <Button
             id="registerButton"
@@ -402,7 +408,69 @@ onClick={() => {
           {/* <h3 className="loginname">
               <FormattedMessage id="pages.login.button.final" />
             </h3> */}
+
+          {/* Trick 1: Add a hidden form at the top to trap Chrome's autofill mechanism */}
+          <form style={{ display: 'none' }}>
+            <input type="text" name="fake_user_trap" autoComplete="username" />
+            <input type="password" name="fake_pass_trap" autoComplete="current-password" />
+          </form>
+
+          {/* --- Username Box --- */}
           <div className="username-div">
+            <Input
+              id="field_user_99" // Avoid using the exact word 'username' to bypass browser detection
+              name="field_user_99" // Avoid using the exact word 'username'
+              required
+              maxLength={15}
+              autoComplete="new-password" // Tricks the browser into thinking this is a new field
+              onChange={(e) => {
+                setUsername(e.target.value);
+                document.getElementById('empty-username').style.opacity = '0';
+              }}
+              prefix={<UserOutlined className="usersymb" />}
+              type="text"
+              className="username"
+              placeholder="Username"
+            />
+            <label id="empty-username">*Please enter a username</label>
+          </div>
+
+          {/* --- Password Box --- */}
+          <div className="password-div">
+            <Input
+              id="field_pass_99" // Avoid using the exact word 'password'
+              name="field_pass_99"
+              required
+              maxLength={25}
+              autoComplete="off"
+              type="text" // <--- CRITICAL: Keep this as 'text' permanently to bypass the password manager
+              /* Applies 'mask-password-text' class to display • characters when showPassword is false */
+              className={`password ${!showPassword ? 'mask-password-text' : ''}`}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                document.getElementById('empty-pass').style.opacity = '0';
+              }}
+              prefix={<LockOutlined className="locksymb" />}
+              suffix={
+                showPassword ? (
+                  <EyeOutlined
+                    onClick={() => setShowPassword(false)}
+                    style={{ cursor: 'pointer', color: 'rgba(0,0,0,0.45)' }}
+                  />
+                ) : (
+                  <EyeInvisibleOutlined
+                    onClick={() => setShowPassword(true)}
+                    style={{ cursor: 'pointer', color: 'rgba(0,0,0,0.45)' }}
+                  />
+                )
+              }
+              placeholder="Password"
+            />
+            <label id="empty-pass">*Please enter a password</label>
+          </div>
+
+          {/* old  */}
+          {/* <div className="username-div">
             <Input
               id="username1"
               required
@@ -433,7 +501,7 @@ onClick={() => {
               placeholder="Password"
             />
             <label id="empty-pass">*Please enter a password</label>
-          </div>
+          </div>*/}
           <div>
             <div className="container">
               <div className="form-group">
@@ -558,8 +626,10 @@ onClick={() => {
                   <ArrowForwardTwoToneIcon sx={{ color: 'skyblue' }}></ArrowForwardTwoToneIcon>
                 </Grid>
                 <Grid item xs={24} sm={24} md={10} lg={10} xl={10}>
-                  <a href="https://drive.google.com/u/0/uc?id=1AodMBTimjwcisfdNsPprClpk5ViMOJFr&export=download"
-                    target="_blank" rel="noreferrer"
+                  <a
+                    href="https://drive.google.com/u/0/uc?id=1AodMBTimjwcisfdNsPprClpk5ViMOJFr&export=download"
+                    target="_blank"
+                    rel="noreferrer"
                   >
                     <FormattedMessage id="login.downloadTranslator" />
                   </a>

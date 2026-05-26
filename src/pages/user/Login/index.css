@@ -691,3 +691,7 @@ svg {
   background-color: #0c6ad6; 
   border-color: #0c6ad6;
 }
+
+.mask-password-text {
+  -webkit-text-security: disc;
+}

@@ -116,4 +116,5 @@ export default {
 
   'daptar.remarkBox.submittedPlaceholder': 'Remark has been submitted.',
   'daptar.remarkBox.btn.saved': 'Remark Saved',
+  'daptar.remarkBox.waitingReply': "Waiting for Inspector Officer's reply...",
 };
