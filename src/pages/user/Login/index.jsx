@@ -97,6 +97,8 @@ const Login = () => {
         article,
       );
 
+      console.log('LOGIN API RESPONSE DATA:', res.data);
+
       if (res.status === 200 && validateCaptcha(user_captcha_value) === true) {
         // Successful login logic
         details(
@@ -120,7 +122,8 @@ const Login = () => {
           res.data.niranks,
         );
 
-        authLogin(res.data.token, 3600000);
+        // authLogin(res.data.token, 3600000);
+        authLogin(res.data.accessToken, 3600000);
         reload();
 
         // Proceed with additional login logic
