@@ -32,10 +32,8 @@ export const initialStateConfig = {
 //   console.log('Menu API HIT !!!!!!!!!!============>>>>>>>>>');
 // });
 export async function getInitialState() {
-
   const fetchUserInfo = async () => {
     try {
-
       const msg = await queryCurrentUser();
 
       if (!msg?.data) {
@@ -43,9 +41,7 @@ export async function getInitialState() {
       }
 
       return msg.data;
-
     } catch (error) {
-
       history.push('/user/login');
 
       return undefined;
@@ -53,7 +49,6 @@ export async function getInitialState() {
   };
 
   if (history.location.pathname !== '/user/login') {
-
     const currentUser = await fetchUserInfo();
 
     return {
@@ -68,7 +63,7 @@ export async function getInitialState() {
     settings: {},
   };
 }
- 
+
 export const layout = ({ initialState }) => {
   // console.log('layout called');
   // console.log('roles1', JSON.parse(localStorage.getItem('roles')));
@@ -91,7 +86,7 @@ export const layout = ({ initialState }) => {
             path: '/user',
             redirect: '/user/login',
           },
-         
+
           {
             component: '404',
           },
@@ -559,7 +554,6 @@ export const layout = ({ initialState }) => {
             component: './form/village-target',
           },
 
-
           {
             component: '404',
           },
@@ -975,10 +969,10 @@ export const layout = ({ initialState }) => {
         path: '/all-villages',
         redirect: '/reports/All-Village-Report',
       },
-     {
+      {
         path: '/*',
         component: '404',
-        layout: false, 
+        layout: false,
       },
     ],
     ROLE_COLLECTOR: [
@@ -1033,7 +1027,7 @@ export const layout = ({ initialState }) => {
           },
         ],
       },
-     
+
       {
         path: '/dashboard',
         name: 'dashboard',
@@ -1065,10 +1059,10 @@ export const layout = ({ initialState }) => {
         path: '/all-villages',
         redirect: '/reports/All-Village-Report',
       },
-     {
+      {
         path: '/*',
         component: '404',
-        layout: false, 
+        layout: false,
       },
     ],
     ROLE_DYSLR: [
@@ -1086,13 +1080,13 @@ export const layout = ({ initialState }) => {
             path: '/user',
             redirect: '/user/login',
           },
-        
+
           {
             component: '404',
           },
         ],
       },
-     
+
       {
         path: '/homepageDYSLR',
         //name: 'Home Page ',
@@ -1163,6 +1157,12 @@ export const layout = ({ initialState }) => {
             component: './form/dysclr-form/village-form',
           },
           {
+            name: 'गाव नमुना एक चा गोषवारा',
+            icon: 'smile',
+            path: '/form/dyslr-village-form-one',
+            component: './form/dyslr-village-form-one',
+          },
+          {
             name: 'गाव नमुना १ आकारबंद दुरूस्ती',
             icon: 'smile',
             path: '/form/dyslr-form-akarband-changes/table-form',
@@ -1183,7 +1183,13 @@ export const layout = ({ initialState }) => {
             path: '/reports',
             redirect: '/reports/reports',
           },
-  
+
+          {
+            name: 'Dyslr Form 1 Abstract',
+            icon: 'smile',
+            path: '/reports/Dyslr-From-1-Abstract',
+            component: './reports/Dyslr-From-1-Abstract',
+          },
           {
             name: 'Form 1',
             icon: 'smile',
@@ -1215,8 +1221,6 @@ export const layout = ({ initialState }) => {
             component: './reports/Dyslr-Delete-Record',
           },
 
-         
-
           {
             component: '404',
           },
@@ -1233,7 +1237,7 @@ export const layout = ({ initialState }) => {
       {
         path: '/*',
         component: '404',
-        layout: false, 
+        layout: false,
       },
     ],
   };
@@ -1250,26 +1254,22 @@ export const layout = ({ initialState }) => {
       },
     },
 
- rightContentRender: () => (
-    <>
-      {/* <AccessibilityWidget /> */}
-      <RightContent />
-    </>
-  ),    disableContentMargin: false,
+    rightContentRender: () => (
+      <>
+        {/* <AccessibilityWidget /> */}
+        <RightContent />
+      </>
+    ),
+    disableContentMargin: false,
 
     footerRender: () => <Footer />,
-  onPageChange: () => {
+    onPageChange: () => {
+      const { location } = history;
 
-  const { location } = history;
-
-  if (
-    !initialState?.currentUser &&
-    location.pathname !== '/user/login'
-  ) {
-
-    history.push('/user/login');
-  }
-},
+      if (!initialState?.currentUser && location.pathname !== '/user/login') {
+        history.push('/user/login');
+      }
+    },
     menuHeaderRender: undefined,
 
     ...initialState?.settings,
