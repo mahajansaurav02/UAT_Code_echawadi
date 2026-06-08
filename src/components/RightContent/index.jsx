@@ -10,15 +10,14 @@ import NoticeIconView from '../NoticeIcon';
 const GlobalHeaderRight = () => {
   const { initialState } = useModel('@@initialState');
 
-  if (!initialState || !initialState.settings) {
-    return null;
-  }
-
-  const { navTheme, layout } = initialState.settings;
+  // ✅ FIXED: More lenient check - only check navTheme/layout if settings exists
   let className = styles.right;
 
-  if ((navTheme === 'dark' && layout === 'top') || layout === 'mix') {
-    className = `${styles.right}  ${styles.dark}`;
+  if (initialState?.settings) {
+    const { navTheme, layout } = initialState.settings;
+    if ((navTheme === 'dark' && layout === 'top') || layout === 'mix') {
+      className = `${styles.right} ${styles.dark}`;
+    }
   }
 
   return (
@@ -40,9 +39,7 @@ const GlobalHeaderRight = () => {
             label: <a href="">Option 2</a>,
             value: 'Option 2',
           },
-        ]} // onSearch={value => {
-        //   console.log('input', value);
-        // }}
+        ]}
       />
       {/* <span
         className={styles.action}

@@ -135,7 +135,7 @@ const Login = () => {
           });
           message.success(defaultLoginSuccessMessage, 2);
 
-          await fetchUserInfo();
+          // await fetchUserInfo();
 
           if (!history) return;
           const { query } = history.location;

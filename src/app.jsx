@@ -31,37 +31,48 @@ export const initialStateConfig = {
 //   menuData = r.data.menu;
 //   console.log('Menu API HIT !!!!!!!!!!============>>>>>>>>>');
 // });
-export async function getInitialState() {
-  const fetchUserInfo = async () => {
-    try {
-      const msg = await queryCurrentUser();
+// export async function getInitialState() {
 
-      if (!msg?.data) {
-        throw new Error('Unauthorized');
-      }
+//   const fetchUserInfo = async () => {
+//     try {
 
-      return msg.data;
-    } catch (error) {
-      history.push('/user/login');
+//       const msg = await queryCurrentUser();
 
-      return undefined;
-    }
-  };
+//       if (!msg?.data) {
+//         throw new Error('Unauthorized');
+//       }
 
-  if (history.location.pathname !== '/user/login') {
-    const currentUser = await fetchUserInfo();
+//       return msg.data;
 
-    return {
-      fetchUserInfo,
-      currentUser,
-      settings: {},
-    };
-  }
+//     } catch (error) {
 
-  return {
-    fetchUserInfo,
-    settings: {},
-  };
+//       history.push('/user/login');
+
+//       return undefined;
+//     }
+//   };
+
+//   if (history.location.pathname !== '/user/login') {
+
+//     const currentUser = await fetchUserInfo();
+
+//     return {
+//       fetchUserInfo,
+//       currentUser,
+//       settings: {},
+//     };
+//   }
+
+//   return {
+//     fetchUserInfo,
+//     settings: {},
+//   };
+// }
+
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
 }
 
 export const layout = ({ initialState }) => {
@@ -1162,6 +1173,7 @@ export const layout = ({ initialState }) => {
             path: '/form/dyslr-village-form-one',
             component: './form/dyslr-village-form-one',
           },
+
           {
             name: 'गाव नमुना १ आकारबंद दुरूस्ती',
             icon: 'smile',
@@ -1190,6 +1202,7 @@ export const layout = ({ initialState }) => {
             path: '/reports/Dyslr-From-1-Abstract',
             component: './reports/Dyslr-From-1-Abstract',
           },
+
           {
             name: 'Form 1',
             icon: 'smile',
@@ -1265,8 +1278,11 @@ export const layout = ({ initialState }) => {
     footerRender: () => <Footer />,
     onPageChange: () => {
       const { location } = history;
+      // ✅ Just remove this check entirely or check for token instead
+      // Optional: Check if user has a valid token/session
+      const token = localStorage.getItem('token') || getCookie('token');
 
-      if (!initialState?.currentUser && location.pathname !== '/user/login') {
+      if (!token && location.pathname !== '/user/login') {
         history.push('/user/login');
       }
     },
