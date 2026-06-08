@@ -2,7 +2,7 @@
 
 /* eslint-disable */
 import { request } from 'umi';
-  const servarthId = localStorage.getItem('servarthId');
+const servarthId = localStorage.getItem('servarthId');
 
 function getCookie(name) {
   const value = `; ${document.cookie}`;
@@ -30,20 +30,18 @@ function getCookie(name) {
 
 // FOr UAT refer this code
 
-
-export async function currentUser(options) {
-const token = getCookie('token');
-console.log(token);
-  //---UAT
-  return request('http://115.124.110.193:8091/echawdi/auth/currentUser', {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,   // 🔥 important
-    },
-    ...(options || {}),
-  });
-}
-
+// export async function currentUser(options) {
+// const token = getCookie('token');
+// console.log(token);
+//   //---UAT
+//   return request('http://115.124.110.193:8091/echawdi/auth/currentUser', {
+//     method: 'GET',
+//     headers: {
+//       Authorization: `Bearer ${token}`,   // 🔥 important
+//     },
+//     ...(options || {}),
+//   });
+// }
 
 /** Log out of the login interface POST /api/login/outLogin */
 
@@ -55,13 +53,12 @@ console.log(token);
 //   //---UAT
 //   // return request('http://115.124.110.193:8091/echawdi/auth/login/outLogin', {
 //   //---LIVE
-//   return request('https://echawadi.mahabhumi.gov.in/echawdi/auth/login/outLogin', { 
+//   return request('https://echawadi.mahabhumi.gov.in/echawdi/auth/login/outLogin', {
 //     method: 'POST',
 //     ...(options || {}),
 //   });
 // }
 /** login interface POST /api/login/account */
-
 
 export async function outLogin(options) {
   // return request('api/login/outLogin', {
@@ -72,26 +69,17 @@ export async function outLogin(options) {
   // return request('http://115.124.110.193:8091/echawdi/auth/login/outLogin', {
   //---LIVE
   // return request('https://echawadi.mahabhumi.gov.in/echawdi/auth/login/outLogin', {
-      return request(`http://115.124.110.193:8091/echawdi/auth/logout?servarthId=${servarthId}`, {
-// 
+  return request(`http://115.124.110.193:8091/echawdi/auth/logout?servarthId=${servarthId}`, {
+    //
     method: 'POST',
 
     ...(options || {}),
   });
 }
 
-
-
-
-
-
-
-
-
-
 export async function login(body, options) {
   const token = getCookie('token');
-console.log(token);
+  console.log(token);
   // return request('api/login/account', {
   // return request('https://testechawadi.mahabhumi.gov.in/echawdi/auth/login/account', {
   // return request('https://115.124.105.230:8091/echawdi/auth/login/account', {
@@ -102,7 +90,7 @@ console.log(token);
   return request('http://115.124.110.193:8091/echawdi/auth/login/account', {
     method: 'POST',
     headers: {
-      Authorization: `Bearer ${token}`,   // 🔥 important
+      Authorization: `Bearer ${token}`, // 🔥 important
     },
     data: body,
     ...(options || {}),
