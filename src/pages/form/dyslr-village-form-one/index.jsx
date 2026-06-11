@@ -100,7 +100,7 @@ function DYSLRVillageFormOne() {
 
   const getDataFor1Abstract = async () => {
     sendRequest(
-      `${URLS.BaseURL}/form1Abstract/getForm1AbstractData?cCode=${codeVillage}`,
+      `${URLS.BaseURL}/form1Abstract/getForm1AbstractDataDyslr?cCode=${codeVillage}`,
       'GET',
       null,
       (r) => {
@@ -110,8 +110,8 @@ function DYSLRVillageFormOne() {
           RevenueOrLeaseholdLandUnderSpecialAgreement:
             r.data.RevenueOrLeaseholdLandUnderSpecialAgreement,
           assignedForSpecialUse: r.data.assignedForSpecialUse,
-          dumalaLandArea: r.data.dumalaLandArea, // <-- नया फील्ड
-          forestArea: r.data.forestArea, // <-- नया फील्ड
+          dumalaLandArea: r.data.dumala,
+          forestArea: r.data.forest,
           kuran: r.data.kuran,
           freePastureCattleStand: r.data.freePastureCattleStand,
           villageSite: r.data.villageSite,
@@ -145,8 +145,8 @@ function DYSLRVillageFormOne() {
         'RevenueOrLeaseholdLandUnderSpecialAgreement',
       ),
       assignedForSpecialUse: form.getFieldValue('assignedForSpecialUse'),
-      dumalaLandArea: form.getFieldValue('dumalaLandArea'), // <-- नया फील्ड
-      forestArea: form.getFieldValue('forestArea'), // <-- नया फील्ड
+      dumala: form.getFieldValue('dumalaLandArea'),
+      forest: form.getFieldValue('forestArea'),
       kuran: form.getFieldValue('kuran'),
       freePastureCattleStand: form.getFieldValue('freePastureCattleStand'),
       villageSite: form.getFieldValue('villageSite'),
@@ -165,7 +165,7 @@ function DYSLRVillageFormOne() {
     };
 
     sendRequest(
-      `${URLS.BaseURL}/form1Abstract/editForm1Abstract`,
+      `${URLS.BaseURL}/form1Abstract/editForm1AbstractDyslr`,
       'POST',
       article,
       (res) => {

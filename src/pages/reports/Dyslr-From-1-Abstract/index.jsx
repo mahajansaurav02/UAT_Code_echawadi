@@ -86,7 +86,7 @@ function DyslrForm1AbstractReport() {
 
   const getTableData = async () => {
     sendRequest(
-      `${URLS.BaseURL}/form1Abstract/getForm1AbstractReport?districtCode=${districtCode}&talukaCode=${talukaCode}&cCode=${codeVillage}`,
+      `${URLS.BaseURL}/form1Abstract/getForm1AbstractDataDyslr?districtCode=${districtCode}&talukaCode=${talukaCode}&cCode=${codeVillage}`,
       'GET',
       null,
       (res) => {
