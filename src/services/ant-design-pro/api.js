@@ -69,7 +69,8 @@ export async function outLogin(options) {
   // return request('http://115.124.110.193:8091/echawdi/auth/login/outLogin', {
   //---LIVE
   // return request('https://echawadi.mahabhumi.gov.in/echawdi/auth/login/outLogin', {
-  return request(`http://115.124.110.193:8091/echawdi/auth/logout?servarthId=${servarthId}`, {
+  // return request(`http://115.124.110.193:8091/echawdi/auth/logout?servarthId=${servarthId}`, {
+  return request(`http://115.124.110.193:8091/echawdi/auth/logout`, {
     //
     method: 'POST',
 

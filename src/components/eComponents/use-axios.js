@@ -59,7 +59,8 @@ const useAxios = () => {
 
   const refreshAccessToken = useCallback(async () => {
     try {
-      const refreshToken = getRefreshToken();
+      // const refreshToken = getRefreshToken();
+      const refreshToken = '1a4c242d-40e8-49d5-bcfe-5b53c311705c';
 
       if (!refreshToken) {
         return null;
@@ -103,7 +104,7 @@ const useAxios = () => {
     async (url, type = 'GET', reqData, callback, errorCallback) => {
       const makeRequest = async (currentToken) => {
         const tokenToUse = currentToken || localStorage.getItem('token');
-
+        console.log(tokenToUse, 'tokenToUse-->>');
         const config = {
           headers: {
             'Accept-Language': langType,
@@ -142,7 +143,7 @@ const useAxios = () => {
         } catch (error) {
           const statusCode = error.response?.status;
 
-          if ((statusCode === 401 || statusCode === 403) && !isRefreshing) {
+          if (statusCode === 401 && !isRefreshing) {
             setIsRefreshing(true);
             const newToken = await refreshAccessToken();
             setIsRefreshing(false);
