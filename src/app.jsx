@@ -1168,6 +1168,13 @@ export const layout = ({ initialState }) => {
             component: './form/dysclr-form/village-form',
           },
           {
+            name: 'गाव नमुना एक चा गोषवारा',
+            icon: 'smile',
+            path: '/form/dyslr-village-form-one',
+            component: './form/dyslr-village-form-one',
+          },
+
+          {
             name: 'गाव नमुना १ आकारबंद दुरूस्ती',
             icon: 'smile',
             path: '/form/dyslr-form-akarband-changes/table-form',
@@ -1187,6 +1194,13 @@ export const layout = ({ initialState }) => {
           {
             path: '/reports',
             redirect: '/reports/reports',
+          },
+
+          {
+            name: 'Dyslr Form 1 Abstract',
+            icon: 'smile',
+            path: '/reports/Dyslr-From-1-Abstract',
+            component: './reports/Dyslr-From-1-Abstract',
           },
 
           {

@@ -465,6 +465,12 @@ export default defineConfig({
           redirect: '/homepage',
         },
         {
+          name: 'गाव नमुना एक चा गोषवारा',
+          icon: 'smile',
+          path: '/form/dyslr-village-form-one',
+          component: './form/dyslr-village-form-one',
+        },
+        {
           // name: 'Dysclr Form',
           name: 'डी.वाय.एस.एल.आर नमुना',
           icon: 'smile',
@@ -897,6 +903,12 @@ export default defineConfig({
           component: './reports/From 1Abstract',
         },
         {
+          name: 'Dyslr Form 1 Abstract',
+          icon: 'smile',
+          path: '/reports/Dyslr-From-1-Abstract',
+          component: './reports/Dyslr-From-1-Abstract',
+        },
+        {
           name: 'Form 1B',
           icon: 'smile',
           path: '/reports/village-form-1B',
@@ -1180,7 +1192,6 @@ export default defineConfig({
       ],
     },
 
-
     {
       name: 'Daptar Tapasni Report',
       icon: 'file-text',
@@ -1434,7 +1445,7 @@ export default defineConfig({
     //     {
     //       component: '404',
     //     },
-    //   ], 
+    //   ],
     // },
     // {
     //   name: 'editor',
@@ -1482,14 +1493,14 @@ export default defineConfig({
   theme: {
     'primary-color': defaultSettings.primaryColor,
   },
-  // esbuild is father build tools 
+  // esbuild is father build tools
   // https://umijs.org/plugins/plugin-esbuild
   esbuild: {},
   title: false,
-metas: [
-  {
-    "http-equiv": "Content-Security-Policy",
-    content: `
+  metas: [
+    {
+      'http-equiv': 'Content-Security-Policy',
+      content: `
       default-src 'self';
       script-src 'self';
       style-src 'self' 'unsafe-inline';
@@ -1500,10 +1511,9 @@ metas: [
       frame-ancestors 'none';
       base-uri 'self';
     `,
+    },
+  ],
 
-  },
-],
-   
   ignoreMomentLocale: true,
   proxy: proxy[REACT_APP_ENV || 'dev'],
   manifest: {

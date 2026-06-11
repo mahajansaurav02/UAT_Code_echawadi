@@ -108,6 +108,8 @@ export default {
   'menu.form.Village Form 7A': 'गाव नमुना ७अ',
   'menu.form.Village Form 7B': 'गाव नमुना ७ब',
 
+  'menu.form.गाव नमुना एक चा गोषवारा': 'गाव नमुना एक चा गोषवारा',
+  'menu.Reports.Dyslr Form 1 Abstract': 'गाव नमुना १ गोषवारा अहवाल',
   'menu.form.Dysclr Form': 'डी.वाय.एस.एल.आर नमुना',
   'menu.form.Village Form 1A': 'गाव नमुना १अ',
   'menu.form.Village Form 1C': 'गाव नमुना १क',
