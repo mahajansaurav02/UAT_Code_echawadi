@@ -1497,22 +1497,21 @@ export default defineConfig({
   // https://umijs.org/plugins/plugin-esbuild
   esbuild: {},
   title: false,
-  metas: [
-    {
-      'http-equiv': 'Content-Security-Policy',
-      content: `
+ metas: [
+  {
+    'http-equiv': 'Content-Security-Policy',
+    content: `
       default-src 'self';
-      script-src 'self';
+      script-src 'self' 'unsafe-inline' 'unsafe-eval';
       style-src 'self' 'unsafe-inline';
       img-src 'self' data:;
-      connect-src 'self' http://115.124.110.193:8091 ;
+      connect-src 'self' http://115.124.110.193:8091 ws://localhost:8000;
       font-src 'self';
-      object-src 'none';,
-      frame-ancestors 'none';
+      object-src 'none';
       base-uri 'self';
     `,
-    },
-  ],
+  },
+],
 
   ignoreMomentLocale: true,
   proxy: proxy[REACT_APP_ENV || 'dev'],

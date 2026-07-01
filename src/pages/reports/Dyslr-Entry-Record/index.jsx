@@ -1,3 +1,4 @@
+
 import { PageContainer } from '@ant-design/pro-layout';
 import styles from './report.module.css';
 import React, { useState, useRef, useEffect } from 'react';
@@ -161,8 +162,14 @@ function Report() {
         setTableData(
           r.data.form1DyslrData.map((r) => ({
             id: r.id,
-            surveyHissaNo:
-              r.hissaNo == null || r.hissaNo.trim() == '' ? r.pin : r.pin + '/' + r.hissaNo,
+            // surveyHissaNo:
+            //   r.hissaNo == null || r.hissaNo.trim() == '' ? r.pin : r.pin + '/' + r.hissaNo,
+            surveyHissaNo: (() => {
+              let pinValue = r.pin != null ? String(r.pin) : '';
+              let hissaValue = r.hissaNo != null ? String(r.hissaNo).trim() : '';
+              let val = hissaValue === '' ? pinValue : pinValue + '/' + hissaValue;
+              return val.replace(/\/\/+/g, ''); 
+            })(),
             designation: r.designation,
             totalAreaH: r.totalAreaH,
             tenureName: r.tenureName,
@@ -665,10 +672,19 @@ class ComponentToPrint extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                {this.props.dataToMap &&
+                {/* {this.props.dataToMap &&
                   this.props.dataToMap
                     .sort((a, b) => (this.state.isUpside ? a.id - b.id : b.id - a.id))
-                    .map((r) => (
+                    .map((r) => ( */}
+                {this.props.dataToMap &&
+                this.props.dataToMap
+                .sort((a, b) => {
+                  const valA = String(a.surveyHissaNo || '');
+                  const valB = String(b.surveyHissaNo || '');
+                  const res = valA.localeCompare(valB, undefined, { numeric: true, sensitivity: 'base' });
+                  return this.state.isUpside ? res : -res;
+                })
+                .map((r) => (
                       <tr>
                         <td>{r.surveyHissaNo}</td>
                         <td>{r.tenureName}</td>

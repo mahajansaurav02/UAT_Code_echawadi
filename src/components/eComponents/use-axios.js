@@ -1,7 +1,7 @@
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useRef } from 'react';
 import axios from 'axios';
 import { useModel } from 'umi';
-import { notification, message } from 'antd';
+import { message } from 'antd';
 import URLS from '@/URLs/urls';
 import Cookies from 'js-cookie';
 
@@ -16,13 +16,26 @@ const useAxios = () => {
   const servarthId = localStorage.getItem('servarthId');
   const langType = localStorage.getItem('umi_locale') === 'ma-IN' ? 'mr-IN' : 'en-US';
 
-  const [isRefreshing, setIsRefreshing] = useState(false);
-  let refreshSubscribers = [];
+  const refreshPromiseRef = useRef(null);
+  const accessTokenRef = useRef(null);
+
+  const getAccessToken = useCallback(
+    () =>
+      accessTokenRef.current ||
+      localStorage.getItem('token') ||
+      Cookies.get('token') ||
+      token ||
+      null,
+    [token],
+  );
 
   const getRefreshToken = useCallback(() => {
-    const refreshTokenFromLS = Cookies.get('refreshToken');
-    if (refreshTokenFromLS) {
-      return refreshTokenFromLS;
+    const storedRefreshToken =
+      Cookies.get('refreshToken') ||
+      localStorage.getItem('refreshToken') ||
+      localStorage.getItem('mainRefreshToken');
+    if (storedRefreshToken) {
+      return storedRefreshToken;
     }
 
     const name = 'refreshToken=';
@@ -41,7 +54,11 @@ const useAxios = () => {
 
   const updateAccessToken = useCallback(
     (newToken) => {
+      if (!newToken) return;
+
+      accessTokenRef.current = newToken;
       localStorage.setItem('token', newToken);
+      axios.defaults.headers.common.Authorization = `Bearer ${newToken}`;
 
       Cookies.remove('token', { path: '/' });
 
@@ -59,15 +76,17 @@ const useAxios = () => {
 
   const refreshAccessToken = useCallback(async () => {
     try {
-      // const refreshToken = getRefreshToken();
-      const refreshToken = '1a4c242d-40e8-49d5-bcfe-5b53c311705c';
+      const refreshToken = getRefreshToken();
+      // const refreshToken = '7040f384-c0d1-4414-8e75-3ffa1e60c391';
 
       if (!refreshToken) {
+        console.log('No refresh token available. Redirecting to login.');
         return null;
       }
 
       const response = await axios.post(
         `${URLS.AuthURL}/refreshtoken?refreshToken=${refreshToken}`,
+        {},
         {
           headers: {
             'Accept-Language': langType,
@@ -81,34 +100,26 @@ const useAxios = () => {
         return newAccessToken;
       }
     } catch (error) {
-      localStorage.clear();
-      Cookies.remove('token');
-      Cookies.remove('refreshToken');
-      message.error('Session expired. Please login again.');
-      window.location.href = '/login';
+      
+      alert('api gives 500 error. Session expired. Please login again.');
+      // localStorage.clear();
+      // Cookies.remove('token');
+      // Cookies.remove('refreshToken');
+      // message.error('Session expired. Please login again.');
+      // window.location.href = '/login';
 
       return null;
     }
   }, [getRefreshToken, updateAccessToken, langType]);
 
-  const onRefreshed = useCallback((cb) => {
-    refreshSubscribers.push(cb);
-  }, []);
-
-  const notifyRefreshSubscribers = useCallback((newToken) => {
-    refreshSubscribers.forEach((cb) => cb(newToken));
-    refreshSubscribers = [];
-  }, []);
-
   const sendRequest = useCallback(
     async (url, type = 'GET', reqData, callback, errorCallback) => {
-      const makeRequest = async (currentToken) => {
-        const tokenToUse = currentToken || localStorage.getItem('token');
-        console.log(tokenToUse, 'tokenToUse-->>');
+      const makeRequest = async (currentToken, hasRetried = false) => {
+        const tokenToUse = currentToken || getAccessToken() || Cookies.get('token');
         const config = {
           headers: {
             'Accept-Language': langType,
-            Authorization: `Bearer ${tokenToUse}`, // ← Use updated token
+            ...(tokenToUse ? { Authorization: `Bearer ${tokenToUse}` } : {}),
             echHost: echHost,
             mhrHost: mhrHost,
             echDbName: echDbName,
@@ -138,47 +149,44 @@ const useAxios = () => {
             message.error(response.data.message);
           }
 
-          callback(response);
+          if (typeof callback === 'function') {
+            callback(response);
+          }
           return response;
         } catch (error) {
           const statusCode = error.response?.status;
 
-          if (statusCode === 401 && !isRefreshing) {
-            setIsRefreshing(true);
-            const newToken = await refreshAccessToken();
-            setIsRefreshing(false);
+          if (statusCode === 401 && !hasRetried) {
+            if (!refreshPromiseRef.current) {
+              refreshPromiseRef.current = refreshAccessToken().finally(() => {
+                refreshPromiseRef.current = null;
+              });
+            }
+
+            const newToken = await refreshPromiseRef.current;
 
             if (newToken) {
-              notifyRefreshSubscribers(newToken);
-
-              return makeRequest(newToken);
-            } else {
-              if (errorCallback) {
-                errorCallback(error.response);
-              }
-              return;
+              return makeRequest(newToken, true);
             }
-          } else if ((statusCode === 401 || statusCode === 403) && isRefreshing) {
-            return new Promise((resolve) => {
-              onRefreshed((newToken) => {
-                resolve(makeRequest(newToken));
-              });
-            });
+
+            if (typeof errorCallback === 'function') {
+              errorCallback(error.response);
+            }
+            return;
           }
 
           message.error(error.response?.data?.message || 'Request failed');
 
-          if (errorCallback) {
+          if (typeof errorCallback === 'function') {
             errorCallback(error.response);
           }
         }
       };
 
-      const currentToken = localStorage.getItem('token');
+      const currentToken = getAccessToken();
       return makeRequest(currentToken);
     },
     [
-      token,
       langType,
       echHost,
       mhrHost,
@@ -187,10 +195,8 @@ const useAxios = () => {
       mhrDbName,
       mhrSchemaName,
       servarthId,
-      isRefreshing,
+      getAccessToken,
       refreshAccessToken,
-      notifyRefreshSubscribers,
-      onRefreshed,
     ],
   );
 

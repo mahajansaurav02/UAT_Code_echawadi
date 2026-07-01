@@ -1,8 +1,8 @@
 import { PageContainer } from '@ant-design/pro-layout';
 import styles from './report.module.css';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Button, Card, Col, message, Row, Select, Spin } from 'antd';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'umi';
 import Axios from 'axios';
 import VillageSelector from '@/components/eComponents/VillageSelector';
 import BaseURL from '@/URLs/urls';
@@ -60,6 +60,8 @@ function DyslrForm1AbstractReport() {
   const [mp, setMp] = useState(new Map());
   const [unOccupied, setUnOccupied] = useState(0);
   const [loadings, setLoadings] = useState([]);
+  const location = useLocation();
+  const [autoFetch, setAutoFetch] = useState(false);
 
   const backToHomeButton = () => {
     history.push({ pathname: '/homepage' });
@@ -83,10 +85,19 @@ function DyslrForm1AbstractReport() {
       });
     }, 3000);
   };
+  useEffect(() => {
+    if (location.state?.cCode) {
+      setCodeVillage(location.state.cCode);
+      setTextForVillage(location.state.villageName);
+       getTableData(location.state.cCode);
+    }
+  }, [location.state]);
 
-  const getTableData = async () => {
+const getTableData = async (cCodeParam) => {
+  const cCodeToUse = cCodeParam || codeVillage;
+  console.log('Fetching with cCode:', cCodeToUse, 'district:', districtCode, 'taluka:', talukaCode);
     sendRequest(
-      `${URLS.BaseURL}/form1Abstract/getForm1AbstractDataDyslr?districtCode=${districtCode}&talukaCode=${talukaCode}&cCode=${codeVillage}`,
+      `${URLS.BaseURL}/form1Abstract/getForm1AbstractDataDyslr?districtCode=${districtCode}&talukaCode=${talukaCode}&cCode=${cCodeToUse}`,
       'GET',
       null,
       (res) => {
@@ -121,6 +132,9 @@ function DyslrForm1AbstractReport() {
         setRiversArea(res.data.riversNalas);
         setNalasArea(res.data.nalas);
         setUnOccupied(res.data.unOccupied);
+        message.success('Data Fetched Successfully !'
+
+        );
       },
     );
   };

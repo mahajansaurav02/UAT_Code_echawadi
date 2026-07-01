@@ -1054,6 +1054,13 @@ export const layout = ({ initialState }) => {
             path: '/dashboard/analysis',
             component: './dashboard/analysis',
           },
+          {
+            name: 'Mis',
+            icon: 'smile',
+            path: '/dashboard/collectorMis',
+            component: './dashboard/collectorMis',
+            layout: false,
+          },
           // {
           //   name: 'Supervisor Dashboard',
           //   icon: 'smile',
@@ -1197,7 +1204,7 @@ export const layout = ({ initialState }) => {
           },
 
           {
-            name: 'Dyslr Form 1 Abstract',
+            name: 'गाव नमुना एक चा गोषवारा',
             icon: 'smile',
             path: '/reports/Dyslr-From-1-Abstract',
             component: './reports/Dyslr-From-1-Abstract',
@@ -1278,11 +1285,12 @@ export const layout = ({ initialState }) => {
     footerRender: () => <Footer />,
     onPageChange: () => {
       const { location } = history;
+      const publicPaths = ['/user/login', '/dashboard/collectorMis'];
       // ✅ Just remove this check entirely or check for token instead
       // Optional: Check if user has a valid token/session
       const token = localStorage.getItem('token') || getCookie('token');
 
-      if (!token && location.pathname !== '/user/login') {
+      if (!token && !publicPaths.includes(location.pathname)) {
         history.push('/user/login');
       }
     },

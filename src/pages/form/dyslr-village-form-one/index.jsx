@@ -33,6 +33,7 @@ function DYSLRVillageFormOne() {
   const [codeVillage, setCodeVillage] = useState('');
   const [isNirank, setIsNirank] = useState(false);
 
+  const [showForm, setShowForm] = useState(false);
   const [flagButton2, setFlagButton2] = useState(true);
   const [showArea, setShowArea] = useState(false);
   const [area, setArea] = useState();
@@ -135,6 +136,7 @@ function DYSLRVillageFormOne() {
 
   const onFormFinish = async () => {
     setLoading(true);
+      console.log('Saving with cCode:', codeVillage);
     const article = {
       cCode: codeVillage,
       districtCode: districtCode,
@@ -174,12 +176,15 @@ function DYSLRVillageFormOne() {
           form.resetFields();
           history.push({
             pathname: `/reports/Dyslr-From-1-Abstract`,
+            state: { 
+              cCode: codeVillage, 
+              villageName: textForVillage },
           });
         }
         setLoading(false);
       },
       (err) => {
-        message.error('Already Exists');
+        message.error('Something wents to wrong, please try again !');
         setLoading(false);
       },
     );
@@ -228,15 +233,20 @@ function DYSLRVillageFormOne() {
               />
             </Col>
             <Col>
-              <Button
-                type="primary"
-                style={{ backgroundColor: 'green', borderColor: 'green' }}
-                onClick={() => {
-                  getDataFor1Abstract();
-                }}
-              >
-                शोधा
-              </Button>
+            <Button
+            type="primary"
+            style={{ backgroundColor: 'green', borderColor: 'green' }}
+            onClick={() => {
+              if (textForVillage) { 
+              getDataFor1Abstract();
+              setShowForm(true); 
+            } else {
+              message.info('Please Select Village');
+            }
+          }}
+          >
+             शोधा
+             </Button>
             </Col>
           </Row>
         </Form>
@@ -248,7 +258,7 @@ function DYSLRVillageFormOne() {
         type="info"
         showIcon
         style={{ margin: '16px 0' }}
-      />
+      />{showForm && (
 
       <Form
         layout="horizontal"
@@ -500,6 +510,7 @@ function DYSLRVillageFormOne() {
           </Row>
         </Card>
       </Form>
+      )}
     </PageContainer>
   );
 }
