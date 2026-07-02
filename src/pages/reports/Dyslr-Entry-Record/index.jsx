@@ -107,8 +107,8 @@ function Report() {
         setRoadAndPath(res.data[0].roadsAndPath);
         setPrevRoadsAndPath(
           parseFloat(res.data[0].riversNalas) +
-            parseFloat(res.data[0].nalas) +
-            parseFloat(res.data[0].roadsAndPath),
+          parseFloat(res.data[0].nalas) +
+          parseFloat(res.data[0].roadsAndPath),
         );
 
         // getFirstTotalArea(
@@ -168,7 +168,7 @@ function Report() {
               let pinValue = r.pin != null ? String(r.pin) : '';
               let hissaValue = r.hissaNo != null ? String(r.hissaNo).trim() : '';
               let val = hissaValue === '' ? pinValue : pinValue + '/' + hissaValue;
-              return val.replace(/\/\/+/g, ''); 
+              return val.replace(/\/\/+/g, '');
             })(),
             designation: r.designation,
             totalAreaH: r.totalAreaH,
@@ -677,15 +677,18 @@ class ComponentToPrint extends React.Component {
                     .sort((a, b) => (this.state.isUpside ? a.id - b.id : b.id - a.id))
                     .map((r) => ( */}
                 {this.props.dataToMap &&
-                this.props.dataToMap
-                .sort((a, b) => {
-                  const valA = String(a.surveyHissaNo || '');
-                  const valB = String(b.surveyHissaNo || '');
-                  const res = valA.localeCompare(valB, undefined, { numeric: true, sensitivity: 'base' });
-                  return this.state.isUpside ? res : -res;
-                })
-                .map((r) => (
-                      <tr>
+                  this.props.dataToMap
+                    .sort((a, b) => {
+                      const valA = String(a.surveyHissaNo || '');
+                      const valB = String(b.surveyHissaNo || '');
+                      const res = valA.localeCompare(valB, undefined, {
+                        numeric: true,
+                        sensitivity: 'base',
+                      });
+                      return this.state.isUpside ? res : -res;
+                    })
+                    .map((r, i) => (
+                      <tr key={r.id ? r.id : `${r.surveyHissaNo}-${i}`}>
                         <td>{r.surveyHissaNo}</td>
                         <td>{r.tenureName}</td>
                         <td>

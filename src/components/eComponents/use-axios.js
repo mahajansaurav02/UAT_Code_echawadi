@@ -77,7 +77,7 @@ const useAxios = () => {
   const refreshAccessToken = useCallback(async () => {
     try {
       const refreshToken = getRefreshToken();
-      // const refreshToken = '7040f384-c0d1-4414-8e75-3ffa1e60c391';
+      // const refreshToken = 'da1fc926-74b6-4d3c-b5b9-ce3f40837a4e';
 
       if (!refreshToken) {
         console.log('No refresh token available. Redirecting to login.');
@@ -114,8 +114,18 @@ const useAxios = () => {
 
   const sendRequest = useCallback(
     async (url, type = 'GET', reqData, callback, errorCallback) => {
-      const makeRequest = async (currentToken, hasRetried = false) => {
-        const tokenToUse = currentToken || getAccessToken() || Cookies.get('token');
+      const makeRequest = async (currentToken) => {
+        const tokenToUse = currentToken || localStorage.getItem('token');
+        console.log('Headers used:', {
+          echHost,
+          mhrHost,
+          echDbName,
+          echSchemaName,
+          mhrDbName,
+          mhrSchemaName,
+          servarthId,
+        });
+        console.log(tokenToUse, 'tokenToUse-->>');
         const config = {
           headers: {
             'Accept-Language': langType,

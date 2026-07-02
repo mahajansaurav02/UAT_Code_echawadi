@@ -69,6 +69,16 @@ export const initialStateConfig = {
 //   };
 // }
 
+export async function getInitialState() {
+  // Restore currentUser from localStorage on page refresh so menu params
+  // are populated and the navbar renders without needing a reload.
+  const servarthId = localStorage.getItem('servarthId');
+  return {
+    currentUser: servarthId ? { userid: servarthId } : undefined,
+    settings: {},
+  };
+}
+
 function getCookie(name) {
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);

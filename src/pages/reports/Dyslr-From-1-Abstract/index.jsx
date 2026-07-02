@@ -89,13 +89,20 @@ function DyslrForm1AbstractReport() {
     if (location.state?.cCode) {
       setCodeVillage(location.state.cCode);
       setTextForVillage(location.state.villageName);
-       getTableData(location.state.cCode);
+      getTableData(location.state.cCode);
     }
   }, [location.state]);
 
-const getTableData = async (cCodeParam) => {
-  const cCodeToUse = cCodeParam || codeVillage;
-  console.log('Fetching with cCode:', cCodeToUse, 'district:', districtCode, 'taluka:', talukaCode);
+  const getTableData = async (cCodeParam) => {
+    const cCodeToUse = cCodeParam || codeVillage;
+    console.log(
+      'Fetching with cCode:',
+      cCodeToUse,
+      'district:',
+      districtCode,
+      'taluka:',
+      talukaCode,
+    );
     sendRequest(
       `${URLS.BaseURL}/form1Abstract/getForm1AbstractDataDyslr?districtCode=${districtCode}&talukaCode=${talukaCode}&cCode=${cCodeToUse}`,
       'GET',
@@ -132,9 +139,7 @@ const getTableData = async (cCodeParam) => {
         setRiversArea(res.data.riversNalas);
         setNalasArea(res.data.nalas);
         setUnOccupied(res.data.unOccupied);
-        message.success('Data Fetched Successfully !'
-
-        );
+        message.success('Data Fetched Successfully !');
       },
     );
   };

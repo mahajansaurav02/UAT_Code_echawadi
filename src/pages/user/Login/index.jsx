@@ -205,6 +205,12 @@ const Login = () => {
         authLogin(res.data.accessToken, 3600000);
         reload();
 
+        // Update initialState so menu params change and navbar re-renders
+        await setInitialState((s) => ({
+          ...s,
+          currentUser: { userid: res.data.servarthId },
+        }));
+
         // Proceed with additional login logic
         const msg = await login({ ...values, type });
         if (msg.status === 'ok') {
