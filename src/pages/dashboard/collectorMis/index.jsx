@@ -326,11 +326,9 @@ export const IntroduceRow = ({ loading, visitData }) => {
     return 0;
   }
 
-  
-
   const calculateAbstractCompletedCount = (r) => {
-    console.log(r,"checkkkk calculateAbstractCompletedCount")
-    const totalVillageCount = (r?.totalVillages ||r?.totalVillagesTT||r?.totalVillagesTTI || 0);
+    console.log(r, "checkkkk calculateAbstractCompletedCount")
+    const totalVillageCount = (r?.totalVillages || r?.totalVillagesTT || r?.totalVillagesTTI || 0);
     const dyslrAdbstractAddedCount = (r?.dyslrAdbstractAddedCount || 0);
 
     if (totalVillageCount > 0) {
