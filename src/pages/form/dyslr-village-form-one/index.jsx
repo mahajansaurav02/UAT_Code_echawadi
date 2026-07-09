@@ -185,7 +185,7 @@ function DYSLRVillageFormOne() {
         setLoading(false);
       },
       (err) => {
-        message.error('Already Exists');
+        message.error('Something wents to wrong, please try again !');
         setLoading(false);
       },
     );

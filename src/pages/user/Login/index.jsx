@@ -149,22 +149,32 @@ const Login = () => {
       );
 
       // ✅ EXTRACT refreshToken (check response body first, then headers)
-      const refreshToken =
-        res.data.refreshToken ||
-        res.headers['x-refresh-token'] ||
-        res.headers['refresh-token'] ||
-        res.headers['refreshtoken'];
+      const getCookieValue = (name) => {
+        const match = document.cookie.split('; ').find((row) => row.startsWith(name + '='));
+        return match ? match.split('=')[1] : null;
+      };
 
-      // ✅ STORE refreshToken in BOTH localStorage AND cookies
+      // Small delay to ensure browser has set the cookie before reading
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      const refreshToken = getCookieValue('refreshToken');
+
+      console.log(refreshToken, '<--- Refresh Token from Cookie');
+
       if (refreshToken) {
         localStorage.setItem('refreshToken', refreshToken);
-
-        document.cookie = `refreshToken=${refreshToken}; path=/; secure; samesite=Strict; max-age=${
-          7 * 24 * 60 * 60
-        }`;
+        console.log('✅ refreshToken saved to localStorage');
       } else {
-        console.warn('⚠️ No refreshToken found in response');
+        console.warn('⚠️ No refreshToken found in cookie');
       }
+      // if (refreshToken) {
+      //   localStorage.setItem('refreshToken', refreshToken);
+
+      //   document.cookie = `refreshToken=${refreshToken}; path=/; secure; samesite=Strict; max-age=${7 * 24 * 60 * 60
+      //     }`;
+      // } else {
+      //   console.warn('⚠️ No refreshToken found in response');
+      // }
 
       if (res.status === 200 && validateCaptcha(user_captcha_value) === true) {
         // Successful login logic
@@ -276,12 +286,7 @@ const Login = () => {
 
   const goToMis = (e) => {
     e.preventDefault();
-    window.history.pushState({}, '', '/#/dashboard/collectorMis');
-    const event = new Event('forceRender');
-    window.dispatchEvent(event);
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
+    history.push('/dashboard/collectorMis');
   };
 
   const info = () => {
@@ -407,7 +412,6 @@ const Login = () => {
             type="default"
             href="https://testechawadi.mahabhumi.gov.in/user/"
           >
-             
             <FormattedMessage
               id="pages.login.inspectionRegistration"
               defaultMessage="ग्राम दप्तर तपासणीसाठी अधिकारी यांची माहिती भरा"

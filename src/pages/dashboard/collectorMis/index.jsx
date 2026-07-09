@@ -315,6 +315,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
       return (num / 100000).toFixed(2);
     }
   };
+
   function calculateVasuliPercentage(r) {
     const totalMagani = (r.totalDemandJm || 0) + (r.totalDemandSankirn || 0);
     const totalVasuli = (r.totalCollectedJm || 0) + (r.totalCollectedSankirn || 0);
@@ -325,6 +326,16 @@ export const IntroduceRow = ({ loading, visitData }) => {
     return 0;
   }
 
+  const calculateAbstractCompletedCount = (r) => {
+    console.log(r, 'checkkkk calculateAbstractCompletedCount');
+    const totalVillageCount = r?.totalVillages || r?.totalVillagesTT || r?.totalVillagesTTI || 0;
+    const dyslrAdbstractAddedCount = r?.dyslrAdbstractAddedCount || 0;
+
+    if (totalVillageCount > 0) {
+      return (dyslrAdbstractAddedCount / totalVillageCount) * 100;
+    }
+    return 0;
+  };
   const getStaticMISData = async () => {
     sendRequest(
       `${URLS.AuthURL}/staticDashboard?code=0&year=2022-2023`,
@@ -886,6 +897,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
             talukaName: r.talukaName,
             totalEntry: r.totalEntry,
             totalDyslrWorkCount: r.totalDyslrWorkCount,
+            dyslrAdbstractAddedCount: r.dyslrAdbstractAddedCount,
             // totalDyslrWorkCountForTaluka:
             //   r.totalDyslrWorkCountForTaluka == 'null' ? '0' : r.totalDyslrWorkCountForTaluka,
             // dyslrWorkCompletedCount:
@@ -1261,6 +1273,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
             districtCode: r.districtCode,
             districtName: r.districtName,
             // dyslrWorkCompletedCount: r.dyslrWorkCompletedCount,
+            dyslrAdbstractAddedCount: r.dyslrAdbstractAddedCount,
             dyslrWorkCompletedCount: Math.round((r.totalDyslrWorkCount * 100) / r.totalVillages),
             talukaName: r.talukaName,
             totalEntry: r.totalEntry,
@@ -1320,7 +1333,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
             districtName: r.districtName,
             // dyslrWorkCompletedCount: r.dyslrWorkCompletedCount,
             dyslrWorkCompletedCount: Math.round((r.totalDyslrWorkCount * 100) / r.totalVillages),
-            // talukaCode: r.totalTaluka,
+            dyslrAdbstractAddedCount: r.dyslrAdbstractAddedCount,
             talukaName: r.talukaName,
             totalEntry: r.totalEntry,
             totalDyslrWorkCount: r.totalDyslrWorkCount,
@@ -1641,6 +1654,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
 
       //एकूण division 4 -Tab4
       setDashBoardCountTab4({
+        dyslrAdbstractAddedCount: r.data[0].dyslrAdbstractAddedCount,
         districtsCountTT: r.data[0].districtsCount,
         totalDyslrWorkCountTT: r.data[0].totalDyslrWorkCount,
         totalTalukaTT: r.data[0].totalTaluka,
@@ -1670,6 +1684,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
         // totalCountdyslrWorkCompletedCount +
         // Math.round((r.totalDyslrWorkCount * 100) / r.totalVillages);
         setDashBoardCount1Tab4({
+          dyslrAdbstractAddedCount: r.data[0].dyslrAdbstractAddedCount,
           districtsCountTTI: r.data[0].districtsCount,
           totalDyslrWorkCountTTI: r.data[0].totalDyslrWorkCount,
           totalTalukaTTI: r.data[0].totalTaluka,
@@ -5744,6 +5759,42 @@ export const IntroduceRow = ({ loading, visitData }) => {
                   </Box>
                 </Card>
               </Grid>
+              <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                <Card>
+                  <Box>
+                    <Typography
+                      sx={{ height: 95 }}
+                      component="div"
+                      align="center"
+                      style={{ backgroundColor: '#002884', color: '#F0F2F5' }}
+                    >
+                      {/* भाग - १ मधील गावांची संख्या */}
+                      {/* 100 % मागणी निश्चिती केलेले गांव संख्या */}
+                      गोषवारा पूर्ण भरून झालेल्या गावांची संख्या
+                    </Typography>
+
+                    <Divider variant="middle" />
+                  </Box>
+                </Card>
+              </Grid>
+              <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                <Card>
+                  <Box>
+                    <Typography
+                      sx={{ height: 95 }}
+                      component="div"
+                      align="center"
+                      style={{ backgroundColor: '#002884', color: '#F0F2F5' }}
+                    >
+                      {/* भाग - १ मधील गावांची संख्या */}
+                      {/* 100 % मागणी निश्चिती केलेले गांव संख्या */}
+                      गोषवारा पूर्ण भरून झालेल्या गावांची सरासरी ( % )
+                    </Typography>
+
+                    <Divider variant="middle" />
+                  </Box>
+                </Card>
+              </Grid>
             </Grid>
             {/*--- Division grid tab 4 */}
             {tab4Detail &&
@@ -5878,6 +5929,38 @@ export const IntroduceRow = ({ loading, visitData }) => {
                             <CardContent>
                               <center>
                                 <h3>{r.dyslrWorkCompletedCount}</h3>
+                              </center>
+                            </CardContent>
+                          </Box>
+                        </Card>
+                      </Grid>
+                      <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                        <Card>
+                          <Box
+                            sx={{
+                              bgcolor: '#91ceff',
+                              height: 50,
+                            }}
+                          >
+                            <CardContent>
+                              <center>
+                                <h3>{r.dyslrAdbstractAddedCount}</h3>
+                              </center>
+                            </CardContent>
+                          </Box>
+                        </Card>
+                      </Grid>
+                      <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                        <Card>
+                          <Box
+                            sx={{
+                              bgcolor: '#91ceff',
+                              height: 50,
+                            }}
+                          >
+                            <CardContent>
+                              <center>
+                                <h3>{Math.round(calculateAbstractCompletedCount(r))}%</h3>
                               </center>
                             </CardContent>
                           </Box>
@@ -6051,6 +6134,54 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                   </Box>
                                 </Card>
                               </Grid>
+                              <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                                <Card>
+                                  <Box
+                                    sx={{
+                                      bgcolor: '#cce8ff',
+                                      height: 50,
+                                    }}
+                                  >
+                                    <CardContent>
+                                      <center>
+                                        <h3>{r.dyslrAdbstractAddedCount}</h3>
+                                      </center>
+                                    </CardContent>
+                                  </Box>
+                                </Card>
+                              </Grid>
+                              {/* <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                                <Card>
+                                  <Box
+                                    sx={{
+                                      bgcolor: '#cce8ff',
+                                      height: 50,
+                                    }}
+                                  >
+                                    <CardContent>
+                                      <center>
+                                        <h3>{Math.round(calculateAbstractCompletedCount(r))}%</h3>
+                                      </center>
+                                    </CardContent>
+                                  </Box>
+                                </Card>
+                              </Grid> */}
+                              <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                                <Card>
+                                  <Box
+                                    sx={{
+                                      bgcolor: '#cce8ff',
+                                      height: 50,
+                                    }}
+                                  >
+                                    <CardContent>
+                                      <center>
+                                        <h3>{Math.round(calculateAbstractCompletedCount(r))}%</h3>
+                                      </center>
+                                    </CardContent>
+                                  </Box>
+                                </Card>
+                              </Grid>
                             </Grid>
                             {/* Show Taluka Grid For tab4 */}
 
@@ -6201,6 +6332,42 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                           </Box>
                                         </Card>
                                       </Grid>
+                                      <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                                        <Card>
+                                          <Box
+                                            sx={{
+                                              // bgcolor: '#F0F2F5',
+                                              bgcolor: '#e4f4ff',
+                                              height: 50,
+                                            }}
+                                          >
+                                            <CardContent>
+                                              <center>
+                                                <h3>{r.dyslrAdbstractAddedCount}</h3>
+                                              </center>
+                                            </CardContent>
+                                          </Box>
+                                        </Card>
+                                      </Grid>
+                                      <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                                        <Card>
+                                          <Box
+                                            sx={{
+                                              // bgcolor: '#F0F2F5',
+                                              bgcolor: '#e4f4ff',
+                                              height: 50,
+                                            }}
+                                          >
+                                            <CardContent>
+                                              <center>
+                                                <h3>
+                                                  {Math.round(calculateAbstractCompletedCount(r))}%
+                                                </h3>
+                                              </center>
+                                            </CardContent>
+                                          </Box>
+                                        </Card>
+                                      </Grid>
                                     </Grid>
                                   </>
                                 );
@@ -6311,6 +6478,47 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                       {Math.round(
                                         dashBoardCount1Tab4?.totalCountdyslrWorkCompletedCountTTI,
                                       )}
+                                    </h3>
+                                  </center>
+                                </CardContent>
+                              </Box>
+                            </Card>
+                          </Grid>
+                          <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                            <Card>
+                              <Box
+                                sx={{
+                                  bgcolor: '#cce8ff',
+                                  height: 50,
+                                }}
+                              >
+                                <CardContent>
+                                  <center>
+                                    {/* <h3>{totalCountdyslrWorkCompletedCount}</h3> */}
+                                    <h3>
+                                      {Math.round(dashBoardCount1Tab4?.dyslrAdbstractAddedCount)}
+                                    </h3>
+                                  </center>
+                                </CardContent>
+                              </Box>
+                            </Card>
+                          </Grid>
+                          <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                            <Card>
+                              <Box
+                                sx={{
+                                  bgcolor: '#cce8ff',
+                                  height: 50,
+                                }}
+                              >
+                                <CardContent>
+                                  <center>
+                                    {/* <h3>{totalCountdyslrWorkCompletedCount}</h3> */}
+                                    <h3>
+                                      {Math.round(
+                                        calculateAbstractCompletedCount(dashBoardCount1Tab4),
+                                      )}
+                                      %
                                     </h3>
                                   </center>
                                 </CardContent>
@@ -6428,6 +6636,38 @@ export const IntroduceRow = ({ loading, visitData }) => {
                   </Box>
                 </Card>
               </Grid>
+              <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                <Card>
+                  <Box
+                    sx={{
+                      bgcolor: '#91ceff',
+                      height: 50,
+                    }}
+                  >
+                    <CardContent>
+                      <center>
+                        <h3>{Math.round(dashBoardCountTab4?.dyslrAdbstractAddedCount)}</h3>
+                      </center>
+                    </CardContent>
+                  </Box>
+                </Card>
+              </Grid>
+              <Grid item xs={24} sm={24} md={24} lg={3} xl={3}>
+                <Card>
+                  <Box
+                    sx={{
+                      bgcolor: '#91ceff',
+                      height: 50,
+                    }}
+                  >
+                    <CardContent>
+                      <center>
+                        <h3>{Math.round(calculateAbstractCompletedCount(dashBoardCountTab4))}%</h3>
+                      </center>
+                    </CardContent>
+                  </Box>
+                </Card>
+              </Grid>
               {/* <Grid item xs={24} sm={24} md={24} lg={2} xl={2}>
                 <Card>
                   <Box
@@ -6479,7 +6719,7 @@ export const IntroduceRow = ({ loading, visitData }) => {
             </Grid>
           </Paper>
         </Tabs.TabPane>
-
+        {/* ============================================================================================================================================================================= */}
         {/*---------------------------------------------- इ-चावडी वसूली अहवाल --------------------------------------------------------------------------------------*/}
         <Tabs.TabPane tab="इ-चावडी वसूली अहवाल" key="tab5">
           {/* Old 2023-2024 */}

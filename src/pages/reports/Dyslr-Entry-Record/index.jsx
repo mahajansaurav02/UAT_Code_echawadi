@@ -686,8 +686,8 @@ class ComponentToPrint extends React.Component {
                       });
                       return this.state.isUpside ? res : -res;
                     })
-                    .map((r) => (
-                      <tr>
+                    .map((r, i) => (
+                      <tr key={r.id ? r.id : `${r.surveyHissaNo}-${i}`}>
                         <td>{r.surveyHissaNo}</td>
                         <td>{r.tenureName}</td>
                         <td>
