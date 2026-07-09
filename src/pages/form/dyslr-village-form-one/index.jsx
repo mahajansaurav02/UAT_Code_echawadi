@@ -220,7 +220,7 @@ function DYSLRVillageFormOne() {
     <PageContainer header={{ title: '', breadcrumb: {} }}>
       <Card>
         <h1>
-          <center>गाव नमुना एक चा गोषवारा(तेरीज)</center>
+          <center>गाव नमुना एक चा गोषवारा(तेरीज)(DYSLR)</center>
         </h1>
         <Form layout="horizontal">
           <Row align="middle" gutter={16} style={{ marginTop: 10 }}>
@@ -255,7 +255,7 @@ function DYSLRVillageFormOne() {
 
       <Alert
         message="टीप"
-        description="गाव नमुना एकच्या गोषवारासाठी इ-फेरफार प्रणालीतून घेतलेली माहिती गाव नमुना एकच्या गोषवारा अहवालात दाखवलेली आहे. खालील सदरात भरावयाची माहिती ही त्या अहवालात दर्शवण्यात येइल."
+        description="गाव नमुना एकच्या गोषवारासाठी ई - चावडी प्रणालीतून घेतलेली माहिती गाव नमुना एकच्या गोषवारा अहवालात दाखवलेली आहे. खालील सदरात भरावयाची माहिती ही त्या अहवालात दर्शवण्यात येइल."
         type="info"
         showIcon
         style={{ margin: '16px 0' }}

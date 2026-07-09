@@ -62,6 +62,10 @@ function DyslrForm1AbstractReport() {
   const [loadings, setLoadings] = useState([]);
   const location = useLocation();
   const [autoFetch, setAutoFetch] = useState(false);
+  const [footerVillageSite, setFooterVillageSite] = useState(0);
+  const [footerRiversNalas, setFooterRiversNalas] = useState(0);
+  const [footerNalas, setFooterNalas] = useState(0);
+  const [footerRoadsAndPath, setFooterRoadsAndPath] = useState(0);
 
   const backToHomeButton = () => {
     history.push({ pathname: '/homepage' });
@@ -104,7 +108,7 @@ function DyslrForm1AbstractReport() {
       talukaCode,
     );
     sendRequest(
-      `${URLS.BaseURL}/form1Abstract/getForm1AbstractDataDyslr?districtCode=${districtCode}&talukaCode=${talukaCode}&cCode=${cCodeToUse}`,
+      `${URLS.BaseURL}/form1Abstract/getForm1AbstractReportDyslr?districtCode=${districtCode}&talukaCode=${talukaCode}&cCode=${cCodeToUse}`,
       'GET',
       null,
       (res) => {
@@ -140,6 +144,25 @@ function DyslrForm1AbstractReport() {
         setNalasArea(res.data.nalas);
         setUnOccupied(res.data.unOccupied);
         message.success('Data Fetched Successfully !');
+      },
+    );
+
+    sendRequest(
+      `${
+        URLS.BaseURL
+      }/form1Dyslr/getDyslrForm1ReportFooter?cCode=${cCodeToUse}&districtCode=${districtCode}&talukaCode=${talukaCode}${
+        revenueYear ? `&revenueYear=${revenueYear}` : ''
+      }`,
+      'GET',
+      null,
+      (res) => {
+        const footerData = res.data?.[0];
+        if (footerData) {
+          setFooterVillageSite(parseFloat(footerData.villageSite) || 0);
+          setFooterRiversNalas(parseFloat(footerData.riversNalas) || 0);
+          setFooterNalas(parseFloat(footerData.nalas) || 0);
+          setFooterRoadsAndPath(parseFloat(footerData.roadsAndPath) || 0);
+        }
       },
     );
   };
@@ -315,6 +338,10 @@ function DyslrForm1AbstractReport() {
         totalOfB3={srNoForNonAgricultureUseArea === 0 ? '' : srNoForNonAgricultureUseArea}
         unOccupied={unOccupied}
         mp={mp}
+        footerVillageSite={footerVillageSite}
+        footerRiversNalas={footerRiversNalas}
+        footerNalas={footerNalas}
+        footerRoadsAndPath={footerRoadsAndPath}
       />
     </div>
   );
@@ -508,7 +535,7 @@ class ComponentToPrint extends React.Component {
                   <td>
                     <b>
                       <u style={{ float: 'right' }}>
-                        <FormattedMessage id="form1abstract.total1+2A" />
+                        <FormattedMessage id="form1abstract.dyslr.totalA" />
                       </u>
                     </b>
                   </td>
@@ -727,7 +754,7 @@ class ComponentToPrint extends React.Component {
                   <td>
                     <b>
                       <u style={{ float: 'right' }}>
-                        <FormattedMessage id="form1abstract.total4B" />
+                        <FormattedMessage id="form1abstract.dyslr.totalB" />
                       </u>
                     </b>
                   </td>
@@ -742,11 +769,106 @@ class ComponentToPrint extends React.Component {
                   <td></td>
                 </tr>
 
+                {/* --- NEW SECTION 4 STARTS HERE --- */}
+                <tr>
+                  <td colSpan={4}>
+                    <b>
+                      <u>
+                        <FormattedMessage id="form1abstract.section4.heading" />
+                      </u>
+                    </b>
+                  </td>
+                </tr>
+                <tr>
+                  <td style={{ paddingLeft: '20px' }}>
+                    <FormattedMessage id="form1abstract.(a)" />{' '}
+                    <FormattedMessage id="form1abstract.section4.gaothan" />
+                  </td>
+                  <td>{this.props.footerVillageSite}</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td style={{ paddingLeft: '20px' }}>
+                    <FormattedMessage id="form1abstract.(b)" />{' '}
+                    <FormattedMessage id="form1abstract.section4.nadi" />
+                  </td>
+                  <td>{this.props.footerRiversNalas}</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td style={{ paddingLeft: '20px' }}>
+                    <FormattedMessage id="form1abstract.(c)" />{' '}
+                    <FormattedMessage id="form1abstract.section4.nale" />
+                  </td>
+                  <td>{this.props.footerNalas}</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td style={{ paddingLeft: '20px' }}>
+                    <FormattedMessage id="form1abstract.(d)" />{' '}
+                    <FormattedMessage id="form1abstract.section4.raste" />
+                  </td>
+                  <td>{this.props.footerRoadsAndPath}</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td style={{ paddingLeft: '20px' }}>
+                    <b>
+                      <FormattedMessage id="form1abstract.section4.bhumapanTotal" />
+                    </b>
+                  </td>
+                  <td>
+                    {Math.round(
+                      (this.props.footerVillageSite +
+                        this.props.footerRiversNalas +
+                        this.props.footerNalas +
+                        this.props.footerRoadsAndPath +
+                        Number.EPSILON) *
+                        100,
+                    ) / 100}
+                  </td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td style={{ paddingLeft: '20px' }}>
+                    <b>
+                      <FormattedMessage id="form1abstract.section4.outsideGaothanTotal" />
+                    </b>
+                  </td>
+                  <td>
+                    {Math.round(
+                      (this.props.footerRiversNalas +
+                        this.props.footerNalas +
+                        this.props.footerRoadsAndPath +
+                        Number.EPSILON) *
+                        100,
+                    ) / 100}
+                  </td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td style={{ paddingLeft: '20px' }}>
+                    <b>
+                      <FormattedMessage id="form1abstract.section4.gaothanTotal" />
+                    </b>
+                  </td>
+                  <td>{this.props.footerVillageSite}</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                {/* --- NEW SECTION 4 ENDS HERE --- */}
+
                 <tr>
                   <td>
                     <b>
                       <u style={{ float: 'right' }}>
-                        <FormattedMessage id="form1abstract.village.Total" />
+                        <FormattedMessage id="form1abstract.dyslr.villageTotal" />
                       </u>
                     </b>
                   </td>
@@ -802,14 +924,9 @@ class ComponentToPrint extends React.Component {
                 <tr>
                   <td colSpan="5">
                     <Row>
-                      <Col span={7}>
-                        <FormattedMessage id="form1abstract.Date" />
-                      </Col>
+                      <Col span={7}>{/* <FormattedMessage id="form1abstract.Date" /> */}</Col>
                       <Col span={1}></Col>
-                      <Col span={7}>
-                        {' '}
-                        <FormattedMessage id="form1abstract.Date2" />
-                      </Col>
+                      <Col span={7}> {/* <FormattedMessage id="form1abstract.Date2" /> */}</Col>
                       <Col span={1}></Col>
                       <Col span={7}>
                         <FormattedMessage id="form1abstract.ExaminedDate" />
@@ -817,11 +934,11 @@ class ComponentToPrint extends React.Component {
                     </Row>
                     <Row style={{ marginTop: 30 }}>
                       <Col span={7}>
-                        <FormattedMessage id="form1abstract.Talathi" />, {this.props.village}
+                        {/* <FormattedMessage id="form1abstract.Talathi" />, {this.props.village} */}
                       </Col>
                       <Col span={1}></Col>
                       <Col span={7}>
-                        <FormattedMessage id="form1abstract.clerk" />,{' '}
+                        {/* <FormattedMessage id="form1abstract.clerk" />,{' '} */}
                       </Col>
                       <Col span={1}></Col>
                       <Col span={7}>
@@ -830,13 +947,13 @@ class ComponentToPrint extends React.Component {
                     </Row>
                     <Row>
                       <Col span={7}>
-                        <FormattedMessage id="form1abstract.TalukaName" />: {this.props.taluka}{' '}
-                        <FormattedMessage id="form1abstract.District" />: {this.props.district}
+                        {/* <FormattedMessage id="form1abstract.TalukaName" />: {this.props.taluka}{' '}
+                        <FormattedMessage id="form1abstract.District" />: {this.props.district} */}
                       </Col>
                       <Col span={1}></Col>
                       <Col span={7}>
-                        <FormattedMessage id="form1abstract.TalukaName" />: {this.props.taluka}{' '}
-                        <FormattedMessage id="form1abstract.District" />: {this.props.district}
+                        {/* <FormattedMessage id="form1abstract.TalukaName" />: {this.props.taluka}{' '}
+                        <FormattedMessage id="form1abstract.District" />: {this.props.district} */}
                       </Col>
                       <Col span={1}></Col>
                       <Col span={7}>

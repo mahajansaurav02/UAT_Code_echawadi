@@ -465,7 +465,7 @@ export default defineConfig({
           redirect: '/homepage',
         },
         {
-          name: 'गाव नमुना एक चा गोषवारा',
+          name: 'गाव नमुना एक चा गोषवारा (DYSLR)',
           icon: 'smile',
           path: '/form/dyslr-village-form-one',
           component: './form/dyslr-village-form-one',

@@ -58,7 +58,8 @@ export default {
   'form1abstract.Name': 'Name',
   'form1abstract.Talathi': 'Talathi',
   'form1abstract.clerk': 'Jamabandi Clerk',
-  'form1abstract.tahsildar': 'Tahsildar',
+  // 'form1abstract.tahsildar': 'Tahsildar',
+  'form1abstract.tahsildar': 'up Adhishak',
   'form1abstract.VillageName': 'Village Name',
   'form1abstract.TalukaName': 'Taluka Name',
   'form1abstract.District': 'District',
@@ -115,4 +116,17 @@ export default {
   'form1abstract.(mENG)': '(m)',
   'form1abstract.(nENG)': '(n)',
   'form1abstract.(oENG)': '(o)',
+
+  'form1abstract.section4.heading': '(IV) Land Register',
+  'form1abstract.section4.gaothan': 'Gaothan (Village Site)',
+  'form1abstract.section4.nadi': 'Rivers',
+  'form1abstract.section4.nale': 'Nalas',
+  'form1abstract.section4.raste': 'Roads',
+  'form1abstract.section4.bhumapanTotal': 'Total Area of Survey Number',
+  'form1abstract.section4.outsideGaothanTotal': 'Total Outside Gaothan',
+  'form1abstract.section4.gaothanTotal': 'Gaothan Total',
+
+  'form1abstract.dyslr.totalA': 'Total A (I + II)',
+  'form1abstract.dyslr.totalB': 'Total B (I + II + III)',
+  'form1abstract.dyslr.villageTotal': 'Village Total (Total A + Total B)',
 };

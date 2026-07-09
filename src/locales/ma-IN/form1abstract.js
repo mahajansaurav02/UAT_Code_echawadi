@@ -61,7 +61,8 @@ export default {
   // 'form1abstract.Talathi': 'तलाठी',
   'form1abstract.Talathi': 'ग्राम महसूल अधिकारी',
   'form1abstract.clerk': 'जमाबंदी लिपिक',
-  'form1abstract.tahsildar': ' तहसिलदार',
+  // 'form1abstract.tahsildar': ' तहसिलदार',
+  'form1abstract.tahsildar': 'उप अधीक्षक',
   'form1abstract.VillageName': 'मौजे',
   'form1abstract.TalukaName': 'तालुका',
   'form1abstract.District': 'जिल्हा',
@@ -120,4 +121,17 @@ export default {
   'form1abstract.(mENG)': '(म)',
   'form1abstract.(nENG)': '(न)',
   'form1abstract.(oENG)': '(ओ)',
+
+  'form1abstract.section4.heading': '(चार) जमिनींची नोंदवही',
+  'form1abstract.section4.gaothan': 'गावठाण',
+  'form1abstract.section4.nadi': 'नदी',
+  'form1abstract.section4.nale': 'नाले',
+  'form1abstract.section4.raste': 'रस्ते',
+  'form1abstract.section4.bhumapanTotal': 'भूमापन क्रमांक क्षेत्राची एकूण',
+  'form1abstract.section4.outsideGaothanTotal': 'गावठाणाबाहेरील एकूण',
+  'form1abstract.section4.gaothanTotal': 'गावठाण एकूण',
+
+  'form1abstract.dyslr.totalA': 'एकूण अ (एक + दोन)',
+  'form1abstract.dyslr.totalB': 'एकूण ब (एक + दोन + तीन)',
+  'form1abstract.dyslr.villageTotal': 'गावाची एकूण बेरीज (एकूण अ + एकूण ब)',
 };
