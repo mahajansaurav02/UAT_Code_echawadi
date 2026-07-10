@@ -76,8 +76,8 @@ const useAxios = () => {
 
   const refreshAccessToken = useCallback(async () => {
     try {
-      const refreshToken = getRefreshToken();
-      //const refreshToken = 'efe240e5-d201-4eea-8221-fe295fd174de';
+      //const refreshToken = getRefreshToken();
+      const refreshToken = '	cc2edefb-8fdf-407f-8d69-00285f245a78';
 
       if (!refreshToken) {
         console.log('No refresh token available. Redirecting to login.');
@@ -101,11 +101,11 @@ const useAxios = () => {
       }
     } catch (error) {
       alert('api gives 500 error. Session expired. Please login again.');
-      // localStorage.clear();
-      // Cookies.remove('token');
-      // Cookies.remove('refreshToken');
-      // message.error('Session expired. Please login again.');
-      // window.location.href = '/login';
+      localStorage.clear();
+      Cookies.remove('token');
+      Cookies.remove('refreshToken');
+      message.error('Session expired. Please login again.');
+      window.location.href = '/login';
 
       return null;
     }
@@ -113,7 +113,8 @@ const useAxios = () => {
 
   const sendRequest = useCallback(
     async (url, type = 'GET', reqData, callback, errorCallback) => {
-      const makeRequest = async (currentToken) => {
+      // const makeRequest = async (currentToken) => {
+      const makeRequest = async (currentToken, hasRetried = false) => {
         const tokenToUse = currentToken || localStorage.getItem('token');
         console.log('Headers used:', {
           echHost,
