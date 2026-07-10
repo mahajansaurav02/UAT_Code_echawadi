@@ -165,7 +165,7 @@ const useAxios = () => {
         } catch (error) {
           const statusCode = error.response?.status;
 
-          if (statusCode === 401 && !hasRetried) {
+          if (statusCode === 401 ) {
             if (!refreshPromiseRef.current) {
               refreshPromiseRef.current = refreshAccessToken().finally(() => {
                 refreshPromiseRef.current = null;

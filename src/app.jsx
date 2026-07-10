@@ -1185,7 +1185,7 @@ export const layout = ({ initialState }) => {
             component: './form/dysclr-form/village-form',
           },
           {
-            name: 'गाव नमुना एक चा गोषवारा (DYSLR)',
+            name: 'form 1 Abstractdyslr',
             icon: 'smile',
             path: '/form/dyslr-village-form-one',
             component: './form/dyslr-village-form-one',
@@ -1214,7 +1214,7 @@ export const layout = ({ initialState }) => {
           },
 
           {
-            name: 'गाव नमुना एक चा गोषवारा',
+            name: 'गाव नमुना एक चा गोषवारा (DYSLR)',
             icon: 'smile',
             path: '/reports/Dyslr-From-1-Abstract',
             component: './reports/Dyslr-From-1-Abstract',
@@ -1226,18 +1226,18 @@ export const layout = ({ initialState }) => {
             path: '/reports/village-form-1',
             component: './reports/village-form-1',
           },
-          {
-            name: 'Form 1 ODC',
-            icon: 'smile',
-            path: '/reports/Form1ODC',
-            component: './reports/Form1ODC',
-          },
-          {
-            name: 'Form 1 ODC Difference',
-            icon: 'smile',
-            path: '/reports/Form1ODC-Difference',
-            component: './reports/Form1ODC-Difference',
-          },
+          // {
+          //   name: 'Form 1 ODC',
+          //   icon: 'smile',
+          //   path: '/reports/Form1ODC',
+          //   component: './reports/Form1ODC',
+          // },
+          // {
+          //   name: 'Form 1 ODC Difference',
+          //   icon: 'smile',
+          //   path: '/reports/Form1ODC-Difference',
+          //   component: './reports/Form1ODC-Difference',
+          // },
           {
             name: 'Dyslr Entry Record',
             icon: 'smile',
@@ -1249,6 +1249,12 @@ export const layout = ({ initialState }) => {
             icon: 'smile',
             path: '/reports/Dyslr-Delete-Record',
             component: './reports/Dyslr-Delete-Record',
+          },
+          {
+            name: 'Dyslr Diff live',
+            icon: 'smile',
+            path: '/reports/Dyslr-Akarbndat-Changes',
+            component: './reports/Dyslr-Akarbndat-Changes',
           },
 
           {

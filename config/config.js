@@ -465,7 +465,7 @@ export default defineConfig({
           redirect: '/homepage',
         },
         {
-          name: 'गाव नमुना एक चा गोषवारा (DYSLR)',
+          name: 'form 1 Abstractdyslr',
           icon: 'smile',
           path: '/form/dyslr-village-form-one',
           component: './form/dyslr-village-form-one',
@@ -857,6 +857,12 @@ export default defineConfig({
           icon: 'smile',
           path: '/reports/Dyslr-Delete-Record',
           component: './reports/Dyslr-Delete-Record',
+        },
+        {
+          name: 'Dyslr Diff live',
+          icon: 'smile',
+          path: '/reports/Dyslr-Akarbndat-Changes',
+          component: './reports/Dyslr-Akarbndat-Changes',
         },
 
         // {
