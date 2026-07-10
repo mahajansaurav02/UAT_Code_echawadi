@@ -76,11 +76,11 @@ const useAxios = () => {
 
   const refreshAccessToken = useCallback(async () => {
     try {
-      //const refreshToken = getRefreshToken();
-      const refreshToken = '	cc2edefb-8fdf-407f-8d69-00285f245a78';
+      const refreshToken = getRefreshToken();
+      // const refreshToken = '24c83b02-7c6e-43fd-ae29-595b8cfc89b8';
 
       if (!refreshToken) {
-        console.log('No refresh token available. Redirecting to login.');
+        // console.log('No refresh token available. Redirecting to login.');
         return null;
       }
 
@@ -100,12 +100,12 @@ const useAxios = () => {
         return newAccessToken;
       }
     } catch (error) {
-      alert('api gives 500 error. Session expired. Please login again.');
-      localStorage.clear();
-      Cookies.remove('token');
-      Cookies.remove('refreshToken');
-      message.error('Session expired. Please login again.');
-      window.location.href = '/login';
+      // alert('api gives 500 error. Session expired. Please login again.');
+      // localStorage.clear();
+      // Cookies.remove('token');
+      // Cookies.remove('refreshToken');
+      // message.error('Session expired. Please login again.');
+      // window.location.href = '/login';
 
       return null;
     }

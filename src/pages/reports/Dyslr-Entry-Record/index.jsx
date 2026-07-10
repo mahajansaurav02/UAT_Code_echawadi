@@ -355,13 +355,10 @@ function Report() {
           totalPotkharabOfAll,
           totalAreaOfPathRoads,
         )}
-        finalAdditionForReport={additionHoilKaAtaTari(
-          additionHoilKaAtaTari(totalAreaOfAll, totalAreaOfPathRoads),
-          villageSite,
-        )}
+        finalAdditionForReport={additionHoilKaAtaTari(totalAreaOfAll, totalAreaOfPathRoads)}
         finalAdditionOfTotalPotKharaba={additionOfTotalPotkharaba(
-          additionOfTotalPotkharaba(totalPotkharabOfAll, totalAreaOfPathRoads),
-          villageSite,
+          totalPotkharabOfAll,
+          totalAreaOfPathRoads,
         )}
         totalArea={totalAreaOfAll}
         totalForArea={totalAreaOfPathRoads}
@@ -376,18 +373,6 @@ function Report() {
         prebagayatAreaA={prebagayatAreaA}
         pretariAreaA={pretariAreaA}
         otherAreaA={otherAreaA}
-        totalOfNonSurveyArea={(
-          (parseFloat(villageSite) || 0) +
-          (parseFloat(river) || 0) +
-          (parseFloat(nalas) || 0) +
-          (parseFloat(roadAndPath) || 0)
-        ).toFixed(2)}
-        villageGrandTotalArea={(
-          (parseFloat(totalAreaOfAll) || 0) + (parseFloat(villageSite) || 0)
-        ).toFixed(2)}
-        villageGrandTotalDeducted={(
-          (parseFloat(totalPotKharabAreaAdditionAll) || 0) + (parseFloat(villageSite) || 0)
-        ).toFixed(2)}
       />
     </div>
   );
@@ -840,8 +825,10 @@ class ComponentToPrint extends React.Component {
                       <td>
                         <FormattedMessage id="formLanguage.form.river" />
                       </td>
-                      <td></td>
-                      <td></td>
+                      <td>{this.props.river}</td>
+                      <td>
+                        <FormattedMessage id="formLanguage.form.river" />
+                      </td>
                       <td>{this.props.river}</td>
                       <td></td>
                       <td></td>
@@ -864,8 +851,10 @@ class ComponentToPrint extends React.Component {
                       <td>
                         <FormattedMessage id="formLanguage.form.nala" />
                       </td>
-                      <td></td>
-                      <td></td>
+                      <td>{this.props.nalas}</td>
+                      <td>
+                        <FormattedMessage id="formLanguage.form.nala" />
+                      </td>
                       <td>{this.props.nalas}</td>
                       <td></td>
                       <td></td>
@@ -888,8 +877,10 @@ class ComponentToPrint extends React.Component {
                       <td>
                         <FormattedMessage id="formLanguage.form.road" />
                       </td>
-                      <td></td>
-                      <td></td>
+                      <td>{this.props.roadAndPath}</td>
+                      <td>
+                        <FormattedMessage id="formLanguage.form.road" />
+                      </td>
                       <td>{this.props.roadAndPath}</td>
                       <td></td>
                       <td></td>
@@ -915,11 +906,11 @@ class ComponentToPrint extends React.Component {
                         </b>
                       </td>
                       <td>
-                        <b>{this.props.totalOfNonSurveyArea}</b>
+                        <b>{this.props.totalForArea}</b>
                       </td>
                       <td></td>
                       <td>
-                        <b>{this.props.totalOfNonSurveyArea}</b>
+                        <b>{this.props.totalForArea}</b>
                       </td>
                       <td></td>
                       <td></td>
@@ -945,11 +936,11 @@ class ComponentToPrint extends React.Component {
                         </b>
                       </td>
                       <td>
-                        <b>{this.props.totalArea}</b>
+                        <b>{this.props.additionOfTotalArea}</b>
                       </td>
                       <td></td>
                       <td>
-                        <b>{this.props.totalPotkharabArea}</b>
+                        <b>{this.props.additionOfTotalPotkharaba}</b>
                       </td>
                       <td></td>
                       <td></td>
@@ -1005,11 +996,11 @@ class ComponentToPrint extends React.Component {
                         </b>
                       </td>
                       <td>
-                        <b>{this.props.villageGrandTotalArea}</b>
+                        <b>{this.props.finalAdditionForReport}</b>
                       </td>
                       <td></td>
                       <td>
-                        <b>{this.props.villageGrandTotalDeducted}</b>
+                        <b>{this.props.finalAdditionOfTotalPotKharaba}</b>
                       </td>
                       <td></td>
                       <td></td>
