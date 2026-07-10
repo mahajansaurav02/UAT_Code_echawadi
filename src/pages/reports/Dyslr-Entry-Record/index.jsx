@@ -96,26 +96,26 @@ function Report() {
   const getFooterData = async () => {
     setLoading(true);
     sendRequest(
-      `${URLS.BaseURL}/form1/getForm1ReportFooter?districtCode=${districtCode}&talukaCode=${talukaCode}&cCode=${codeVillage}`,
+      `${
+        URLS.BaseURL
+      }/form1Dyslr/getDyslrForm1ReportFooter?cCode=${codeVillage}&districtCode=${districtCode}&talukaCode=${talukaCode}${
+        revenueYear ? `&revenueYear=${revenueYear}` : ''
+      }`,
       'GET',
       null,
       (res) => {
-        setVillageSite(res.data[0].villageSite);
-        setRiver(res.data[0].riversNalas);
-        setNalas(res.data[0].nalas);
-        setRoadAndPath(res.data[0].roadsAndPath);
-        setPrevRoadsAndPath(
-          parseFloat(res.data[0].riversNalas) +
-            parseFloat(res.data[0].nalas) +
-            parseFloat(res.data[0].roadsAndPath),
-        );
-
-        // getFirstTotalArea(
-        //   res.data[0].villageSite,
-        //   res.data[0].riversNalas,
-        //   res.data[0].nalas,
-        //   res.data[0].roadsAndPath,
-        // );
+        const footerData = res.data?.[0];
+        if (footerData) {
+          setVillageSite(footerData.villageSite);
+          setRiver(footerData.riversNalas);
+          setNalas(footerData.nalas);
+          setRoadAndPath(footerData.roadsAndPath);
+          setPrevRoadsAndPath(
+            parseFloat(footerData.riversNalas) +
+              parseFloat(footerData.nalas) +
+              parseFloat(footerData.roadsAndPath),
+          );
+        }
       },
     );
     setLoading(false);
@@ -315,7 +315,7 @@ function Report() {
             if (textForVillage) {
               // getHeaderData();
               getTableData();
-              // getFooterData();
+              getFooterData();
             } else if (textForVillage == null) {
               message.info('Please Select Village');
             }
@@ -376,6 +376,18 @@ function Report() {
         prebagayatAreaA={prebagayatAreaA}
         pretariAreaA={pretariAreaA}
         otherAreaA={otherAreaA}
+        totalOfNonSurveyArea={(
+          (parseFloat(villageSite) || 0) +
+          (parseFloat(river) || 0) +
+          (parseFloat(nalas) || 0) +
+          (parseFloat(roadAndPath) || 0)
+        ).toFixed(2)}
+        villageGrandTotalArea={(
+          (parseFloat(totalAreaOfAll) || 0) + (parseFloat(villageSite) || 0)
+        ).toFixed(2)}
+        villageGrandTotalDeducted={(
+          (parseFloat(totalPotKharabAreaAdditionAll) || 0) + (parseFloat(villageSite) || 0)
+        ).toFixed(2)}
       />
     </div>
   );
@@ -728,67 +740,301 @@ class ComponentToPrint extends React.Component {
                       </tr>
                     ))}
 
-                <tr colSpan="11">
-                  <td>
-                    <b>
-                      <FormattedMessage id="formLanguage.form.total" />
-                    </b>
-                  </td>
-                  <td>
-                    {/* <b>
-                      <FormattedMessage id="formLanguage.form.gavthan" />
-                    </b> */}
-                  </td>
-                  <td>
-                    <b>{this.props.totalArea}</b>
-                  </td>
-                  <td></td>
-                  <td>
-                    <b>{this.props.totalPotkharabArea}</b>
-                  </td>
-                  <td>
-                    <b>{this.props.prejirayatArea.toFixed(2)}</b>
-                  </td>
-                  <td>
-                    <b>{this.props.prebagayatArea.toFixed(2)}</b>
-                  </td>
+                {this.props.dataToMap && (
+                  <>
+                    <tr colSpan="11">
+                      <td>
+                        <b>
+                          <FormattedMessage id="formLanguage.form.total" />
+                        </b>
+                      </td>
+                      <td>
+                        <b>
+                          <FormattedMessage id="formLanguage.form.gavthan" />
+                        </b>
+                      </td>
+                      <td>
+                        <b>{this.props.totalArea}</b>
+                      </td>
+                      <td></td>
+                      <td>
+                        <b>{this.props.totalPotkharabArea}</b>
+                      </td>
+                      <td>
+                        <b>{this.props.prejirayatArea.toFixed(2)}</b>
+                      </td>
+                      <td>
+                        <b>{this.props.prebagayatArea.toFixed(2)}</b>
+                      </td>
 
-                  <td>
-                    <b>{this.props.pretariArea.toFixed(2)}</b>
-                  </td>
+                      <td>
+                        <b>{this.props.pretariArea.toFixed(2)}</b>
+                      </td>
 
-                  <td>
-                    <b>{this.props.otherArea.toFixed(2)}</b>
-                  </td>
+                      <td>
+                        <b>{this.props.otherArea.toFixed(2)}</b>
+                      </td>
 
-                  <td>
-                    <b>{this.props.netCultiArea}</b>
-                  </td>
-                  <td>
-                    {' '}
-                    <b>{this.props.prejirayatAreaA.toFixed(2)}</b>
-                  </td>
+                      <td>
+                        <b>{this.props.netCultiArea}</b>
+                      </td>
+                      <td>
+                        {' '}
+                        <b>{this.props.prejirayatAreaA.toFixed(2)}</b>
+                      </td>
 
-                  <td>
-                    <b>{this.props.prebagayatAreaA.toFixed(2)}</b>
-                  </td>
+                      <td>
+                        <b>{this.props.prebagayatAreaA.toFixed(2)}</b>
+                      </td>
 
-                  <td>
-                    <b>{this.props.pretariAreaA.toFixed(2)}</b>
-                  </td>
+                      <td>
+                        <b>{this.props.pretariAreaA.toFixed(2)}</b>
+                      </td>
 
-                  <td>
-                    {' '}
-                    <b>{this.props.otherAreaA.toFixed(2)}</b>
-                  </td>
+                      <td>
+                        {' '}
+                        <b>{this.props.otherAreaA.toFixed(2)}</b>
+                      </td>
 
-                  <td>
-                    {/* <b>{this.props.netAssessment}</b> */}
-                    <b>{this.props.netAssessment == 'NaN' ? '0.00' : this.props.netAssessment}</b>
-                  </td>
+                      <td>
+                        {/* <b>{this.props.netAssessment}</b> */}
+                        <b>
+                          {this.props.netAssessment == 'NaN' ? '0.00' : this.props.netAssessment}
+                        </b>
+                      </td>
 
-                  <td colSpan={8}></td>
-                </tr>
+                      <td colSpan={5}></td>
+                    </tr>
+
+                    <tr>
+                      <td colSpan={20}>&nbsp;</td>
+                    </tr>
+
+                    {/* --- FOOTER: जमिनींची नोंदवही (from getDyslrForm1ReportFooter) --- */}
+                    <tr>
+                      <td></td>
+                      <td>
+                        <FormattedMessage id="formLanguage.form.gaothan" />
+                      </td>
+                      <td>{this.props.villageSite}</td>
+                      <td></td>
+                      <td>{this.props.villageSite}</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>
+                        <FormattedMessage id="formLanguage.form.river" />
+                      </td>
+                      <td></td>
+                      <td></td>
+                      <td>{this.props.river}</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>
+                        <FormattedMessage id="formLanguage.form.nala" />
+                      </td>
+                      <td></td>
+                      <td></td>
+                      <td>{this.props.nalas}</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>
+                        <FormattedMessage id="formLanguage.form.road" />
+                      </td>
+                      <td></td>
+                      <td></td>
+                      <td>{this.props.roadAndPath}</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>
+                        <b>
+                          <FormattedMessage id="formLanguage.form.nonSurveyTotal" />
+                        </b>
+                      </td>
+                      <td>
+                        <b>{this.props.totalOfNonSurveyArea}</b>
+                      </td>
+                      <td></td>
+                      <td>
+                        <b>{this.props.totalOfNonSurveyArea}</b>
+                      </td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>
+                        <b>
+                          <FormattedMessage id="formLanguage.form.outsideGaothanTotal" />
+                        </b>
+                      </td>
+                      <td>
+                        <b>{this.props.totalArea}</b>
+                      </td>
+                      <td></td>
+                      <td>
+                        <b>{this.props.totalPotkharabArea}</b>
+                      </td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>
+                        <b>
+                          <FormattedMessage id="formLanguage.form.gaothanTotal" />
+                        </b>
+                      </td>
+                      <td>
+                        <b>{this.props.villageSite}</b>
+                      </td>
+                      <td></td>
+                      <td>
+                        <b>{this.props.villageSite}</b>
+                      </td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>
+                        <b>
+                          <FormattedMessage id="formLanguage.form.villageGrandTotal" />
+                        </b>
+                      </td>
+                      <td>
+                        <b>{this.props.villageGrandTotalArea}</b>
+                      </td>
+                      <td></td>
+                      <td>
+                        <b>{this.props.villageGrandTotalDeducted}</b>
+                      </td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>
+                        <b>{this.props.netCultiArea}</b>
+                      </td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>
+                        <b>
+                          {this.props.netAssessment == 'NaN' ? '0.00' : this.props.netAssessment}
+                        </b>
+                      </td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </>
+                )}
               </tbody>
             </table>
           </Card>
