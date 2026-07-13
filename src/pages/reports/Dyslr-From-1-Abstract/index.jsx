@@ -108,7 +108,7 @@ function DyslrForm1AbstractReport() {
       talukaCode,
     );
     sendRequest(
-      `${URLS.BaseURL}/form1Abstract/getForm1AbstractReportDyslr?districtCode=${districtCode}&talukaCode=${talukaCode}&cCode=${cCodeToUse}`,
+      `${URLS.BaseURL}/form1Dyslr/getForm1AbstractReportDyslr?districtCode=${districtCode}&talukaCode=${talukaCode}&cCode=${cCodeToUse}`,
       'GET',
       null,
       (res) => {
@@ -348,6 +348,12 @@ function DyslrForm1AbstractReport() {
 }
 class ComponentToPrint extends React.Component {
   render() {
+
+    const formatSum = (...values) => {
+      const total = values.reduce((acc, val) => acc + (parseFloat(val) || 0), 0);
+      return total === 0 ? '' : total.toFixed(2);
+    };
+
     return (
       <div style={{ padding: '13px' }}>
         <div className="report">
@@ -539,8 +545,10 @@ class ComponentToPrint extends React.Component {
                       </u>
                     </b>
                   </td>
-                  <td>{this.props.totalOfA1 + this.props.totalOfA2}</td>
-                  <td>{this.props.totalOfA1Assessment + this.props.totalOfA2Assesment}</td>
+                  {/* <td>{this.props.totalOfA1 + this.props.totalOfA2}</td>
+                  <td>{this.props.totalOfA1Assessment + this.props.totalOfA2Assesment}</td> */}
+                  <td>{formatSum(this.props.totalOfA1, this.props.totalOfA2)}</td>
+                  <td>{formatSum(this.props.totalOfA1Assessment, this.props.totalOfA2Assesment)}</td>
                   <td></td>
                 </tr>
                 <tr>
@@ -571,7 +579,8 @@ class ComponentToPrint extends React.Component {
                     <FormattedMessage id="form1abstract.rivers" /> व{' '}
                     <FormattedMessage id="form1abstract.Nallas" />
                   </td>
-                  <td>{this.props.riversArea + this.props.nalasArea}</td>
+                  {/* <td>{this.props.riversArea + this.props.nalasArea}</td> */}
+                  <td>{formatSum(this.props.riversArea, this.props.nalasArea)}</td>
                   <td>{}</td>
                   <td>{}</td>
                 </tr>
@@ -759,11 +768,12 @@ class ComponentToPrint extends React.Component {
                     </b>
                   </td>
                   <td>
-                    {this.props.totalOfB1 + this.props.totalOfB2 + this.props.totalOfB3 === ''
+                    {/* {this.props.totalOfB1 + this.props.totalOfB2 + this.props.totalOfB3 === ''
                       ? '0'
                       : parseFloat(
                           this.props.totalOfB1 + this.props.totalOfB2 + this.props.totalOfB3,
-                        )}
+                        )} */}
+                  {formatSum(this.props.totalOfB1, this.props.totalOfB2, this.props.totalOfB3)}
                   </td>
                   <td>{this.props.totalOfB1Assessment}</td>
                   <td></td>
@@ -822,14 +832,20 @@ class ComponentToPrint extends React.Component {
                     </b>
                   </td>
                   <td>
-                    {Math.round(
+                    {/* {Math.round(
                       (this.props.footerVillageSite +
                         this.props.footerRiversNalas +
                         this.props.footerNalas +
                         this.props.footerRoadsAndPath +
                         Number.EPSILON) *
                         100,
-                    ) / 100}
+                    ) / 100} */}
+                    {formatSum(
+                    this.props.footerVillageSite,
+                    this.props.footerRiversNalas,
+                    this.props.footerNalas,
+                    this.props.footerRoadsAndPath
+                    )}
                   </td>
                   <td></td>
                   <td></td>
@@ -841,13 +857,18 @@ class ComponentToPrint extends React.Component {
                     </b>
                   </td>
                   <td>
-                    {Math.round(
+                    {/* {Math.round(
                       (this.props.footerRiversNalas +
                         this.props.footerNalas +
                         this.props.footerRoadsAndPath +
                         Number.EPSILON) *
                         100,
-                    ) / 100}
+                    ) / 100} */}
+                    {formatSum(
+                      this.props.footerRiversNalas,
+                      this.props.footerNalas,
+                      this.props.footerRoadsAndPath
+                    )}
                   </td>
                   <td></td>
                   <td></td>
@@ -873,7 +894,7 @@ class ComponentToPrint extends React.Component {
                     </b>
                   </td>
                   <td>
-                    {this.props.totalOfA1 +
+                    {/* {this.props.totalOfA1 +
                       this.props.totalOfA2 +
                       this.props.totalOfB1 +
                       this.props.totalOfB2 +
@@ -883,10 +904,17 @@ class ComponentToPrint extends React.Component {
                       : parseFloat(this.props.totalOfA1 + this.props.totalOfA2) +
                         parseFloat(
                           this.props.totalOfB1 + this.props.totalOfB2 + this.props.totalOfB3,
+                        )} */}
+                        {formatSum(
+                          this.props.totalOfA1,
+                          this.props.totalOfA2,
+                          this.props.totalOfB1,
+                          this.props.totalOfB2,
+                          this.props.totalOfB3
                         )}
                   </td>
                   <td>
-                    {parseFloat(
+                    {/* {parseFloat(
                       this.props.totalOfA1Assessment == '' ? 0 : this.props.totalOfA1Assessment,
                     ) +
                       parseFloat(
@@ -915,7 +943,12 @@ class ComponentToPrint extends React.Component {
                             ) +
                             Number.EPSILON) *
                             100,
-                        ) / 100}
+                        ) / 100} */}
+                        {formatSum(
+                          this.props.totalOfA1Assessment,
+                          this.props.totalOfA2Assesment,
+                          this.props.totalOfB1Assessment
+                        )}
                   </td>
                   <td></td>
                 </tr>

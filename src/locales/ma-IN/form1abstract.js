@@ -1,5 +1,5 @@
 export default {
-  'form1abstract.heading': 'गाव नमुना एक चा गोषवारा(तेरीज)',
+  'form1abstract.heading': 'गाव नमुना एक चा गोषवारा(तेरीज) DYSLR',
   'form1abstract.B': '(भाग ब)',
   'form1abstract.area': 'क्षेत्र',
   'form1abstract.assessment': 'आकारणी',

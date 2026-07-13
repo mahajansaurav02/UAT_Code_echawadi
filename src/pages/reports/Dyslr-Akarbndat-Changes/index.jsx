@@ -409,24 +409,24 @@ class ComponentToPrint extends React.Component {
                   </th>
                   <th>
                     धारणा प्रकार <span style={{ color: '#8C92AC' }}>(DYSLR फरक)</span>{' '}
-                    <span style={{ color: '#FF8F00' }}>(Live फरक)</span>
+                    <span style={{ color: '#FF8F00' }}>(Live 7/12)</span>
                   </th>
                   <th>
                     एकूण क्षेत्र<span style={{ color: '#8C92AC' }}>(DYSLR फरक)</span>{' '}
-                    <span style={{ color: '#FF8F00' }}>(Live फरक)</span>
+                    <span style={{ color: '#FF8F00' }}>(Live 7/12)</span>
                   </th>
                   <th>पोट खराब प्रकार फरक </th>
                   <th>
                     पोट खराब क्षेत्र<span style={{ color: '#8C92AC' }}>(DYSLR फरक)</span>{' '}
-                    <span style={{ color: '#FF8F00' }}>(Live फरक)</span>
+                    <span style={{ color: '#FF8F00' }}>(Live 7/12)</span>
                   </th>
                   <th>
                     निव्वळ लागवड योग्य क्षेत्र <span style={{ color: '#8C92AC' }}>(DYSLR फरक)</span>{' '}
-                    <span style={{ color: '#FF8F00' }}>(Live फरक)</span>
+                    <span style={{ color: '#FF8F00' }}>(Live 7/12)</span>
                   </th>
                   <th>
                     कृषिक आकारणीतील फरक <span style={{ color: '#8C92AC' }}>(DYSLR फरक)</span>{' '}
-                    <span style={{ color: '#FF8F00' }}>(Live फरक)</span>
+                    <span style={{ color: '#FF8F00' }}>(Live 7/12)</span>
                   </th>
                 </tr>
 

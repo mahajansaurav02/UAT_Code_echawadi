@@ -13,12 +13,33 @@ import { useModel } from 'umi';
 import { FormattedMessage } from 'umi';
 import ReactHtmlTableToExcel from 'react-html-table-to-excel';
 
+// Utility functions for safe parsing
+const safeParseFloat = (value) => {
+  if (value === null || value === undefined || value === '' || value === 'NaN') {
+    return 0;
+  }
+  const parsed = parseFloat(value);
+  return isNaN(parsed) ? 0 : parsed;
+};
+
+const safeAddition = (...values) => {
+  return values.reduce((sum, val) => sum + safeParseFloat(val), 0);
+};
+
+const safeToString = (value) => {
+  if (value === null || value === undefined) return '0';
+  return String(value);
+};
+
+const safeToFixed = (value, decimals = 4) => {
+  const num = safeParseFloat(value);
+  return num.toFixed(decimals);
+};
+
 var prevTotalArea = 0.0,
   prevAssessment = 0,
   prevNetCultiArea = 0,
   prevTotalPotKharabArea = 0;
-
-// prevRoadsAndPath = 0;
 
 function Report() {
   const { districtName, talukaName, districtCode, talukaCode } = useModel('details');
@@ -79,14 +100,14 @@ function Report() {
       'GET',
       null,
       (res) => {
-        setRiceRate(res.data[0].rice_rate);
-        setSettlementYear(res.data[0].settlementYear);
-        setSettlementExpiry(res.data[0].settlementExp);
-        setGardenRate(res.data[0].garden_rate);
-        setSurveyGroup(res.data[0].survey_group);
-        setDateInstallment(res.data[0].date_inst);
-        setDryRate(res.data[0].dry_rate);
-        setWarkasRate(res.data[0].warkas_rate);
+        setRiceRate(res.data[0]?.rice_rate || 0);
+        setSettlementYear(res.data[0]?.settlementYear || '');
+        setSettlementExpiry(res.data[0]?.settlementExp || '');
+        setGardenRate(res.data[0]?.garden_rate || 0);
+        setSurveyGroup(res.data[0]?.survey_group || '');
+        setDateInstallment(res.data[0]?.date_inst || '');
+        setDryRate(res.data[0]?.dry_rate || 0);
+        setWarkasRate(res.data[0]?.warkas_rate || 0);
       },
     );
 
@@ -96,24 +117,20 @@ function Report() {
   const getFooterData = async () => {
     setLoading(true);
     sendRequest(
-      `${
-        URLS.BaseURL
-      }/form1Dyslr/getDyslrForm1ReportFooter?cCode=${codeVillage}&districtCode=${districtCode}&talukaCode=${talukaCode}${
-        revenueYear ? `&revenueYear=${revenueYear}` : ''
+      `${URLS.BaseURL
+      }/form1Dyslr/getDyslrForm1ReportFooter?cCode=${codeVillage}&districtCode=${districtCode}&talukaCode=${talukaCode}${revenueYear ? `&revenueYear=${revenueYear}` : ''
       }`,
       'GET',
       null,
       (res) => {
         const footerData = res.data?.[0];
         if (footerData) {
-          setVillageSite(footerData.villageSite);
-          setRiver(footerData.riversNalas);
-          setNalas(footerData.nalas);
-          setRoadAndPath(footerData.roadsAndPath);
+          setVillageSite(safeParseFloat(footerData.villageSite));
+          setRiver(footerData.riversNalas || 0);
+          setNalas(footerData.nalas || 0);
+          setRoadAndPath(footerData.roadsAndPath || 0);
           setPrevRoadsAndPath(
-            parseFloat(footerData.riversNalas) +
-              parseFloat(footerData.nalas) +
-              parseFloat(footerData.roadsAndPath),
+            safeAddition(footerData.riversNalas, footerData.nalas, footerData.roadsAndPath)
           );
         }
       },
@@ -122,11 +139,28 @@ function Report() {
   };
 
   useEffect(() => {
-    (prevTotalArea = 0), (prevAssessment = 0), (prevNetCultiArea = 0), (prevTotalPotKharabArea = 0);
+    prevTotalArea = 0;
+    prevAssessment = 0;
+    prevNetCultiArea = 0;
+    prevTotalPotKharabArea = 0;
   }, []);
 
   const getTableData = async () => {
-    (prevTotalArea = 0), (prevAssessment = 0), (prevNetCultiArea = 0), (prevTotalPotKharabArea = 0);
+    prevTotalArea = 0;
+    prevAssessment = 0;
+    prevNetCultiArea = 0;
+    prevTotalPotKharabArea = 0;
+    
+    // Reset state values
+    setPrejirayatArea(0);
+    setPrebagayatArea(0);
+    setPretariArea(0);
+    setPreotherArea(0);
+    setPrejirayatAreaA(0);
+    setPrebagayatAreaA(0);
+    setPretariAreaA(0);
+    setPreotherAreaA(0);
+    
     setLoading(true);
 
     sendRequest(
@@ -137,71 +171,72 @@ function Report() {
         let potkharabaTypeInt;
         let cultivableAreaInt;
         let naAgriAssesment;
-        //console.log(r.data.form1DyslrData, '---------------->');
-        // console.log('test for pot', cultivableAreaInt, 'type', potkharabaTypeInt);
 
-        r.data.form1DyslrData.map((d) => {
-          setPrejirayatArea((p) => p + parseFloat(d.jirayatArea != null ? d.jirayatArea : 0));
-          setPrebagayatArea((p) => p + parseFloat(d.bagayatArea != null ? d.bagayatArea : 0));
-          setPretariArea((p) => p + parseFloat(d.tariArea != null ? d.tariArea : 0));
-          setPreotherArea((p) => p + parseFloat(d.otherArea != null ? d.otherArea : 0));
+        // Reset accumulators for this request
+        let totalJirayat = 0;
+        let totalBagayat = 0;
+        let totalTari = 0;
+        let totalOther = 0;
+        let totalJirayatA = 0;
+        let totalBagayatA = 0;
+        let totalTariA = 0;
+        let totalOtherA = 0;
 
-          setPrejirayatAreaA(
-            (p) => p + parseFloat(d.jirayatAssessment != null ? d.jirayatAssessment : 0),
-          );
-          setPrebagayatAreaA(
-            (p) => p + parseFloat(d.bagayatAssessment != null ? d.bagayatAssessment : 0),
-          );
-          setPretariAreaA((p) => p + parseFloat(d.tariAssessment != null ? d.tariAssessment : 0));
-          setPreotherAreaA(
-            (p) => p + parseFloat(d.otherAssessment != null ? d.otherAssessment : 0),
-          );
+        r.data.form1DyslrData.forEach((d) => {
+          totalJirayat += safeParseFloat(d.jirayatArea);
+          totalBagayat += safeParseFloat(d.bagayatArea);
+          totalTari += safeParseFloat(d.tariArea);
+          totalOther += safeParseFloat(d.otherArea);
+          totalJirayatA += safeParseFloat(d.jirayatAssessment);
+          totalBagayatA += safeParseFloat(d.bagayatAssessment);
+          totalTariA += safeParseFloat(d.tariAssessment);
+          totalOtherA += safeParseFloat(d.otherAssessment);
         });
+
+        // Update state with accumulated values
+        setPrejirayatArea(totalJirayat);
+        setPrebagayatArea(totalBagayat);
+        setPretariArea(totalTari);
+        setPreotherArea(totalOther);
+        setPrejirayatAreaA(totalJirayatA);
+        setPrebagayatAreaA(totalBagayatA);
+        setPretariAreaA(totalTariA);
+        setPreotherAreaA(totalOtherA);
 
         setTableData(
           r.data.form1DyslrData.map((r) => ({
             id: r.id,
-            // surveyHissaNo:
-            //   r.hissaNo == null || r.hissaNo.trim() == '' ? r.pin : r.pin + '/' + r.hissaNo,
             surveyHissaNo: (() => {
               let pinValue = r.pin != null ? String(r.pin) : '';
               let hissaValue = r.hissaNo != null ? String(r.hissaNo).trim() : '';
               let val = hissaValue === '' ? pinValue : pinValue + '/' + hissaValue;
               return val.replace(/\/\/+/g, '');
             })(),
-            designation: r.designation,
-            totalAreaH: r.totalAreaH,
-            tenureName: r.tenureName,
-            netCultiAreaH: r.netCultiAreaH,
-            naAssessment: naAgriAssesment,
-            assessment: r.assessment,
-            publicRightsOfWayAndEasements: r.publicRightsOfWayAndEasements,
-            particularsOfAlteration: r.particularsOfAlteration,
-            orderSanctioningChanges: r.orderNo,
-            orderDate: r.orderDate,
-            remarks: r.remarks,
-            potkharabaType: r.potkharabaType /*  getPotkharabaType(
-              r.potkharabaAH ? r.potkharabaAH : '0.0000',
-              r.potkharabaBH ? r.potkharabaBH : '0.0000',
-            ), */,
-            cultivableAreaInt: r.cultivableAreaInt,
-            jirayatArea: r.jirayatArea,
-            jirayatAssessment: r.jirayatAssessment,
-            bagayatArea: r.bagayatArea,
-            bagayatAssessment: r.bagayatAssessment,
-            tariArea: r.tariArea,
-
-            tariAssessment: r.tariAssessment,
-            otherArea: r.otherArea,
-            otherAssessment: r.otherAssessment,
-            /*  getPotkharabaTypeAr(
-              // r.potkharabaAH === '0.0000' ? '0' :
-              r.potkharabaAH,
-              // r.potkharabaBH === '0.0000' ? '0' :
-              r.potkharabaBH,
-            ), */
-            naAgriAssesment:
-              r.naAssessment != null || r.naAssessment > 0 ? r.naAssessment : r.assessment,
+            designation: r.designation || 0,
+            totalAreaH: safeToString(r.totalAreaH),
+            tenureName: r.tenureName ? r.tenureName : '',
+            netCultiAreaH: safeToString(r.netCultiAreaH),
+            naAssessment: naAgriAssesment || 0,
+            assessment: safeParseFloat(r.assessment),
+            publicRightsOfWayAndEasements: r.publicRightsOfWayAndEasements || 0,
+            particularsOfAlteration: r.particularsOfAlteration ? r.particularsOfAlteration : '',
+            orderSanctioningChanges: r.orderNo ? r.orderNo : '',
+            orderDate: r.orderDate ? r.orderDate : '',
+            remarks: r.remarks ? r.remarks : '',
+            potkharabaType: getPotkharabaType(
+              safeToString(r.potkharabaAH),
+              safeToString(r.potkharabaBH),
+            ),
+            cultivableAreaInt: safeToString(r.cultivableAreaInt),
+            jirayatArea: safeToString(r.jirayatArea),
+            jirayatAssessment: safeToString(r.jirayatAssessment),
+            bagayatArea: safeToString(r.bagayatArea),
+            bagayatAssessment: safeToString(r.bagayatAssessment),
+            tariArea: safeToString(r.tariArea),
+            tariAssessment: safeToString(r.tariAssessment),
+            otherArea: safeToString(r.otherArea),
+            otherAssessment: safeToString(r.otherAssessment),
+            naAgriAssesment: safeParseFloat(r.naAssessment) > 0 ? safeParseFloat(r.naAssessment) : safeParseFloat(r.assessment),
             allTotal: getTotalAreaAssess(
               r.totalAreaH,
               r.cultivableAreaInt,
@@ -213,80 +248,40 @@ function Report() {
         );
         setLoading(false);
       },
-      //'ERROR',
       (err) => {
         setLoading(false);
-
-        // console.log(err);
+        console.error('Error fetching data:', err);
+        message.error('Failed to fetch records');
       },
     );
-    // console.log('potKharabArea', prevTotalPotKharabArea);
   };
+
   const changeLang = () => {
     getlang('M');
   };
 
-  var totalAreaAddition = prevTotalArea.toFixed(4).substring(prevTotalArea.length - 2);
-  var totalAreaOfAll = totalAreaAddition
-    .substring(0, totalAreaAddition.length - 2)
-    .concat('.')
-    .concat(totalAreaAddition.substring(totalAreaAddition.length - 2));
+  // Safe formatting functions
+  const formatArea = (value) => {
+    const num = safeParseFloat(value);
+    const str = num.toFixed(4);
+    return str;
+  };
 
-  var totalAreaPathRoad = prevRoadsAndPath.toFixed(4).substring(prevRoadsAndPath.length - 2);
-  var totalAreaOfPathRoads = totalAreaPathRoad
-    .substring(0, totalAreaPathRoad.length - 2)
-    .concat('.')
-    .concat(totalAreaPathRoad.substring(totalAreaPathRoad.length - 2));
-
-  var totalPotkharabAddition = prevTotalPotKharabArea
-    .toFixed(4)
-    .substring(prevTotalPotKharabArea.length - 2);
-  var totalPotkharabOfAll = totalPotkharabAddition
-    .substring(0, totalPotkharabAddition.length - 2)
-    .concat('.')
-    .concat(totalPotkharabAddition.substring(totalPotkharabAddition.length - 2));
-
-  var totalCultiAreaAddition = prevNetCultiArea.toFixed(4).substring(prevNetCultiArea.length - 2);
-  var totalNetCultiAreaOfAll = totalCultiAreaAddition
-    .substring(0, totalCultiAreaAddition.length - 2)
-    .concat('.')
-    .concat(totalCultiAreaAddition.substring(totalCultiAreaAddition.length - 2));
+  // Recalculate all totals safely
+  const totalAreaOfAll = formatArea(prevTotalArea);
+  const totalAreaOfPathRoads = formatArea(prevRoadsAndPath);
+  const totalPotkharabOfAll = formatArea(prevTotalPotKharabArea);
+  const totalNetCultiAreaOfAll = formatArea(prevNetCultiArea);
 
   function additionHoilKaAtaTari(param1, param2) {
-    // console.log('param1', param1);
-    // console.log('param2', param2);
-    let param3 = parseFloat(param1) + parseFloat(param2);
-    var param4 = param3.toFixed(4).substring(param3.length - 2);
-    var param5 = param4
-      .substring(0, param4.length - 2)
-      .concat('.')
-      .concat(param4.substring(param4.length - 2));
-    return param5;
+    return safeToFixed(safeParseFloat(param1) + safeParseFloat(param2), 4);
   }
 
   function additionOfTotalPotkharaba(param1, param2) {
-    let param3 = parseFloat(param1) + parseFloat(param2);
-    var param4 = param3.toFixed(4).substring(param3.length - 2);
-    var param5 = param4
-      .substring(0, param4.length - 2)
-      .concat('.')
-      .concat(param4.substring(param4.length - 2));
-    return param5;
+    return safeToFixed(safeParseFloat(param1) + safeParseFloat(param2), 4);
   }
 
-  var totalCultiAreaAddition = prevNetCultiArea.toFixed(4).substring(prevNetCultiArea.length - 2);
-  var totalNetCultiAreaOfAll = totalCultiAreaAddition
-    .substring(0, totalCultiAreaAddition.length - 2)
-    .concat('.')
-    .concat(totalCultiAreaAddition.substring(totalCultiAreaAddition.length - 2));
-
-  var totalPotKharabAreaAddition = prevTotalPotKharabArea
-    .toFixed(4)
-    .substring(prevTotalPotKharabArea.length - 2);
-  var totalPotKharabAreaAdditionAll = totalPotKharabAreaAddition
-    .substring(0, totalPotKharabAreaAddition.length - 2)
-    .concat('.')
-    .concat(totalPotKharabAreaAddition.substring(totalPotKharabAreaAddition.length - 2));
+  const totalPotKharabAreaAdditionAll = formatArea(prevTotalPotKharabArea);
 
   return (
     <div>
@@ -300,7 +295,6 @@ function Report() {
             <FormattedMessage id="villageReport1.button.home" />
           </Button>
         </div>
-        {/* <Row style={{ marginLeft: '15px' }}> */}
         <VillageSelector
           pageType="withoutYear"
           setCodeVillage={setCodeVillage}
@@ -313,7 +307,6 @@ function Report() {
         <Button
           onClick={() => {
             if (textForVillage) {
-              // getHeaderData();
               getTableData();
               getFooterData();
             } else if (textForVillage == null) {
@@ -328,7 +321,6 @@ function Report() {
         {loading === true ? (
           <Spin size="large" style={{ marginLeft: '500px', marginTop: '20px' }} />
         ) : null}
-        {/* </Row> */}
       </Card>
 
       <ComponentToPrint
@@ -363,7 +355,7 @@ function Report() {
         totalArea={totalAreaOfAll}
         totalForArea={totalAreaOfPathRoads}
         netCultiArea={totalNetCultiAreaOfAll}
-        netAssessment={prevAssessment.toFixed(2)}
+        netAssessment={safeToFixed(prevAssessment, 2)}
         totalPotkharabArea={totalPotKharabAreaAdditionAll}
         prejirayatArea={prejirayatArea}
         prebagayatArea={prebagayatArea}
@@ -379,28 +371,21 @@ function Report() {
 }
 
 function getTotalAreaAssess(totalAreaH, cultivableAreaInt, netCultiAreaH, assessment) {
-  prevTotalArea += parseFloat(totalAreaH);
-  prevTotalPotKharabArea += parseFloat(cultivableAreaInt);
-  prevNetCultiArea += parseFloat(netCultiAreaH);
-
-  prevAssessment += parseFloat(assessment);
-}
-
-function getFirstTotalArea(villageSite, riversNalas, nalas, roadsAndPath) {
-  let prevRoadsAndPath =
-    parseFloat(villageSite) +
-    parseFloat(riversNalas) +
-    parseFloat(nalas) +
-    parseFloat(roadsAndPath);
-  // console.log('roadsAndPath ala ka?', roadsAndPath);
+  prevTotalArea += safeParseFloat(totalAreaH);
+  prevTotalPotKharabArea += safeParseFloat(cultivableAreaInt);
+  prevNetCultiArea += safeParseFloat(netCultiAreaH);
+  prevAssessment += safeParseFloat(assessment);
 }
 
 function getPotkharabaType(ptypeA, ptypeb) {
-  if (ptypeb == '0.0000' && ptypeA == '0.0000') {
+  const a = safeParseFloat(ptypeA);
+  const b = safeParseFloat(ptypeb);
+  
+  if (a === 0 && b === 0) {
     return '-';
-  } else if (ptypeb == '0.0000') {
+  } else if (b === 0) {
     return 'अ';
-  } else if (ptypeA == '0.0000') {
+  } else if (a === 0) {
     return 'ब';
   } else {
     return 'अ,ब';
@@ -408,15 +393,18 @@ function getPotkharabaType(ptypeA, ptypeb) {
 }
 
 function getPotkharabaTypeAr(ptypeA, ptypeb) {
-  prevTotalPotKharabArea += parseFloat(ptypeA) + parseFloat(ptypeb);
-  if (ptypeb == '0.0000' && ptypeA == '0.0000') {
-    return 0 + ' , ' + 0;
-  } else if (ptypeb == '0.0000') {
-    return ptypeA;
-  } else if (ptypeA == '0.0000') {
-    return ptypeb;
+  const a = safeParseFloat(ptypeA);
+  const b = safeParseFloat(ptypeb);
+  prevTotalPotKharabArea += a + b;
+  
+  if (a === 0 && b === 0) {
+    return '0 , 0';
+  } else if (b === 0) {
+    return safeToString(a);
+  } else if (a === 0) {
+    return safeToString(b);
   } else {
-    return ptypeb + ' , ' + ptypeA;
+    return safeToString(b) + ' , ' + safeToString(a);
   }
 }
 
@@ -436,7 +424,13 @@ class ComponentToPrint extends React.Component {
       isUpside: !prevState.isUpside,
     }));
   };
+  
   render() {
+    // Safe values for display
+    const netAssessmentDisplay = this.props.netAssessment === 'NaN' || !this.props.netAssessment 
+      ? '0.00' 
+      : this.props.netAssessment;
+    
     return (
       <div style={{ padding: '13px' }}>
         <div className="report">
@@ -458,97 +452,21 @@ class ComponentToPrint extends React.Component {
                     </h3>
                   </th>
                 </tr>
-                {/* <tr>
-                  <th colSpan="12">
-                    <h3 style={{ color: 'red' }}>
-                      <b>
-                        <FormattedMessage id="villageReport1.label.landRegister" />
-                      </b>
-                    </h3>
-                  </th>
-                </tr>
-                <tr>
-                  <th colSpan="12">
-                    <h3 style={{ color: 'red' }}>
-                      <b>
-                        <FormattedMessage id="villageReport1.label.shetwarPatrika" />
-                      </b>
-                    </h3>
-                  </th>
-                </tr> */}
                 <tr>
                   <th colSpan="22">
                     <h4 style={{ color: 'red' }}>
                       <pre>
                         <b>
                           <FormattedMessage id="villageReport1.label.village" />
-                          {this.props.village} <FormattedMessage id="villageReport1.label.taluka" />
-                          {this.props.taluka}{' '}
+                          {this.props.village || ''} <FormattedMessage id="villageReport1.label.taluka" />
+                          {this.props.taluka || ''}{' '}
                           <FormattedMessage id="villageReport1.label.district" />
-                          {this.props.district}
+                          {this.props.district || ''}
                         </b>
                       </pre>
                     </h4>
                   </th>
                 </tr>
-                {/* <tr style={{ textAlign: 'left' }}>
-                  <th colSpan={3}>
-                    <FormattedMessage id="villageReport1.table.standardRates" />
-                  </th>
-                  <th colSpan={2}></th>
-
-                  <th colSpan={3}>
-                    <FormattedMessage id="villageReport1.table.settlementYear" />
-                  </th>
-                  <th colSpan={4}> {this.props.settlementYear}</th>
-                </tr>
-                <tr style={{ textAlign: 'left' }}>
-                  <th colSpan={3}>
-                    <FormattedMessage id="villageReport1.table.dry" />
-                  </th>
-                  <th colSpan={2}>{this.props.dryRate}</th>
-
-                  <th colSpan={3}>
-                    <FormattedMessage id="villageReport1.table.expiredYear" />
-                  </th>
-                  <th colSpan={4}>{this.props.settlementExpiry}</th>
-                </tr>
-                <tr style={{ textAlign: 'left' }}>
-                  <th colSpan={3}>
-                    <FormattedMessage id="villageReport1.table.garden" />
-                  </th>
-                  <th colSpan={2}>{this.props.gardenRate}</th>
-
-                  <th colSpan={3}>
-                    <FormattedMessage id="villageReport1.table.surveyGrp" />
-                  </th>
-                  <th colSpan={4}>{this.props.surveyGroup}</th>
-                </tr>
-                <tr style={{ textAlign: 'left' }}>
-                  <th colSpan={3}>
-                    <FormattedMessage id="villageReport1.table.rice" />
-                  </th>
-                  <th colSpan={2}>{this.props.riceRate}</th>
-
-                  <th colSpan={3}></th>
-                  <th colSpan={4}></th>
-                </tr>
-                <tr style={{ textAlign: 'left' }}>
-                  <th colSpan={3}>
-                    <FormattedMessage id="villageReport1.table.warkas" />
-                  </th>
-                  <th colSpan={2}> {this.props.warkasRate}</th>
-
-                  <th colSpan={3}>
-                    <FormattedMessage id="villageReport1.table.dateInstall" />
-                  </th>
-                  <th colSpan={4}> {this.props.dateInstallment}</th>
-                </tr>
-
-                <tr style={{ height: '20px' }}>
-                  <th colSpan={5}></th>
-                  <th colSpan={7}></th>
-                </tr> */}
                 <tr>
                   <th>
                     <FormattedMessage id="villageReport1.table.surveyNo" />
@@ -614,7 +532,6 @@ class ComponentToPrint extends React.Component {
                 <tr>
                   <th onClick={this.handleClick} style={{ cursor: 'pointer' }}>
                     1 {this.state.isUpside ? <>&#9650;</> : <>&#9660;</>}
-                    {/* {this.state.isUpside ? <>&#11014;</> : <>&#11015;</>} */}
                   </th>
                   <th>2</th>
                   <th>3</th>
@@ -668,10 +585,6 @@ class ComponentToPrint extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                {/* {this.props.dataToMap &&
-                  this.props.dataToMap
-                    .sort((a, b) => (this.state.isUpside ? a.id - b.id : b.id - a.id))
-                    .map((r) => ( */}
                 {this.props.dataToMap &&
                   this.props.dataToMap
                     .sort((a, b) => {
@@ -685,43 +598,26 @@ class ComponentToPrint extends React.Component {
                     })
                     .map((r, i) => (
                       <tr key={r.id ? r.id : `${r.surveyHissaNo}-${i}`}>
-                        <td>{r.surveyHissaNo}</td>
-                        <td>{r.tenureName}</td>
-                        <td>
-                          {
-                            r.totalAreaH
-                            /*  .substring(0, r.totalAreaH.length - 2)
-                          .concat('.')
-                          .concat(r.totalAreaH.substring(r.totalAreaH.length - 2)) */
-                          }
-                        </td>
-                        <td>{r.potkharabaType}</td>
-                        <td>{r.cultivableAreaInt}</td>
-                        <td>{r.jirayatArea}</td>
-                        <td>{r.bagayatArea}</td>
-
-                        <td>{r.tariArea}</td>
-                        <td>{r.otherArea}</td>
-                        <td>
-                          {
-                            r.netCultiAreaH
-                            /* .substring(0, r.netCultiAreaH.length - 2)
-                          .concat('.')
-                          .concat(r.netCultiAreaH.substring(r.netCultiAreaH.length - 2)) */
-                          }
-                        </td>
-                        {/* <td>{r.naAssessment}</td> */}
-                        <td>{r.jirayatAssessment}</td>
-                        <td>{r.bagayatAssessment}</td>
-
-                        <td>{r.tariAssessment}</td>
-                        <td>{r.otherAssessment}</td>
-                        <td>{r.assessment}</td>
-                        <td>{r.publicRightsOfWayAndEasements}</td>
-                        <td>{r.particularsOfAlteration}</td>
-                        <td>{r.orderSanctioningChanges}</td>
-                        <td>{r.orderDate}</td>
-                        <td>{r.remarks}</td>
+                        <td>{r.surveyHissaNo || ''}</td>
+                        <td>{r.tenureName || ''}</td>
+                        <td>{r.totalAreaH || '0'}</td>
+                        <td>{r.potkharabaType || '-'}</td>
+                        <td>{r.cultivableAreaInt || '0'}</td>
+                        <td>{r.jirayatArea || '0'}</td>
+                        <td>{r.bagayatArea || '0'}</td>
+                        <td>{r.tariArea || '0'}</td>
+                        <td>{r.otherArea || '0'}</td>
+                        <td>{r.netCultiAreaH || '0'}</td>
+                        <td>{r.jirayatAssessment || '0'}</td>
+                        <td>{r.bagayatAssessment || '0'}</td>
+                        <td>{r.tariAssessment || '0'}</td>
+                        <td>{r.otherAssessment || '0'}</td>
+                        <td>{r.assessment || '0'}</td>
+                        <td>{r.publicRightsOfWayAndEasements || '0'}</td>
+                        <td>{r.particularsOfAlteration || ''}</td>
+                        <td>{r.orderSanctioningChanges || ''}</td>
+                        <td>{r.orderDate || ''}</td>
+                        <td>{r.remarks || ''}</td>
                       </tr>
                     ))}
 
@@ -739,55 +635,42 @@ class ComponentToPrint extends React.Component {
                         </b>
                       </td>
                       <td>
-                        <b>{this.props.totalArea}</b>
+                        <b>{this.props.totalArea || '0'}</b>
                       </td>
                       <td></td>
                       <td>
-                        <b>{this.props.totalPotkharabArea}</b>
+                        <b>{this.props.totalPotkharabArea || '0'}</b>
                       </td>
                       <td>
-                        <b>{this.props.prejirayatArea.toFixed(2)}</b>
+                        <b>{this.props.prejirayatArea ? this.props.prejirayatArea.toFixed(2) : '0.00'} </b>
                       </td>
                       <td>
-                        <b>{this.props.prebagayatArea.toFixed(2)}</b>
-                      </td>
-
-                      <td>
-                        <b>{this.props.pretariArea.toFixed(2)}</b>
-                      </td>
-
-                      <td>
-                        <b>{this.props.otherArea.toFixed(2)}</b>
-                      </td>
-
-                      <td>
-                        <b>{this.props.netCultiArea}</b>
+                        <b>{this.props.prebagayatArea ? this.props.prebagayatArea.toFixed(2) : '0.00'} </b>
                       </td>
                       <td>
-                        {' '}
-                        <b>{this.props.prejirayatAreaA.toFixed(2)}</b>
+                        <b>{this.props.pretariArea ? this.props.pretariArea.toFixed(2) : '0.00'} </b>
                       </td>
-
                       <td>
-                        <b>{this.props.prebagayatAreaA.toFixed(2)}</b>
+                        <b>{this.props.otherArea ? this.props.otherArea.toFixed(2) : '0.00'} </b>
                       </td>
-
                       <td>
-                        <b>{this.props.pretariAreaA.toFixed(2)}</b>
+                        <b>{this.props.netCultiArea || '0'}</b>
                       </td>
-
                       <td>
-                        {' '}
-                        <b>{this.props.otherAreaA.toFixed(2)}</b>
+                        <b>{this.props.prejirayatAreaA ? this.props.prejirayatAreaA.toFixed(2) : '0.00'}</b>
                       </td>
-
                       <td>
-                        {/* <b>{this.props.netAssessment}</b> */}
-                        <b>
-                          {this.props.netAssessment == 'NaN' ? '0.00' : this.props.netAssessment}
-                        </b>
+                        <b>{this.props.prebagayatAreaA ? this.props.prebagayatAreaA.toFixed(2) : '0.00'}</b>
                       </td>
-
+                      <td>
+                        <b>{this.props.pretariAreaA ? this.props.pretariAreaA.toFixed(2) : '0.00'}</b>
+                      </td>
+                      <td>
+                        <b>{this.props.otherAreaA ? this.props.otherAreaA.toFixed(2) : '0.00'}</b>
+                      </td>
+                      <td>
+                        <b>{netAssessmentDisplay}</b>
+                      </td>
                       <td colSpan={5}></td>
                     </tr>
 
@@ -795,15 +678,15 @@ class ComponentToPrint extends React.Component {
                       <td colSpan={20}>&nbsp;</td>
                     </tr>
 
-                    {/* --- FOOTER: जमिनींची नोंदवही (from getDyslrForm1ReportFooter) --- */}
+                    {/* FOOTER */}
                     <tr>
                       <td></td>
                       <td>
                         <FormattedMessage id="formLanguage.form.gaothan" />
                       </td>
-                      <td>{this.props.villageSite}</td>
+                      <td>{this.props.villageSite || '0'}</td>
                       <td></td>
-                      <td>{this.props.villageSite}</td>
+                      <td>{this.props.villageSite || '0'}</td>
                       <td></td>
                       <td></td>
                       <td></td>
@@ -825,11 +708,11 @@ class ComponentToPrint extends React.Component {
                       <td>
                         <FormattedMessage id="formLanguage.form.river" />
                       </td>
-                      <td>{this.props.river}</td>
+                      <td>{this.props.river || '0'}</td>
                       <td>
                         <FormattedMessage id="formLanguage.form.river" />
                       </td>
-                      <td>{this.props.river}</td>
+                      <td>{this.props.river || '0'}</td>
                       <td></td>
                       <td></td>
                       <td></td>
@@ -851,11 +734,11 @@ class ComponentToPrint extends React.Component {
                       <td>
                         <FormattedMessage id="formLanguage.form.nala" />
                       </td>
-                      <td>{this.props.nalas}</td>
+                      <td>{this.props.nalas || '0'}</td>
                       <td>
                         <FormattedMessage id="formLanguage.form.nala" />
                       </td>
-                      <td>{this.props.nalas}</td>
+                      <td>{this.props.nalas || '0'}</td>
                       <td></td>
                       <td></td>
                       <td></td>
@@ -877,11 +760,11 @@ class ComponentToPrint extends React.Component {
                       <td>
                         <FormattedMessage id="formLanguage.form.road" />
                       </td>
-                      <td>{this.props.roadAndPath}</td>
+                      <td>{this.props.roadAndPath || '0'}</td>
                       <td>
                         <FormattedMessage id="formLanguage.form.road" />
                       </td>
-                      <td>{this.props.roadAndPath}</td>
+                      <td>{this.props.roadAndPath || '0'}</td>
                       <td></td>
                       <td></td>
                       <td></td>
@@ -906,11 +789,11 @@ class ComponentToPrint extends React.Component {
                         </b>
                       </td>
                       <td>
-                        <b>{this.props.totalForArea}</b>
+                        <b>{this.props.totalForArea || '0'}</b>
                       </td>
                       <td></td>
                       <td>
-                        <b>{this.props.totalForArea}</b>
+                        <b>{this.props.totalForArea || '0'}</b>
                       </td>
                       <td></td>
                       <td></td>
@@ -936,11 +819,11 @@ class ComponentToPrint extends React.Component {
                         </b>
                       </td>
                       <td>
-                        <b>{this.props.additionOfTotalArea}</b>
+                        <b>{this.props.additionOfTotalArea || '0'}</b>
                       </td>
                       <td></td>
                       <td>
-                        <b>{this.props.additionOfTotalPotkharaba}</b>
+                        <b>{this.props.additionOfTotalPotkharaba || '0'}</b>
                       </td>
                       <td></td>
                       <td></td>
@@ -966,11 +849,11 @@ class ComponentToPrint extends React.Component {
                         </b>
                       </td>
                       <td>
-                        <b>{this.props.villageSite}</b>
+                        <b>{this.props.villageSite || '0'}</b>
                       </td>
                       <td></td>
                       <td>
-                        <b>{this.props.villageSite}</b>
+                        <b>{this.props.villageSite || '0'}</b>
                       </td>
                       <td></td>
                       <td></td>
@@ -996,27 +879,25 @@ class ComponentToPrint extends React.Component {
                         </b>
                       </td>
                       <td>
-                        <b>{this.props.finalAdditionForReport}</b>
+                        <b>{this.props.finalAdditionForReport || '0'}</b>
                       </td>
                       <td></td>
                       <td>
-                        <b>{this.props.finalAdditionOfTotalPotKharaba}</b>
-                      </td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td>
-                        <b>{this.props.netCultiArea}</b>
+                        <b>{this.props.finalAdditionOfTotalPotKharaba || '0'}</b>
                       </td>
                       <td></td>
                       <td></td>
                       <td></td>
                       <td></td>
                       <td>
-                        <b>
-                          {this.props.netAssessment == 'NaN' ? '0.00' : this.props.netAssessment}
-                        </b>
+                        <b>{this.props.netCultiArea || '0'}</b>
+                      </td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>
+                        <b>{netAssessmentDisplay}</b>
                       </td>
                       <td></td>
                       <td></td>
