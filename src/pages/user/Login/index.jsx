@@ -22,6 +22,7 @@ import LiveHelpTwoToneIcon from '@mui/icons-material/LiveHelpTwoTone';
 import { AES, enc } from 'crypto-js';
 import { LoadCanvasTemplate, loadCaptchaEnginge, validateCaptcha } from 'react-simple-captcha';
 import { useHistory } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 // Cookie utility functions
 const getCookie = (name) => {
@@ -157,26 +158,10 @@ const Login = () => {
       // Small delay to ensure browser has set the cookie before reading
       await new Promise((resolve) => setTimeout(resolve, 100));
 
-      const refreshToken = getCookieValue('refreshToken');
-
-      console.log(refreshToken, '<--- Refresh Token from Cookie');
-
-      if (refreshToken) {
-        localStorage.setItem('refreshToken', refreshToken);
-        console.log('✅ refreshToken saved to localStorage');
-      } else {
-        console.warn('⚠️ No refreshToken found in cookie');
-      }
-      // if (refreshToken) {
-      //   localStorage.setItem('refreshToken', refreshToken);
-
-      //   document.cookie = `refreshToken=${refreshToken}; path=/; secure; samesite=Strict; max-age=${7 * 24 * 60 * 60
-      //     }`;
-      // } else {
-      //   console.warn('⚠️ No refreshToken found in response');
-      // }
-
       if (res.status === 200 && validateCaptcha(user_captcha_value) === true) {
+
+console.log(res.data,"checkk main dataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+        Cookies.set('refreshToken',res.data.encodedKey, { secure: true, sameSite: 'strict' });
         // Successful login logic
         details(
           res.data.challanHeads,

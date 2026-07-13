@@ -31,25 +31,14 @@ const useAxios = () => {
 
   const getRefreshToken = useCallback(() => {
     const storedRefreshToken =
-      Cookies.get('refreshToken') ||
-      localStorage.getItem('refreshToken') ||
-      localStorage.getItem('mainRefreshToken');
+      Cookies.get('refreshToken')
     if (storedRefreshToken) {
+      console.log(storedRefreshToken,"storedRefreshTokenstoredRefreshToken")
       return storedRefreshToken;
+    }else{
+      console.log('No refresh token found in cookies.');
     }
 
-    const name = 'refreshToken=';
-    const decodedCookie = decodeURIComponent(document.cookie);
-    const cookieArray = decodedCookie.split(';');
-
-    for (let cookie of cookieArray) {
-      cookie = cookie.trim();
-      if (cookie.indexOf(name) === 0) {
-        return cookie.substring(name.length);
-      }
-    }
-
-    return null;
   }, []);
 
   const updateAccessToken = useCallback(
@@ -100,12 +89,12 @@ const useAxios = () => {
         return newAccessToken;
       }
     } catch (error) {
-      // alert('api gives 500 error. Session expired. Please login again.');
-      // localStorage.clear();
-      // Cookies.remove('token');
-      // Cookies.remove('refreshToken');
-      // message.error('Session expired. Please login again.');
-      // window.location.href = '/login';
+      alert('api gives 500 error. Session expired. Please login again.');
+      localStorage.clear();
+      Cookies.remove('token');
+      Cookies.remove('refreshToken');
+      message.error('Session expired. Please login again.');
+      window.location.href = '/login';
 
       return null;
     }
