@@ -117,8 +117,10 @@ function Report() {
   const getFooterData = async () => {
     setLoading(true);
     sendRequest(
-      `${URLS.BaseURL
-      }/form1Dyslr/getDyslrForm1ReportFooter?cCode=${codeVillage}&districtCode=${districtCode}&talukaCode=${talukaCode}${revenueYear ? `&revenueYear=${revenueYear}` : ''
+      `${
+        URLS.BaseURL
+      }/form1Dyslr/getDyslrForm1ReportFooter?cCode=${codeVillage}&districtCode=${districtCode}&talukaCode=${talukaCode}${
+        revenueYear ? `&revenueYear=${revenueYear}` : ''
       }`,
       'GET',
       null,
@@ -130,7 +132,7 @@ function Report() {
           setNalas(footerData.nalas || 0);
           setRoadAndPath(footerData.roadsAndPath || 0);
           setPrevRoadsAndPath(
-            safeAddition(footerData.riversNalas, footerData.nalas, footerData.roadsAndPath)
+            safeAddition(footerData.riversNalas, footerData.nalas, footerData.roadsAndPath),
           );
         }
       },
@@ -150,7 +152,7 @@ function Report() {
     prevAssessment = 0;
     prevNetCultiArea = 0;
     prevTotalPotKharabArea = 0;
-    
+
     // Reset state values
     setPrejirayatArea(0);
     setPrebagayatArea(0);
@@ -160,7 +162,7 @@ function Report() {
     setPrebagayatAreaA(0);
     setPretariAreaA(0);
     setPreotherAreaA(0);
-    
+
     setLoading(true);
 
     sendRequest(
@@ -223,10 +225,7 @@ function Report() {
             orderSanctioningChanges: r.orderNo ? r.orderNo : '',
             orderDate: r.orderDate ? r.orderDate : '',
             remarks: r.remarks ? r.remarks : '',
-            potkharabaType: getPotkharabaType(
-              safeToString(r.potkharabaAH),
-              safeToString(r.potkharabaBH),
-            ),
+            potkharabaType: r.potkharabaType || '-',
             cultivableAreaInt: safeToString(r.cultivableAreaInt),
             jirayatArea: safeToString(r.jirayatArea),
             jirayatAssessment: safeToString(r.jirayatAssessment),
@@ -236,7 +235,10 @@ function Report() {
             tariAssessment: safeToString(r.tariAssessment),
             otherArea: safeToString(r.otherArea),
             otherAssessment: safeToString(r.otherAssessment),
-            naAgriAssesment: safeParseFloat(r.naAssessment) > 0 ? safeParseFloat(r.naAssessment) : safeParseFloat(r.assessment),
+            naAgriAssesment:
+              safeParseFloat(r.naAssessment) > 0
+                ? safeParseFloat(r.naAssessment)
+                : safeParseFloat(r.assessment),
             allTotal: getTotalAreaAssess(
               r.totalAreaH,
               r.cultivableAreaInt,
@@ -380,7 +382,7 @@ function getTotalAreaAssess(totalAreaH, cultivableAreaInt, netCultiAreaH, assess
 function getPotkharabaType(ptypeA, ptypeb) {
   const a = safeParseFloat(ptypeA);
   const b = safeParseFloat(ptypeb);
-  
+
   if (a === 0 && b === 0) {
     return '-';
   } else if (b === 0) {
@@ -396,7 +398,7 @@ function getPotkharabaTypeAr(ptypeA, ptypeb) {
   const a = safeParseFloat(ptypeA);
   const b = safeParseFloat(ptypeb);
   prevTotalPotKharabArea += a + b;
-  
+
   if (a === 0 && b === 0) {
     return '0 , 0';
   } else if (b === 0) {
@@ -424,13 +426,14 @@ class ComponentToPrint extends React.Component {
       isUpside: !prevState.isUpside,
     }));
   };
-  
+
   render() {
     // Safe values for display
-    const netAssessmentDisplay = this.props.netAssessment === 'NaN' || !this.props.netAssessment 
-      ? '0.00' 
-      : this.props.netAssessment;
-    
+    const netAssessmentDisplay =
+      this.props.netAssessment === 'NaN' || !this.props.netAssessment
+        ? '0.00'
+        : this.props.netAssessment;
+
     return (
       <div style={{ padding: '13px' }}>
         <div className="report">
@@ -458,7 +461,8 @@ class ComponentToPrint extends React.Component {
                       <pre>
                         <b>
                           <FormattedMessage id="villageReport1.label.village" />
-                          {this.props.village || ''} <FormattedMessage id="villageReport1.label.taluka" />
+                          {this.props.village || ''}{' '}
+                          <FormattedMessage id="villageReport1.label.taluka" />
                           {this.props.taluka || ''}{' '}
                           <FormattedMessage id="villageReport1.label.district" />
                           {this.props.district || ''}
@@ -642,13 +646,23 @@ class ComponentToPrint extends React.Component {
                         <b>{this.props.totalPotkharabArea || '0'}</b>
                       </td>
                       <td>
-                        <b>{this.props.prejirayatArea ? this.props.prejirayatArea.toFixed(2) : '0.00'} </b>
+                        <b>
+                          {this.props.prejirayatArea
+                            ? this.props.prejirayatArea.toFixed(2)
+                            : '0.00'}{' '}
+                        </b>
                       </td>
                       <td>
-                        <b>{this.props.prebagayatArea ? this.props.prebagayatArea.toFixed(2) : '0.00'} </b>
+                        <b>
+                          {this.props.prebagayatArea
+                            ? this.props.prebagayatArea.toFixed(2)
+                            : '0.00'}{' '}
+                        </b>
                       </td>
                       <td>
-                        <b>{this.props.pretariArea ? this.props.pretariArea.toFixed(2) : '0.00'} </b>
+                        <b>
+                          {this.props.pretariArea ? this.props.pretariArea.toFixed(2) : '0.00'}{' '}
+                        </b>
                       </td>
                       <td>
                         <b>{this.props.otherArea ? this.props.otherArea.toFixed(2) : '0.00'} </b>
@@ -657,13 +671,23 @@ class ComponentToPrint extends React.Component {
                         <b>{this.props.netCultiArea || '0'}</b>
                       </td>
                       <td>
-                        <b>{this.props.prejirayatAreaA ? this.props.prejirayatAreaA.toFixed(2) : '0.00'}</b>
+                        <b>
+                          {this.props.prejirayatAreaA
+                            ? this.props.prejirayatAreaA.toFixed(2)
+                            : '0.00'}
+                        </b>
                       </td>
                       <td>
-                        <b>{this.props.prebagayatAreaA ? this.props.prebagayatAreaA.toFixed(2) : '0.00'}</b>
+                        <b>
+                          {this.props.prebagayatAreaA
+                            ? this.props.prebagayatAreaA.toFixed(2)
+                            : '0.00'}
+                        </b>
                       </td>
                       <td>
-                        <b>{this.props.pretariAreaA ? this.props.pretariAreaA.toFixed(2) : '0.00'}</b>
+                        <b>
+                          {this.props.pretariAreaA ? this.props.pretariAreaA.toFixed(2) : '0.00'}
+                        </b>
                       </td>
                       <td>
                         <b>{this.props.otherAreaA ? this.props.otherAreaA.toFixed(2) : '0.00'}</b>
