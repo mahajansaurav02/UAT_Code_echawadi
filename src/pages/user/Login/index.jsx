@@ -159,10 +159,13 @@ const Login = () => {
       await new Promise((resolve) => setTimeout(resolve, 100));
 
       if (res.status === 200 && validateCaptcha(user_captcha_value) === true) {
-
-console.log(res.data,"checkk main dataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-        Cookies.set('refreshToken',res.data.encodedKey, { secure: true, sameSite: 'strict' });
+        console.log(res.data, 'checkk main dataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
         // Successful login logic
+        Cookies.set('encoded', res.data.encodedKey, {
+          secure: true,
+          sameSite: 'strict',
+          path: '/',
+        });
         details(
           res.data.challanHeads,
           res.data.servarthId,

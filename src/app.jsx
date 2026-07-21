@@ -894,6 +894,10 @@ export const layout = ({ initialState }) => {
             component: './reports/Total-Phase-1-Login-Report',
           },
           {
+            path: '/reports/Dyslr_akarband_bharnyasathi_kamkajsurukele',
+            component: './reports/Dyslr_akarband_bharnyasathi_kamkajsurukele',
+          },
+          {
             // name: 'Total Phase One Villages',
             // icon: 'smile',
             path: '/reports/Total-Phase-1-Villages-Report',
@@ -1088,6 +1092,50 @@ export const layout = ({ initialState }) => {
         redirect: '/reports/All-Village-Report',
       },
       {
+        path: '/reports/All-Village-Search-Data1',
+        component: './reports/All-Village-Search-Data1',
+      },
+      {
+        path: '/reports/Echawadi-vasuli-report',
+        component: './reports/Echawadi-vasuli-report',
+      },
+      {
+        path: '/reports/Online-Village-Count-Report',
+        component: './reports/Online-Village-Count-Report',
+      },
+      {
+        path: '/reports/Total-Phase-1-Login-Report',
+        component: './reports/Total-Phase-1-Login-Report',
+      },
+      {
+        path: '/reports/Total-Phase-1-Villages-Report',
+        component: './reports/Total-Phase-1-Villages-Report',
+      },
+      {
+        path: '/reports/Magni_Nichti_Keleli_Gaoan_Sankhya',
+        component: './reports/Magni_Nichti_Keleli_Gaoan_Sankhya',
+      },
+      {
+        path: '/reports/Magni_Nichti_Na_Karta_Vasuli_SuruKelelya_GaoanSankhya',
+        component: './reports/Magni_Nichti_Na_Karta_Vasuli_SuruKelelya_GaoanSankhya',
+      },
+      {
+        path: '/reports/Wasuli_without_single_demand',
+        component: './reports/Wasuli_without_single_demand',
+      },
+      {
+        path: '/reports/Vasuli_Zalelya_Gawanchi_Sankhya',
+        component: './reports/Vasuli_Zalelya_Gawanchi_Sankhya',
+      },
+      {
+        path: '/reports/Goannamune_Purna_Bharlyababat_Ghoshna_Keleli_Gaon_Sankhya',
+        component: './reports/Goannamune_Purna_Bharlyababat_Ghoshna_Keleli_Gaon_Sankhya',
+      },
+      {
+        path: '/reports/Dyslr_akarband_bharnyasathi_kamkajsurukele',
+        component: './reports/Dyslr_akarband_bharnyasathi_kamkajsurukele',
+      },
+      {
         path: '/*',
         component: '404',
         layout: false,
@@ -1256,6 +1304,10 @@ export const layout = ({ initialState }) => {
             path: '/reports/Dyslr-Akarbndat-Changes',
             component: './reports/Dyslr-Akarbndat-Changes',
           },
+          {
+            path: '/reports/Dyslr_akarband_bharnyasathi_kamkajsurukele',
+            component: './reports/Dyslr_akarband_bharnyasathi_kamkajsurukele',
+          },
 
           {
             component: '404',
@@ -1301,7 +1353,21 @@ export const layout = ({ initialState }) => {
     footerRender: () => <Footer />,
     onPageChange: () => {
       const { location } = history;
-      const publicPaths = ['/user/login', '/dashboard/collectorMis'];
+      const publicPaths = [
+        '/user/login',
+        '/dashboard/collectorMis',
+        '/reports/All-Village-Search-Data1',
+        '/reports/Echawadi-vasuli-report',
+        '/reports/Online-Village-Count-Report',
+        '/reports/Total-Phase-1-Login-Report',
+        '/reports/Total-Phase-1-Villages-Report',
+        '/reports/Magni_Nichti_Keleli_Gaoan_Sankhya',
+        '/reports/Magni_Nichti_Na_Karta_Vasuli_SuruKelelya_GaoanSankhya',
+        '/reports/Wasuli_without_single_demand',
+        '/reports/Vasuli_Zalelya_Gawanchi_Sankhya',
+        '/reports/Goannamune_Purna_Bharlyababat_Ghoshna_Keleli_Gaon_Sankhya',
+        '/reports/Dyslr_akarband_bharnyasathi_kamkajsurukele',
+      ];
       // ✅ Just remove this check entirely or check for token instead
       // Optional: Check if user has a valid token/session
       const token = localStorage.getItem('token') || getCookie('token');

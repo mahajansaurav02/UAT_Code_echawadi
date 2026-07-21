@@ -327,7 +327,6 @@ export const IntroduceRow = ({ loading, visitData }) => {
   }
 
   const calculateAbstractCompletedCount = (r) => {
-    console.log(r, 'checkkkk calculateAbstractCompletedCount');
     const totalVillageCount = r?.totalVillages || r?.totalVillagesTT || r?.totalVillagesTTI || 0;
     const dyslrAdbstractAddedCount = r?.dyslrAdbstractAddedCount || 0;
 
@@ -6289,7 +6288,9 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                                     redirectToSub_Superintendent_Bhumi_Abhilek(
                                                       r.districtName,
                                                       r.districtCode,
-                                                      r.totalOnlineVillagesCount,
+                                                      r.totalDyslrWorkCount == 'null'
+                                                        ? '0'
+                                                        : r.totalDyslrWorkCount,
                                                       r.talukaCode,
                                                       selectedYear,
                                                     );

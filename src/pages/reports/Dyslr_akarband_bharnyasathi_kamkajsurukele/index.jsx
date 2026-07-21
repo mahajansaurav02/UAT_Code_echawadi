@@ -10,7 +10,6 @@ import { useModel } from 'umi';
 import { useHistory, useLocation } from 'react-router-dom';
 import { FormattedMessage } from 'umi';
 import { ConsoleSqlOutlined } from '@ant-design/icons';
-import axios from 'axios';
 import ReactHtmlTableToExcel from 'react-html-table-to-excel';
 
 function TotalPhase1Login() {
@@ -45,12 +44,11 @@ function TotalPhase1Login() {
   const handleOnChangeDistrict = async (e) => {
     let revenueYear = location?.state?.selectedYear;
 
-    await axios
-      .post(
-        // `${URLS.AuthURL}/getphase1loginvillagecount?districtCode=${location?.state?.districtCode}`,
-      `${URLS.AuthURL}/getDyslrStarted?districtCode=${location?.state?.districtCode}&talukaCode=${location?.state?.talukaCode}`
-      )
-      .then((res) => {
+    await sendRequest(
+      `${URLS.AuthURL}/getDyslrStarted?districtCode=${location?.state?.districtCode}&talukaCode=${location?.state?.talukaCode}`,
+      'POST',
+      null,
+      (res) => {
         // console.log(res, '------getDyslrStarted----*');
         try {
           setTableData(
@@ -66,7 +64,8 @@ function TotalPhase1Login() {
         } catch (err) {
           console.log(err, '----Error in getDyslrStarted--');
         }
-      });
+      },
+    );
   };
 
   return (
