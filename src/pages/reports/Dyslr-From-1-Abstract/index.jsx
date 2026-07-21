@@ -147,24 +147,24 @@ function DyslrForm1AbstractReport() {
       },
     );
 
-    sendRequest(
-      `${
-        URLS.BaseURL
-      }/form1Dyslr/getDyslrForm1ReportFooter?cCode=${cCodeToUse}&districtCode=${districtCode}&talukaCode=${talukaCode}${
-        revenueYear ? `&revenueYear=${revenueYear}` : ''
-      }`,
-      'GET',
-      null,
-      (res) => {
-        const footerData = res.data?.[0];
-        if (footerData) {
-          setFooterVillageSite(parseFloat(footerData.villageSite) || 0);
-          setFooterRiversNalas(parseFloat(footerData.riversNalas) || 0);
-          setFooterNalas(parseFloat(footerData.nalas) || 0);
-          setFooterRoadsAndPath(parseFloat(footerData.roadsAndPath) || 0);
-        }
-      },
-    );
+    // sendRequest(
+    //   `${
+    //     URLS.BaseURL
+    //   }/form1Dyslr/getDyslrForm1ReportFooter?cCode=${cCodeToUse}&districtCode=${districtCode}&talukaCode=${talukaCode}${
+    //     revenueYear ? `&revenueYear=${revenueYear}` : ''
+    //   }`,
+    //   'GET',
+    //   null,
+    //   (res) => {
+    //     const footerData = res.data?.[0];
+    //     if (footerData) {
+    //       setFooterVillageSite(parseFloat(footerData.villageSite) || 0);
+    //       setFooterRiversNalas(parseFloat(footerData.riversNalas) || 0);
+    //       setFooterNalas(parseFloat(footerData.nalas) || 0);
+    //       setFooterRoadsAndPath(parseFloat(footerData.roadsAndPath) || 0);
+    //     }
+    //   },
+    // );
   };
 
   const changeLang = () => {
@@ -348,7 +348,6 @@ function DyslrForm1AbstractReport() {
 }
 class ComponentToPrint extends React.Component {
   render() {
-
     const formatSum = (...values) => {
       const total = values.reduce((acc, val) => acc + (parseFloat(val) || 0), 0);
       return total === 0 ? '' : total.toFixed(2);
@@ -548,7 +547,9 @@ class ComponentToPrint extends React.Component {
                   {/* <td>{this.props.totalOfA1 + this.props.totalOfA2}</td>
                   <td>{this.props.totalOfA1Assessment + this.props.totalOfA2Assesment}</td> */}
                   <td>{formatSum(this.props.totalOfA1, this.props.totalOfA2)}</td>
-                  <td>{formatSum(this.props.totalOfA1Assessment, this.props.totalOfA2Assesment)}</td>
+                  <td>
+                    {formatSum(this.props.totalOfA1Assessment, this.props.totalOfA2Assesment)}
+                  </td>
                   <td></td>
                 </tr>
                 <tr>
@@ -773,14 +774,14 @@ class ComponentToPrint extends React.Component {
                       : parseFloat(
                           this.props.totalOfB1 + this.props.totalOfB2 + this.props.totalOfB3,
                         )} */}
-                  {formatSum(this.props.totalOfB1, this.props.totalOfB2, this.props.totalOfB3)}
+                    {formatSum(this.props.totalOfB1, this.props.totalOfB2, this.props.totalOfB3)}
                   </td>
                   <td>{this.props.totalOfB1Assessment}</td>
                   <td></td>
                 </tr>
 
                 {/* --- NEW SECTION 4 STARTS HERE --- */}
-                <tr>
+                {/* <tr>
                   <td colSpan={4}>
                     <b>
                       <u>
@@ -788,8 +789,8 @@ class ComponentToPrint extends React.Component {
                       </u>
                     </b>
                   </td>
-                </tr>
-                <tr>
+                </tr> */}
+                {/* <tr>
                   <td style={{ paddingLeft: '20px' }}>
                     <FormattedMessage id="form1abstract.(a)" />{' '}
                     <FormattedMessage id="form1abstract.section4.gaothan" />
@@ -806,8 +807,8 @@ class ComponentToPrint extends React.Component {
                   <td>{this.props.footerRiversNalas}</td>
                   <td></td>
                   <td></td>
-                </tr>
-                <tr>
+                </tr> */}
+                {/* <tr>
                   <td style={{ paddingLeft: '20px' }}>
                     <FormattedMessage id="form1abstract.(c)" />{' '}
                     <FormattedMessage id="form1abstract.section4.nale" />
@@ -815,8 +816,8 @@ class ComponentToPrint extends React.Component {
                   <td>{this.props.footerNalas}</td>
                   <td></td>
                   <td></td>
-                </tr>
-                <tr>
+                </tr> */}
+                {/* <tr>
                   <td style={{ paddingLeft: '20px' }}>
                     <FormattedMessage id="form1abstract.(d)" />{' '}
                     <FormattedMessage id="form1abstract.section4.raste" />
@@ -824,22 +825,14 @@ class ComponentToPrint extends React.Component {
                   <td>{this.props.footerRoadsAndPath}</td>
                   <td></td>
                   <td></td>
-                </tr>
-                <tr>
+                </tr> */}
+                {/* <tr>
                   <td style={{ paddingLeft: '20px' }}>
                     <b>
                       <FormattedMessage id="form1abstract.section4.bhumapanTotal" />
                     </b>
                   </td>
                   <td>
-                    {/* {Math.round(
-                      (this.props.footerVillageSite +
-                        this.props.footerRiversNalas +
-                        this.props.footerNalas +
-                        this.props.footerRoadsAndPath +
-                        Number.EPSILON) *
-                        100,
-                    ) / 100} */}
                     {formatSum(
                     this.props.footerVillageSite,
                     this.props.footerRiversNalas,
@@ -849,21 +842,14 @@ class ComponentToPrint extends React.Component {
                   </td>
                   <td></td>
                   <td></td>
-                </tr>
-                <tr>
+                </tr> */}
+                {/* <tr>
                   <td style={{ paddingLeft: '20px' }}>
                     <b>
                       <FormattedMessage id="form1abstract.section4.outsideGaothanTotal" />
                     </b>
                   </td>
                   <td>
-                    {/* {Math.round(
-                      (this.props.footerRiversNalas +
-                        this.props.footerNalas +
-                        this.props.footerRoadsAndPath +
-                        Number.EPSILON) *
-                        100,
-                    ) / 100} */}
                     {formatSum(
                       this.props.footerRiversNalas,
                       this.props.footerNalas,
@@ -872,8 +858,8 @@ class ComponentToPrint extends React.Component {
                   </td>
                   <td></td>
                   <td></td>
-                </tr>
-                <tr>
+                </tr> */}
+                {/* <tr>
                   <td style={{ paddingLeft: '20px' }}>
                     <b>
                       <FormattedMessage id="form1abstract.section4.gaothanTotal" />
@@ -882,7 +868,7 @@ class ComponentToPrint extends React.Component {
                   <td>{this.props.footerVillageSite}</td>
                   <td></td>
                   <td></td>
-                </tr>
+                </tr> */}
                 {/* --- NEW SECTION 4 ENDS HERE --- */}
 
                 <tr>
@@ -905,13 +891,13 @@ class ComponentToPrint extends React.Component {
                         parseFloat(
                           this.props.totalOfB1 + this.props.totalOfB2 + this.props.totalOfB3,
                         )} */}
-                        {formatSum(
-                          this.props.totalOfA1,
-                          this.props.totalOfA2,
-                          this.props.totalOfB1,
-                          this.props.totalOfB2,
-                          this.props.totalOfB3
-                        )}
+                    {formatSum(
+                      this.props.totalOfA1,
+                      this.props.totalOfA2,
+                      this.props.totalOfB1,
+                      this.props.totalOfB2,
+                      this.props.totalOfB3,
+                    )}
                   </td>
                   <td>
                     {/* {parseFloat(
@@ -944,11 +930,11 @@ class ComponentToPrint extends React.Component {
                             Number.EPSILON) *
                             100,
                         ) / 100} */}
-                        {formatSum(
-                          this.props.totalOfA1Assessment,
-                          this.props.totalOfA2Assesment,
-                          this.props.totalOfB1Assessment
-                        )}
+                    {formatSum(
+                      this.props.totalOfA1Assessment,
+                      this.props.totalOfA2Assesment,
+                      this.props.totalOfB1Assessment,
+                    )}
                   </td>
                   <td></td>
                 </tr>
