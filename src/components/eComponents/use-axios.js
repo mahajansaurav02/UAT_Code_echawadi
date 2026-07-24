@@ -30,15 +30,13 @@ const useAxios = () => {
   );
 
   const getRefreshToken = useCallback(() => {
-    const storedRefreshToken =
-      Cookies.get('refreshToken')
+    const storedRefreshToken = Cookies.get('encoded');
     if (storedRefreshToken) {
-      console.log(storedRefreshToken,"storedRefreshTokenstoredRefreshToken")
+      console.log(storedRefreshToken, 'storedRefreshTokenstoredRefreshToken');
       return storedRefreshToken;
-    }else{
+    } else {
       console.log('No refresh token found in cookies.');
     }
-
   }, []);
 
   const updateAccessToken = useCallback(
@@ -75,7 +73,8 @@ const useAxios = () => {
 
       const response = await axios.post(
         `${URLS.AuthURL}/refreshtoken?refreshToken=${refreshToken}`,
-        {},
+        null,
+        { withCredentials: true },
         {
           headers: {
             'Accept-Language': langType,
@@ -155,7 +154,7 @@ const useAxios = () => {
         } catch (error) {
           const statusCode = error.response?.status;
 
-          if (statusCode === 401 ) {
+          if (statusCode === 401) {
             if (!refreshPromiseRef.current) {
               refreshPromiseRef.current = refreshAccessToken().finally(() => {
                 refreshPromiseRef.current = null;
