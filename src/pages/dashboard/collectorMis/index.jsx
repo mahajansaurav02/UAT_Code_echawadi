@@ -1,6 +1,8 @@
 import ExportToExcel from './components/ExportToExcelFile';
 import ExportToExcelVasuli from './components/ExportToExcelVasuliFile';
-
+// ===== Sejal | Imported the Taluka Ghoshwara table component. =====
+import TalukaGoshwaraReport from './components/TalukaGoshwaraReport';
+//===================================================================
 import {
   ArrowLeftOutlined,
   DownloadOutlined,
@@ -101,6 +103,16 @@ export const IntroduceRow = ({ loading, visitData }) => {
 
   const [dashBoardCountTab4, setDashBoardCountTab4] = useState();
   const [dashBoardCount1Tab4, setDashBoardCount1Tab4] = useState();
+
+  // ===== Sejal | State for displaying
+  // the Ghoshwara table in full screen from Tab 4. =====
+  const [showTalukaGoshwara, setShowTalukaGoshwara] = useState(false);
+  const [selectedTalukaInfo, setSelectedTalukaInfo] = useState({});
+
+  // ===== Sejal | FIX: Controlled Tabs using activeKey.
+  // Prevents tabs from resetting to Tab 1 after re-render. =====
+  const [activeTab, setActiveTab] = useState('tab1');
+  // ==================================================================================================
 
   const [dashBoardDetail1_2023_2024_Dist, setDashBoardDetail1_2023_2024_Dist] = useState();
   const [dashBoardDetail2, setDashBoardDetail2] = useState();
@@ -1957,6 +1969,22 @@ export const IntroduceRow = ({ loading, visitData }) => {
     history.push('/user/login');
   };
 
+  // ===== Sejal |Clicking a taluka name in Tab 4
+  // opens the "Village Form 1 Ghoshwara" table in full-screen.
+  // If showTalukaGoshwara is false, this section is skipped
+  // and the default MIS dashboard is displayed. =====
+  if (showTalukaGoshwara) {
+    return (
+      <TalukaGoshwaraReport
+        talukaName={selectedTalukaInfo.talukaName}
+        districtName={selectedTalukaInfo.districtName}
+        onBack={() => setShowTalukaGoshwara(false)}
+      />
+    );
+  }
+
+  //==================================================================================================
+
   return (
     <div style={{ margin: '20px' }}>
       <div
@@ -1998,14 +2026,22 @@ export const IntroduceRow = ({ loading, visitData }) => {
           </Select>
         </FormControl>
       </div>
+      {/* ===== Sejal | FIX: Tab switching issue.
+    Changed Tabs from uncontrolled to controlled using activeKey + onChange.
+    Also fixed animated from string to boolean. ===== */}
       <Tabs
-        defaultActiveKey="tab1"
+        activeKey={activeTab}
+        onChange={(key) => {
+          setActiveTab(key);
+          callbackTabClicked(key);
+        }}
         type="card"
         size="large"
         tabBarGutter="10"
-        animated="true"
+        animated={true}
         style={{ position: 'sticky! important', top: '0px' }}
-        onTabClick={callbackTabClicked}
+
+        //==================================================================================================
       >
         {/* <Tabs.TabPane tab="कामकाज प्रगती अहवाल" key="tab1"> */}
         <Tabs.TabPane tab="इ-चावडी कामकाज प्रगती अहवाल" key="tab1">
@@ -6216,7 +6252,23 @@ export const IntroduceRow = ({ loading, visitData }) => {
                                             }}
                                           >
                                             <CardContent>
-                                              <h4>{r.talukaName}</h4>
+                                              {/* ===== Sejal | Made taluka name clickable.
+                                  Opens the Ghoshwara table in full screen on click. ===== */}
+                                              <h4
+                                                style={{ cursor: 'pointer' }}
+                                                onClick={() => {
+                                                  setSelectedTalukaInfo({
+                                                    talukaName: r.talukaName,
+                                                    talukaCode: r.talukaCode,
+                                                    districtName: r.districtName,
+                                                    districtCode: r.districtCode,
+                                                  });
+                                                  setShowTalukaGoshwara(true);
+                                                }}
+                                              >
+                                                <u>{r.talukaName}</u>
+                                              </h4>
+                                              {/* ================================================================================================== */}
                                             </CardContent>
                                           </Box>
                                         </Card>

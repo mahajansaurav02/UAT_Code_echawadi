@@ -1,0 +1,226 @@
+.screen {
+  padding: 12px 16px 40px;
+  background: hsl(204, 65%, 91%);
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.topBar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.backButton {
+  background: #1890ff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 16px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.backButton:hover {
+  background: #40a9ff;
+}
+
+.controlBox {
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  padding: 16px 20px 20px;
+  margin-bottom: 18px;
+}
+
+.controlTopRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pratButton {
+  background: #1890ff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.pratButton:hover {
+  background: #40a9ff;
+}
+
+.boxHeading {
+  flex: 1;
+  text-align: center;
+  margin: 0;
+  font-size: 26px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.topRowSpacer {
+  width: 104px;
+  flex-shrink: 0;
+}
+
+.controlFields {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 22px;
+  flex-wrap: wrap;
+}
+
+.fieldGroup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 260px;
+}
+
+.fieldLabel {
+  font-size: 15px;
+  color: #333;
+  white-space: nowrap;
+}
+
+.fieldInput {
+  flex: 1;
+  padding: 6px 11px;
+  font-size: 14px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  background: #f5f5f5;
+  color: #555;
+}
+
+.getDataButton {
+  background: #1890ff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 22px;
+  font-size: 15px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.getDataButton:hover {
+  background: #40a9ff;
+}
+
+.tableWrapper {
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  padding: 12px;
+}
+
+.tableHeading {
+  text-align: center;
+  margin: 4px 0 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #000;
+  color: #c00000;
+  font-weight: 700;
+}
+
+.subHeading {
+  text-align: center;
+  margin: 0 0 12px;
+  padding-top: 10px;
+  font-weight: 600;
+  color: #333;
+}
+
+.tableScroll {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.goshwaraTable {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 2200px;
+  font-size: 12px;
+}
+
+.goshwaraTable th,
+.goshwaraTable td {
+  border: 1px solid #000;
+  padding: 4px 6px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.goshwaraTable thead th {
+  background: hsl(204, 65%, 91%);
+  color: #000;
+  font-weight: bold;
+}
+
+.goshwaraTable tbody td {
+  background: #fff;
+  color: #000;
+}
+
+.villageName {
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.noData {
+  padding: 24px;
+  color: #666;
+  font-size: 15px;
+}
+
+@media print {
+  .tableScroll {
+    overflow: visible !important;
+    width: auto !important;
+  }
+
+  .tableWrapper {
+    border: none !important;
+    padding: 0 !important;
+    background: #fff !important;
+  }
+
+  .goshwaraTable {
+    min-width: 0 !important;
+    width: 100% !important;
+    table-layout: fixed;
+    font-size: 8px !important;
+  }
+
+  .goshwaraTable th,
+  .goshwaraTable td {
+    padding: 2px 2px !important;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal !important;
+  }
+
+  .goshwaraTable thead th {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .villageName {
+    white-space: normal !important;
+  }
+
+  .goshwaraTable thead {
+    display: table-header-group;
+  }
+
+  .goshwaraTable tr {
+    page-break-inside: avoid;
+  }
+}
