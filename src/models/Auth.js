@@ -172,7 +172,7 @@ export default () => {
     setToastTimer(true);
   };
 
-  const authLogin = (tokenAfterLogin, expiryDate) => {
+  const authLogin = (tokenAfterLogin, refreshToken, expiryDate) => {
     if (logoutTimer) {
       clearTimeout(logoutTimer);
     }
@@ -183,6 +183,7 @@ export default () => {
     setToken(tokenAfterLogin);
     console.log('Did we get the token from the backend?', tokenAfterLogin);
     Cookies.set('token', tokenAfterLogin, { expires: 1, path: '/' }); // <-- Saving securely to a Cookie for 1 day!
+      Cookies.set('encoded', refreshToken, { expires: 1, path: '/' });
     // localStorage.setItem('token', tokenAfterLogin);
     const remainingTime = calculateRemainingTime(expiryDate);
     localStorage.setItem('expiryDate', expiryDate);
