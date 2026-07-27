@@ -112,14 +112,14 @@ function DyslrForm1AbstractReport() {
       'GET',
       null,
       (res) => {
-        setTenureArea(res.data.tenure1Area);
-        setTenureAssessment(res.data.tenure1Assessment);
-        setTenure2Area(res.data.tenure2Area);
-        setTenure2Assessment(res.data.tenure2Assessment);
+        // setTenureArea(res.data.tenure1Area);
+        // setTenureAssessment(res.data.tenure1Assessment);
+        // setTenure2Area(res.data.tenure2Area);
+        // setTenure2Assessment(res.data.tenure2Assessment);
         setTenure3Area(res.data.tenure3Area);
         setTenure3Assessment(res.data.tenure3Assessment);
-        setTenure4Area(res.data.tenure4Area);
-        setTenure4Assessment(res.data.tenure4Assessment);
+        // setTenure4Area(res.data.tenure4Area);
+        // setTenure4Assessment(res.data.tenure4Assessment);
         setSpecialAgreement(res.data.revenueOrLeaseholdLandUnderSpecialAgreement);
         setDumalaLandArea(res.data.form3NetCultiArea);
         setDumalaLandAssessment(res.data.form3Assessment);
@@ -144,6 +144,28 @@ function DyslrForm1AbstractReport() {
         setNalasArea(res.data.nalas);
         setUnOccupied(res.data.unOccupied);
         message.success('Data Fetched Successfully !');
+      },
+    );
+
+    sendRequest(
+      `${URLS.BaseURL}/form1Dyslr/getnewForm1AbstractReportDyslr?districtCode=${districtCode}&talukaCode=${talukaCode}&cCode=${cCodeToUse}`,
+      'GET',
+      null,
+      (res) => {
+        const newData = res.data?.areaSummaryList?.[0];
+
+        if (newData) {
+          setTenureArea(newData.tenure1Area || 0);
+          setTenureAssessment(newData.tenure1Assessment || 0);
+
+          setTenure2Area(newData.tenure2Area || 0);
+          setTenure2Assessment(newData.tenure2Assessment || 0);
+
+          setTenure4Area(newData.tenure3Area || 0);
+          setTenure4Assessment(newData.tenure3Assessment || 0);
+        } else {
+          console.log('No data found in areaSummaryList');
+        }
       },
     );
 
