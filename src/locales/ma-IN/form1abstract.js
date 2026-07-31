@@ -134,4 +134,11 @@ export default {
   'form1abstract.dyslr.totalA': 'एकूण अ (एक + दोन)',
   'form1abstract.dyslr.totalB': 'एकूण ब (एक + दोन + तीन)',
   'form1abstract.dyslr.villageTotal': 'गावाची एकूण बेरीज (एकूण अ + एकूण ब)',
+
+  'form1abstract.goshwaraTable.heading': 'गाव नमुना एक चा गोषवारा',
+  'form1abstract.goshwaraTable.srNo': 'अनु.क्र.',
+  'form1abstract.goshwaraTable.villageName': 'गावाचे नाव',
+  'form1abstract.goshwaraTable.totalALabel': 'अ- लागवडीकरीता जमीन एकूण',
+  'form1abstract.goshwaraTable.totalBLabel': 'ब - लागवडीकरीता जमीन एकूण',
+  'form1abstract.goshwaraTable.grandTotalLabel': 'गावची एकूण बेरीज (अ+ब)',
 };

@@ -88,7 +88,6 @@ const useAxios = () => {
         return newAccessToken;
       }
     } catch (error) {
-      alert('api gives 500 error. Session expired. Please login again.');
       localStorage.clear();
       Cookies.remove('token');
       Cookies.remove('refreshToken');

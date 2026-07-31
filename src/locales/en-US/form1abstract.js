@@ -129,4 +129,11 @@ export default {
   'form1abstract.dyslr.totalA': 'Total A (I + II)',
   'form1abstract.dyslr.totalB': 'Total B (I + II + III)',
   'form1abstract.dyslr.villageTotal': 'Village Total (Total A + Total B)',
+
+  'form1abstract.goshwaraTable.heading': 'Village Form One Abstract',
+  'form1abstract.goshwaraTable.srNo': 'Sr. No.',
+  'form1abstract.goshwaraTable.villageName': 'Village Name',
+  'form1abstract.goshwaraTable.totalALabel': 'Total A - Land For Cultivation',
+  'form1abstract.goshwaraTable.totalBLabel': 'Total B - Land Not Available For Cultivation',
+  'form1abstract.goshwaraTable.grandTotalLabel': 'Village Grand Total (A+B)',
 };
