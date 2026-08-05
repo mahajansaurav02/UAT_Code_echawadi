@@ -70,6 +70,8 @@ export default {
   'formLanguage.form.gaothan': 'गावठाण',
   'formLanguage.form.river': 'नद्या',
   'formLanguage.form.nala': 'नाले',
+    'formLanguage.form.specialuse': 'सार्वजनिक/विशेष वापरासाठी',
+
   'formLanguage.form.road': 'रस्ते',
   'formLanguage.form.nonSurveyTotal': 'भूमापन क्रमांक खेरीज एकूण क्षेत्र',
   'formLanguage.form.outsideGaothanTotal': 'गावठाणाबाहेरील एकूण',

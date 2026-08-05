@@ -16,6 +16,7 @@ import ReactHtmlTableToExcel from 'react-html-table-to-excel';
 // Utility functions for safe parsing
 const safeParseFloat = (value) => {
   if (value === null || value === undefined || value === '' || value === 'NaN') {
+    // console.log(value,"checkk")
     return 0;
   }
   const parsed = parseFloat(value);
@@ -23,6 +24,7 @@ const safeParseFloat = (value) => {
 };
 
 const safeAddition = (...values) => {
+  console.log(...values,"check value===================")
   return values.reduce((sum, val) => sum + safeParseFloat(val), 0);
 };
 
@@ -81,6 +83,7 @@ function Report() {
   const [prebagayatAreaA, setPrebagayatAreaA] = useState(0);
   const [pretariAreaA, setPretariAreaA] = useState(0);
   const [otherAreaA, setPreotherAreaA] = useState(0);
+  const [specialUseArea, setSpecialUseArea] = useState(0);
 
   const history = useHistory();
 
@@ -132,13 +135,62 @@ function Report() {
           setNalas(footerData.nalas || 0);
           setRoadAndPath(footerData.roadsAndPath || 0);
           setPrevRoadsAndPath(
-            safeAddition(footerData.riversNalas, footerData.nalas, footerData.roadsAndPath),
+            safeAddition(footerData.riversNalas, footerData.nalas, footerData.roadsAndPath,footerData.villageSite),
           );
         }
       },
     );
     setLoading(false);
   };
+ const getGavthanData = async () => {
+  setLoading(true);
+  
+  sendRequest(
+    `${URLS.BaseURL}/form1Dyslr/getForm1AbstractReportDyslr?districtCode=${districtCode}&talukaCode=${talukaCode}&cCode=${codeVillage}`,
+    'GET',
+    null,
+    (res) => {
+      try {
+        const footerData = res.data;
+        console.log(res.data, "check gavthan data");
+        if (footerData) {
+          const specialUseAreaValue = safeAddition(
+            footerData.forest,
+            footerData.kuran,
+            footerData.freePastureCattleStand,
+            // footerData.villageSite,
+            footerData.tank,
+            footerData.burialGround,
+            footerData.railways,
+            footerData.potKharabAssignedRoadsWaterCourses,
+            footerData.pipeLineCanel,
+            footerData.cantonmentLandMilitaryCamp,
+            footerData.schools,
+            footerData.dharmshalas,
+          );
+          
+          // Calculate prevRoadsAndPath WITH specialUseArea
+          const totalFooterArea = safeAddition(
+            footerData.riversNalas,
+            footerData.nalas,
+            footerData.roadsAndPath,
+            footerData.villageSite,
+            specialUseAreaValue  // ✅ Included
+          );
+          
+          setTimeout(() => {
+            setSpecialUseArea(specialUseAreaValue);
+            setPrevRoadsAndPath(totalFooterArea);  // ✅ Updated with specialUseArea
+            setLoading(false);
+          }, 800);
+        }
+      } catch (error) {
+        console.error('Error processing footer data:', error);
+        setLoading(false);
+      }
+    },
+  );
+};
 
   useEffect(() => {
     prevTotalArea = 0;
@@ -311,6 +363,7 @@ function Report() {
             if (textForVillage) {
               getTableData();
               getFooterData();
+              getGavthanData()
             } else if (textForVillage == null) {
               message.info('Please Select Village');
             }
@@ -367,6 +420,7 @@ function Report() {
         prebagayatAreaA={prebagayatAreaA}
         pretariAreaA={pretariAreaA}
         otherAreaA={otherAreaA}
+        specialUseArea={specialUseArea}
       />
     </div>
   );
@@ -617,7 +671,7 @@ class ComponentToPrint extends React.Component {
                         <td>{r.tariAssessment || '0'}</td>
                         <td>{r.otherAssessment || '0'}</td>
                         <td>{r.assessment || '0'}</td>
-                        <td>{r.publicRightsOfWayAndEasements || '0'}</td>
+                        <td>{r.publicRightsOfWayAndEasements || ''}</td>
                         <td>{r.particularsOfAlteration || ''}</td>
                         <td>{r.orderSanctioningChanges || ''}</td>
                         <td>{r.orderDate || ''}</td>
@@ -707,9 +761,9 @@ class ComponentToPrint extends React.Component {
                       <td></td>
                       <td>
                         <FormattedMessage id="formLanguage.form.gaothan" />
-                      </td>
+                      </td> 
                       <td>{this.props.villageSite || '0'}</td>
-                      <td></td>
+                      <td><FormattedMessage id="formLanguage.form.gaothan" /></td>
                       <td>{this.props.villageSite || '0'}</td>
                       <td></td>
                       <td></td>
@@ -805,6 +859,43 @@ class ComponentToPrint extends React.Component {
                       <td></td>
                       <td></td>
                     </tr>
+
+
+
+
+ <tr>
+   <td></td>
+                      <td>
+                        <FormattedMessage id="formLanguage.form.specialuse" />
+                      </td>
+                      <td>{this.props.specialUseArea || '0'}</td>
+                      <td>
+                        <FormattedMessage id="formLanguage.form.specialuse" />
+                      </td>
+                      <td>{this.props.specialUseArea || '0'}</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+
+
+
+
+
+
+
                     <tr>
                       <td></td>
                       <td>
