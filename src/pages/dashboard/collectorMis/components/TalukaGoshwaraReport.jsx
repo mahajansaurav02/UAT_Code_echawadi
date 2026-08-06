@@ -4,32 +4,19 @@ import { FormattedMessage } from 'umi';
 import styles from './TalukaGoshwaraReport.module.css';
 
 const publicUseCols = [
-  { prefixKey: 'form1abstract.(a)', 
-    labelKey: 'form1abstract.Forest' },
-  { prefixKey: 'form1abstract.(b)', 
-    labelKey: 'form1abstract.Kuran' },
-  { prefixKey: 'form1abstract.(c)', 
-    labelKey: 'form1abstract.pastureCattle' },
-  { prefixKey: 'form1abstract.(d)', 
-    labelKey: 'form1abstract.VillageSite' },
-  { prefixKey: 'form1abstract.(e)', 
-    labelKey: 'form1abstract.Tank' },
-  { prefixKey: 'form1abstract.(fENG)', 
-    labelKey: 'form1abstract.burialGround' },
-  { prefixKey: 'form1abstract.(gENG)', 
-    labelKey: 'form1abstract.railways' },
-  { prefixKey: 'form1abstract.(hENG)', 
-    labelKey: 'form1abstract.PotKharabAssigned' },
-  { prefixKey: 'form1abstract.(ie)', 
-    labelKey: 'form1abstract.RoadsPaths' },
-  { prefixKey: 'form1abstract.(j)', 
-    labelKey: 'form1abstract.pipeLines' },
-  { prefixKey: 'form1abstract.(k)', 
-    labelKey: 'form1abstract.Cantonment' },
-  { prefixKey: 'form1abstract.(l)', 
-    labelKey: 'form1abstract.School' },
-  { prefixKey: 'form1abstract.(m)', 
-    labelKey: 'form1abstract.Dharmashalas' },
+  { prefixKey: 'form1abstract.(a)', labelKey: 'form1abstract.Forest' },
+  { prefixKey: 'form1abstract.(b)', labelKey: 'form1abstract.Kuran' },
+  { prefixKey: 'form1abstract.(c)', labelKey: 'form1abstract.pastureCattle' },
+  { prefixKey: 'form1abstract.(d)', labelKey: 'form1abstract.VillageSite' },
+  { prefixKey: 'form1abstract.(e)', labelKey: 'form1abstract.Tank' },
+  { prefixKey: 'form1abstract.(fENG)', labelKey: 'form1abstract.burialGround' },
+  { prefixKey: 'form1abstract.(gENG)', labelKey: 'form1abstract.railways' },
+  { prefixKey: 'form1abstract.(hENG)', labelKey: 'form1abstract.PotKharabAssigned' },
+  { prefixKey: 'form1abstract.(ie)', labelKey: 'form1abstract.RoadsPaths' },
+  { prefixKey: 'form1abstract.(j)', labelKey: 'form1abstract.pipeLines' },
+  { prefixKey: 'form1abstract.(k)', labelKey: 'form1abstract.Cantonment' },
+  { prefixKey: 'form1abstract.(l)', labelKey: 'form1abstract.School' },
+  { prefixKey: 'form1abstract.(m)', labelKey: 'form1abstract.Dharmashalas' },
   { labelKey: 'form1abstract.leasedorGranted' },
 ];
 
@@ -252,15 +239,15 @@ function TalukaGoshwaraReport({ talukaName, districtName, onBack }) {
                 </th>
                 <th rowSpan={2}>
                   <FormattedMessage id="form1abstract.(b)" />
-                   <FormattedMessage id="form1abstract.govtLand" />
+                  <FormattedMessage id="form1abstract.govtLand" />
                 </th>
                 <th rowSpan={2}>
                   <FormattedMessage id="form1abstract.(c)" />
-                   <FormattedMessage id="form1abstract.CessFree" />
+                  <FormattedMessage id="form1abstract.CessFree" />
                 </th>
                 <th rowSpan={2}>
                   <FormattedMessage id="form1abstract.(d)" />
-                   <FormattedMessage id="form1abstract.Alienated" />
+                  <FormattedMessage id="form1abstract.Alienated" />
                 </th>
                 <th rowSpan={2}>
                   <FormattedMessage id="form1abstract.Unoccupied" />
@@ -271,11 +258,11 @@ function TalukaGoshwaraReport({ talukaName, districtName, onBack }) {
                 </th>
                 <th rowSpan={2}>
                   <FormattedMessage id="form1abstract.(a)" />
-                   <FormattedMessage id="form1abstract.potkharab" />
+                  <FormattedMessage id="form1abstract.potkharab" />
                 </th>
                 <th rowSpan={2}>
                   <FormattedMessage id="form1abstract.(b)" />
-                   <FormattedMessage id="form1abstract.rivers" /> व{' '}
+                  <FormattedMessage id="form1abstract.rivers" /> व{' '}
                   <FormattedMessage id="form1abstract.Nallas" />
                 </th>
                 {publicUseCols.map((col, i) => (
@@ -293,7 +280,7 @@ function TalukaGoshwaraReport({ talukaName, districtName, onBack }) {
               <tr>
                 <th>
                   <FormattedMessage id="form1abstract.(I)" />
-                   <FormattedMessage id="form1abstract.OccupantsClass I" />
+                  <FormattedMessage id="form1abstract.OccupantsClass I" />
                 </th>
                 <th>
                   <FormattedMessage id="form1abstract.(II)" />{' '}

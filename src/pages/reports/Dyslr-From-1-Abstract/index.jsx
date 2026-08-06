@@ -119,8 +119,8 @@ function DyslrForm1AbstractReport() {
         // setTenureAssessment(res.data.tenure1Assessment);
         // setTenure2Area(res.data.tenure2Area);
         // setTenure2Assessment(res.data.tenure2Assessment);
-        setTenure3Area(res.data.tenure3Area);
-        setTenure3Assessment(res.data.tenure3Assessment);
+        // setTenure3Area(res.data.tenure3Area);
+        // setTenure3Assessment(res.data.tenure3Assessment);
         // setTenure4Area(res.data.tenure4Area);
         // setTenure4Assessment(res.data.tenure4Assessment);
         setSpecialAgreement(res.data.revenueOrLeaseholdLandUnderSpecialAgreement);
@@ -158,38 +158,20 @@ function DyslrForm1AbstractReport() {
         const newData = res.data?.areaSummaryList?.[0];
 
         if (newData) {
-          setTenureArea(toNumber(newData.tenure1Areaa) || 0);
-          setTenureAssessment(toNumber(newData.tenure1Assessment) || 0);
+          setTenureArea(newData.tenure1Areaa || 0);
+          setTenureAssessment(newData.tenure1Assessment || 0);
 
-          setTenure2Area(toNumber(newData.tenure2Areaa) || 0);
-          setTenure2Assessment(toNumber(newData.tenure2Assessment) || 0);
-
-          setTenure4Area(toNumber(newData.tenure3Areaa) || 0);
-          setTenure4Assessment(toNumber(newData.tenure3Assessment) || 0);
+          setTenure2Area(newData.tenure2Areaa || 0);
+          setTenure2Assessment(newData.tenure2Assessment || 0);
+          setTenure3Area(newData.tenure3Areaa || 0);
+          setTenure3Assessment(newData.tenure3Assessment || 0);
+          setTenure4Area(newData.tenure4Areaa || 0);
+          setTenure4Assessment(newData.tenure4Assessment || 0);
         } else {
           console.log('No data found in areaSummaryList');
         }
       },
     );
-
-    // sendRequest(
-    //   `${
-    //     URLS.BaseURL
-    //   }/form1Dyslr/getDyslrForm1ReportFooter?cCode=${cCodeToUse}&districtCode=${districtCode}&talukaCode=${talukaCode}${
-    //     revenueYear ? `&revenueYear=${revenueYear}` : ''
-    //   }`,
-    //   'GET',
-    //   null,
-    //   (res) => {
-    //     const footerData = res.data?.[0];
-    //     if (footerData) {
-    //       setFooterVillageSite(parseFloat(footerData.villageSite) || 0);
-    //       setFooterRiversNalas(parseFloat(footerData.riversNalas) || 0);
-    //       setFooterNalas(parseFloat(footerData.nalas) || 0);
-    //       setFooterRoadsAndPath(parseFloat(footerData.roadsAndPath) || 0);
-    //     }
-    //   },
-    // );
   };
 
   const changeLang = () => {
@@ -244,8 +226,8 @@ function DyslrForm1AbstractReport() {
         tenureAssessment={tenureAssessment === 0 ? '' : tenureAssessment}
         tenure2Area={tenure2Area === 0 ? '' : tenure2Area}
         tenure2Assessment={tenure2Assessment === 0 ? '' : tenure2Assessment}
-        tenure3Area={tenure3Area === 0 ? '' : tenure3Area}
-        tenure3Assessment={tenure3Assessment === 0 ? '' : tenure3Assessment}
+        tenure3Area={tenure3Area === 0 ? 0 : tenure3Area}
+        tenure3Assessment={tenure3Assessment === 0 ? 0 : tenure3Assessment}
         tenure4Area={tenure4Area === 0 ? '' : tenure4Area}
         tenure4Assessment={tenure4Assessment === 0 ? '' : tenure4Assessment}
         specialAgreement={specialAgreement === 0 ? '' : specialAgreement}
@@ -279,7 +261,7 @@ function DyslrForm1AbstractReport() {
             tenure4Area +
             specialAgreement +
             dumalaLandArea ===
-          0
+            0
             ? ''
             :
               Math.round(
@@ -299,7 +281,7 @@ function DyslrForm1AbstractReport() {
             tenure3Assessment +
             tenure4Assessment +
             dumalaLandAssessment ===
-          0
+            0
             ? ''
             :
               Math.round(
@@ -343,25 +325,25 @@ function DyslrForm1AbstractReport() {
             contonmentArea +
             schoolArea +
             dharmashalasArea ===
-          0
+            0
             ? ''
             : Math.round(
-                (forestArea +
-                  kuranArea +
-                  cattleLandArea +
-                  villageSiteArea +
-                  tankArea +
-                  burialGroundArea +
-                  railwayArea +
-                  roadWaterCourseArea +
-                  roadAndPathsArea +
-                  pipeLineArea +
-                  contonmentArea +
-                  schoolArea +
-                  dharmashalasArea +
-                  Number.EPSILON) *
-                  100,
-              ) / 100
+              (forestArea +
+                kuranArea +
+                cattleLandArea +
+                villageSiteArea +
+                tankArea +
+                burialGroundArea +
+                railwayArea +
+                roadWaterCourseArea +
+                roadAndPathsArea +
+                pipeLineArea +
+                contonmentArea +
+                schoolArea +
+                dharmashalasArea +
+                Number.EPSILON) *
+              100,
+            ) / 100
         }
         totalOfB3={srNoForNonAgricultureUseArea === 0 ? '' : srNoForNonAgricultureUseArea}
         unOccupied={unOccupied}
@@ -472,7 +454,7 @@ class ComponentToPrint extends React.Component {
                   </td>
                   <td>{this.props.tenure2Area}</td>
                   <td>{this.props.tenure2Assessment}</td>
-                  <td>{}</td>
+                  <td>{ }</td>
                 </tr>
                 <tr>
                   <td>
@@ -482,7 +464,7 @@ class ComponentToPrint extends React.Component {
                   </td>
                   <td>{this.props.tenure4Area}</td>
                   <td>{this.props.tenure4Assessment}</td>
-                  <td>{}</td>
+                  <td>{ }</td>
                 </tr>
                 <tr>
                   <td>
@@ -490,10 +472,14 @@ class ComponentToPrint extends React.Component {
                     <FormattedMessage id="form1abstract.(b)" />{' '}
                     <FormattedMessage id="form1abstract.govtLand" />
                   </td>
-                  <td>{this.props.tenure3Area}</td>
-                  <td>{this.props.tenure3Assessment}</td>
+                  <td>
+                    {this.props.tenure3Assessment !== 0 ? this.props.tenure3Area : ''}
 
-                  <td>{}</td>
+                  </td>
+                  <td>{this.props.tenure3Assessment !== 0 ? this.props.tenure3Assessment : ''}
+                  </td>
+
+                  <td>{ }</td>
                 </tr>
                 <tr>
                   <td>
@@ -502,8 +488,8 @@ class ComponentToPrint extends React.Component {
                     <FormattedMessage id="form1abstract.CessFree" />
                   </td>
                   <td>{this.props.specialAgreement}</td>
-                  <td>{}</td>
-                  <td>{}</td>
+                  <td>{ }</td>
+                  <td>{ }</td>
                 </tr>
                 <tr>
                   <td>
@@ -513,7 +499,7 @@ class ComponentToPrint extends React.Component {
                   </td>
                   <td>{this.props.dumalaLandArea}</td>
                   <td>{this.props.dumalaLandAssessment}</td>
-                  <td>{}</td>
+                  <td>{ }</td>
                 </tr>
                 <tr>
                   <td>
@@ -538,10 +524,10 @@ class ComponentToPrint extends React.Component {
                     <FormattedMessage id="form1abstract.Unoccupied" />
                   </td>
                   <td>
-                    {parseFloat(this.props.unOccupied) == '0.00' ? '' : this.props.unOccupied}
+                    {parseFloat(this.props.tenure3Assessment) === 0 ? this.props.tenure3Area : ''}
                   </td>
-                  <td>{parseFloat(this.props.unOccupied) == '0.00' ? '' : 0}</td>
-                  <td>{}</td>
+                  <td>{parseFloat(this.props.tenure3Assessment) === 0 ? this.props.tenure3Assessment : ''}</td>
+                  <td>{ }</td>
                 </tr>
                 <tr>
                   <td>
@@ -549,8 +535,8 @@ class ComponentToPrint extends React.Component {
                     <FormattedMessage id="form1abstract.AssignedForSpecialuse" />
                   </td>
                   <td>{this.props.assignedForSpecialUseArea}</td>
-                  <td>{}</td>
-                  <td>{}</td>
+                  <td>{ }</td>
+                  <td>{ }</td>
                 </tr>
                 <tr>
                   <td>
@@ -600,7 +586,7 @@ class ComponentToPrint extends React.Component {
                   </td>
                   <td>{this.props.potKharabaArea}</td>
                   <td>{this.props.potKharabaAssessment}</td>
-                  <td>{}</td>
+                  <td>{ }</td>
                 </tr>
                 <tr>
                   <td>
@@ -610,8 +596,8 @@ class ComponentToPrint extends React.Component {
                   </td>
                   {/* <td>{this.props.riversArea + this.props.nalasArea}</td> */}
                   <td>{formatSum(this.props.riversArea, this.props.nalasArea)}</td>
-                  <td>{}</td>
-                  <td>{}</td>
+                  <td>{ }</td>
+                  <td>{ }</td>
                 </tr>
 
                 <tr>
@@ -638,8 +624,8 @@ class ComponentToPrint extends React.Component {
                     <FormattedMessage id="form1abstract.Forest" />
                   </td>
                   <td>{this.props.forestArea}</td>
-                  <td>{}</td>
-                  <td>{}</td>
+                  <td>{ }</td>
+                  <td>{ }</td>
                 </tr>
                 <tr>
                   <td>
@@ -647,8 +633,8 @@ class ComponentToPrint extends React.Component {
                     <FormattedMessage id="form1abstract.Kuran" />
                   </td>
                   <td>{this.props.kuranArea}</td>
-                  <td>{}</td>
-                  <td>{}</td>
+                  <td>{ }</td>
+                  <td>{ }</td>
                 </tr>
                 <tr>
                   <td>
@@ -665,8 +651,8 @@ class ComponentToPrint extends React.Component {
                     <FormattedMessage id="form1abstract.VillageSite" />
                   </td>
                   <td>{this.props.villageSiteArea}</td>
-                  <td>{}</td>
-                  <td>{}</td>
+                  <td>{ }</td>
+                  <td>{ }</td>
                 </tr>
                 <tr>
                   <td>
@@ -674,8 +660,8 @@ class ComponentToPrint extends React.Component {
                     <FormattedMessage id="form1abstract.Tank" />
                   </td>
                   <td>{this.props.tankArea}</td>
-                  <td>{}</td>
-                  <td>{}</td>
+                  <td>{ }</td>
+                  <td>{ }</td>
                 </tr>
                 <tr>
                   <td>
@@ -683,8 +669,8 @@ class ComponentToPrint extends React.Component {
                     <FormattedMessage id="form1abstract.burialGround" />
                   </td>
                   <td>{this.props.burialGroundArea}</td>
-                  <td>{}</td>
-                  <td>{}</td>
+                  <td>{ }</td>
+                  <td>{ }</td>
                 </tr>
                 <tr>
                   <td>
@@ -692,8 +678,8 @@ class ComponentToPrint extends React.Component {
                     <FormattedMessage id="form1abstract.railways" />
                   </td>
                   <td>{this.props.railwayArea}</td>
-                  <td>{}</td>
-                  <td>{}</td>
+                  <td>{ }</td>
+                  <td>{ }</td>
                 </tr>
                 <tr>
                   <td>
@@ -701,8 +687,8 @@ class ComponentToPrint extends React.Component {
                     <FormattedMessage id="form1abstract.PotKharabAssigned" />
                   </td>
                   <td>{this.props.roadWaterCourseArea}</td>
-                  <td>{}</td>
-                  <td>{}</td>
+                  <td>{ }</td>
+                  <td>{ }</td>
                 </tr>
                 <tr>
                   <td>
@@ -710,8 +696,8 @@ class ComponentToPrint extends React.Component {
                     <FormattedMessage id="form1abstract.RoadsPaths" />
                   </td>
                   <td>{this.props.roadAndPathsArea}</td>
-                  <td>{}</td>
-                  <td>{}</td>
+                  <td>{ }</td>
+                  <td>{ }</td>
                 </tr>
                 <tr>
                   <td>
@@ -719,8 +705,8 @@ class ComponentToPrint extends React.Component {
                     <FormattedMessage id="form1abstract.pipeLines" />
                   </td>
                   <td>{this.props.pipeLineArea}</td>
-                  <td>{}</td>
-                  <td>{}</td>
+                  <td>{ }</td>
+                  <td>{ }</td>
                 </tr>
 
                 <tr>
@@ -729,8 +715,8 @@ class ComponentToPrint extends React.Component {
                     <FormattedMessage id="form1abstract.Cantonment" />
                   </td>
                   <td>{this.props.contonmentArea}</td>
-                  <td>{}</td>
-                  <td>{}</td>
+                  <td>{ }</td>
+                  <td>{ }</td>
                 </tr>
                 <tr>
                   <td>
@@ -738,8 +724,8 @@ class ComponentToPrint extends React.Component {
                     <FormattedMessage id="form1abstract.School" />
                   </td>
                   <td>{this.props.schoolArea}</td>
-                  <td>{}</td>
-                  <td>{}</td>
+                  <td>{ }</td>
+                  <td>{ }</td>
                 </tr>
                 <tr>
                   <td>
@@ -747,8 +733,8 @@ class ComponentToPrint extends React.Component {
                     <FormattedMessage id="form1abstract.Dharmashalas" />
                   </td>
                   <td>{this.props.dharmashalasArea}</td>
-                  <td>{}</td>
-                  <td>{}</td>
+                  <td>{ }</td>
+                  <td>{ }</td>
                 </tr>
                 <tr>
                   <td>
@@ -773,8 +759,8 @@ class ComponentToPrint extends React.Component {
                     <FormattedMessage id="form1abstract.leasedorGranted2" />
                   </td>
                   <td>{this.props.srNoForNonAgricultureUseArea}</td>
-                  <td>{}</td>
-                  <td>{}</td>
+                  <td>{ }</td>
+                  <td>{ }</td>
                 </tr>
                 <tr>
                   <td>

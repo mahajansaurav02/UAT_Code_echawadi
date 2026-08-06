@@ -196,7 +196,7 @@ const Login = () => {
         );
 
         // Use accessToken from response
-        authLogin(res.data.accessToken, 3600000);
+        authLogin(res.data.accessToken, 3600000, res.data.encodedKey); // Assuming 1 hour expiry for access token
         reload();
 
         // Update initialState so menu params change and navbar re-renders

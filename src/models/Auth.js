@@ -172,7 +172,7 @@ export default () => {
     setToastTimer(true);
   };
 
-  const authLogin = (tokenAfterLogin, refreshToken, expiryDate) => {
+  const authLogin = (tokenAfterLogin, expiryDate,refreshToken) => {
     if (logoutTimer) {
       clearTimeout(logoutTimer);
     }

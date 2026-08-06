@@ -33,7 +33,7 @@ function StepForm() {
   const [recordId, setRecordId] = useState();
   const [codeVillage, setCodeVillage] = useState();
   const [textForVillage, setTextForVillage] = useState();
-  const [khataNoValue, setKhataNoValue] = useState();
+  const [khataNoValue, setKhataNoValue] = useState('');
   const [revenueYear, setRevenueYear] = useState();
   const [isNirank, setIsNirank] = useState(false);
   const [flagDisableButton, setDisableFlagButton] = useState(false);
@@ -257,7 +257,11 @@ function StepForm() {
 
   const getForm17Data = async () => {
     setIsLoading(true);
+    // if(khataNoValue == undefined || khataNoValue == null || khataNoValue == ""){
 
+
+    // }
+console.log(khataNoValue,"checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkhataNoValuekhataNoValue")
     sendRequest(
       `${URLS.BaseURL}/form17/getForm17Data?districtCode=${districtCode}&talukaCode=${talukaCode}&khataNo=${khataNoValue}&cCode=${codeVillage}&revenueYear=${revenueYear}`,
       'GET',
