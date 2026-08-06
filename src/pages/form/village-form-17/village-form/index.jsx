@@ -1107,6 +1107,10 @@ const BasicForm = () => {
                     <Select.Option value="सिंचन कर">सिंचन कर </Select.Option>
                     <Select.Option value="तात्पुर्ती  बिनशेती ">तात्पुरती बिनशेती </Select.Option>
                     <Select.Option value="इतर दंडात्मक वसुली">इतर दंडात्मक वसुली </Select.Option>
+                    {/* Sejal Change */}
+                    <Select.Option value="एकरकमी रुपांतरण अधिमूल्य">
+                      एकरकमी रुपांतरण अधिमूल्य
+                    </Select.Option>
                   </Select>
                 </Form.Item>
               </Col>
@@ -1465,6 +1469,8 @@ const BasicForm = () => {
                       <Select.Option value="सिंचन कर">सिंचन कर </Select.Option>
 
                       <Select.Option value="इतर दंडात्मक वसुली">इतर दंडात्मक वसुली </Select.Option>
+                      {/* Sejal Change */}
+                      <Select.Option value="अधिमूल्य रक्कम">अधिमूल्य रक्कम</Select.Option>
                     </Select>
                     <Input
                       onKeyPress={KeyPressEvents.isInputNumber}

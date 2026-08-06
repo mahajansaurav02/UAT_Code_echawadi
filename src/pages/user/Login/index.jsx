@@ -18,6 +18,7 @@ import './index.css';
 import YouTube from 'react-youtube';
 import { Avatar, Card, CardContent, CardHeader, Grid } from '@mui/material';
 import ArrowForwardTwoToneIcon from '@mui/icons-material/ArrowForwardTwoTone';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import LiveHelpTwoToneIcon from '@mui/icons-material/LiveHelpTwoTone';
 import { AES, enc } from 'crypto-js';
 import { LoadCanvasTemplate, loadCaptchaEnginge, validateCaptcha } from 'react-simple-captcha';
@@ -78,6 +79,13 @@ Axios.defaults.withCredentials = true;
 Axios.defaults.headers.common['Content-Type'] = 'application/json';
 
 var login_attempts = 3;
+
+const ListRowIcon = () => (
+  <>
+    <ArrowForwardTwoToneIcon className="listIconFull" sx={{ color: 'skyblue' }} />
+    <ChevronRightIcon className="listIconShort" sx={{ color: 'skyblue' }} />
+  </>
+);
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -188,7 +196,7 @@ const Login = () => {
         );
 
         // Use accessToken from response
-        authLogin(res.data.accessToken, 3600000,res.data.encodedKey); // Assuming 1 hour expiry for access token
+        authLogin(res.data.accessToken, 3600000, res.data.encodedKey); // Assuming 1 hour expiry for access token
         reload();
 
         // Update initialState so menu params change and navbar re-renders
@@ -400,16 +408,28 @@ const Login = () => {
             type="default"
             href="https://testechawadi.mahabhumi.gov.in/user/"
           >
-            <FormattedMessage
-              id="pages.login.inspectionRegistration"
-              defaultMessage="ग्राम दप्तर तपासणीसाठी अधिकारी यांची माहिती भरा"
-            />
-            <img src="/new.gif" alt="New" className="new-gif" />
+            <span className="fullLabel">
+              <FormattedMessage
+                id="pages.login.inspectionRegistration"
+                defaultMessage="ग्राम दप्तर तपासणीसाठी अधिकारी यांची माहिती भरा"
+              />
+            </span>
+            <span className="shortLabel">
+              <FormattedMessage
+                id="pages.login.inspectionRegistration.short"
+                defaultMessage="अधिकारी माहिती"
+              />
+            </span>
           </Button>
 
           <Button className="go-to-mis-button" type="primary" onClick={goToMis}>
             <ArrowRightOutlined style={{ marginRight: '8px', fontSize: '16px' }} />
-            <FormattedMessage id="login.gotoMis" />
+            <span className="fullLabel">
+              <FormattedMessage id="login.gotoMis" />
+            </span>
+            <span className="shortLabel">
+              <FormattedMessage id="login.gotoMis.short" defaultMessage="MIS" />
+            </span>
           </Button>
 
           <div className="translator" data-lang>
@@ -537,42 +557,41 @@ const Login = () => {
               }
             />
             <CardContent>
-              {/* All the Grid items remain the same */}
               <Grid container spacing={1} columns={12}>
-                <Grid item xs={24} sm={24} md={2} lg={2} xl={2}>
-                  <ArrowForwardTwoToneIcon sx={{ color: 'skyblue' }} />
+                <Grid item xs={2} sm={2} md={2} lg={2} xl={2}>
+                  <ListRowIcon />
                 </Grid>
-                <Grid item xs={24} sm={24} md={10} lg={10} xl={10}>
+                <Grid item xs={10} sm={10} md={10} lg={10} xl={10}>
                   <a href={`${URLS.AuthURL}/file/14`} target="_blank" rel="noreferrer">
                     शिक्षण आणि रोजगार हमी (उपकर) अधिनियम, १९६२
                   </a>
                 </Grid>
               </Grid>
               <Grid container spacing={1} columns={12}>
-                <Grid item xs={24} sm={24} md={2} lg={2} xl={2}>
-                  <ArrowForwardTwoToneIcon sx={{ color: 'skyblue' }} />
+                <Grid item xs={2} sm={2} md={2} lg={2} xl={2}>
+                  <ListRowIcon />
                 </Grid>
-                <Grid item xs={24} sm={24} md={10} lg={10} xl={10}>
+                <Grid item xs={10} sm={10} md={10} lg={10} xl={10}>
                   <a href={`${URLS.AuthURL}/file/13`} target="_blank" rel="noreferrer">
                     महसूल मागणी निश्चिती २०२५-२६
                   </a>
                 </Grid>
               </Grid>
               <Grid container spacing={1} columns={12}>
-                <Grid item xs={24} sm={24} md={2} lg={2} xl={2}>
-                  <ArrowForwardTwoToneIcon sx={{ color: 'skyblue' }} />
+                <Grid item xs={2} sm={2} md={2} lg={2} xl={2}>
+                  <ListRowIcon />
                 </Grid>
-                <Grid item xs={24} sm={24} md={10} lg={10} xl={10}>
+                <Grid item xs={10} sm={10} md={10} lg={10} xl={10}>
                   <a href={`${URLS.AuthURL}/file/12`} target="_blank" rel="noreferrer">
                     इ-चावडी मार्गदर्शक सूचना २०२५
                   </a>
                 </Grid>
               </Grid>
               <Grid container spacing={1} columns={12}>
-                <Grid item xs={24} sm={24} md={2} lg={2} xl={2}>
-                  <ArrowForwardTwoToneIcon sx={{ color: 'skyblue' }} />
+                <Grid item xs={2} sm={2} md={2} lg={2} xl={2}>
+                  <ListRowIcon />
                 </Grid>
-                <Grid item xs={24} sm={24} md={10} lg={10} xl={10}>
+                <Grid item xs={10} sm={10} md={10} lg={10} xl={10}>
                   <a
                     href="https://drive.google.com/u/0/uc?id=1AodMBTimjwcisfdNsPprClpk5ViMOJFr&export=download"
                     target="_blank"
@@ -583,120 +602,120 @@ const Login = () => {
                 </Grid>
               </Grid>
               <Grid container spacing={1} columns={12}>
-                <Grid item xs={24} sm={24} md={2} lg={2} xl={2}>
-                  <ArrowForwardTwoToneIcon sx={{ color: 'skyblue' }} />
+                <Grid item xs={2} sm={2} md={2} lg={2} xl={2}>
+                  <ListRowIcon />
                 </Grid>
-                <Grid item xs={24} sm={24} md={10} lg={10} xl={10}>
+                <Grid item xs={10} sm={10} md={10} lg={10} xl={10}>
                   <a href={`${URLS.AuthURL}/file/10`} target="_blank" rel="noreferrer">
                     इ-चावडी भाग - १ आकारणी विषयक अद्ययावतीकरण
                   </a>
                 </Grid>
               </Grid>
               <Grid container spacing={1} columns={12}>
-                <Grid item xs={24} sm={24} md={2} lg={2} xl={2}>
-                  <ArrowForwardTwoToneIcon sx={{ color: 'skyblue' }} />
+                <Grid item xs={2} sm={2} md={2} lg={2} xl={2}>
+                  <ListRowIcon />
                 </Grid>
-                <Grid item xs={24} sm={24} md={10} lg={10} xl={10}>
+                <Grid item xs={10} sm={10} md={10} lg={10} xl={10}>
                   <a href={`${URLS.AuthURL}/file/9`} target="_blank" rel="noreferrer">
                     Live Data मधील फरक
                   </a>
                 </Grid>
               </Grid>
               <Grid container spacing={1} columns={12}>
-                <Grid item xs={24} sm={24} md={2} lg={2} xl={2}>
-                  <ArrowForwardTwoToneIcon sx={{ color: 'skyblue' }} />
+                <Grid item xs={2} sm={2} md={2} lg={2} xl={2}>
+                  <ListRowIcon />
                 </Grid>
-                <Grid item xs={24} sm={24} md={10} lg={10} xl={10}>
+                <Grid item xs={10} sm={10} md={10} lg={10} xl={10}>
                   <a href={`${URLS.AuthURL}/file/7`} target="_blank" rel="noreferrer">
                     जमीन महसूल आकारणी पुर्णांक कार्यपद्धती
                   </a>
                 </Grid>
               </Grid>
               <Grid container spacing={1} columns={12}>
-                <Grid item xs={24} sm={24} md={2} lg={2} xl={2}>
-                  <ArrowForwardTwoToneIcon sx={{ color: 'skyblue' }} />
+                <Grid item xs={2} sm={2} md={2} lg={2} xl={2}>
+                  <ListRowIcon />
                 </Grid>
-                <Grid item xs={24} sm={24} md={10} lg={10} xl={10}>
+                <Grid item xs={10} sm={10} md={10} lg={10} xl={10}>
                   <a href={`${URLS.AuthURL}/file/8`} target="_blank" rel="noreferrer">
                     जमीन महसूल ज्यादा वसूली
                   </a>
                 </Grid>
               </Grid>
               <Grid container spacing={1} columns={12}>
-                <Grid item xs={24} sm={24} md={2} lg={2} xl={2}>
-                  <ArrowForwardTwoToneIcon sx={{ color: 'skyblue' }} />
+                <Grid item xs={2} sm={2} md={2} lg={2} xl={2}>
+                  <ListRowIcon />
                 </Grid>
-                <Grid item xs={24} sm={24} md={10} lg={10} xl={10}>
+                <Grid item xs={10} sm={10} md={10} lg={10} xl={10}>
                   <a href={`${URLS.AuthURL}/file/5`} target="_blank" rel="noreferrer">
                     इ-चावडी भाग-1 (महसूल मागणी व वसुली)
                   </a>
                 </Grid>
               </Grid>
               <Grid container spacing={1} columns={12}>
-                <Grid item xs={24} sm={24} md={2} lg={2} xl={2}>
-                  <ArrowForwardTwoToneIcon sx={{ color: 'skyblue' }} />
+                <Grid item xs={2} sm={2} md={2} lg={2} xl={2}>
+                  <ListRowIcon />
                 </Grid>
-                <Grid item xs={24} sm={24} md={10} lg={10} xl={10}>
+                <Grid item xs={10} sm={10} md={10} lg={10} xl={10}>
                   <a href={`${URLS.AuthURL}/file/6`} target="_blank" rel="noreferrer">
                     इ-चावडी भाग-2 (दप्तर अद्यायवत आणि अहवाल)
                   </a>
                 </Grid>
               </Grid>
               <Grid container spacing={1} columns={12}>
-                <Grid item xs={24} sm={24} md={2} lg={2} xl={2}>
-                  <ArrowForwardTwoToneIcon sx={{ color: 'skyblue' }} />
+                <Grid item xs={2} sm={2} md={2} lg={2} xl={2}>
+                  <ListRowIcon />
                 </Grid>
-                <Grid item xs={24} sm={24} md={10} lg={10} xl={10}>
+                <Grid item xs={10} sm={10} md={10} lg={10} xl={10}>
                   <a href="https://forms.gle/B3d6dyscKc5hK9LZA" target="_blank" rel="noreferrer">
                     इ-चावडी मधील काही समस्या अथवा सुधारणा असल्यास फॉर्म भरा
                   </a>
                 </Grid>
               </Grid>
               <Grid container spacing={1} columns={12}>
-                <Grid item xs={24} sm={24} md={2} lg={2} xl={2}>
-                  <ArrowForwardTwoToneIcon sx={{ color: 'skyblue' }} />
+                <Grid item xs={2} sm={2} md={2} lg={2} xl={2}>
+                  <ListRowIcon />
                 </Grid>
-                <Grid item xs={24} sm={24} md={10} lg={10} xl={10}>
+                <Grid item xs={10} sm={10} md={10} lg={10} xl={10}>
                   <a href={`${URLS.AuthURL}/file/1`} target="_blank" rel="noreferrer">
                     गाव नमुना एक ते एकवीस बाबत माहिती
                   </a>
                 </Grid>
               </Grid>
               <Grid container spacing={1} columns={12}>
-                <Grid item xs={24} sm={24} md={2} lg={2} xl={2}>
-                  <ArrowForwardTwoToneIcon sx={{ color: 'skyblue' }} />
+                <Grid item xs={2} sm={2} md={2} lg={2} xl={2}>
+                  <ListRowIcon />
                 </Grid>
-                <Grid item xs={24} sm={24} md={10} lg={10} xl={10}>
+                <Grid item xs={10} sm={10} md={10} lg={10} xl={10}>
                   <a href={`${URLS.AuthURL}/file/2`} target="_blank" rel="noreferrer">
                     इ-चावडी सर्वसमावेशक सूचना
                   </a>
                 </Grid>
               </Grid>
               <Grid container spacing={1} columns={12}>
-                <Grid item xs={24} sm={24} md={2} lg={2} xl={2}>
-                  <ArrowForwardTwoToneIcon sx={{ color: 'skyblue' }} />
+                <Grid item xs={2} sm={2} md={2} lg={2} xl={2}>
+                  <ListRowIcon />
                 </Grid>
-                <Grid item xs={24} sm={24} md={10} lg={10} xl={10}>
+                <Grid item xs={10} sm={10} md={10} lg={10} xl={10}>
                   <a href={`${URLS.AuthURL}/file/3`} target="_blank" rel="noreferrer">
                     इ-चावडी जमीन महसूल वसुली बाबत माहिती
                   </a>
                 </Grid>
               </Grid>
               <Grid container spacing={1} columns={12}>
-                <Grid item xs={24} sm={24} md={2} lg={2} xl={2}>
-                  <ArrowForwardTwoToneIcon sx={{ color: 'skyblue' }} />
+                <Grid item xs={2} sm={2} md={2} lg={2} xl={2}>
+                  <ListRowIcon />
                 </Grid>
-                <Grid item xs={24} sm={24} md={10} lg={10} xl={10}>
+                <Grid item xs={10} sm={10} md={10} lg={10} xl={10}>
                   <a href={`${URLS.AuthURL}/file/4`} target="_blank" rel="noreferrer">
                     जमीन महसुलात सूटवजा बाबत परिपत्रक
                   </a>
                 </Grid>
               </Grid>
               <Grid container spacing={1} columns={12}>
-                <Grid item xs={24} sm={24} md={2} lg={2} xl={2}>
-                  <ArrowForwardTwoToneIcon sx={{ color: 'skyblue' }} />
+                <Grid item xs={2} sm={2} md={2} lg={2} xl={2}>
+                  <ListRowIcon />
                 </Grid>
-                <Grid item xs={24} sm={24} md={10} lg={10} xl={10}>
+                <Grid item xs={10} sm={10} md={10} lg={10} xl={10}>
                   <a href={`${URLS.AuthURL}/file/11`} target="_blank" rel="noreferrer">
                     इ-चावडी प्रणाली -मार्गदर्शक सूचना
                   </a>
@@ -711,7 +730,7 @@ const Login = () => {
         </div>
 
         <div className="footer">
-          <h4>© 2023 महसूल विभाग महाराष्ट्र</h4>
+          <h4>© 2026 महसूल विभाग महाराष्ट्र</h4>
         </div>
       </div>
     </div>

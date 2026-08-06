@@ -56,11 +56,25 @@ svg {
 
 /* Remove obove code tommmorrow */
 
+.loginscreen,
+.loginscreen *,
+.loginscreen *::before,
+.loginscreen *::after {
+  box-sizing: border-box;
+}
+
 .loginscreen {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   background-color: whitesmoke;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.loginscreen > div:first-child {
+  flex: 0 0 70vw;
+  min-width: 0;
 }
 
 .loginImage {
@@ -84,9 +98,10 @@ svg {
 .rightSide {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   width: 30vw;
   height: 94vh;
+  min-width: 0;
 }
 
 .translator {
@@ -107,7 +122,7 @@ svg {
 .loginForm > h1 {
   margin-top: 0;
   font-weight: 800;
-  font-size: 45px;
+  font-size: clamp(24px, 4vw, 45px);
 }
 
 .loginname {
@@ -128,7 +143,6 @@ svg {
   width: 25vw;
   height: 5vh;
   margin-top: 1vh;
-  font-size: 10vw;
 }
 
 .usersymb {
@@ -197,427 +211,107 @@ svg {
   font-size: 1vw;
 }
 
+.registerbttn .shortLabel,
+.go-to-mis-button .shortLabel {
+  display: none;
+}
+
+.loginscreen .listIconShort {
+  display: none;
+}
+
 /* +_+_+_+_+_+_+_+_+_ Responsive css _+_+_+_+_+_+_+_+_+_ */
-
-/* mini Phones */
-@media only screen and (max-width: 376px) {
+@media only screen and (max-width: 950px) {
   .loginscreen {
-    display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    background-color: whitesmoke;
+  }
+  .loginscreen > div:first-child {
+    flex: 0 0 auto;
+  }
+  .registerbttn .fullLabel,
+  .go-to-mis-button .fullLabel {
+    display: none;
+  }
+
+  .registerbttn .shortLabel,
+  .go-to-mis-button .shortLabel {
+    display: inline-block;
+  }
+
+  .loginscreen .listIconFull {
+    display: none;
+  }
+
+  .loginscreen .listIconShort {
+    display: inline-block;
   }
 
   .loginImage {
-    width: 100vw;
+    width: 100%;
     height: 35vh;
+    object-fit: contain;
   }
 
   .rightSide {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 100vw;
+    width: 100%;
     height: 65vh;
   }
 
   .trans {
-    font-size: 20px !important;
-  }
-
-  .loginname {
-    margin-top: 0vh;
-  }
-
-  .loginForm {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 5vh;
-    padding-bottom: 3vh;
-  }
-
-  .loginForm > h1 {
-    margin-top: 0;
-    font-weight: 800;
-    font-size: 10vw;
-  }
-
-  .usersymb {
-    padding-right: '0.3vw';
-    color: #1890ff;
-    font-size: 4vw;
-    opacity: 0.7;
-  }
-
-  .username {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 75vw;
-    margin-top: 1vh;
-    /* margin-bottom: 2vh; */
-  }
-
-  .locksymb {
-    padding-right: '0.3vw';
-    color: #1890ff;
-    font-size: 4vw;
-    opacity: 0.7;
-  }
-
-  .username-div {
-    margin-bottom: 1vh;
-  }
-
-  .password {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 75vw;
-    height: 6vh;
-    /* margin-bottom: 2vh; */
-    font-size: 15px;
-  }
-
-  .password-div {
-    margin-bottom: 2vh;
-  }
-
-  .loginbttn {
-    width: 75vw;
-    height: 6vh;
-    margin-top: 2vh;
-    margin-bottom: 0.5vh;
-    font-size: 4vw;
-  }
-
-  .footer > h4 {
-    margin-bottom: 1vh;
-    font-weight: lighter;
-    font-size: 4vw;
-  }
-}
-
-/* Phones */
-@media only screen and (min-width: 376px) and (max-width: 450px) {
-  .loginscreen {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background-color: whitesmoke;
-  }
-
-  .loginImage {
-    width: 100vw;
-    height: 35vh;
-  }
-
-  .rightSide {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 100vw;
-    height: 65vh !important;
-  }
-
-  .trans {
-    font-size: 25px !important;
-  }
-
-  .loginForm {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 5vh;
-    padding-bottom: 5vh;
-  }
-
-  .loginForm > h1 {
-    margin-top: 0;
-    margin-bottom: 0;
-    font-weight: 800;
-    font-size: 10vw;
-  }
-
-  .username {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 75vw;
-    margin-top: 1vh;
-    /* margin-bottom: 2vh; */
-  }
-
-  .usersymb {
-    padding-right: '0.3vw';
-    color: #1890ff;
-    font-size: 5vw;
-    opacity: 0.7;
-  }
-
-  .username > input {
-    font-size: 4vw;
-  }
-
-  .username-div {
-    margin-bottom: 1vh;
-  }
-
-  .password {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 75vw;
-    height: 6vh;
-    /* margin-bottom: 2vh; */
-    font-size: 5vw;
-  }
-
-  .locksymb {
-    padding-right: '0.3vw';
-    color: #1890ff;
-    font-size: 5vw;
-    opacity: 0.7;
-  }
-
-  .password > input {
-    font-size: 4vw;
-  }
-
-  .password-div {
-    margin-bottom: 2vh;
-  }
-
-  .loginbttn {
-    width: 75vw;
-    height: 6vh;
-    margin-top: 2vh;
-    margin-bottom: 0.5vh;
-    font-size: 5vw;
-  }
-
-  .footer > h4 {
-    margin-bottom: 1vh;
-    font-weight: lighter;
-    font-size: 3.5vw;
-  }
-}
-
-/* Tablets or iPads */
-@media only screen and (min-width: 450px) and (max-width: 950px) {
-  .loginscreen {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background-color: whitesmoke;
-  }
-
-  .loginImage {
-    width: 100vw;
-    height: 35vh;
-  }
-
-  .rightSide {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 100vw;
-    height: 65vh;
-  }
-
-  .trans {
+    font-size: clamp(16px, 4vw, 28px) !important;
     padding-right: 1%;
-    font-size: 4vw !important;
-  }
-
-  .loginForm {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 2vh;
-    padding-bottom: 1vh;
   }
 
   .loginname {
-    font-size: 3vw;
+    margin-top: 0;
+    font-size: clamp(14px, 3vw, 20px);
+  }
+
+  .loginForm {
+    padding-top: clamp(20px, 5vh, 40px);
+    padding-bottom: clamp(12px, 3vh, 24px);
   }
 
   .loginForm > h1 {
-    margin-top: 0;
-    font-weight: 800;
-    font-size: 10vw;
+    margin-bottom: 0;
+  }
+
+  .usersymb,
+  .locksymb {
+    font-size: clamp(14px, 4vw, 20px);
   }
 
   .username {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
     width: 75vw;
-    margin-top: 1vh;
-    /* margin-bottom: 2vh; */
   }
 
-  .usersymb {
-    padding-right: '0.3vw';
-    color: #1890ff;
-    font-size: 4vw;
-    opacity: 0.7;
-  }
-
-  .username > input {
-    font-size: 3vw;
-  }
-
-  .username-div {
-    margin-bottom: 1vh;
+  .username > input,
+  .password > input {
+    font-size: clamp(14px, 3.5vw, 18px);
   }
 
   .password {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
     width: 75vw;
     height: 6vh;
-    /* margin-bottom: 2vh; */
-    font-size: 5vw;
-  }
-
-  .locksymb {
-    padding-right: '0.3vw';
-    color: #1890ff;
-    font-size: 4vw;
-    opacity: 0.7;
-  }
-
-  .password > input {
-    font-size: 3vw;
   }
 
   .password-div {
-    margin-bottom: 1vh;
+    margin-bottom: 2vh;
   }
 
   .loginbttn {
     width: 75vw;
     height: 6vh;
-    margin-top: 2vh;
-    margin-bottom: 0.5vh;
-    font-size: 4vw;
-  }
-
-  a {
-    font-size: 3vw;
+    font-size: clamp(14px, 4vw, 18px);
   }
 
   .footer > h4 {
-    margin-bottom: 1vh;
-    font-weight: lighter;
-    font-size: 3.5vw;
-  }
-}
-
-/* Focused: size becomes square */
-@media only screen and (max-height: 420px) {
-  .loginscreen {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background-color: whitesmoke;
+    font-size: clamp(12px, 3.5vw, 16px);
   }
 
-  .loginImage {
-    width: 100vw;
-    height: 35vh;
+  .loginscreen a {
+    font-size: clamp(13px, 3vw, 18px);
   }
-
-  .rightSide {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 100vw;
-    height: 65vh !important;
-  }
-
-  .trans {
-    font-size: 15px !important;
-  }
-
-  .loginForm {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 2.5vh;
-    padding-bottom: 2.5vh;
-  }
-
-  .loginForm > h1 {
-    margin-top: 0;
-    margin-bottom: 0;
-    font-weight: 800;
-    font-size: 5vw;
-  }
-
-  .loginname {
-    font-size: 3vw;
-  }
-
-  .username {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 75vw;
-    margin-top: 1vh;
-    margin-bottom: 2vh;
-  }
-
-  .usersymb {
-    padding-right: '0.3vw';
-    color: #1890ff;
-    font-size: 3vw;
-    opacity: 0.7;
-  }
-
-  .username > input {
-    font-size: 4vw;
-  }
-
-  .password {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 75vw;
-    height: 6vh;
-    margin-bottom: 2vh;
-    font-size: 5vw;
-  }
-
-  .locksymb {
-    padding-right: '0.3vw';
-    color: #1890ff;
-    font-size: 3vw;
-    opacity: 0.7;
-  }
-
-  .password > input {
-    font-size: 4vw;
-  }
-
-  .loginbttn {
-    width: 75vw;
-    height: 6vh;
-    margin-top: 2vh;
-    margin-bottom: 0.5vh;
-    font-size: 3vw;
-  }
-
-  .footer > h4 {
-    margin-bottom: 1vh;
-    font-weight: lighter;
-    font-size: 3.5vw;
-  }
-
-  
 }
 .go-to-mis-button {
   background: linear-gradient(135deg, #ffffff 0%, #e6f0ff 100%);
@@ -625,8 +319,8 @@ svg {
   border-color: #91caff;
   border-radius: 5px;
   font-weight: 700;
-  font-size: 22px;
-  padding: 6px 18px;
+  font-size: clamp(14px, 1.6vw, 22px);
+  padding: clamp(4px, 0.5vw, 6px) clamp(10px, 1.4vw, 18px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -636,28 +330,12 @@ svg {
   font-family: 'Segoe UI', 'Roboto', sans-serif;
 }
 
-/* Hover */
 .go-to-mis-button:hover {
   background: linear-gradient(135deg, #e6f0ff 0%, #cce0ff 100%);
   color: #003a8c;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* New.gif styling */
-.go-to-mis-button .new-gif {
-  height: 28px;
-  margin-left: 6px;
-  vertical-align: middle;
-}
-
-
-
-
-.registerbttn .new-gif {
-  height: 28px;
-  margin-left: 6px;
-  vertical-align: middle;
-}
 
 .registerbttn {
   /* Common Button Styles */
@@ -668,13 +346,12 @@ svg {
   vertical-align: middle;
   cursor: pointer;
   border: 1px solid transparent;
-  /* padding: 8px 15px; Adjust padding to match the login button */
-  font-size: 14px;
+  font-size: clamp(11px, 1.1vw, 14px);
   line-height: 1.5;
   border-radius: 4px;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  margin: 5px; 
-  width: 100%; 
+  margin: 5px;
+  width: auto;
   color: #1890ff; /* Blue color to match the primary theme */
   background-color: transparent;
   border-color: #1890ff;

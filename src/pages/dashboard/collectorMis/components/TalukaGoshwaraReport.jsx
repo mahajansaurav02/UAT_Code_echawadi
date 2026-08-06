@@ -1,22 +1,23 @@
 import React, { useState, useRef } from 'react';
 import { useReactToPrint } from 'react-to-print';
+import { FormattedMessage } from 'umi';
 import styles from './TalukaGoshwaraReport.module.css';
 
 const publicUseCols = [
-  '(अ) वन',
-  '(ब) कुरण',
-  '(क) नि:शुल्‍क गायरान, गुरांचा तळ',
-  '(ड) गावठाण',
-  '(इ) तलाव',
-  '(फ) स्मशानभूमी (मसनवट)',
-  '(ग) रेल्वे',
-  '(ह) रस्ते,पाण्याचे पाट इत्यादीकरीता नेमून दिलेली पोटखराब',
-  '(आय) रस्ते व मार्ग',
-  '(जे) नळमार्ग, कालवे, चर इत्यादी',
-  '(के) कटक (कॅन्‍टोन्‍मेट) क्षेत्रातील जमिनी (सैनिकी छावणी, गोळीबार क्षेत्र इत्यादी)',
-  '(एल) शाळा',
-  '(एम) धर्मशाळा',
-  '(तीन) भूमापन क्रमांकापैकी अकृषिक वापरासाठी',
+  { prefixKey: 'form1abstract.(a)', labelKey: 'form1abstract.Forest' },
+  { prefixKey: 'form1abstract.(b)', labelKey: 'form1abstract.Kuran' },
+  { prefixKey: 'form1abstract.(c)', labelKey: 'form1abstract.pastureCattle' },
+  { prefixKey: 'form1abstract.(d)', labelKey: 'form1abstract.VillageSite' },
+  { prefixKey: 'form1abstract.(e)', labelKey: 'form1abstract.Tank' },
+  { prefixKey: 'form1abstract.(fENG)', labelKey: 'form1abstract.burialGround' },
+  { prefixKey: 'form1abstract.(gENG)', labelKey: 'form1abstract.railways' },
+  { prefixKey: 'form1abstract.(hENG)', labelKey: 'form1abstract.PotKharabAssigned' },
+  { prefixKey: 'form1abstract.(ie)', labelKey: 'form1abstract.RoadsPaths' },
+  { prefixKey: 'form1abstract.(j)', labelKey: 'form1abstract.pipeLines' },
+  { prefixKey: 'form1abstract.(k)', labelKey: 'form1abstract.Cantonment' },
+  { prefixKey: 'form1abstract.(l)', labelKey: 'form1abstract.School' },
+  { prefixKey: 'form1abstract.(m)', labelKey: 'form1abstract.Dharmashalas' },
+  { labelKey: 'form1abstract.leasedorGranted' },
 ];
 
 const TOTAL_COLS = 29;
@@ -157,7 +158,9 @@ function TalukaGoshwaraReport({ talukaName, districtName, onBack }) {
           <button type="button" className={styles.pratButton} onClick={handlePrint}>
             प्रत मिळवा
           </button>
-          <h2 className={styles.boxHeading}>गाव नमुना एक चा गोषवारा</h2>
+          <h2 className={styles.boxHeading}>
+            <FormattedMessage id="form1abstract.goshwaraTable.heading" />
+          </h2>
           <span className={styles.topRowSpacer} />
         </div>
 
@@ -179,7 +182,9 @@ function TalukaGoshwaraReport({ talukaName, districtName, onBack }) {
       </div>
 
       <div className={styles.tableWrapper} ref={printRef}>
-        <h3 className={styles.tableHeading}>गाव नमुना एक चा गोषवारा</h3>
+        <h3 className={styles.tableHeading}>
+          <FormattedMessage id="form1abstract.goshwaraTable.heading" />
+        </h3>
         <div className={styles.subHeading}>
           गाव- {'—'} &nbsp;&nbsp; तालुका- {talukaName || '—'} &nbsp;&nbsp; जिल्हा-{' '}
           {districtName || '—'}
@@ -190,44 +195,101 @@ function TalukaGoshwaraReport({ talukaName, districtName, onBack }) {
             <thead>
               {/* ओळ 1 */}
               <tr>
-                <th rowSpan={4}>अनु.क्र.</th>
-                <th rowSpan={4}>गावाचे नाव</th>
-                <th colSpan={9}>अ- लागवडीकरीता जमीन</th>
-                <th colSpan={16}>ब- लागवडीसाठी अनुपलब्ध जमीन</th>
-                <th rowSpan={4}>ब - लागवडीकरीता जमीन एकूण</th>
-                <th rowSpan={4}>गावची एकूण बेरीज (अ+ब)</th>
+                <th rowSpan={4}>
+                  <FormattedMessage id="form1abstract.goshwaraTable.srNo" />
+                </th>
+                <th rowSpan={4}>
+                  <FormattedMessage id="form1abstract.goshwaraTable.villageName" />
+                </th>
+                <th colSpan={9}>
+                  <FormattedMessage id="form1abstract.A.landForCultivation" />
+                </th>
+                <th colSpan={16}>
+                  <FormattedMessage id="form1abstract.B.landNotForCultivation" />
+                </th>
+                <th rowSpan={4}>
+                  <FormattedMessage id="form1abstract.goshwaraTable.totalBLabel" />
+                </th>
+                <th rowSpan={4}>
+                  <FormattedMessage id="form1abstract.goshwaraTable.grandTotalLabel" />
+                </th>
               </tr>
               {/* ओळ 2 */}
               <tr>
-                <th colSpan={6}>(एक) आकारी</th>
-                <th colSpan={2}>(दोन) बिनआकारी</th>
-                <th rowSpan={3}>अ- लागवडीकरीता जमीन एकूण</th>
-                <th colSpan={2}>(एक) लागवड अयोग्य</th>
-                <th colSpan={14}>(दोन) सार्वजनिक किंवा विशेष वापरासाठी नेमून दिलेली</th>
+                <th colSpan={6}>
+                  <FormattedMessage id="form1abstract.assessed" />
+                </th>
+                <th colSpan={2}>
+                  <FormattedMessage id="form1abstract.Unassessed" />
+                </th>
+                <th rowSpan={3}>
+                  <FormattedMessage id="form1abstract.goshwaraTable.totalALabel" />
+                </th>
+                <th colSpan={2}>
+                  <FormattedMessage id="form1abstract.Uncultivated" />
+                </th>
+                <th colSpan={14}>
+                  <FormattedMessage id="form1abstract.Assignedforpublic" />
+                </th>
               </tr>
               {/* ओळ 3 */}
               <tr>
-                <th colSpan={3}>(अ) भोगवटयाची (बिनदुमाला)</th>
-                <th rowSpan={2}>(ब) बिन-भोगवटयाची जमीन(सरकार)</th>
-                <th rowSpan={2}>(क) विशेष करारान्‍वये महसूल माफ किंवा कम आकारी जमीन</th>
-                <th rowSpan={2}>(ड) दुमाला जमीन</th>
-                <th rowSpan={2}>(अ) बिन-भोगवटयाची</th>
-                <th rowSpan={2}>
-                  (ब) विशेष वापरासाठी नेमून दिलेली जमीन(उदा. कृषी क्षेत्र, भात पैदास केंद्र इ.)
+                <th colSpan={3}>
+                  <FormattedMessage id="form1abstract.occupied(unalienated)" />
                 </th>
-                <th rowSpan={2}>(अ) पोट खराब</th>
-                <th rowSpan={2}>(ब) नद्या व नाले</th>
-                {publicUseCols.map((label, i) => (
+                <th rowSpan={2}>
+                  <FormattedMessage id="form1abstract.(b)" />
+                  <FormattedMessage id="form1abstract.govtLand" />
+                </th>
+                <th rowSpan={2}>
+                  <FormattedMessage id="form1abstract.(c)" />
+                  <FormattedMessage id="form1abstract.CessFree" />
+                </th>
+                <th rowSpan={2}>
+                  <FormattedMessage id="form1abstract.(d)" />
+                  <FormattedMessage id="form1abstract.Alienated" />
+                </th>
+                <th rowSpan={2}>
+                  <FormattedMessage id="form1abstract.Unoccupied" />
+                </th>
+                <th rowSpan={2}>
+                  <FormattedMessage id="form1abstract.(b)" />{' '}
+                  <FormattedMessage id="form1abstract.AssignedForSpecialuse" />
+                </th>
+                <th rowSpan={2}>
+                  <FormattedMessage id="form1abstract.(a)" />
+                  <FormattedMessage id="form1abstract.potkharab" />
+                </th>
+                <th rowSpan={2}>
+                  <FormattedMessage id="form1abstract.(b)" />
+                  <FormattedMessage id="form1abstract.rivers" /> व{' '}
+                  <FormattedMessage id="form1abstract.Nallas" />
+                </th>
+                {publicUseCols.map((col, i) => (
                   <th key={i} rowSpan={2}>
-                    {label}
+                    {col.prefixKey && (
+                      <>
+                        <FormattedMessage id={col.prefixKey} />{' '}
+                      </>
+                    )}
+                    <FormattedMessage id={col.labelKey} />
                   </th>
                 ))}
               </tr>
               {/* ओळ 4 */}
               <tr>
-                <th>(एक) भोगवटादार, वर्ग १</th>
-                <th>(दोन) भोगवटादार, वर्ग २</th>
-                <th>(तीन) सरकारी पट्‍टेदार</th>
+                <th>
+                  <FormattedMessage id="form1abstract.(I)" />
+                  <FormattedMessage id="form1abstract.OccupantsClass I" />
+                </th>
+                <th>
+                  <FormattedMessage id="form1abstract.(II)" />{' '}
+                  <FormattedMessage id="form1abstract.OccupantsClass II" />
+                </th>
+                <th>
+                  <FormattedMessage id="form1abstract.(III)" />{' '}
+                  <FormattedMessage id="form1abstract.Goverment.Lessees" />
+                </th>
               </tr>
             </thead>
             <tbody>

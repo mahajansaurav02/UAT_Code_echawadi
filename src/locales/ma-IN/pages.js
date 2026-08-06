@@ -26,6 +26,7 @@ export default {
   'pages.login.loginWith': 'Login with :',
   'pages.login.registerAccount': 'Register Account',
   'pages.login.inspectionRegistration': 'ग्राम दप्तर तपासणीसाठी अधिकारी यांची माहिती भरा',
+  'pages.login.inspectionRegistration.short': 'अधिकारी माहिती',
   'pages.welcome.advancedComponent': 'Advanced Component',
   'pages.welcome.link': 'Welcome',
   'pages.welcome.advancedLayout': 'Advanced Layout',

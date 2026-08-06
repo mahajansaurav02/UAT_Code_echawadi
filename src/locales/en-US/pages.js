@@ -26,6 +26,7 @@ export default {
   'pages.login.loginWith': 'Login with :',
   'pages.login.registerAccount': 'Register Account',
   'pages.login.inspectionRegistration': 'Fill officer information for village record inspection',
+  'pages.login.inspectionRegistration.short': 'Officer Info',
   'pages.welcome.advancedComponent': 'Advanced Component',
   'pages.welcome.link': 'Welcome',
   'pages.welcome.advancedLayout': 'Advanced Layout',
