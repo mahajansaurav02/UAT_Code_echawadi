@@ -294,7 +294,7 @@ function Index() {
     let revenueYear;
 
     if (location?.state?.selectedYear === '2025-2026') {
-      revenueYear = '2025-26';
+      revenueYear = '2026-27';
     } else if (location?.state?.selectedYear === '2024-2025') {
       revenueYear = '2024-25';
     } else if (location?.state?.selectedYear === '2023-2024') {

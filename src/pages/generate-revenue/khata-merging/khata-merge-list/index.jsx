@@ -51,7 +51,7 @@ function khataMerging() {
   const [isNirank, setIsNirank] = useState(false);
   const [isNirank1, setIsNirank1] = useState();
   const { sendRequest } = useAxios();
-  const [revenueYear, setRevenueYear] = useState('2025-26');
+  const [revenueYear, setRevenueYear] = useState('2026-27');
   const [modalForDelete, setModalForDelete] = useState(false);
   const [recordId, setRecordId] = useState();
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);

@@ -28,7 +28,7 @@ function VillageForm() {
   const [tableData, setTableData] = useState();
   const [isNirank, setIsNirank] = useState(false);
   const [villageForm4Abstract, setVillageForm4Abstract] = useState();
-  const [revenueYear, setRevenueYear] = useState('2025-26');
+  const [revenueYear, setRevenueYear] = useState('2026-27');
   const [sthanikUpkar, setSthanikUpkar] = useState();
   const [jaminMahsul, setJaminMahsul] = useState();
   const [ekunJaminMahsul, setEkunJaminMahsul] = useState();

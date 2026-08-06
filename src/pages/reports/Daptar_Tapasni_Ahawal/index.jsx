@@ -309,7 +309,7 @@ const InspectionReport = () => {
   const [isRemarkSubmitted, setIsRemarkSubmitted] = useState(false);
 
   const getAuthParams = () => {
-    let rYear = '2025-26';
+    let rYear = '2026-27';
     try {
       if (modelRevenueYear && modelRevenueYear !== 'undefined' && modelRevenueYear !== 'null') {
         rYear = modelRevenueYear;

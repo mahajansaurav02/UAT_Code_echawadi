@@ -73,7 +73,7 @@ function ChallanDetails() {
   const [dataInModal, setDataInModal] = useState();
   const [imageDownLoad, setImageDownLoad] = useState();
   const [imageDownLoad0045, setImageDownLoad0045] = useState();
-  const [revenueYear, setRevenueYear] = useState('2025-26');
+  const [revenueYear, setRevenueYear] = useState('2026-27');
   const [isNirank, setIsNirank] = useState(false);
   const [okText, setOkText] = useState();
   const [upperModalData, setUpperModalData] = useState();
