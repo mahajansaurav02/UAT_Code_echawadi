@@ -14,6 +14,9 @@ import { FormattedMessage } from 'umi';
 import landType from './landType';
 import ReactHtmlTableToExcel from 'react-html-table-to-excel';
 
+
+const toNumber = (value) => parseFloat(value) || 0;
+
 function DyslrForm1AbstractReport() {
   const { districtName, talukaName, districtCode, talukaCode } = useModel('details');
   const { sendRequest } = useAxios();
@@ -155,14 +158,14 @@ function DyslrForm1AbstractReport() {
         const newData = res.data?.areaSummaryList?.[0];
 
         if (newData) {
-          setTenureArea(newData.tenure1Area || 0);
-          setTenureAssessment(newData.tenure1Assessment || 0);
+          setTenureArea(toNumber(newData.tenure1Areaa) || 0);
+          setTenureAssessment(toNumber(newData.tenure1Assessment) || 0);
 
-          setTenure2Area(newData.tenure2Area || 0);
-          setTenure2Assessment(newData.tenure2Assessment || 0);
+          setTenure2Area(toNumber(newData.tenure2Areaa) || 0);
+          setTenure2Assessment(toNumber(newData.tenure2Assessment) || 0);
 
-          setTenure4Area(newData.tenure3Area || 0);
-          setTenure4Assessment(newData.tenure3Assessment || 0);
+          setTenure4Area(toNumber(newData.tenure3Areaa) || 0);
+          setTenure4Assessment(toNumber(newData.tenure3Assessment) || 0);
         } else {
           console.log('No data found in areaSummaryList');
         }
@@ -278,7 +281,8 @@ function DyslrForm1AbstractReport() {
             dumalaLandArea ===
           0
             ? ''
-            : Math.round(
+            :
+              Math.round(
                 (tenureArea +
                   tenure2Area +
                   tenure3Area +
@@ -286,8 +290,8 @@ function DyslrForm1AbstractReport() {
                   specialAgreement +
                   dumalaLandArea +
                   Number.EPSILON) *
-                  100,
-              ) / 100
+                  10,
+              ) / 10
         }
         totalOfA1Assessment={
           tenureAssessment +
@@ -297,15 +301,16 @@ function DyslrForm1AbstractReport() {
             dumalaLandAssessment ===
           0
             ? ''
-            : Math.round(
+            :
+              Math.round(
                 (tenureAssessment +
                   tenure2Assessment +
                   tenure3Assessment +
                   tenure4Assessment +
                   dumalaLandAssessment +
                   Number.EPSILON) *
-                  100,
-              ) / 100
+                  10,
+              ) / 10
         }
         totalOfA2={
           unOccupied + assignedForSpecialUseArea === 0
@@ -315,7 +320,8 @@ function DyslrForm1AbstractReport() {
         totalOfA2Assesment={
           tenure4Assessment === 0
             ? ''
-            : Math.round((tenure4Assessment + Number.EPSILON) * 100) / 100
+            :
+              Math.round((tenure4Assessment + Number.EPSILON) * 10) / 10
         }
         totalOfB1={
           potKharabaArea + riversArea + nalasArea === 0
