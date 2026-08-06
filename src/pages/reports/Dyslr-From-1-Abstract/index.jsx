@@ -157,17 +157,21 @@ function DyslrForm1AbstractReport() {
       (res) => {
         const newData = res.data?.areaSummaryList?.[0];
 
-        if (newData) {
-          setTenureArea(newData.tenure1Areaa || 0);
-          setTenureAssessment(newData.tenure1Assessment || 0);
 
-          setTenure2Area(newData.tenure2Areaa || 0);
-          setTenure2Assessment(newData.tenure2Assessment || 0);
-          setTenure3Area(newData.tenure3Areaa || 0);
-          setTenure3Assessment(newData.tenure3Assessment || 0);
-          setTenure4Area(newData.tenure4Areaa || 0);
-          setTenure4Assessment(newData.tenure4Assessment || 0);
-        } else {
+if (newData) {
+          setTenureArea(toNumber(newData.tenure1Areaa) || 0);
+          setTenureAssessment(toNumber(newData.tenure1Assessment) || 0);
+
+          setTenure2Area(toNumber(newData.tenure2Areaa) || 0);
+          setTenure2Assessment(toNumber(newData.tenure2Assessment) || 0);
+
+          setTenure3Area(toNumber(newData.tenure3Areaa) || 0);
+          setTenure3Assessment(toNumber(newData.tenure3Assessment) || 0);
+
+          setTenure4Area(toNumber(newData.tenure4Areaa) || 0);
+          setTenure4Assessment(toNumber(newData.tenure4Assessment) || 0);
+        } 
+        else {
           console.log('No data found in areaSummaryList');
         }
       },
