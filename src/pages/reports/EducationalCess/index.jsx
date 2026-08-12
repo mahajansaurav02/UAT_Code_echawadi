@@ -15,7 +15,7 @@ function EducationalCess() {
   const [textForVillage, setTextForVillage] = useState();
   const [village, setVillage] = useState([]);
   const [tableData, setTableData] = useState();
-  const [revenueYear, setRevenueYear] = useState();
+  const [revenueYear, setRevenueYear] = useState('2026-27');
   const [isNirank, setIsNirank] = useState(false);
   const componentRef = useRef();
   const { sendRequest } = useAxios();
@@ -62,11 +62,7 @@ function EducationalCess() {
 
     sendRequest(
       // `${URLS.BaseURL}/reports/landRevenueForm8B?cCode=${codeVillage}&revenueYear=${revenueYear}&districtCode=${districtCode}&talukaCode=${talukaCode}`,
-      `${URLS.BaseURL}/reports/getEduCessTax?districtCode=${districtCode}&talukaCode=${talukaCode}&cCode=${codeVillage}&revenueYear=${revenueYear}`,
-      //---8 Jan 2024
-      // revenueYear == '2023-24'
-      //   ? `${URLS.BaseURL}/reports/landRevenueForm8BViewPre?cCode=${codeVillage}&revenueYear=${revenueYear}&districtCode=${districtCode}&talukaCode=${talukaCode}`
-      //   : `${URLS.BaseURL}/reports/landRevenueForm8BView?cCode=${codeVillage}&revenueYear=${revenueYear}&districtCode=${districtCode}&talukaCode=${talukaCode}`,
+      `${URLS.BaseURL}/reports/getEduCessTaxx?cCode=${codeVillage}&districtCode=${districtCode}&talukaCode=${talukaCode}&revenueYear=${'2026-27'}`,
 
       'GET',
       null,
@@ -74,7 +70,7 @@ function EducationalCess() {
         console.log(res.data.landRevenueDemandData, '-----------lll');
 
         setTableData(
-        res.data.landRevenueDemandData.map((r, i) => ({
+        res.data.map((r, i) => ({
           srNo: i + 1,
           id: r.id,
           khataNo: r.khataNo,
@@ -84,6 +80,7 @@ function EducationalCess() {
           // cropName: r.cropName,
           educationalCess: r.educationalCess,
           addlEducationalCess: r.addlEducationalCess,
+          totalShikshanKar: r.TotalShikshanKar,
           // employeeGuaranteeScheme: r.employeeGuaranteeScheme,
           // preYearPendingEducationalCess: r.preYearPendingEducationalCess,
           // preYearPendingAddlEducationalCess: r.preYearPendingAddlEducationalCess,
@@ -155,7 +152,7 @@ function EducationalCess() {
                 // style={{ width: 200, marginRight: '15px' }}
                 options={revenueYearForVillage}
                 style={{ width: 142 }}
-                // value={revenueYearForVillage}
+                value={revenueYear}
                 placeholder={'महसूल वर्ष'}
                 onChange={(value, event) => onYearChange(value, event)}
                 // disabled
@@ -193,6 +190,11 @@ function EducationalCess() {
     </>
   );
 }
+const showValue = (value) => (value === undefined || value === null || value === '' ? '-' : value);
+
+const sumField = (data, field) =>
+  data.reduce((total, r) => total + (Number(r[field]) || 0), 0);
+
 class ComponentToPrint extends React.Component {
   render() {
     return (
@@ -210,14 +212,14 @@ class ComponentToPrint extends React.Component {
           <table id="table-to-xls" className={styles.report_table}>
             <thead>
               <tr>
-                <th colSpan="7">
+                <th colSpan="9">
                   <h3 style={{ color: 'red' }}>
                     <FormattedMessage id="EducationalCess.form.EducationalCessname" />
                   </h3>
                 </th>
               </tr>
               <tr>
-                <th colSpan="7">
+                <th colSpan="9">
                   <h3 style={{ color: 'red' }}>
                     <b>
                       <FormattedMessage id="EducationalCess.form.departmentNm" />
@@ -226,14 +228,14 @@ class ComponentToPrint extends React.Component {
                 </th>
               </tr>
               <tr>
-                <th colSpan="7">
+                <th colSpan="9">
                   <h4 style={{ color: 'red' }}>
                     <b>गाव-{this.props.village} तालुका-{this.props.taluka} जिल्हा-{this.props.district}</b>
                   </h4>
                 </th>
               </tr>
               <tr>
-                <th colSpan="7">
+                <th colSpan="9">
                   <h3 style={{ color: 'red' }}>
                     <b>
                       <FormattedMessage id="EducationalCess.form.revenueYear" />
@@ -242,28 +244,52 @@ class ComponentToPrint extends React.Component {
                 </th>
               </tr>
               <tr>
-                <th><b><FormattedMessage id="formLanguage.form.serialNo" /></b></th>
-                <th><b><FormattedMessage id="EducationalCess.form.khatedarName" /></b></th>
-                <th><b><FormattedMessage id="EducationalCess.form.khataNo" /></b></th>
-                <th><b><FormattedMessage id="EducationalCess.form.gatNumber" /></b></th>
-                <th><b><FormattedMessage id="EducationalCess.form.hangam" /></b></th>
-                <th><b><FormattedMessage id="EducationalCess.form.cropName" /></b></th>
+                <th rowSpan="2"><b><FormattedMessage id="formLanguage.form.serialNo" /></b></th>
+                <th rowSpan="2"><b><FormattedMessage id="EducationalCess.form.khatedarName" /></b></th>
+                <th rowSpan="2"><b><FormattedMessage id="EducationalCess.form.khataNo" /></b></th>
+                <th rowSpan="2"><b><FormattedMessage id="EducationalCess.form.gatNumber" /></b></th>
+                <th rowSpan="2"><b><FormattedMessage id="EducationalCess.form.hangam" /></b></th>
+                <th rowSpan="2"><b><FormattedMessage id="EducationalCess.form.cropName" /></b></th>
+                <th colSpan="3"><b><FormattedMessage id="EducationalCess.form.taxDetails" /></b></th>
+              </tr>
+              <tr>
                 <th><b><FormattedMessage id="EducationalCess.form.increseadEducationalTax" /></b></th>
+                <th><b><FormattedMessage id="EducationalCess.form.educationalTax" /></b></th>
+                <th><b><FormattedMessage id="formLanguage.form.total" /></b></th>
               </tr>
             </thead>
             <tbody>
               {this.props.dataToMap &&
                 this.props.dataToMap.map((r, index) => (
                   <tr key={index}>
-                    <td>{r.srNo}</td>
-                    <td>{r.khataOwnerName}</td>
-                    <td>{r.khataNo}</td>
-                    <td>{r.surveyHissaNo}</td>
-                    <td>{r.seasonCode}</td>
-                    <td>{r.cropName}</td>
-                    <td>{r.addlEducationalCess}</td>
+                    <td>{showValue(r.srNo)}</td>
+                    <td>{showValue(r.khataOwnerName)}</td>
+                    <td>{showValue(r.khataNo)}</td>
+                    <td>{showValue(r.surveyHissaNo)}</td>
+                    <td>{showValue(r.seasonCode)}</td>
+                    <td>{showValue(r.cropName)}</td>
+                    <td>{showValue(r.addlEducationalCess)}</td>
+                    <td>{showValue(r.educationalCess)}</td>
+                    <td>{showValue(r.totalShikshanKar)}</td>
                   </tr>
                 ))}
+              {this.props.dataToMap && this.props.dataToMap.length > 0 && (
+                <tr>
+                  <td></td>
+                  <td colSpan="5" style={{ textAlign: 'center' }}>
+                    <b><FormattedMessage id="formLanguage.form.total" /></b>
+                  </td>
+                  <td>
+                    <b>{sumField(this.props.dataToMap, 'addlEducationalCess')}</b>
+                  </td>
+                  <td>
+                    <b>{sumField(this.props.dataToMap, 'educationalCess')}</b>
+                  </td>
+                  <td>
+                    <b>{sumField(this.props.dataToMap, 'totalShikshanKar')}</b>
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </Card>

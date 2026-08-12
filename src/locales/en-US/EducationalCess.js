@@ -33,6 +33,8 @@ export default {
   'EducationalCess.form.applicableEducationalTax': 'Education Cess',
   'EducationalCess.form.totalapplicableEducationalTax': 'Applied Education Cess',
   'EducationalCess.form.increseadEducationalTax': 'Additional Education Cess',
+  'EducationalCess.form.educationalTax': 'Education Tax',
+  'EducationalCess.form.taxDetails': 'Education Tax Details',
   
   // 'villageForm8B8c.form.AkunemagnipaykizaleliWasuli': 'Total Magni payki  Zaleli Vasuli',
   'villageForm8B8c.form.AkunemagnipaykizaleliWasuli': 'Total Village Demand',

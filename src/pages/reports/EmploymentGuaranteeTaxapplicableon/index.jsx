@@ -62,7 +62,7 @@ function EducationalCess() {
     sendRequest(
       // `${URLS.BaseURL}/reports/landRevenueForm8B?cCode=${codeVillage}&revenueYear=${revenueYear}&districtCode=${districtCode}&talukaCode=${talukaCode}`,
       //---8 Jan 2024
-      `${URLS.BaseURL}/reports/getEduCessTax?districtCode=${districtCode}&talukaCode=${talukaCode}&cCode=${codeVillage}&revenueYear=${revenueYear}`,
+      `${URLS.BaseURL}/reports/getRojgarHamiTax?cCode=${codeVillage}&districtCode=${districtCode}&talukaCode=${talukaCode}&revenueYear=${'2026-27'}`,
       // revenueYear == '2023-24'
       //   ? `${URLS.BaseURL}/reports/landRevenueForm8BViewPre?cCode=${codeVillage}&revenueYear=${revenueYear}&districtCode=${districtCode}&talukaCode=${talukaCode}`
       //   : `${URLS.BaseURL}/reports/landRevenueForm8BView?cCode=${codeVillage}&revenueYear=${revenueYear}&districtCode=${districtCode}&talukaCode=${talukaCode}`,
@@ -73,7 +73,7 @@ function EducationalCess() {
         console.log(res.data.landRevenueDemandData, '----------------res');
 
         setTableData(
-          res.data.landRevenueDemandData.map((r, i) => ({
+          res.data.map((r, i) => ({
             srNo: i + 1,
             id: r.id,
             khataNo: r.khataNo,

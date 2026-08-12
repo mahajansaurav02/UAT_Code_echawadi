@@ -28,6 +28,8 @@ export default {
   'EducationalCess.form.applicableEducationalTax': 'लागू शिक्षण कर',
   'EducationalCess.form.totalapplicableEducationalTax': 'एकूण लागू शिक्षण कर',
   'EducationalCess.form.increseadEducationalTax': 'वाढीव शिक्षण कर',
+  'EducationalCess.form.educationalTax': 'शिक्षण कर',
+  'EducationalCess.form.taxDetails': 'शिक्षण कर तपशील',
 
   'EducationalCess.form.amountofrecovery': 'वसुलीची रक्कम:',
   'EducationalCess.form.otherLandRevenue': 'जमीन महसूल व्यतिरिक्त',
