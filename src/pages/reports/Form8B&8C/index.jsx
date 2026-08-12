@@ -27,7 +27,7 @@ function Report8b() {
   const [village, setVillage] = useState([]);
   const [tableData, setTableData] = useState();
   const history = useHistory();
-  const [revenueYear, setRevenueYear] = useState('2025-26');
+  const [revenueYear, setRevenueYear] = useState('2026-27');
   const [totalArea, setTotalArea] = useState(0);
   const [loading, setLoading] = useState(false);
 

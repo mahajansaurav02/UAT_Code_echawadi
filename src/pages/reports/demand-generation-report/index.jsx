@@ -22,7 +22,7 @@ function DemandGenerationReport() {
   const [tableData, setTableData] = useState();
   const [textVillage, setTextVillage] = useState('');
   const componentRef = useRef();
-  const [revenueYear, setRevenueYear] = useState('2025-26');
+  const [revenueYear, setRevenueYear] = useState('2026-27');
   const [isNirank, setIsNirank] = useState(false);
   const [loading, setLoading] = useState(false);
   const [revenueYearForVillage, setRevenueYearForVillage] = useState();

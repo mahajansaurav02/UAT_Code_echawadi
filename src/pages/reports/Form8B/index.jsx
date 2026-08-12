@@ -27,7 +27,7 @@ function Report8B() {
 
   const [tableData, setTableData] = useState();
   const history = useHistory();
-  const [revenueYear, setRevenueYear] = useState('2025-26');
+  const [revenueYear, setRevenueYear] = useState('2026-27');
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const [revenueYearForVillage, setRevenueYearForVillage] = useState();
@@ -376,7 +376,7 @@ function Report8B() {
                 onChange={(value, event) => onYearChange(value, event)}
                 // disabled
               >
-                <Select.Option value="2025-26">2025-26</Select.Option>
+                <Select.Option value="2026-27">2026-27</Select.Option>
                 <Select.Option value="2024-25">2024-25</Select.Option>
                 <Select.Option value="2023-24">2023-24</Select.Option>
                 <Select.Option value="2022-23">2022-23</Select.Option>

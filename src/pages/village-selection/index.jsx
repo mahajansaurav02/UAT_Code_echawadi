@@ -11,7 +11,7 @@ function villageSelection(props) {
   const [village, setVillage] = useState([]);
   const [codeVillage, setCodeVillage] = useState();
   const [textForVillage, setTextForVillage] = useState();
-  const [revenueYear1, setRevenueYear1] = useState('2025-26');
+  const [revenueYear1, setRevenueYear1] = useState('2026-27');
   const [revenueYearForVillage, setRevenueYearForVillage] = useState();
   const [form] = Form.useForm();
   let history = useHistory();
