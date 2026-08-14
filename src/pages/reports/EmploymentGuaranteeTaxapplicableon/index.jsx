@@ -46,11 +46,12 @@ function EducationalCess() {
       // var data = res.data?.revenueYearData?.slice(0, 2);
       var data = res.data?.revenueYearData;
       setRevenueYearForVillage(
-        // res.data.revenueYearData.map((row) => ({
-        data.map((row) => ({
-          label: row.revenueYear,
-          value: row.revenueYear,
-        })),
+        data
+          .filter((row) => row.revenueYear === '2026-27')
+          .map((row) => ({
+            label: row.revenueYear,
+            value: row.revenueYear,
+          })),
       );
       // message.success('Records Fetched!!');
     });
@@ -62,7 +63,7 @@ function EducationalCess() {
     sendRequest(
       // `${URLS.BaseURL}/reports/landRevenueForm8B?cCode=${codeVillage}&revenueYear=${revenueYear}&districtCode=${districtCode}&talukaCode=${talukaCode}`,
       //---8 Jan 2024
-      `${URLS.BaseURL}/reports/getRojgarHamiTax?cCode=${codeVillage}&districtCode=${districtCode}&talukaCode=${talukaCode}&revenueYear=${'2026-27'}`,
+      `${URLS.BaseURL}/reports/getRojgarHamiTax?cCode=${codeVillage}&districtCode=${districtCode}&talukaCode=${talukaCode}&revenueYear=${revenueYear}`,
       // revenueYear == '2023-24'
       //   ? `${URLS.BaseURL}/reports/landRevenueForm8BViewPre?cCode=${codeVillage}&revenueYear=${revenueYear}&districtCode=${districtCode}&talukaCode=${talukaCode}`
       //   : `${URLS.BaseURL}/reports/landRevenueForm8BView?cCode=${codeVillage}&revenueYear=${revenueYear}&districtCode=${districtCode}&talukaCode=${talukaCode}`,
@@ -179,6 +180,10 @@ function EducationalCess() {
     </>
   );
 }
+const showValue = (value) => (value === undefined || value === null || value === '' ? '-' : value);
+
+const sumField = (data, field) => data.reduce((total, r) => total + (Number(r[field]) || 0), 0);
+
 class ComponentToPrint extends React.Component {
   render() {
     return (
@@ -294,32 +299,30 @@ class ComponentToPrint extends React.Component {
 
                 {this.props.dataToMap &&
                   this.props.dataToMap.map((r) => (
-                    <tr>
-                      <td>{r.srNo}</td>
-                      <td>{r.khataOwnerName}</td>
-                      <td>{r.khataNo}</td>
-                      <td>0</td>
-                      <td>{r.seasonCode}</td>
-                      <td>0</td>
-                      <td>0</td>
-                      <td>0</td>
+                    <tr key={r.srNo}>
+                      <td>{showValue(r.srNo)}</td>
+                      <td>{showValue(r.khataOwnerName)}</td>
+                      <td>{showValue(r.khataNo)}</td>
+                      <td>{showValue(r.surveyHissaNo)}</td>
+                      <td>{showValue(r.seasonCode)}</td>
+                      <td>{showValue(r.area)}</td>
+                      <td>{showValue(r.minusAreaunderirrigation)}</td>
+                      <td>{showValue(r.employeeGuaranteeScheme)}</td>
                     </tr>
                   ))}
 
-                <tr>
-                  <td colSpan={3}>
-                    <b>
-                      <FormattedMessage id="formLanguage.form.total" />
-                    </b>
-                  </td>
-                  <td>
-                    <b>{this.props.totalArea}</b>
-                  </td>
-                  <td>
-                    <b>{this.props.netEnchroachedArea}</b>
-                  </td>
-                  <td colSpan={6}></td>
-                </tr>
+                {this.props.dataToMap && this.props.dataToMap.length > 0 && (
+                  <tr>
+                    <td colSpan={7} style={{ textAlign: 'center' }}>
+                      <b>
+                        <FormattedMessage id="formLanguage.form.total" />
+                      </b>
+                    </td>
+                    <td>
+                      <b>{sumField(this.props.dataToMap, 'employeeGuaranteeScheme')}</b>
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </Card>

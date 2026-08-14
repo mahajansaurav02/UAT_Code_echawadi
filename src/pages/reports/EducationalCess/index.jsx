@@ -46,11 +46,12 @@ function EducationalCess() {
       // var data = res.data?.revenueYearData?.slice(0, 2);
       var data = res.data?.revenueYearData;
       setRevenueYearForVillage(
-        // res.data.revenueYearData.map((row) => ({
-        data.map((row) => ({
-          label: row.revenueYear,
-          value: row.revenueYear,
-        })),
+        data
+          .filter((row) => row.revenueYear === '2026-27')
+          .map((row) => ({
+            label: row.revenueYear,
+            value: row.revenueYear,
+          })),
       );
       // message.success('Records Fetched!!');
     });
@@ -62,7 +63,7 @@ function EducationalCess() {
 
     sendRequest(
       // `${URLS.BaseURL}/reports/landRevenueForm8B?cCode=${codeVillage}&revenueYear=${revenueYear}&districtCode=${districtCode}&talukaCode=${talukaCode}`,
-      `${URLS.BaseURL}/reports/getEduCessTaxx?cCode=${codeVillage}&districtCode=${districtCode}&talukaCode=${talukaCode}&revenueYear=${'2026-27'}`,
+      `${URLS.BaseURL}/reports/getEduCessTaxx?cCode=${codeVillage}&districtCode=${districtCode}&talukaCode=${talukaCode}&revenueYear=${revenueYear}`,
 
       'GET',
       null,
