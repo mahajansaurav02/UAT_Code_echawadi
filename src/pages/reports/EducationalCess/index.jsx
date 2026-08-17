@@ -81,7 +81,7 @@ function EducationalCess() {
           // cropName: r.cropName,
           educationalCess: r.educationalCess,
           addlEducationalCess: r.addlEducationalCess,
-          totalShikshanKar: r.TotalShikshanKar,
+          totalShikshanKar: r.totalShikshanKar,
           // employeeGuaranteeScheme: r.employeeGuaranteeScheme,
           // preYearPendingEducationalCess: r.preYearPendingEducationalCess,
           // preYearPendingAddlEducationalCess: r.preYearPendingAddlEducationalCess,
