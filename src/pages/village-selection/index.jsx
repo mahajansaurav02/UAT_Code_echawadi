@@ -42,8 +42,20 @@ function villageSelection(props) {
     setModalForDelete(true);
   }, []);
 
+  useEffect(() => {
+    const handler = () => setModalForDelete(true);
+    window.addEventListener('reopen-village-selection-modal', handler);
+    return () => window.removeEventListener('reopen-village-selection-modal', handler);
+  }, []);
+
   const onCancelForDeleteModal = () => {
     setModalForDelete(false);
+    const ROLES = JSON.parse(localStorage.getItem('roles'));
+    if (ROLES?.[0] === 'ROLE_DYSLR') {
+      history.push('/homepageDYSLR');
+    } else {
+      history.push('/homepageThalati');
+    }
   };
 
   const handleOnChange = (value, event) => {
@@ -91,6 +103,7 @@ function villageSelection(props) {
     <div>
       <Modal
         visible={modalForDelete}
+        maskClosable={false}
         okText="Yes"
         okType="danger"
         onCancel={onCancelForDeleteModal}

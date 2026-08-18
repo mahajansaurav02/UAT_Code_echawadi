@@ -89,7 +89,9 @@ export const layout = ({ initialState }) => {
   // console.log('layout called');
   // console.log('roles1', JSON.parse(localStorage.getItem('roles')));
   const pushToPage = (e) => {
-    window.location.reload(false);
+    if (history.location.pathname === '/village-selection') {
+      window.dispatchEvent(new Event('reopen-village-selection-modal'));
+    }
   };
   let roleMenus = {
     ROLE_TALATHI: [
@@ -137,7 +139,7 @@ export const layout = ({ initialState }) => {
         path: '/village-selection',
         name: (
           <>
-            <Button type="primary" /*  onClick={(e) => pushToPage(e)} */>
+            <Button type="primary" onClick={(e) => pushToPage(e)}>
               गाव आणि वर्ष निवडा{' '}
             </Button>
           </>
@@ -1187,7 +1189,7 @@ export const layout = ({ initialState }) => {
         path: '/village-selection',
         name: (
           <>
-            <Button type="primary" /*  onClick={(e) => pushToPage(e)} */>
+            <Button type="primary" onClick={(e) => pushToPage(e)}>
               गाव आणि वर्ष निवडा{' '}
             </Button>
           </>
